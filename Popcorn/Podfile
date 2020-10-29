@@ -6,6 +6,7 @@ target 'Popcorn' do
   use_frameworks!
 
   # Pods for Popcorn
+  pod 'IGListKit', '~> 4.0.0'
 
   target 'PopcornTests' do
     inherit! :search_paths
