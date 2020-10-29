@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,12 +11,13 @@
 		A2314BE24318386C8A537144 /* Pods_Popcorn_PopcornUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359A70763B577AB59138097A /* Pods_Popcorn_PopcornUITests.framework */; };
 		CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */; };
 		CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */; };
-		CDB6D363254A5CE9001B0AEB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D362254A5CE9001B0AEB /* ViewController.swift */; };
-		CDB6D366254A5CE9001B0AEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D364254A5CE9001B0AEB /* Main.storyboard */; };
 		CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D367254A5CEA001B0AEB /* Assets.xcassets */; };
 		CDB6D36B254A5CEA001B0AEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D369254A5CEA001B0AEB /* LaunchScreen.storyboard */; };
 		CDB6D376254A5CEA001B0AEB /* PopcornTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D375254A5CEA001B0AEB /* PopcornTests.swift */; };
 		CDB6D381254A5CEA001B0AEB /* PopcornUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D380254A5CEA001B0AEB /* PopcornUITests.swift */; };
+		CDB6D3C6254A9568001B0AEB /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D3C5254A9568001B0AEB /* APIManager.swift */; };
+		CDB6D3D5254A9927001B0AEB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D3D4254A9927001B0AEB /* Constants.swift */; };
+		CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D3D9254A9CC0001B0AEB /* Log.swift */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,8 +51,6 @@
 		CDB6D35B254A5CE9001B0AEB /* Popcorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popcorn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CDB6D362254A5CE9001B0AEB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CDB6D365254A5CE9001B0AEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CDB6D367254A5CEA001B0AEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CDB6D36A254A5CEA001B0AEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CDB6D36C254A5CEA001B0AEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -61,6 +60,9 @@
 		CDB6D37C254A5CEA001B0AEB /* PopcornUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopcornUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB6D380254A5CEA001B0AEB /* PopcornUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopcornUITests.swift; sourceTree = "<group>"; };
 		CDB6D382254A5CEA001B0AEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDB6D3C5254A9568001B0AEB /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		CDB6D3D4254A9927001B0AEB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CDB6D3D9254A9CC0001B0AEB /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +103,6 @@
 				50D3B37ED8DB30B3CCB3FBC5 /* Pods-PopcornTests.debug.xcconfig */,
 				A23017C83F84DE691335190D /* Pods-PopcornTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -130,13 +131,13 @@
 		CDB6D35D254A5CE9001B0AEB /* Popcorn */ = {
 			isa = PBXGroup;
 			children = (
+				CDB6D3ED254AA3DC001B0AEB /* SupportFiles */,
+				CDB6D3D3254A97F9001B0AEB /* Constants */,
+				CDB6D3AC254A8F0C001B0AEB /* Resource */,
+				CDB6D3A8254A8ED2001B0AEB /* Helper */,
+				CDB6D3A7254A8EA0001B0AEB /* Module */,
 				CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */,
 				CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */,
-				CDB6D362254A5CE9001B0AEB /* ViewController.swift */,
-				CDB6D364254A5CE9001B0AEB /* Main.storyboard */,
-				CDB6D367254A5CEA001B0AEB /* Assets.xcassets */,
-				CDB6D369254A5CEA001B0AEB /* LaunchScreen.storyboard */,
-				CDB6D36C254A5CEA001B0AEB /* Info.plist */,
 			);
 			path = Popcorn;
 			sourceTree = "<group>";
@@ -157,6 +158,79 @@
 				CDB6D382254A5CEA001B0AEB /* Info.plist */,
 			);
 			path = PopcornUITests;
+			sourceTree = "<group>";
+		};
+		CDB6D3A7254A8EA0001B0AEB /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				CDB6D3B3254A8F62001B0AEB /* Common */,
+				CDB6D3AB254A8EF4001B0AEB /* Home */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		CDB6D3A8254A8ED2001B0AEB /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				CDB6D3D9254A9CC0001B0AEB /* Log.swift */,
+				CDB6D3AA254A8EEE001B0AEB /* Extension */,
+				CDB6D3A9254A8EE5001B0AEB /* Manager */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		CDB6D3A9254A8EE5001B0AEB /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				CDB6D3C5254A9568001B0AEB /* APIManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		CDB6D3AA254A8EEE001B0AEB /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		CDB6D3AB254A8EF4001B0AEB /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		CDB6D3AC254A8F0C001B0AEB /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				CDB6D367254A5CEA001B0AEB /* Assets.xcassets */,
+				CDB6D369254A5CEA001B0AEB /* LaunchScreen.storyboard */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		CDB6D3B3254A8F62001B0AEB /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CDB6D3D3254A97F9001B0AEB /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				CDB6D3D4254A9927001B0AEB /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		CDB6D3ED254AA3DC001B0AEB /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				CDB6D36C254A5CEA001B0AEB /* Info.plist */,
+			);
+			path = SupportFiles;
 			sourceTree = "<group>";
 		};
 		F2CE6D418E3B6F02793648D5 /* Frameworks */ = {
@@ -279,7 +353,6 @@
 			files = (
 				CDB6D36B254A5CEA001B0AEB /* LaunchScreen.storyboard in Resources */,
 				CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */,
-				CDB6D366254A5CE9001B0AEB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,9 +480,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDB6D363254A5CE9001B0AEB /* ViewController.swift in Sources */,
+				CDB6D3D5254A9927001B0AEB /* Constants.swift in Sources */,
+				CDB6D3C6254A9568001B0AEB /* APIManager.swift in Sources */,
 				CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */,
 				CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */,
+				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,14 +520,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CDB6D364254A5CE9001B0AEB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CDB6D365254A5CE9001B0AEB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CDB6D369254A5CEA001B0AEB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -588,7 +655,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YV47R3P48P;
-				INFOPLIST_FILE = Popcorn/Info.plist;
+				INFOPLIST_FILE = Popcorn/SupportFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -608,7 +675,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YV47R3P48P;
-				INFOPLIST_FILE = Popcorn/Info.plist;
+				INFOPLIST_FILE = Popcorn/SupportFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
