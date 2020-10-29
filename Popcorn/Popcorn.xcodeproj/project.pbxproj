@@ -18,6 +18,10 @@
 		CDB6D3C6254A9568001B0AEB /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D3C5254A9568001B0AEB /* APIManager.swift */; };
 		CDB6D3D5254A9927001B0AEB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D3D4254A9927001B0AEB /* Constants.swift */; };
 		CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D3D9254A9CC0001B0AEB /* Log.swift */; };
+		CDB6D3F6254AA4FE001B0AEB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D3F4254AA4FE001B0AEB /* HomeViewController.swift */; };
+		CDB6D3F7254AA4FE001B0AEB /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D3F5254AA4FE001B0AEB /* HomeViewController.xib */; };
+		CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D3FC254AA937001B0AEB /* Movie.swift */; };
+		CDB6D40B254AB115001B0AEB /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D40A254AB115001B0AEB /* Response.swift */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +67,10 @@
 		CDB6D3C5254A9568001B0AEB /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		CDB6D3D4254A9927001B0AEB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CDB6D3D9254A9CC0001B0AEB /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		CDB6D3F4254AA4FE001B0AEB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CDB6D3F5254AA4FE001B0AEB /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		CDB6D3FC254AA937001B0AEB /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		CDB6D40A254AB115001B0AEB /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +143,7 @@
 				CDB6D3D3254A97F9001B0AEB /* Constants */,
 				CDB6D3AC254A8F0C001B0AEB /* Resource */,
 				CDB6D3A8254A8ED2001B0AEB /* Helper */,
+				CDB6D3FB254AA926001B0AEB /* Model */,
 				CDB6D3A7254A8EA0001B0AEB /* Module */,
 				CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */,
 				CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */,
@@ -197,6 +206,8 @@
 		CDB6D3AB254A8EF4001B0AEB /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				CDB6D3F4254AA4FE001B0AEB /* HomeViewController.swift */,
+				CDB6D3F5254AA4FE001B0AEB /* HomeViewController.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -231,6 +242,15 @@
 				CDB6D36C254A5CEA001B0AEB /* Info.plist */,
 			);
 			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		CDB6D3FB254AA926001B0AEB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CDB6D40A254AB115001B0AEB /* Response.swift */,
+				CDB6D3FC254AA937001B0AEB /* Movie.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		F2CE6D418E3B6F02793648D5 /* Frameworks */ = {
@@ -353,6 +373,7 @@
 			files = (
 				CDB6D36B254A5CEA001B0AEB /* LaunchScreen.storyboard in Resources */,
 				CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */,
+				CDB6D3F7254AA4FE001B0AEB /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,11 +501,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDB6D40B254AB115001B0AEB /* Response.swift in Sources */,
+				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
 				CDB6D3D5254A9927001B0AEB /* Constants.swift in Sources */,
 				CDB6D3C6254A9568001B0AEB /* APIManager.swift in Sources */,
 				CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */,
 				CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */,
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
+				CDB6D3F6254AA4FE001B0AEB /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +680,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YV47R3P48P;
 				INFOPLIST_FILE = Popcorn/SupportFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -676,6 +701,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YV47R3P48P;
 				INFOPLIST_FILE = Popcorn/SupportFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
