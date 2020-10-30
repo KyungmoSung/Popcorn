@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Movie: Codable {
+class Movie: Codable {
     let posterPath: String?
     let adult: Bool!
     let overview: String!
@@ -50,5 +50,19 @@ struct Movie: Codable {
         case backdropPath = "backdrop_path"
         case voteCount = "vote_count"
         case voteAverage = "vote_average"
+    }
+}
+
+extension Movie: ListDiffable {
+    func diffIdentifier() -> NSObjectProtocol {
+        return id as NSObjectProtocol
+    }
+    
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        guard let object = object as? Movie else {
+            return false
+        }
+
+        return self.id == object.id
     }
 }
