@@ -8,10 +8,20 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+    }()
+    
+    var contentsCollections: [ContentsCollection] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        adapter.collectionView = collectionView
+        adapter.dataSource = self
+        
         getMovies()
     }
 
@@ -24,10 +34,37 @@ class HomeViewController: UIViewController {
         APIManager.request(AppConstants.API.Movie.getPopular, method: .get, params: params, responseType: Response<Movie>.self .self) { (result) in
             switch result {
             case .success(let response):
+                guard let contents = response.results else {
+                    return
+                }
+                let contentsCollection = ContentsCollection(category: .popular, contents: contents)
+                self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
+                self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
+                self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
+                self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
+                self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
+                self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
+                self.adapter.performUpdates(animated: true, completion: nil)
                 Log.d(response)
             case .failure(let error):
                 Log.d(error)
             }
         }
     }
+}
+
+extension HomeViewController: ListAdapterDataSource {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return contentsCollections
+    }
+    
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+        return HorizontalSectionController()
+    }
+    
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
+        return nil
+    }
+    
+    
 }
