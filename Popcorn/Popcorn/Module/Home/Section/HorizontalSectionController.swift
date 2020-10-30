@@ -11,17 +11,17 @@ class HorizontalSectionController: ListSectionController {
 
     private var contentsCollection: ContentsCollection?
     
-    override init() {
-        super.init()
-        supplementaryViewSource = self
-    }
-    
     lazy var adapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(),
                                   viewController: self.viewController)
         adapter.dataSource = self
         return adapter
     }()
+    
+    override init() {
+        super.init()
+        supplementaryViewSource = self
+    }
     
     override func sizeForItem(at index: Int) -> CGSize {
         guard let context = collectionContext else { return .zero }

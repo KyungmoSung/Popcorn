@@ -11,6 +11,12 @@ class EmbeddedSectionController: ListSectionController {
 
     var contents: Movie?
     
+    override init() {
+        super.init()
+        
+        self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+    }
+    
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: 100, height: collectionContext!.containerSize.height)
     }
