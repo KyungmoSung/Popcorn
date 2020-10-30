@@ -10,7 +10,7 @@ import Foundation
 final class EmbeddedCollectionViewCell: UICollectionViewCell {
 
     lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+        let layout = PagingCollectionViewLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset.left = 20
 //        layout.estimatedItemSize = CGSize(width: 100, height: 40)

@@ -31,6 +31,8 @@
 		CDB6D458254BD611001B0AEB /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D457254BD611001B0AEB /* NSObjectExtension.swift */; };
 		CDB6D45E254BE003001B0AEB /* HomeContentsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D45C254BE003001B0AEB /* HomeContentsHeaderView.swift */; };
 		CDB6D45F254BE003001B0AEB /* HomeContentsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D45D254BE003001B0AEB /* HomeContentsHeaderView.xib */; };
+		CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */; };
+		CDB6D47E254BF35B001B0AEB /* ContentsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D41B254BA6D9001B0AEB /* ContentsCollection.swift */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -556,6 +558,7 @@
 				CDB6D458254BD611001B0AEB /* NSObjectExtension.swift in Sources */,
 				CDB6D40B254AB115001B0AEB /* Response.swift in Sources */,
 				CDB6D432254BB132001B0AEB /* IGListKitExtension.swift in Sources */,
+				CDB6D47E254BF35B001B0AEB /* ContentsCollection.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
 				CDB6D3D5254A9927001B0AEB /* Constants.swift in Sources */,
 				CDB6D3C6254A9568001B0AEB /* APIManager.swift in Sources */,
@@ -564,6 +567,7 @@
 				CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */,
 				CDB6D422254BAB70001B0AEB /* HorizontalSectionController.swift in Sources */,
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
+				CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */,
 				CDB6D45E254BE003001B0AEB /* HomeContentsHeaderView.swift in Sources */,
 				CDB6D3F6254AA4FE001B0AEB /* HomeViewController.swift in Sources */,
 				CDB6D42A254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift in Sources */,
