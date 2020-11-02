@@ -43,6 +43,7 @@
                 <constraint firstAttribute="bottom" secondItem="byP-TV-HOv" secondAttribute="bottom" id="ptc-6g-foe"/>
             </constraints>
             <connections>
+                <outlet property="posterIv" destination="byP-TV-HOv" id="Lcm-Xc-2mv"/>
                 <outlet property="titleLb" destination="v1G-Or-QRq" id="7ds-18-4fR"/>
             </connections>
             <point key="canvasLocation" x="139" y="133"/>

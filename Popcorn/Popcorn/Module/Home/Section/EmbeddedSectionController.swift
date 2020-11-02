@@ -28,6 +28,7 @@ class EmbeddedSectionController: ListSectionController {
         guard let cell: HomeContentsCell = collectionContext?.dequeueReusableXibCell(for: self, at: index) else { return UICollectionViewCell() }
         
         cell.title = contents?.title
+        cell.posterImgPath = contents?.posterPath
         return cell
     }
     

@@ -9,13 +9,23 @@ import UIKit
 
 class HomeContentsCell: UICollectionViewCell {
     @IBOutlet private weak var titleLb: UILabel!
+    @IBOutlet private weak var posterIv: UIImageView!
     
     var title: String? {
-        get {
-            return titleLb.text
+        didSet {
+            titleLb.text = title
         }
-        set {
-            titleLb.text = newValue
+    }
+    
+    var posterImgPath: String? {
+        didSet {
+            guard let path = posterImgPath, let url = URL(string: AppConstants.Domain.tmdbImage + path) else {
+                return
+            }
+            let options = ImageLoadingOptions(
+                transition: .fadeIn(duration: 0.3)
+            )
+            Nuke.loadImage(with: url, options: options, into: posterIv)
         }
     }
 }

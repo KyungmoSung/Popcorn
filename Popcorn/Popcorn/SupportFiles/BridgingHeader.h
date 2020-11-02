@@ -9,5 +9,6 @@
 #define BridgingHeader_h
 
 @import IGListKit;
+@import Nuke;
 
 #endif /* BridgingHeader_h */
