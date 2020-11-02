@@ -24,9 +24,14 @@ class HorizontalSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext else { return .zero }
+        guard let context = collectionContext, let category = contentsCollection?.category else { return .zero }
         
-        return CGSize(width: context.containerSize.width, height: 200)
+        if category == .popular {
+            return CGSize(width: context.containerSize.width, height: 300)
+        } else {
+            return CGSize(width: context.containerSize.width, height: 200)
+        }
+        
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {

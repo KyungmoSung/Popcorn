@@ -39,11 +39,11 @@ class HomeViewController: UIViewController {
                 }
                 let contentsCollection = ContentsCollection(category: .popular, contents: contents)
                 self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
+                self.contentsCollections.append(ContentsCollection(category: .latest, contents: contents))
+                self.contentsCollections.append(ContentsCollection(category: .topRated, contents: contents))
+                self.contentsCollections.append(ContentsCollection(category: .upcoming, contents: contents))
                 self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
-                self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
-                self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
-                self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
-                self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
+                self.contentsCollections.append(ContentsCollection(category: .nowPlaying, contents: contents))
                 self.adapter.performUpdates(animated: true, completion: nil)
                 Log.d(response)
             case .failure(let error):
@@ -65,6 +65,5 @@ extension HomeViewController: ListAdapterDataSource {
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
-    
     
 }

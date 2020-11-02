@@ -18,7 +18,12 @@ class EmbeddedSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        return CGSize(width: 100, height: collectionContext!.containerSize.height)
+        guard let context = collectionContext else {
+            return .zero
+        }
+        
+        let height = context.containerSize.height
+        return CGSize(width: height / 2, height: height)
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
