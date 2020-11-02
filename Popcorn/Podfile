@@ -8,6 +8,7 @@ target 'Popcorn' do
   # Pods for Popcorn
   pod 'Alamofire', '~> 5.2'
   pod 'IGListKit', '~> 4.0.0'
+  pod 'Nuke', '~> 9.0'
 
   target 'PopcornTests' do
     inherit! :search_paths

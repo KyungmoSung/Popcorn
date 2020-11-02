@@ -18,18 +18,14 @@ class EmbeddedSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext else {
-            return .zero
-        }
+        guard let context = collectionContext else { return .zero }
         
         let height = context.containerSize.height
         return CGSize(width: height / 2, height: height)
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell: HomeContentsCell = collectionContext?.dequeueReusableXibCell(for: self, at: index) else {
-            return UICollectionViewCell()
-        }
+        guard let cell: HomeContentsCell = collectionContext?.dequeueReusableXibCell(for: self, at: index) else { return UICollectionViewCell() }
         
         cell.title = contents?.title
         return cell
