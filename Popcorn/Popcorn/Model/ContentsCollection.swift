@@ -8,14 +8,14 @@
 import Foundation
 
 enum ContentsCategory: String {
-    case nowPlaying = "Now Playing"
-    case popular = "Popular"
-    case topRated = "Top Rated"
-    case latest = "Latest"
-    case upcoming = "Upcoming"
+    case nowPlaying
+    case popular
+    case topRated
+    case latest
+    case upcoming
     
-    var name: String {
-        return self.rawValue
+    var title: String {
+        return self.rawValue.localized
     }
 }
 

@@ -63,7 +63,7 @@ extension HorizontalSectionController: ListSupplementaryViewSource {
         guard let context = collectionContext else { return UICollectionReusableView() }
         
         let headerView: HomeContentsHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
-        headerView.title = contentsCollection?.category.name
+        headerView.title = contentsCollection?.category.title
         
         return headerView
     }

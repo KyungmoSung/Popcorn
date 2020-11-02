@@ -5,3 +5,9 @@
   Created by Front-Artist on 2020/11/02.
   
 */
+
+nowPlaying = "Now Playing";
+popular = "Popular";
+topRated = "Top Rated";
+latest = "Latest";
+upcoming = "Upcoming";
