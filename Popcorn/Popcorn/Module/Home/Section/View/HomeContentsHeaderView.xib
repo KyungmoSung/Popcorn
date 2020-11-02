@@ -11,14 +11,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="HomeContentsHeaderView" customModule="Popcorn" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="105" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="70"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="105" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="70"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vl8-Df-70i">
-                        <rect key="frame" x="30" y="10" width="45" height="30"/>
+                        <rect key="frame" x="30" y="30" width="240" height="30"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -29,7 +29,7 @@
             <constraints>
                 <constraint firstItem="vl8-Df-70i" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="30" id="4Rq-F4-3bS"/>
                 <constraint firstAttribute="trailing" secondItem="vl8-Df-70i" secondAttribute="trailing" constant="30" id="UBh-RN-xZI"/>
-                <constraint firstItem="vl8-Df-70i" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="Xsy-ek-Q8z"/>
+                <constraint firstAttribute="bottom" secondItem="vl8-Df-70i" secondAttribute="bottom" constant="10" id="xNN-hu-pqL"/>
             </constraints>
             <size key="customSize" width="105" height="50"/>
             <connections>

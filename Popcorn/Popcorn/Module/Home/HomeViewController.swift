@@ -19,6 +19,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Popcorn🍿"
+        
         adapter.collectionView = collectionView
         adapter.dataSource = self
         

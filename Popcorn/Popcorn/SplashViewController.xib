@@ -9,9 +9,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Popcorn" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SplashViewController" customModule="Popcorn" customModuleProvider="target">
             <connections>
-                <outlet property="collectionView" destination="ABX-Ul-EAg" id="jX8-1Q-yK2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,26 +19,20 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ABX-Ul-EAg">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="A4t-ql-h7e">
-                        <size key="itemSize" width="128" height="128"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                </collectionView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🍿" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heg-5z-yKt">
+                    <rect key="frame" x="153" y="388.5" width="108" height="119.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="ABX-Ul-EAg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="3cs-D2-tiR"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ABX-Ul-EAg" secondAttribute="trailing" id="G7M-J6-08U"/>
-                <constraint firstItem="ABX-Ul-EAg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="eMh-S2-w9u"/>
-                <constraint firstAttribute="bottom" secondItem="ABX-Ul-EAg" secondAttribute="bottom" id="vWq-wK-dOu"/>
+                <constraint firstItem="heg-5z-yKt" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="632-BW-Mar"/>
+                <constraint firstItem="heg-5z-yKt" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Mmz-QE-FX6"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="133"/>
+            <point key="canvasLocation" x="138" y="130"/>
         </view>
     </objects>
     <resources>

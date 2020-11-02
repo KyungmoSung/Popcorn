@@ -56,7 +56,7 @@ extension HorizontalSectionController: ListSupplementaryViewSource {
     func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
         guard let context = collectionContext else { return .zero }
 
-        return CGSize(width: context.containerSize.width, height: 50)
+        return CGSize(width: context.containerSize.width, height: 70)
     }
     
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
