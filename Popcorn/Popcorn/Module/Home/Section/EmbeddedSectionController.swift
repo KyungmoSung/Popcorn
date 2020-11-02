@@ -20,8 +20,12 @@ class EmbeddedSectionController: ListSectionController {
     override func sizeForItem(at index: Int) -> CGSize {
         guard let context = collectionContext else { return .zero }
         
-        let height = context.containerSize.height
-        return CGSize(width: height / 2, height: height)
+        let containerHeight: CGFloat = context.containerSize.height
+        let titleTopMargin: CGFloat = 12
+        let posterHeight: CGFloat = containerHeight - titleTopMargin - String.height(for: .systemFont(ofSize: 16))
+        let posterRatio: CGFloat = 2 / 3
+        let posterWidth: CGFloat = posterHeight * posterRatio
+        return CGSize(width: posterWidth, height: containerHeight)
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
