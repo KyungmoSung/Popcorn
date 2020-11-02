@@ -18,9 +18,26 @@
                 <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="byP-TV-HOv">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NDd-j1-rbx" customClass="CustomView" customModule="Popcorn" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
-                    </imageView>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="byP-TV-HOv">
+                                <rect key="frame" x="20" y="20" width="40" height="60"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="byP-TV-HOv" firstAttribute="leading" secondItem="NDd-j1-rbx" secondAttribute="leading" constant="20" id="1BX-5q-3tz"/>
+                            <constraint firstItem="byP-TV-HOv" firstAttribute="top" secondItem="NDd-j1-rbx" secondAttribute="top" constant="20" id="Buq-mk-Bti"/>
+                            <constraint firstAttribute="trailing" secondItem="byP-TV-HOv" secondAttribute="trailing" constant="20" id="KLr-37-FHd"/>
+                            <constraint firstAttribute="bottom" secondItem="byP-TV-HOv" secondAttribute="bottom" constant="20" id="kcd-1g-Bln"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1G-Or-QRq">
                         <rect key="frame" x="10" y="39.5" width="60" height="21"/>
                         <color key="backgroundColor" systemColor="systemIndigoColor"/>
@@ -34,13 +51,13 @@
             <color key="backgroundColor" systemColor="systemGray2Color"/>
             <constraints>
                 <constraint firstItem="v1G-Or-QRq" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="3oe-MH-Qab"/>
+                <constraint firstAttribute="bottom" secondItem="NDd-j1-rbx" secondAttribute="bottom" id="9tR-Sr-FsW"/>
                 <constraint firstItem="v1G-Or-QRq" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="GwD-BN-CGG"/>
                 <constraint firstItem="v1G-Or-QRq" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="I4b-mR-FO7"/>
                 <constraint firstAttribute="trailing" secondItem="v1G-Or-QRq" secondAttribute="trailing" constant="10" id="Q4S-T8-s8Z"/>
-                <constraint firstItem="byP-TV-HOv" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Q89-2n-60y"/>
-                <constraint firstItem="byP-TV-HOv" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="SdW-Nb-2mw"/>
-                <constraint firstAttribute="trailing" secondItem="byP-TV-HOv" secondAttribute="trailing" id="hG8-ob-V6i"/>
-                <constraint firstAttribute="bottom" secondItem="byP-TV-HOv" secondAttribute="bottom" id="ptc-6g-foe"/>
+                <constraint firstItem="NDd-j1-rbx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Sav-AF-uFa"/>
+                <constraint firstAttribute="trailing" secondItem="NDd-j1-rbx" secondAttribute="trailing" id="f0B-Sf-Bq6"/>
+                <constraint firstItem="NDd-j1-rbx" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="f0a-vO-yxP"/>
             </constraints>
             <connections>
                 <outlet property="posterIv" destination="byP-TV-HOv" id="Lcm-Xc-2mv"/>
@@ -50,6 +67,9 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

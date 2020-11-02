@@ -33,6 +33,7 @@
 		CDB6D45F254BE003001B0AEB /* HomeContentsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D45D254BE003001B0AEB /* HomeContentsHeaderView.xib */; };
 		CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */; };
 		CDB6D47E254BF35B001B0AEB /* ContentsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D41B254BA6D9001B0AEB /* ContentsCollection.swift */; };
+		CDB6D4FD254FC0B8001B0AEB /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D4FC254FC0B8001B0AEB /* CustomView.swift */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +95,7 @@
 		CDB6D45C254BE003001B0AEB /* HomeContentsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContentsHeaderView.swift; sourceTree = "<group>"; };
 		CDB6D45D254BE003001B0AEB /* HomeContentsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeContentsHeaderView.xib; sourceTree = "<group>"; };
 		CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingCollectionViewLayout.swift; sourceTree = "<group>"; };
+		CDB6D4FC254FC0B8001B0AEB /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 		CDB6D3A8254A8ED2001B0AEB /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				CDB6D4FB254FC06C001B0AEB /* Designable */,
 				CDB6D3D9254A9CC0001B0AEB /* Log.swift */,
 				CDB6D3AA254A8EEE001B0AEB /* Extension */,
 				CDB6D3A9254A8EE5001B0AEB /* Manager */,
@@ -302,6 +305,14 @@
 				CDB6D451254BCC10001B0AEB /* HomeContentsCell.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		CDB6D4FB254FC06C001B0AEB /* Designable */ = {
+			isa = PBXGroup;
+			children = (
+				CDB6D4FC254FC0B8001B0AEB /* CustomView.swift */,
+			);
+			path = Designable;
 			sourceTree = "<group>";
 		};
 		F2CE6D418E3B6F02793648D5 /* Frameworks */ = {
@@ -557,6 +568,7 @@
 				CDB6D452254BCC10001B0AEB /* HomeContentsCell.swift in Sources */,
 				CDB6D458254BD611001B0AEB /* NSObjectExtension.swift in Sources */,
 				CDB6D40B254AB115001B0AEB /* Response.swift in Sources */,
+				CDB6D4FD254FC0B8001B0AEB /* CustomView.swift in Sources */,
 				CDB6D432254BB132001B0AEB /* IGListKitExtension.swift in Sources */,
 				CDB6D47E254BF35B001B0AEB /* ContentsCollection.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
