@@ -26,11 +26,11 @@
 		CDB6D42A254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D429254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift */; };
 		CDB6D432254BB132001B0AEB /* IGListKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D42E254BB103001B0AEB /* IGListKitExtension.swift */; };
 		CDB6D437254BB1B5001B0AEB /* EmbeddedSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D436254BB1B5001B0AEB /* EmbeddedSectionController.swift */; };
-		CDB6D452254BCC10001B0AEB /* HomeContentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D450254BCC10001B0AEB /* HomeContentsCell.swift */; };
-		CDB6D453254BCC10001B0AEB /* HomeContentsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D451254BCC10001B0AEB /* HomeContentsCell.xib */; };
+		CDB6D452254BCC10001B0AEB /* HomePosterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D450254BCC10001B0AEB /* HomePosterCell.swift */; };
+		CDB6D453254BCC10001B0AEB /* HomePosterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D451254BCC10001B0AEB /* HomePosterCell.xib */; };
 		CDB6D458254BD611001B0AEB /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D457254BD611001B0AEB /* NSObjectExtension.swift */; };
-		CDB6D45E254BE003001B0AEB /* HomeContentsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D45C254BE003001B0AEB /* HomeContentsHeaderView.swift */; };
-		CDB6D45F254BE003001B0AEB /* HomeContentsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D45D254BE003001B0AEB /* HomeContentsHeaderView.xib */; };
+		CDB6D45E254BE003001B0AEB /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D45C254BE003001B0AEB /* HomeHeaderView.swift */; };
+		CDB6D45F254BE003001B0AEB /* HomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D45D254BE003001B0AEB /* HomeHeaderView.xib */; };
 		CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */; };
 		CDB6D47E254BF35B001B0AEB /* ContentsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D41B254BA6D9001B0AEB /* ContentsCollection.swift */; };
 		CDB6D4FD254FC0B8001B0AEB /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D4FC254FC0B8001B0AEB /* CustomView.swift */; };
@@ -38,6 +38,8 @@
 		CDB6D51F254FCB37001B0AEB /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D51E254FCB37001B0AEB /* StringExtension.swift */; };
 		CDB6D525254FD329001B0AEB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D523254FD328001B0AEB /* SplashViewController.swift */; };
 		CDB6D526254FD329001B0AEB /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D524254FD328001B0AEB /* SplashViewController.xib */; };
+		CDB6D53C2550DA40001B0AEB /* HomeBackdropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D53A2550DA40001B0AEB /* HomeBackdropCell.swift */; };
+		CDB6D53D2550DA40001B0AEB /* HomeBackdropCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D53B2550DA40001B0AEB /* HomeBackdropCell.xib */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,11 +95,11 @@
 		CDB6D429254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedCollectionViewCell.swift; sourceTree = "<group>"; };
 		CDB6D42E254BB103001B0AEB /* IGListKitExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGListKitExtension.swift; sourceTree = "<group>"; };
 		CDB6D436254BB1B5001B0AEB /* EmbeddedSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedSectionController.swift; sourceTree = "<group>"; };
-		CDB6D450254BCC10001B0AEB /* HomeContentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContentsCell.swift; sourceTree = "<group>"; };
-		CDB6D451254BCC10001B0AEB /* HomeContentsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeContentsCell.xib; sourceTree = "<group>"; };
+		CDB6D450254BCC10001B0AEB /* HomePosterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePosterCell.swift; sourceTree = "<group>"; };
+		CDB6D451254BCC10001B0AEB /* HomePosterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePosterCell.xib; sourceTree = "<group>"; };
 		CDB6D457254BD611001B0AEB /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
-		CDB6D45C254BE003001B0AEB /* HomeContentsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContentsHeaderView.swift; sourceTree = "<group>"; };
-		CDB6D45D254BE003001B0AEB /* HomeContentsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeContentsHeaderView.xib; sourceTree = "<group>"; };
+		CDB6D45C254BE003001B0AEB /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		CDB6D45D254BE003001B0AEB /* HomeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeHeaderView.xib; sourceTree = "<group>"; };
 		CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingCollectionViewLayout.swift; sourceTree = "<group>"; };
 		CDB6D4FC254FC0B8001B0AEB /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		CDB6D511254FC7DF001B0AEB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -105,6 +107,8 @@
 		CDB6D523254FD328001B0AEB /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		CDB6D524254FD328001B0AEB /* SplashViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
 		CDB6D530254FD750001B0AEB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CDB6D53A2550DA40001B0AEB /* HomeBackdropCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBackdropCell.swift; sourceTree = "<group>"; };
+		CDB6D53B2550DA40001B0AEB /* HomeBackdropCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeBackdropCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,10 +316,12 @@
 			isa = PBXGroup;
 			children = (
 				CDB6D429254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift */,
-				CDB6D45C254BE003001B0AEB /* HomeContentsHeaderView.swift */,
-				CDB6D45D254BE003001B0AEB /* HomeContentsHeaderView.xib */,
-				CDB6D450254BCC10001B0AEB /* HomeContentsCell.swift */,
-				CDB6D451254BCC10001B0AEB /* HomeContentsCell.xib */,
+				CDB6D45C254BE003001B0AEB /* HomeHeaderView.swift */,
+				CDB6D45D254BE003001B0AEB /* HomeHeaderView.xib */,
+				CDB6D450254BCC10001B0AEB /* HomePosterCell.swift */,
+				CDB6D451254BCC10001B0AEB /* HomePosterCell.xib */,
+				CDB6D53A2550DA40001B0AEB /* HomeBackdropCell.swift */,
+				CDB6D53B2550DA40001B0AEB /* HomeBackdropCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -447,13 +453,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDB6D453254BCC10001B0AEB /* HomeContentsCell.xib in Resources */,
+				CDB6D453254BCC10001B0AEB /* HomePosterCell.xib in Resources */,
 				CDB6D510254FC7DF001B0AEB /* Localizable.strings in Resources */,
 				CDB6D36B254A5CEA001B0AEB /* LaunchScreen.storyboard in Resources */,
 				CDB6D526254FD329001B0AEB /* SplashViewController.xib in Resources */,
+				CDB6D53D2550DA40001B0AEB /* HomeBackdropCell.xib in Resources */,
 				CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */,
 				CDB6D3F7254AA4FE001B0AEB /* HomeViewController.xib in Resources */,
-				CDB6D45F254BE003001B0AEB /* HomeContentsHeaderView.xib in Resources */,
+				CDB6D45F254BE003001B0AEB /* HomeHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,7 +588,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDB6D452254BCC10001B0AEB /* HomeContentsCell.swift in Sources */,
+				CDB6D452254BCC10001B0AEB /* HomePosterCell.swift in Sources */,
 				CDB6D458254BD611001B0AEB /* NSObjectExtension.swift in Sources */,
 				CDB6D40B254AB115001B0AEB /* Response.swift in Sources */,
 				CDB6D4FD254FC0B8001B0AEB /* CustomView.swift in Sources */,
@@ -594,9 +601,10 @@
 				CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */,
 				CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */,
 				CDB6D422254BAB70001B0AEB /* HorizontalSectionController.swift in Sources */,
+				CDB6D53C2550DA40001B0AEB /* HomeBackdropCell.swift in Sources */,
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
 				CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */,
-				CDB6D45E254BE003001B0AEB /* HomeContentsHeaderView.swift in Sources */,
+				CDB6D45E254BE003001B0AEB /* HomeHeaderView.swift in Sources */,
 				CDB6D51F254FCB37001B0AEB /* StringExtension.swift in Sources */,
 				CDB6D3F6254AA4FE001B0AEB /* HomeViewController.swift in Sources */,
 				CDB6D42A254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift in Sources */,

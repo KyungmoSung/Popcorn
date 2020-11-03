@@ -1,5 +1,5 @@
 //
-//  HomeContentsCell.swift
+//  HomePosterCell.swift
 //  Popcorn
 //
 //  Created by Front-Artist on 2020/10/30.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeContentsCell: UICollectionViewCell {
+class HomePosterCell: UICollectionViewCell {
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet private weak var posterIv: UIImageView!
     

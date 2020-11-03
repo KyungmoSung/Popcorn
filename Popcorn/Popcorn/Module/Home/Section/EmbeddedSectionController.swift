@@ -9,31 +9,53 @@ import UIKit
 
 class EmbeddedSectionController: ListSectionController {
 
+    var category: ContentsCategory?
     var contents: Movie?
     
-    override init() {
+    override private init() {
         super.init()
         
         self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
     }
     
+    convenience init(category: ContentsCategory?) {
+        self.init()
+        self.category = category
+    }
+    
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext else { return .zero }
+        guard let context = collectionContext, let category = category else { return .zero }
         
-        let containerHeight: CGFloat = context.containerSize.height
-        let titleTopMargin: CGFloat = 12
-        let posterHeight: CGFloat = containerHeight - titleTopMargin - String.height(for: .systemFont(ofSize: 14))
-        let posterRatio: CGFloat = 2 / 3
-        let posterWidth: CGFloat = posterHeight * posterRatio
-        return CGSize(width: posterWidth, height: containerHeight)
+        switch category {
+        case .popular:
+            return CGSize(width: context.containerSize.width - 60, height: context.containerSize.height)
+        default:
+            let containerHeight: CGFloat = context.containerSize.height
+            let titleTopMargin: CGFloat = 12
+            let posterHeight: CGFloat = containerHeight - titleTopMargin - String.height(for: .systemFont(ofSize: 13))
+            let posterRatio: CGFloat = 2 / 3
+            let posterWidth: CGFloat = posterHeight * posterRatio
+            return CGSize(width: posterWidth, height: containerHeight)
+        }
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell: HomeContentsCell = collectionContext?.dequeueReusableXibCell(for: self, at: index) else { return UICollectionViewCell() }
+        guard let context = collectionContext, let category = category else { return UICollectionViewCell() }
+
+        switch category {
+        case .popular:
+            let cell: HomeBackdropCell = context.dequeueReusableXibCell(for: self, at: index)
+            
+            cell.backdropImgPath = contents?.backdropPath
+            return cell
+        default:
+            let cell: HomePosterCell = context.dequeueReusableXibCell(for: self, at: index)
+            
+            cell.title = contents?.title
+            cell.posterImgPath = contents?.posterPath
+            return cell
+        }
         
-        cell.title = contents?.title
-        cell.posterImgPath = contents?.posterPath
-        return cell
     }
     
     override func didUpdate(to object: Any) {

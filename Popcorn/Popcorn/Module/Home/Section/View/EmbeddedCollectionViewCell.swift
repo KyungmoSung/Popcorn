@@ -18,6 +18,8 @@ final class EmbeddedCollectionViewCell: UICollectionViewCell {
         view.backgroundColor = .clear
         view.alwaysBounceVertical = false
         view.alwaysBounceHorizontal = true
+        view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
         view.decelerationRate = .fast
         self.contentView.addSubview(view)
         return view
