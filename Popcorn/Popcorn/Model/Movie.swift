@@ -8,6 +8,7 @@
 import Foundation
 
 class Movie: Codable {
+    
     let posterPath: String?
     let adult: Bool!
     let overview: String!
@@ -53,7 +54,13 @@ class Movie: Codable {
     }
 }
 
-extension Movie: ListDiffable {
+
+
+extension Movie: Equatable, ListDiffable {
+    static func == (lhs: Movie, rhs: Movie) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     func diffIdentifier() -> NSObjectProtocol {
         return id as NSObjectProtocol
     }

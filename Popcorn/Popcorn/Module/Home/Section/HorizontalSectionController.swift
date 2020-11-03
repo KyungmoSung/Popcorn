@@ -12,8 +12,7 @@ class HorizontalSectionController: ListSectionController {
     private var contentsCollection: ContentsCollection?
     
     lazy var adapter: ListAdapter = {
-        let adapter = ListAdapter(updater: ListAdapterUpdater(),
-                                  viewController: self.viewController)
+        let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self.viewController)
         adapter.dataSource = self
         return adapter
     }()

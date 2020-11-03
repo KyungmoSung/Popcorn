@@ -11,8 +11,13 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var adapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+        let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+        adapter.collectionView = collectionView
+        adapter.dataSource = self
+        return adapter
     }()
+    
+    let categories: [ContentsCategory] = [.popular, .nowPlaying, .upcoming, .topRated]
     
     var contentsCollections: [ContentsCollection] = []
     
@@ -21,35 +26,53 @@ class HomeViewController: UIViewController {
         
         title = "Popcorn🍿"
         
-        adapter.collectionView = collectionView
-        adapter.dataSource = self
+        for category in categories {
+            contentsCollections.append(ContentsCollection(category: category))
+        }
         
-        getMovies()
+        getMovies(for: categories, page: 1)
     }
 
-    func getMovies() {
+    func getMovies(for categories: [ContentsCategory], page: Int) {
         let params: [String: Any] = [
             "api_key": AppConstants.Key.tmdb,
             "language": "ko",
-            "page": 1
+            "page": page
         ]
-        APIManager.request(AppConstants.API.Movie.getPopular, method: .get, params: params, responseType: Response<Movie>.self .self) { (result) in
-            switch result {
-            case .success(let response):
-                guard let contents = response.results else {
-                    return
+        
+        var completedCount = 0
+        
+        for category in categories {
+            var api: String!
+            switch category {
+            case .popular:
+                api = AppConstants.API.Movie.getPopular
+            case .nowPlaying:
+                api = AppConstants.API.Movie.getNowPlaying
+            case .upcoming:
+                api = AppConstants.API.Movie.getUpcoming
+            case .topRated:
+                api = AppConstants.API.Movie.getTopRated
+            }
+            
+            APIManager.request(api, method: .get, params: params, responseType: Response<Movie>.self .self) { (result) in
+                
+                completedCount += 1
+                
+                switch result {
+                case .success(let response):
+                    guard let contents = response.results else { return }
+                    
+                    let contentsCollection = self.contentsCollections.filter { $0.category == category }.first
+                    contentsCollection?.contents.append(contentsOf: contents)
+                case .failure(let error):
+                    Log.d(error)
                 }
-                let contentsCollection = ContentsCollection(category: .popular, contents: contents)
-                self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
-                self.contentsCollections.append(ContentsCollection(category: .latest, contents: contents))
-                self.contentsCollections.append(ContentsCollection(category: .topRated, contents: contents))
-                self.contentsCollections.append(ContentsCollection(category: .upcoming, contents: contents))
-                self.contentsCollections.append(ContentsCollection(category: .popular, contents: contents))
-                self.contentsCollections.append(ContentsCollection(category: .nowPlaying, contents: contents))
-                self.adapter.performUpdates(animated: true, completion: nil)
-                Log.d(response)
-            case .failure(let error):
-                Log.d(error)
+                
+                // 모든 요청이 완료되면 컬렉션뷰 업데이트
+                if completedCount == categories.count {
+                    self.adapter.performUpdates(animated: true, completion: nil)
+                }
             }
         }
     }
@@ -67,5 +90,4 @@ extension HomeViewController: ListAdapterDataSource {
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
-    
 }

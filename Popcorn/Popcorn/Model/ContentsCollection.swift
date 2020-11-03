@@ -11,7 +11,6 @@ enum ContentsCategory: String {
     case nowPlaying
     case popular
     case topRated
-    case latest
     case upcoming
     
     var title: String {
@@ -21,9 +20,9 @@ enum ContentsCategory: String {
 
 class ContentsCollection: NSObject, ListDiffable {
     let category: ContentsCategory
-    let contents: [Movie]
+    var contents: [Movie]
     
-    init(category: ContentsCategory, contents: [Movie]) {
+    init(category: ContentsCategory, contents: [Movie] = []) {
         self.category = category
         self.contents = contents
     }
@@ -33,6 +32,10 @@ class ContentsCollection: NSObject, ListDiffable {
     }
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        return isEqual(object)
+        guard let object = object as? ContentsCollection else {
+            return false
+        }
+
+        return self.category == object.category && self.contents == object.contents
     }
 }
