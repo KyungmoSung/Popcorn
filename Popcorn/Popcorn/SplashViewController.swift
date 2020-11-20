@@ -26,17 +26,17 @@ class SplashViewController: UIViewController {
         let homeVC = HomeViewController()
         homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
         
-//        let rankingVC = RankingViewController()
-//        rankingVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 1)
-//
-//        let settingVC = SettingViewController()
-//        settingVC.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 2)
-//
-//        let mainVC = MainViewController()
-//        mainVC.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 3)
+        let rankingVC = UIViewController()
+        rankingVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
+
+        let settingVC = UIViewController()
+        settingVC.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 2)
+
+        let mainVC = UIViewController()
+        mainVC.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 3)
         
         
-        let viewControllers = [homeVC]
+        let viewControllers = [homeVC, rankingVC, settingVC, mainVC]
         
         groundTabBarController.viewControllers = viewControllers.map {
             let navi = UINavigationController(rootViewController: $0)
@@ -45,5 +45,13 @@ class SplashViewController: UIViewController {
         }
         
         groundTabBarController.modalPresentationStyle = .fullScreen
+        groundTabBarController.tabBar.tintColor = .label
+        groundTabBarController.tabBar.barTintColor = .secondarySystemBackground
+        groundTabBarController.tabBar.layer.masksToBounds = true
+        groundTabBarController.tabBar.isTranslucent = true
+        groundTabBarController.tabBar.barStyle = .default
+        groundTabBarController.tabBar.layer.cornerRadius = 25
+        groundTabBarController.tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
     }
 }
