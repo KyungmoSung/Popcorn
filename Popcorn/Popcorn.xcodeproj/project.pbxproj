@@ -40,6 +40,8 @@
 		CDB6D526254FD329001B0AEB /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D524254FD328001B0AEB /* SplashViewController.xib */; };
 		CDB6D53C2550DA40001B0AEB /* HomeBackdropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D53A2550DA40001B0AEB /* HomeBackdropCell.swift */; };
 		CDB6D53D2550DA40001B0AEB /* HomeBackdropCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D53B2550DA40001B0AEB /* HomeBackdropCell.xib */; };
+		CDBD141F256E388A003F625F /* ContentsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD141D256E388A003F625F /* ContentsDetailViewController.swift */; };
+		CDBD1420256E388A003F625F /* ContentsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDBD141E256E388A003F625F /* ContentsDetailViewController.xib */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +111,8 @@
 		CDB6D530254FD750001B0AEB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CDB6D53A2550DA40001B0AEB /* HomeBackdropCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBackdropCell.swift; sourceTree = "<group>"; };
 		CDB6D53B2550DA40001B0AEB /* HomeBackdropCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeBackdropCell.xib; sourceTree = "<group>"; };
+		CDBD141D256E388A003F625F /* ContentsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsDetailViewController.swift; sourceTree = "<group>"; };
+		CDBD141E256E388A003F625F /* ContentsDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentsDetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +216,7 @@
 		CDB6D3A7254A8EA0001B0AEB /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				CDBD141C256E384E003F625F /* Detail */,
 				CDB6D3B3254A8F62001B0AEB /* Common */,
 				CDB6D3AB254A8EF4001B0AEB /* Home */,
 			);
@@ -334,6 +339,15 @@
 			path = Designable;
 			sourceTree = "<group>";
 		};
+		CDBD141C256E384E003F625F /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				CDBD141D256E388A003F625F /* ContentsDetailViewController.swift */,
+				CDBD141E256E388A003F625F /* ContentsDetailViewController.xib */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		F2CE6D418E3B6F02793648D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -454,6 +468,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDB6D453254BCC10001B0AEB /* HomePosterCell.xib in Resources */,
+				CDBD1420256E388A003F625F /* ContentsDetailViewController.xib in Resources */,
 				CDB6D510254FC7DF001B0AEB /* Localizable.strings in Resources */,
 				CDB6D36B254A5CEA001B0AEB /* LaunchScreen.storyboard in Resources */,
 				CDB6D526254FD329001B0AEB /* SplashViewController.xib in Resources */,
@@ -603,6 +618,7 @@
 				CDB6D422254BAB70001B0AEB /* HorizontalSectionController.swift in Sources */,
 				CDB6D53C2550DA40001B0AEB /* HomeBackdropCell.swift in Sources */,
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
+				CDBD141F256E388A003F625F /* ContentsDetailViewController.swift in Sources */,
 				CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */,
 				CDB6D45E254BE003001B0AEB /* HomeHeaderView.swift in Sources */,
 				CDB6D51F254FCB37001B0AEB /* StringExtension.swift in Sources */,

@@ -61,4 +61,14 @@ class EmbeddedSectionController: ListSectionController {
     override func didUpdate(to object: Any) {
         contents = object as? Movie
     }
+    
+    override func didSelectItem(at index: Int) {
+        guard let contents = contents else {
+            return
+        }
+        let vc = ContentsDetailViewController(id: contents.id)
+        vc.modalPresentationStyle = .fullScreen
+        vc.contents = contents
+        viewController?.present(vc, animated: true, completion: nil)
+    }
 }
