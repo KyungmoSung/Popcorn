@@ -24,6 +24,38 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="byP-TV-HOv">
                                 <rect key="frame" x="0.0" y="0.0" width="80" height="120"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cGf-l4-3UQ" customClass="CustomView" customModule="Popcorn" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="44" height="26"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="9qj-i8-lUk"/>
+                                    <constraint firstAttribute="height" constant="26" id="aXC-iB-qSV"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="topLeft" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="topRight" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="bottomLeft" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="bottomRight" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="mw0-nP-8ee">
+                                <rect key="frame" x="0.0" y="0.0" width="44" height="26"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⭐️" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOh-6k-IFc">
+                                        <rect key="frame" x="0.0" y="7.5" width="16.5" height="11"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pca-Ci-lF2">
+                                        <rect key="frame" x="18.5" y="6" width="25.5" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -31,7 +63,13 @@
                             <constraint firstAttribute="width" secondItem="NDd-j1-rbx" secondAttribute="height" multiplier="2:3" id="3Ym-Vv-Bzq"/>
                             <constraint firstItem="byP-TV-HOv" firstAttribute="top" secondItem="NDd-j1-rbx" secondAttribute="top" id="Buq-mk-Bti"/>
                             <constraint firstAttribute="trailing" secondItem="byP-TV-HOv" secondAttribute="trailing" id="KLr-37-FHd"/>
+                            <constraint firstItem="mw0-nP-8ee" firstAttribute="top" secondItem="cGf-l4-3UQ" secondAttribute="top" id="UkB-p8-TH6"/>
+                            <constraint firstItem="mw0-nP-8ee" firstAttribute="trailing" secondItem="cGf-l4-3UQ" secondAttribute="trailing" id="aWo-Aa-E5d"/>
+                            <constraint firstItem="mw0-nP-8ee" firstAttribute="leading" secondItem="cGf-l4-3UQ" secondAttribute="leading" id="cpM-jR-JFE"/>
+                            <constraint firstItem="cGf-l4-3UQ" firstAttribute="leading" secondItem="NDd-j1-rbx" secondAttribute="leading" id="iAs-0l-x2M"/>
                             <constraint firstAttribute="bottom" secondItem="byP-TV-HOv" secondAttribute="bottom" id="kcd-1g-Bln"/>
+                            <constraint firstItem="cGf-l4-3UQ" firstAttribute="top" secondItem="NDd-j1-rbx" secondAttribute="top" id="rPH-tF-BYp"/>
+                            <constraint firstItem="mw0-nP-8ee" firstAttribute="bottom" secondItem="cGf-l4-3UQ" secondAttribute="bottom" id="sXG-Yr-kaR"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -60,6 +98,7 @@
             <connections>
                 <outlet property="posterIv" destination="byP-TV-HOv" id="Lcm-Xc-2mv"/>
                 <outlet property="titleLb" destination="v1G-Or-QRq" id="7ds-18-4fR"/>
+                <outlet property="voteView" destination="cGf-l4-3UQ" id="32m-Lg-dDe"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>
         </collectionViewCell>
