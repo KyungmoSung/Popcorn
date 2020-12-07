@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,12 +24,12 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SIf-Tg-F3h">
-                            <rect key="frame" x="0.0" y="70" width="414" height="162"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="232"/>
                         </imageView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="38L-DZ-u2g">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="2535.5"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZx-kr-T40">
+                                <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZx-kr-T40">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="207"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -120,7 +121,7 @@ Label</string>
                         <constraint firstItem="38L-DZ-u2g" firstAttribute="leading" secondItem="7qZ-Im-z5h" secondAttribute="leading" id="IP4-8n-h7O"/>
                         <constraint firstItem="SIf-Tg-F3h" firstAttribute="leading" secondItem="BZx-kr-T40" secondAttribute="leading" id="N2j-iM-uc3"/>
                         <constraint firstItem="38L-DZ-u2g" firstAttribute="trailing" secondItem="7qZ-Im-z5h" secondAttribute="trailing" id="UCj-wa-iBk"/>
-                        <constraint firstItem="qTH-5i-v8p" firstAttribute="top" secondItem="SIf-Tg-F3h" secondAttribute="bottom" constant="-25" id="Uyj-JW-JPf"/>
+                        <constraint firstItem="qTH-5i-v8p" firstAttribute="top" secondItem="SIf-Tg-F3h" secondAttribute="bottom" priority="999" constant="-25" id="Uyj-JW-JPf"/>
                         <constraint firstItem="38L-DZ-u2g" firstAttribute="bottom" secondItem="7qZ-Im-z5h" secondAttribute="bottom" id="fWp-ae-Wr6"/>
                         <constraint firstItem="38L-DZ-u2g" firstAttribute="width" secondItem="UGK-pM-FfZ" secondAttribute="width" id="oKz-eL-Mb3"/>
                         <constraint firstItem="38L-DZ-u2g" firstAttribute="top" secondItem="7qZ-Im-z5h" secondAttribute="top" id="waf-nQ-Hye"/>
@@ -128,11 +129,25 @@ Label</string>
                     <viewLayoutGuide key="contentLayoutGuide" id="7qZ-Im-z5h"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="UGK-pM-FfZ"/>
                 </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qpc-C8-rYD">
+                    <rect key="frame" x="354" y="44" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="SCz-Cp-zqn"/>
+                        <constraint firstAttribute="width" constant="40" id="bAO-kx-r5N"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="icClose3"/>
+                    <connections>
+                        <action selector="buttonTapped:" destination="-1" eventType="touchUpInside" id="XEJ-UO-JeB"/>
+                    </connections>
+                </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="Hm1-gC-Tcs"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="SIf-Tg-F3h" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" priority="750" id="039-On-qmZ"/>
+                <constraint firstItem="SIf-Tg-F3h" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="039-On-qmZ"/>
                 <constraint firstAttribute="bottom" secondItem="Mlk-Bp-PLi" secondAttribute="bottom" id="E7O-Ws-Qhs"/>
+                <constraint firstItem="Hm1-gC-Tcs" firstAttribute="trailing" secondItem="Qpc-C8-rYD" secondAttribute="trailing" constant="20" id="FeH-KM-DRQ"/>
+                <constraint firstItem="Qpc-C8-rYD" firstAttribute="top" secondItem="Hm1-gC-Tcs" secondAttribute="top" id="SJT-rc-t68"/>
                 <constraint firstItem="Mlk-Bp-PLi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cSc-Zs-6MC"/>
                 <constraint firstAttribute="trailing" secondItem="Mlk-Bp-PLi" secondAttribute="trailing" id="sKb-sR-UhJ"/>
                 <constraint firstItem="Mlk-Bp-PLi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="x6D-bh-t3N"/>
@@ -141,6 +156,7 @@ Label</string>
         </view>
     </objects>
     <resources>
+        <image name="icClose3" width="36" height="36"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

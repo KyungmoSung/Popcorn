@@ -28,7 +28,7 @@ class HorizontalSectionController: ListSectionController {
         if category == .popular {
             return CGSize(width: context.containerSize.width, height: 180)
         } else {
-            return CGSize(width: context.containerSize.width, height: 200)
+            return CGSize(width: context.containerSize.width, height: 220)
         }
         
     }

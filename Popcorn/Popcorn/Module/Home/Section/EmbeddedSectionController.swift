@@ -15,7 +15,7 @@ class EmbeddedSectionController: ListSectionController {
     override private init() {
         super.init()
         
-        self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+        self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
     }
     
     convenience init(category: ContentsCategory?) {
@@ -47,6 +47,8 @@ class EmbeddedSectionController: ListSectionController {
             let cell: HomeBackdropCell = context.dequeueReusableXibCell(for: self, at: index)
             
             cell.backdropImgPath = contents?.backdropPath
+            cell.title = contents?.title
+            cell.index = section
             return cell
         default:
             let cell: HomePosterCell = context.dequeueReusableXibCell(for: self, at: index)
