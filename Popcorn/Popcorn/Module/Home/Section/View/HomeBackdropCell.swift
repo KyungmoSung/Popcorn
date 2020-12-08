@@ -17,10 +17,7 @@ class HomeBackdropCell: UICollectionViewCell {
             guard let path = backdropImgPath, let url = URL(string: AppConstants.Domain.tmdbImage + path) else {
                 return
             }
-            let options = ImageLoadingOptions(
-                transition: .fadeIn(duration: 0.3)
-            )
-            Nuke.loadImage(with: url, options: options, into: backdropIv)
+            Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: backdropIv)
         }
     }
     

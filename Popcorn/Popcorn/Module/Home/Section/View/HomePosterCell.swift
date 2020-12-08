@@ -33,10 +33,7 @@ class HomePosterCell: UICollectionViewCell {
             guard let path = posterImgPath, let url = URL(string: AppConstants.Domain.tmdbImage + path) else {
                 return
             }
-            let options = ImageLoadingOptions(
-                transition: .fadeIn(duration: 0.3)
-            )
-            Nuke.loadImage(with: url, options: options, into: posterIv)
+            Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: posterIv)
         }
     }
 }
