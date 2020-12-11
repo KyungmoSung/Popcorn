@@ -25,7 +25,7 @@ class Movie: Codable {
     let voteCount: Int!
     let video: Bool!
     let voteAverage: Double!
-    let genres: [Genre]!
+    let genres: [Genre]?
     let runtime: Int?
     let revenue: Int!
     

@@ -55,7 +55,21 @@ class ContentsDetailViewController: UIViewController {
             if let originalTitle = self.contents?.originalTitle {
                 self.originalTitleLb.text = originalTitle
             }
-            //        genreLb.text = self.contents.genre
+            
+            // 장르
+            if let genres = self.contents?.genres {
+                var genresStr = ""
+                genres.compactMap { $0.name }.forEach {
+                    if genresStr.isEmpty {
+                        genresStr += $0
+                    } else {
+                        genresStr += (", " + $0)
+                    }
+                }
+                
+                self.genreLb.text = genresStr
+            }
+                    
             
             // 개봉일
             if let releaseDate = self.contents?.releaseDate {
