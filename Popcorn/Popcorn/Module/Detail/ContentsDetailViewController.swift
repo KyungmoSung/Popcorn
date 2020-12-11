@@ -18,9 +18,34 @@ class ContentsDetailViewController: UIViewController {
     @IBOutlet private weak var voteAverageLb: UILabel!
     @IBOutlet private weak var voteCountLb: UILabel!
     @IBOutlet private weak var overviewLb: UILabel!
+    @IBOutlet weak var mediaTypeTabCollectionView: UICollectionView!
+    
+    lazy var mediaTypeTabAdapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+    }()
     
     var id: Int!
     var contents: Movie?
+    
+    enum MediaType: Int, CaseIterable {
+        case image
+        case video
+        case video2
+        case video3
+        
+        var title: String {
+            switch self {
+            case .image:
+                return "배경"
+            case .video:
+                return "동영상"
+            case .video2:
+                return "동영상상"
+            case .video3:
+                return "동영상상상"
+            }
+        }
+    }
     
     convenience init(id: Int) {
         self.init()
@@ -29,9 +54,17 @@ class ContentsDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mediaTypeTabAdapter.collectionView = mediaTypeTabCollectionView
+        mediaTypeTabAdapter.dataSource = self
 
         setupUI()
         getMovies()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        mediaTypeTabCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
     
     func setupUI() {
@@ -122,4 +155,23 @@ class ContentsDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension ContentsDetailViewController: ListAdapterDataSource {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return MediaType.allCases.map { $0.title as ListDiffable }
+    }
+    
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+        switch listAdapter {
+        case mediaTypeTabAdapter:
+            return TextTabSectionController()
+        default:
+            return ListSectionController()
+        }
+    }
+    
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
+        return nil
+    }
 }

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		24ED6290258355A200FC98B3 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED628F258355A200FC98B3 /* Genre.swift */; };
+		24ED629D25836A8100FC98B3 /* TextTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED629B25836A8100FC98B3 /* TextTabCell.swift */; };
+		24ED629E25836A8100FC98B3 /* TextTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24ED629C25836A8100FC98B3 /* TextTabCell.xib */; };
+		24ED62AE258371C700FC98B3 /* TextTabSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED62AD258371C700FC98B3 /* TextTabSectionController.swift */; };
 		5230451EE7ACA0F3736036B3 /* Pods_Popcorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6500850F6A03C4BB67D03B /* Pods_Popcorn.framework */; };
 		A2314BE24318386C8A537144 /* Pods_Popcorn_PopcornUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359A70763B577AB59138097A /* Pods_Popcorn_PopcornUITests.framework */; };
 		CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */; };
@@ -66,6 +69,9 @@
 
 /* Begin PBXFileReference section */
 		24ED628F258355A200FC98B3 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
+		24ED629B25836A8100FC98B3 /* TextTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTabCell.swift; sourceTree = "<group>"; };
+		24ED629C25836A8100FC98B3 /* TextTabCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTabCell.xib; sourceTree = "<group>"; };
+		24ED62AD258371C700FC98B3 /* TextTabSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTabSectionController.swift; sourceTree = "<group>"; };
 		359A70763B577AB59138097A /* Pods_Popcorn_PopcornUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Popcorn_PopcornUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50D3B37ED8DB30B3CCB3FBC5 /* Pods-PopcornTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopcornTests.debug.xcconfig"; path = "Target Support Files/Pods-PopcornTests/Pods-PopcornTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6B21F492247854CAA51ECDB9 /* Pods-Popcorn-PopcornUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popcorn-PopcornUITests.debug.xcconfig"; path = "Target Support Files/Pods-Popcorn-PopcornUITests/Pods-Popcorn-PopcornUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -220,8 +226,8 @@
 		CDB6D3A7254A8EA0001B0AEB /* Module */ = {
 			isa = PBXGroup;
 			children = (
-				CDBD141C256E384E003F625F /* Detail */,
 				CDB6D3B3254A8F62001B0AEB /* Common */,
+				CDBD141C256E384E003F625F /* Detail */,
 				CDB6D3AB254A8EF4001B0AEB /* Home */,
 			);
 			path = Module;
@@ -281,6 +287,9 @@
 			isa = PBXGroup;
 			children = (
 				CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */,
+				24ED629B25836A8100FC98B3 /* TextTabCell.swift */,
+				24ED629C25836A8100FC98B3 /* TextTabCell.xib */,
+				24ED62AD258371C700FC98B3 /* TextTabSectionController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -473,6 +482,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24ED629E25836A8100FC98B3 /* TextTabCell.xib in Resources */,
 				CDB6D453254BCC10001B0AEB /* HomePosterCell.xib in Resources */,
 				CDBD1420256E388A003F625F /* ContentsDetailViewController.xib in Resources */,
 				CDB6D510254FC7DF001B0AEB /* Localizable.strings in Resources */,
@@ -621,6 +631,7 @@
 				CDB6D3D5254A9927001B0AEB /* Constants.swift in Sources */,
 				CDB6D3C6254A9568001B0AEB /* APIManager.swift in Sources */,
 				CDB6D437254BB1B5001B0AEB /* EmbeddedSectionController.swift in Sources */,
+				24ED62AE258371C700FC98B3 /* TextTabSectionController.swift in Sources */,
 				CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */,
 				CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */,
 				CDB6D422254BAB70001B0AEB /* HorizontalSectionController.swift in Sources */,
@@ -628,6 +639,7 @@
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
 				CDBD141F256E388A003F625F /* ContentsDetailViewController.swift in Sources */,
 				CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */,
+				24ED629D25836A8100FC98B3 /* TextTabCell.swift in Sources */,
 				CDB6D45E254BE003001B0AEB /* HomeHeaderView.swift in Sources */,
 				CDB6D51F254FCB37001B0AEB /* StringExtension.swift in Sources */,
 				CDB6D3F6254AA4FE001B0AEB /* HomeViewController.swift in Sources */,

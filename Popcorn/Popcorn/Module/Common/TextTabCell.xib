@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="TextTabCell" customModule="Popcorn" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="117" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="117" height="50"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cdh-ai-drK">
+                        <rect key="frame" x="5" y="0.0" width="107" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="xVj-Wh-iI5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ty4-nG-EXO" customClass="CustomView" customModule="Popcorn" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="24" width="117" height="2"/>
+                        <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="117" id="Oyg-Qz-vIQ"/>
+                            <constraint firstAttribute="height" constant="2" id="mrV-Vp-hLm"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="Cdh-ai-drK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="8ar-HT-L2u"/>
+                <constraint firstAttribute="trailing" secondItem="Cdh-ai-drK" secondAttribute="trailing" constant="5" id="XKn-4v-Bxn"/>
+                <constraint firstItem="Ty4-nG-EXO" firstAttribute="top" secondItem="Cdh-ai-drK" secondAttribute="bottom" constant="6" id="cft-e3-vRQ"/>
+                <constraint firstAttribute="bottom" secondItem="Ty4-nG-EXO" secondAttribute="bottom" priority="999" id="sSP-uy-CDN"/>
+                <constraint firstItem="Ty4-nG-EXO" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="vgN-JN-WoQ"/>
+                <constraint firstItem="Cdh-ai-drK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="wc8-cL-97h"/>
+            </constraints>
+            <size key="customSize" width="117" height="50"/>
+            <connections>
+                <outlet property="selectedBottomLine" destination="Ty4-nG-EXO" id="gW5-o9-2JX"/>
+                <outlet property="selectedBottomLineWidth" destination="Oyg-Qz-vIQ" id="BTt-AB-x4G"/>
+                <outlet property="titleLb" destination="Cdh-ai-drK" id="RaY-1V-Bmy"/>
+            </connections>
+            <point key="canvasLocation" x="83.333333333333343" y="124.55357142857142"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
