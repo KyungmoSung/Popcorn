@@ -10,6 +10,7 @@
 		24ED6290258355A200FC98B3 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED628F258355A200FC98B3 /* Genre.swift */; };
 		5230451EE7ACA0F3736036B3 /* Pods_Popcorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6500850F6A03C4BB67D03B /* Pods_Popcorn.framework */; };
 		A2314BE24318386C8A537144 /* Pods_Popcorn_PopcornUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359A70763B577AB59138097A /* Pods_Popcorn_PopcornUITests.framework */; };
+		CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */; };
 		CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */; };
 		CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */; };
 		CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D367254A5CEA001B0AEB /* Assets.xcassets */; };
@@ -74,6 +75,7 @@
 		AA6500850F6A03C4BB67D03B /* Pods_Popcorn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Popcorn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C82BD8AD1D3ED707EF8EB5C4 /* Pods-Popcorn-PopcornUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popcorn-PopcornUITests.release.xcconfig"; path = "Target Support Files/Pods-Popcorn-PopcornUITests/Pods-Popcorn-PopcornUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C85F00BC610C80DC1FC64205 /* Pods-Popcorn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popcorn.release.xcconfig"; path = "Target Support Files/Pods-Popcorn/Pods-Popcorn.release.xcconfig"; sourceTree = "<group>"; };
+		CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NukeExtension.swift; sourceTree = "<group>"; };
 		CDB6D35B254A5CE9001B0AEB /* Popcorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popcorn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				CDB6D42E254BB103001B0AEB /* IGListKitExtension.swift */,
 				CDB6D457254BD611001B0AEB /* NSObjectExtension.swift */,
 				CDB6D51E254FCB37001B0AEB /* StringExtension.swift */,
+				CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 				24ED6290258355A200FC98B3 /* Genre.swift in Sources */,
 				CDB6D40B254AB115001B0AEB /* Response.swift in Sources */,
 				CDB6D4FD254FC0B8001B0AEB /* CustomView.swift in Sources */,
+				CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */,
 				CDB6D432254BB132001B0AEB /* IGListKitExtension.swift in Sources */,
 				CDB6D47E254BF35B001B0AEB /* ContentsCollection.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
