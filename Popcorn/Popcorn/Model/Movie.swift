@@ -8,7 +8,6 @@
 import Foundation
 
 class Movie: Codable {
-    
     let posterPath: String?
     let adult: Bool!
     let overview: String!
@@ -26,7 +25,7 @@ class Movie: Codable {
     let voteCount: Int!
     let video: Bool!
     let voteAverage: Double!
-//    let genres: [Genre]!
+    let genres: [Genre]!
     let runtime: Int?
     let revenue: Int!
     
@@ -37,7 +36,7 @@ class Movie: Codable {
         case title
         case popularity
         case video
-//        case genres
+        case genres
         case runtime
         case revenue
         case posterPath = "poster_path"
