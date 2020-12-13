@@ -20,3 +20,13 @@ struct PageResponse<T: Codable>: Codable {
         case totalPages = "total_pages"
     }
 }
+
+struct ListResponse<T: Codable>: Codable {
+    let id: Int
+    let results: [T]?
+    let backdrops: [ImageInfo]?
+    let posters: [ImageInfo]?
+    let genres: [Genre]?
+    let cast: [Cast]?
+    let crew: [Crew]?
+}
