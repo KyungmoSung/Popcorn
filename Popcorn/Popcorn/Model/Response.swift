@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct Response<T: Codable>: Codable {
+    let results: [T]?
+}
+
 struct PageResponse<T: Codable>: Codable {
     let page: Int?
     let results: [T]?
@@ -21,9 +25,8 @@ struct PageResponse<T: Codable>: Codable {
     }
 }
 
-struct ListResponse<T: Codable>: Codable {
+struct ListResponse: Codable {
     let id: Int
-    let results: [T]?
     let backdrops: [ImageInfo]?
     let posters: [ImageInfo]?
     let genres: [Genre]?

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Person: Codable {
+class Person: Codable, ListDiffable {
     let birthday: String?
     let deathday: String?
     let id: Int!
@@ -40,6 +40,14 @@ class Person: Codable {
         case profilePath = "profile_path"
         case imdbId = "imdb_id"
         case creditId = "credit_id"
+    }
+    
+    func diffIdentifier() -> NSObjectProtocol {
+        return id as NSObjectProtocol
+    }
+    
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        return true
     }
 }
 

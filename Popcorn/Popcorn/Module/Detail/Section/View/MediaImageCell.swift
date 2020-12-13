@@ -8,7 +8,6 @@
 import UIKit
 
 class MediaImageCell: UICollectionViewCell {
-
     @IBOutlet private weak var backdropIv: UIImageView!
     
     var backdropImgPath: String? {

@@ -33,11 +33,7 @@ extension ImageInfo: ListDiffable {
     }
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        guard let object = object as? ImageInfo else {
-            return false
-        }
-
-        return self.filePath == object.filePath
+        return true
     }
 }
 
@@ -59,10 +55,6 @@ extension VideoInfo: ListDiffable {
     }
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        guard let object = object as? VideoInfo else {
-            return false
-        }
-
-        return self.id == object.id
+        return true
     }
 }

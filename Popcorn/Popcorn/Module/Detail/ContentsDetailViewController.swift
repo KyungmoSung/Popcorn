@@ -34,6 +34,7 @@ class ContentsDetailViewController: UIViewController {
     @IBOutlet private weak var overviewLb: UILabel!
     @IBOutlet weak var mediaTypeTabCollectionView: UICollectionView!
     @IBOutlet weak var mediaListCollectionView: UICollectionView!
+    @IBOutlet weak var creditCollectionView: UICollectionView!
     
     lazy var mediaTypeAdapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
@@ -43,11 +44,16 @@ class ContentsDetailViewController: UIViewController {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
+    lazy var creditAdapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+    }()
+    
     var id: Int!
     var contents: Movie?
     var mediaType: MediaType = .image
     var imageInfos: [ImageInfo] = []
     var videoInfos: [VideoInfo] = []
+    var credits: [Person] = []
     
     convenience init(id: Int) {
         self.init()
@@ -62,6 +68,9 @@ class ContentsDetailViewController: UIViewController {
         
         mediaListAdapter.collectionView = mediaListCollectionView
         mediaListAdapter.dataSource = self
+        
+        creditAdapter.collectionView = creditCollectionView
+        creditAdapter.dataSource = self
 
         setupUI()
         getMovies()
@@ -157,10 +166,7 @@ class ContentsDetailViewController: UIViewController {
         }
         
         // 관련 이미지
-        params = [
-            "api_key": AppConstants.Key.tmdb
-        ]
-        APIManager.request(AppConstants.API.Movie.getImages(id), method: .get, params: params, responseType: ListResponse<ImageInfo>.self) { (result) in
+        APIManager.request(AppConstants.API.Movie.getImages(id), method: .get, params: nil, responseType: ListResponse.self) { (result) in
             switch result {
             case .success(let response):
                 self.imageInfos = response.backdrops ?? []
@@ -173,16 +179,30 @@ class ContentsDetailViewController: UIViewController {
         }
         
         // 관련 비디오
-        params = [
-            "api_key": AppConstants.Key.tmdb
-        ]
-        APIManager.request(AppConstants.API.Movie.getVideos(id), method: .get, params: params, responseType: ListResponse<VideoInfo>.self) { (result) in
+        APIManager.request(AppConstants.API.Movie.getVideos(id), method: .get, params: nil, responseType: Response<VideoInfo>.self) { (result) in
             switch result {
             case .success(let response):
                 self.videoInfos = response.results ?? []
                 if self.mediaType == .video {
                     self.mediaListAdapter.performUpdates(animated: true, completion: nil)
                 }
+            case .failure(let error):
+                Log.d(error)
+            }
+        }
+        
+        // 출연, 감독
+        APIManager.request(AppConstants.API.Movie.getCredits(id), method: .get, params: nil, responseType: ListResponse.self) { (result) in
+            switch result {
+            case .success(let response):
+                self.credits = response.cast ?? []
+                // 감독을 맨 앞에 삽입
+                if let director = response.crew?.filter({ $0.job == "Director" }).first {
+                    self.credits.insert(director, at: 0)
+                }
+                
+                self.creditAdapter.performUpdates(animated: true, completion: nil)
+                
             case .failure(let error):
                 Log.d(error)
             }
@@ -212,6 +232,8 @@ extension ContentsDetailViewController: ListAdapterDataSource {
             case .video:
                 return videoInfos
             }
+        case creditAdapter:
+            return credits
         default:
             return []
         }
@@ -225,6 +247,8 @@ extension ContentsDetailViewController: ListAdapterDataSource {
             return section
         case mediaListAdapter:
             return MediaSectionController(mediaType: mediaType)
+        case creditAdapter:
+            return CreditSectionController()
         default:
             return ListSectionController()
         }
