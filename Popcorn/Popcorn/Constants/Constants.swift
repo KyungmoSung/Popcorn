@@ -38,6 +38,7 @@ enum AppConstants {
             static func getCredits(_ movieId: Int)          -> String { return "/movie/\(movieId)/credits" }
             static func getSimilarMovies(_ movieId: Int)    -> String { return "/movie/\(movieId)/similar" }
             static func getVideos(_ movieId: Int)           -> String { return "/movie/\(movieId)/videos" }
+            static func getImages(_ movieId: Int)           -> String { return "/movie/\(movieId)/images" }
         }
     }
 }

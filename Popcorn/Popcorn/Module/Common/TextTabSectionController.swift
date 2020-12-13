@@ -7,8 +7,13 @@
 
 import Foundation
 
+protocol TextTabDelegate: class {
+    func didSelectTab(index: Int)
+}
+
 class TextTabSectionController: ListSectionController {
     var title: String?
+    weak var delegate: TextTabDelegate?
     
     override init() {
         super.init()
@@ -36,5 +41,6 @@ class TextTabSectionController: ListSectionController {
     }
     
     override func didSelectItem(at index: Int) {
+        delegate?.didSelectTab(index: section)
     }
 }

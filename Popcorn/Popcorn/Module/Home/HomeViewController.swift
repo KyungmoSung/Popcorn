@@ -55,7 +55,7 @@ class HomeViewController: UIViewController {
                 api = AppConstants.API.Movie.getTopRated
             }
             
-            APIManager.request(api, method: .get, params: params, responseType: Response<Movie>.self .self) { (result) in
+            APIManager.request(api, method: .get, params: params, responseType: PageResponse<Movie>.self .self) { (result) in
                 
                 completedCount += 1
                 

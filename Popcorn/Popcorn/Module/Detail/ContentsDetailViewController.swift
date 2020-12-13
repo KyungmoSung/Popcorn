@@ -7,6 +7,20 @@
 
 import UIKit
 
+enum MediaType: Int, CaseIterable {
+    case image
+    case video
+    
+    var title: String {
+        switch self {
+        case .image:
+            return "배경"
+        case .video:
+            return "동영상"
+        }
+    }
+}
+
 class ContentsDetailViewController: UIViewController {
     @IBOutlet private weak var backdropIv: UIImageView!
     @IBOutlet private weak var posterIv: UIImageView!
@@ -19,33 +33,21 @@ class ContentsDetailViewController: UIViewController {
     @IBOutlet private weak var voteCountLb: UILabel!
     @IBOutlet private weak var overviewLb: UILabel!
     @IBOutlet weak var mediaTypeTabCollectionView: UICollectionView!
+    @IBOutlet weak var mediaListCollectionView: UICollectionView!
     
-    lazy var mediaTypeTabAdapter: ListAdapter = {
+    lazy var mediaTypeAdapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+    }()
+    
+    lazy var mediaListAdapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
     var id: Int!
     var contents: Movie?
-    
-    enum MediaType: Int, CaseIterable {
-        case image
-        case video
-        case video2
-        case video3
-        
-        var title: String {
-            switch self {
-            case .image:
-                return "배경"
-            case .video:
-                return "동영상"
-            case .video2:
-                return "동영상상"
-            case .video3:
-                return "동영상상상"
-            }
-        }
-    }
+    var mediaType: MediaType = .image
+    var imageInfos: [ImageInfo] = []
+    var videoInfos: [VideoInfo] = []
     
     convenience init(id: Int) {
         self.init()
@@ -55,8 +57,11 @@ class ContentsDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mediaTypeTabAdapter.collectionView = mediaTypeTabCollectionView
-        mediaTypeTabAdapter.dataSource = self
+        mediaTypeAdapter.collectionView = mediaTypeTabCollectionView
+        mediaTypeAdapter.dataSource = self
+        
+        mediaListAdapter.collectionView = mediaListCollectionView
+        mediaListAdapter.dataSource = self
 
         setupUI()
         getMovies()
@@ -132,15 +137,16 @@ class ContentsDetailViewController: UIViewController {
     }
     
     func getMovies() {
-        let params: [String: Any] = [
+        var params: [String: Any] = [:]
+        
+        // 영화 상세 정보
+        params = [
             "api_key": AppConstants.Key.tmdb,
             "language": "ko",
             "page": 1,
             "region": "ko"
         ]
-        
         APIManager.request(AppConstants.API.Movie.getDetails(id), method: .get, params: params, responseType: Movie.self .self) { (result) in
-            
             switch result {
             case .success(let response):
                 self.contents = response
@@ -148,9 +154,46 @@ class ContentsDetailViewController: UIViewController {
             case .failure(let error):
                 Log.d(error)
             }
-            
+        }
+        
+        // 관련 이미지
+        params = [
+            "api_key": AppConstants.Key.tmdb
+        ]
+        APIManager.request(AppConstants.API.Movie.getImages(id), method: .get, params: params, responseType: ListResponse<ImageInfo>.self) { (result) in
+            switch result {
+            case .success(let response):
+                self.imageInfos = response.backdrops ?? []
+                if self.mediaType == .image {
+                    self.mediaListAdapter.performUpdates(animated: true, completion: nil)
+                }
+            case .failure(let error):
+                Log.d(error)
+            }
+        }
+        
+        // 관련 비디오
+        params = [
+            "api_key": AppConstants.Key.tmdb
+        ]
+        APIManager.request(AppConstants.API.Movie.getVideos(id), method: .get, params: params, responseType: ListResponse<VideoInfo>.self) { (result) in
+            switch result {
+            case .success(let response):
+                self.videoInfos = response.results ?? []
+                if self.mediaType == .video {
+                    self.mediaListAdapter.performUpdates(animated: true, completion: nil)
+                }
+            case .failure(let error):
+                Log.d(error)
+            }
         }
     }
+    
+    func changeMediaType(_ type: MediaType) {
+        mediaType = type
+        self.mediaListAdapter.performUpdates(animated: true, completion: nil)
+    }
+    
     @IBAction func buttonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -159,13 +202,29 @@ class ContentsDetailViewController: UIViewController {
 
 extension ContentsDetailViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return MediaType.allCases.map { $0.title as ListDiffable }
+        switch listAdapter {
+        case mediaTypeAdapter:
+            return MediaType.allCases.map { $0.title as ListDiffable }
+        case mediaListAdapter:
+            switch mediaType {
+            case .image:
+                return imageInfos
+            case .video:
+                return videoInfos
+            }
+        default:
+            return []
+        }
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         switch listAdapter {
-        case mediaTypeTabAdapter:
-            return TextTabSectionController()
+        case mediaTypeAdapter:
+            let section = TextTabSectionController()
+            section.delegate = self
+            return section
+        case mediaListAdapter:
+            return MediaSectionController(mediaType: mediaType)
         default:
             return ListSectionController()
         }
@@ -173,5 +232,13 @@ extension ContentsDetailViewController: ListAdapterDataSource {
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
+    }
+}
+
+extension ContentsDetailViewController: TextTabDelegate {
+    func didSelectTab(index: Int) {
+        if let type = MediaType(rawValue: index) {
+            changeMediaType(type)
+        }
     }
 }
