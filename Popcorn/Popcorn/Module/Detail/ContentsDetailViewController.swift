@@ -24,6 +24,8 @@ enum MediaType: Int, CaseIterable {
 class ContentsDetailViewController: UIViewController {
     @IBOutlet private weak var backdropIv: UIImageView!
     @IBOutlet private weak var posterIv: UIImageView!
+    
+    @IBOutlet private weak var contentsView: UIView!
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet private weak var originalTitleLb: UILabel!
     @IBOutlet private weak var genreLb: UILabel!
@@ -32,6 +34,7 @@ class ContentsDetailViewController: UIViewController {
     @IBOutlet private weak var voteAverageLb: UILabel!
     @IBOutlet private weak var voteCountLb: UILabel!
     @IBOutlet private weak var overviewLb: UILabel!
+    
     @IBOutlet weak var mediaTypeTabCollectionView: UICollectionView!
     @IBOutlet weak var mediaListCollectionView: UICollectionView!
     @IBOutlet weak var creditCollectionView: UICollectionView!
@@ -63,12 +66,15 @@ class ContentsDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mediaTypeTabCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         mediaTypeAdapter.collectionView = mediaTypeTabCollectionView
         mediaTypeAdapter.dataSource = self
         
+        mediaListCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         mediaListAdapter.collectionView = mediaListCollectionView
         mediaListAdapter.dataSource = self
         
+        creditCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         creditAdapter.collectionView = creditCollectionView
         creditAdapter.dataSource = self
 
@@ -79,6 +85,11 @@ class ContentsDetailViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         mediaTypeTabCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        contentsView.roundCorners([.topLeft, .topRight], radius: 25)
     }
     
     func setupUI() {

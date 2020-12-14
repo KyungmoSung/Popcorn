@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		244AA2B125875B1800754687 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244AA2B025875B1800754687 /* UIViewExtension.swift */; };
 		2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E33425864B20005CE9FB /* CreditSectionController.swift */; };
 		2457E33E25864BBE005CE9FB /* CreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E33C25864BBE005CE9FB /* CreditCell.swift */; };
 		2457E33F25864BBE005CE9FB /* CreditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2457E33D25864BBE005CE9FB /* CreditCell.xib */; };
@@ -48,7 +49,6 @@
 		CDB6D45F254BE003001B0AEB /* HomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D45D254BE003001B0AEB /* HomeHeaderView.xib */; };
 		CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */; };
 		CDB6D47E254BF35B001B0AEB /* ContentsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D41B254BA6D9001B0AEB /* ContentsCollection.swift */; };
-		CDB6D4FD254FC0B8001B0AEB /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D4FC254FC0B8001B0AEB /* CustomView.swift */; };
 		CDB6D510254FC7DF001B0AEB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D512254FC7DF001B0AEB /* Localizable.strings */; };
 		CDB6D51F254FCB37001B0AEB /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D51E254FCB37001B0AEB /* StringExtension.swift */; };
 		CDB6D525254FD329001B0AEB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D523254FD328001B0AEB /* SplashViewController.swift */; };
@@ -78,6 +78,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		244AA2B025875B1800754687 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		2457E33425864B20005CE9FB /* CreditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditSectionController.swift; sourceTree = "<group>"; };
 		2457E33C25864BBE005CE9FB /* CreditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCell.swift; sourceTree = "<group>"; };
 		2457E33D25864BBE005CE9FB /* CreditCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditCell.xib; sourceTree = "<group>"; };
@@ -133,7 +134,6 @@
 		CDB6D45C254BE003001B0AEB /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		CDB6D45D254BE003001B0AEB /* HomeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeHeaderView.xib; sourceTree = "<group>"; };
 		CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingCollectionViewLayout.swift; sourceTree = "<group>"; };
-		CDB6D4FC254FC0B8001B0AEB /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		CDB6D511254FC7DF001B0AEB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CDB6D51E254FCB37001B0AEB /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		CDB6D523254FD328001B0AEB /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -302,6 +302,7 @@
 				CDB6D457254BD611001B0AEB /* NSObjectExtension.swift */,
 				CDB6D51E254FCB37001B0AEB /* StringExtension.swift */,
 				CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */,
+				244AA2B025875B1800754687 /* UIViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -309,9 +310,9 @@
 		CDB6D3AB254A8EF4001B0AEB /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				CDB6D420254BAB34001B0AEB /* Section */,
 				CDB6D3F4254AA4FE001B0AEB /* HomeViewController.swift */,
 				CDB6D3F5254AA4FE001B0AEB /* HomeViewController.xib */,
+				CDB6D420254BAB34001B0AEB /* Section */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -370,9 +371,9 @@
 		CDB6D420254BAB34001B0AEB /* Section */ = {
 			isa = PBXGroup;
 			children = (
-				CDB6D43B254BB1BD001B0AEB /* View */,
 				CDB6D421254BAB70001B0AEB /* HorizontalSectionController.swift */,
 				CDB6D436254BB1B5001B0AEB /* EmbeddedSectionController.swift */,
+				CDB6D43B254BB1BD001B0AEB /* View */,
 			);
 			path = Section;
 			sourceTree = "<group>";
@@ -394,7 +395,6 @@
 		CDB6D4FB254FC06C001B0AEB /* Designable */ = {
 			isa = PBXGroup;
 			children = (
-				CDB6D4FC254FC0B8001B0AEB /* CustomView.swift */,
 			);
 			path = Designable;
 			sourceTree = "<group>";
@@ -402,9 +402,9 @@
 		CDBD141C256E384E003F625F /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				24ED62BC2585EB8300FC98B3 /* Section */,
 				CDBD141D256E388A003F625F /* ContentsDetailViewController.swift */,
 				CDBD141E256E388A003F625F /* ContentsDetailViewController.xib */,
+				24ED62BC2585EB8300FC98B3 /* Section */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -674,8 +674,8 @@
 				24ED6290258355A200FC98B3 /* Genre.swift in Sources */,
 				CDB6D40B254AB115001B0AEB /* Response.swift in Sources */,
 				24E02D8925860AFD00591234 /* Media.swift in Sources */,
-				CDB6D4FD254FC0B8001B0AEB /* CustomView.swift in Sources */,
 				CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */,
+				244AA2B125875B1800754687 /* UIViewExtension.swift in Sources */,
 				CDB6D432254BB132001B0AEB /* IGListKitExtension.swift in Sources */,
 				CDB6D47E254BF35B001B0AEB /* ContentsCollection.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,

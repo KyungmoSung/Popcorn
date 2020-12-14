@@ -34,7 +34,7 @@ class MediaSectionController: ListSectionController {
                 return .zero
             }
         case .video:
-            return CGSize(width: height / 10 * 16, height: height)
+            return CGSize(width: height / 9 * 16, height: height)
         }
     }
     

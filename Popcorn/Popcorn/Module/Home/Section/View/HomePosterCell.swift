@@ -10,7 +10,7 @@ import UIKit
 class HomePosterCell: UICollectionViewCell {
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet private weak var posterIv: UIImageView!
-    @IBOutlet weak var voteView: CustomView!
+    @IBOutlet private weak var voteView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,5 +35,9 @@ class HomePosterCell: UICollectionViewCell {
             }
             Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: posterIv)
         }
+    }
+    
+    override func layoutSubviews() {
+        voteView.roundCorners([.bottomRight], radius: 10)
     }
 }

@@ -18,4 +18,10 @@ class MediaImageCell: UICollectionViewCell {
             Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: backdropIv)
         }
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        contentView.applyShadow()
+    }
 }

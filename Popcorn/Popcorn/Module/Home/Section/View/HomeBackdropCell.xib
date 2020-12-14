@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="397" height="310"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z3a-lh-Pgq" customClass="CustomView" customModule="Popcorn" customModuleProvider="target">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z3a-lh-Pgq">
                         <rect key="frame" x="0.0" y="0.0" width="397" height="210"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sdO-RE-k6M">
