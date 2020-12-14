@@ -22,7 +22,9 @@ enum MediaType: Int, CaseIterable {
 }
 
 class ContentsDetailViewController: UIViewController {
-    @IBOutlet private weak var backdropIv: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private weak var blurView: UIView!
+    @IBOutlet private weak var blurPosterIv: UIImageView!
     @IBOutlet private weak var posterIv: UIImageView!
     
     @IBOutlet private weak var contentsView: UIView!
@@ -78,6 +80,9 @@ class ContentsDetailViewController: UIViewController {
         creditAdapter.collectionView = creditCollectionView
         creditAdapter.dataSource = self
 
+        blurPosterIv.applyBlur()
+        posterIv.applyShadow()
+        
         setupUI()
         getMovies()
     }
@@ -89,19 +94,30 @@ class ContentsDetailViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        let top: CGFloat = blurView.frame.height - view.safeAreaInsets.top
+        scrollView.contentInset = UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0)
+
         contentsView.roundCorners([.topLeft, .topRight], radius: 25)
+        
     }
     
     func setupUI() {
         DispatchQueue.main.async {
             // 상단 backdrop 이미지
-            if let path = self.contents?.backdropPath, let url = URL(string: AppConstants.Domain.tmdbImage + path), self.backdropIv.image == nil {
-                Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: self.backdropIv)
-            }
+//            if let path = self.contents?.backdropPath, let url = URL(string: AppConstants.Domain.tmdbImage + path), self.backdropIv.image == nil {
+//                Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: self.backdropIv)
+//            }
             
             // poster 이미지
             if let path = self.contents?.posterPath, let url = URL(string: AppConstants.Domain.tmdbImage + path), self.posterIv.image == nil {
-                Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: self.posterIv)
+                Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: self.posterIv, completion: { result in
+                    switch result {
+                    case .success(let response):
+                        self.blurPosterIv.image = response.image
+                    case .failure(_):
+                        break
+                    }
+                })
             }
             
             // 제목
