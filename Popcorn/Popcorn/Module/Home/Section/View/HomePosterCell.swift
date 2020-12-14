@@ -15,11 +15,7 @@ class HomePosterCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let blurEffect = UIBlurEffect(style: .regular)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = voteView.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        voteView.addSubview(blurEffectView)
+        voteView.applyBlur()
     }
 
     var title: String? {
