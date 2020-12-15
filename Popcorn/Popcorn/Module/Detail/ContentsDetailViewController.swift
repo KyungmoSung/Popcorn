@@ -62,8 +62,6 @@ class ContentsDetailViewController: BaseViewController {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
-    var mTransitionPointY: CGFloat?
-    
     var id: Int!
     var contents: Movie?
     
@@ -129,7 +127,6 @@ class ContentsDetailViewController: BaseViewController {
         super.viewWillLayoutSubviews()
         let top: CGFloat = blurView.frame.height
         scrollView.contentInset = UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0)
-        mTransitionPointY = top
 
         contentsView.roundCorners([.topLeft, .topRight], radius: 25)
         
@@ -344,18 +341,15 @@ extension ContentsDetailViewController: TextTabDelegate {
 
 extension ContentsDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let pointY = mTransitionPointY, scrollView == self.scrollView else {
-            return
-        }
-        
-        print(pointY, scrollView.contentOffset.y)
-        if scrollView.contentOffset.y + scrollView.contentInset.top >= pointY  {
-            UIView.animate(withDuration: 0.3) {
-                self.statusBarView.backgroundColor = .systemBackground
-            }
-        } else {
-            UIView.animate(withDuration: 0.3) {
-                self.statusBarView.backgroundColor = .clear
+        if scrollView == self.scrollView {
+            if scrollView.contentOffset.y >= 0  {
+                UIView.animate(withDuration: 0.3) {
+                    self.statusBarView.backgroundColor = .systemBackground
+                }
+            } else {
+                UIView.animate(withDuration: 0.3) {
+                    self.statusBarView.backgroundColor = .clear
+                }
             }
         }
     }
