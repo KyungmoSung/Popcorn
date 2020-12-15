@@ -34,8 +34,6 @@ class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var contentsView: UIView!
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet private weak var originalTitleLb: UILabel!
-    @IBOutlet private weak var genreLb: UILabel!
-    @IBOutlet private weak var releaseDateLb: UILabel!
     @IBOutlet private weak var runtimeLb: UILabel!
     @IBOutlet private weak var voteAverageLb: UILabel!
     @IBOutlet private weak var voteCountLb: UILabel!
@@ -125,8 +123,8 @@ class ContentsDetailViewController: BaseViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let top: CGFloat = blurView.frame.height
-        scrollView.contentInset = UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0)
+
+        scrollView.contentInset = UIEdgeInsets(top: blurView.frame.height, left: 0, bottom: 0, right: 0)
 
         contentsView.roundCorners([.topLeft, .topRight], radius: 25)
         
@@ -160,23 +158,16 @@ class ContentsDetailViewController: BaseViewController {
             
             // 장르
             if let genres = self.contents?.genres {
-                var genresStr = ""
-                genres.compactMap { $0.name }.forEach {
-                    if genresStr.isEmpty {
-                        genresStr += $0
-                    } else {
-                        genresStr += (", " + $0)
-                    }
-                }
-                
-                self.genreLb.text = genresStr
-                
                 self.genreAdapter.performUpdates(animated: true, completion: nil)
             }
             
             // 개봉일
-            if let releaseDate = self.contents?.releaseDate {
-                self.releaseDateLb.text = releaseDate
+            if let releaseDate = self.contents?.releaseDate.dateValue() {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy"
+                let year = dateFormatter.string(from: releaseDate)
+                
+                self.originalTitleLb.text = (self.originalTitleLb.text ?? "") + "(\(year))"
             }
             
             // 상영시간

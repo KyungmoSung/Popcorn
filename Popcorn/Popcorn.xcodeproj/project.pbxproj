@@ -31,6 +31,7 @@
 		CD936FC625887E170006441C /* UICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FC525887E170006441C /* UICollectionViewExtension.swift */; };
 		CD936FCB25887E8D0006441C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FCA25887E8D0006441C /* BaseViewController.swift */; };
 		CD936FE9258884840006441C /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FE8258884840006441C /* UINavigationControllerExtension.swift */; };
+		CD936FEE258894FC0006441C /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FED258894FC0006441C /* AnyValue.swift */; };
 		CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */; };
 		CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */; };
 		CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D367254A5CEA001B0AEB /* Assets.xcassets */; };
@@ -115,6 +116,7 @@
 		CD936FC525887E170006441C /* UICollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtension.swift; sourceTree = "<group>"; };
 		CD936FCA25887E8D0006441C /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		CD936FE8258884840006441C /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
+		CD936FED258894FC0006441C /* AnyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnyValue.swift; path = Popcorn/Helper/Custom/AnyValue.swift; sourceTree = SOURCE_ROOT; };
 		CDB6D35B254A5CE9001B0AEB /* Popcorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popcorn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -242,6 +244,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		CD936FF22588950D0006441C /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				CD936FED258894FC0006441C /* AnyValue.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
 		CDB6D352254A5CE9001B0AEB = {
 			isa = PBXGroup;
 			children = (
@@ -312,7 +322,7 @@
 		CDB6D3A8254A8ED2001B0AEB /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				CDB6D4FB254FC06C001B0AEB /* Designable */,
+				CD936FF22588950D0006441C /* Custom */,
 				CDB6D3AA254A8EEE001B0AEB /* Extension */,
 				CDB6D3A9254A8EE5001B0AEB /* Manager */,
 			);
@@ -424,13 +434,6 @@
 				CDB6D53B2550DA40001B0AEB /* HomeBackdropCell.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		CDB6D4FB254FC06C001B0AEB /* Designable */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Designable;
 			sourceTree = "<group>";
 		};
 		CDBD141C256E384E003F625F /* Detail */ = {
@@ -733,6 +736,7 @@
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
 				CDBD141F256E388A003F625F /* ContentsDetailViewController.swift in Sources */,
 				CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */,
+				CD936FEE258894FC0006441C /* AnyValue.swift in Sources */,
 				24ED629D25836A8100FC98B3 /* TextTabCell.swift in Sources */,
 				CDB6D45E254BE003001B0AEB /* HomeHeaderView.swift in Sources */,
 				CDB6D51F254FCB37001B0AEB /* StringExtension.swift in Sources */,

@@ -11,7 +11,7 @@ class Movie: Codable {
     let posterPath: String?
     let adult: Bool!
     let overview: String!
-    let releaseDate: String!
+    let releaseDate: AnyValue!
     let genreIds: [Int]!
     let id: Int!
     let originalTitle: String!
