@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: BaseViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var adapter: ListAdapter = {
@@ -24,7 +24,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Popcorn🍿"
+        setNavigation(title: "Popcorn🍿", navigationBar: false, tabBar: true)
         
         for category in categories {
             contentsCollections.append(ContentsCollection(category: category))

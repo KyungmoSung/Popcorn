@@ -24,7 +24,13 @@
 		24ED62C62585EBF200FC98B3 /* MediaImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24ED62C42585EBF200FC98B3 /* MediaImageCell.xib */; };
 		5230451EE7ACA0F3736036B3 /* Pods_Popcorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6500850F6A03C4BB67D03B /* Pods_Popcorn.framework */; };
 		A2314BE24318386C8A537144 /* Pods_Popcorn_PopcornUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359A70763B577AB59138097A /* Pods_Popcorn_PopcornUITests.framework */; };
+		CD06B5E8258853E100E15540 /* TextTagSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD06B5E7258853E100E15540 /* TextTagSectionController.swift */; };
+		CD06B5EE258853FE00E15540 /* TextTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD06B5EC258853FE00E15540 /* TextTagCell.swift */; };
+		CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD06B5ED258853FE00E15540 /* TextTagCell.xib */; };
 		CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */; };
+		CD936FC625887E170006441C /* UICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FC525887E170006441C /* UICollectionViewExtension.swift */; };
+		CD936FCB25887E8D0006441C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FCA25887E8D0006441C /* BaseViewController.swift */; };
+		CD936FE9258884840006441C /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FE8258884840006441C /* UINavigationControllerExtension.swift */; };
 		CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */; };
 		CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */; };
 		CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D367254A5CEA001B0AEB /* Assets.xcassets */; };
@@ -102,7 +108,13 @@
 		AA6500850F6A03C4BB67D03B /* Pods_Popcorn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Popcorn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C82BD8AD1D3ED707EF8EB5C4 /* Pods-Popcorn-PopcornUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popcorn-PopcornUITests.release.xcconfig"; path = "Target Support Files/Pods-Popcorn-PopcornUITests/Pods-Popcorn-PopcornUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C85F00BC610C80DC1FC64205 /* Pods-Popcorn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popcorn.release.xcconfig"; path = "Target Support Files/Pods-Popcorn/Pods-Popcorn.release.xcconfig"; sourceTree = "<group>"; };
+		CD06B5E7258853E100E15540 /* TextTagSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTagSectionController.swift; sourceTree = "<group>"; };
+		CD06B5EC258853FE00E15540 /* TextTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTagCell.swift; sourceTree = "<group>"; };
+		CD06B5ED258853FE00E15540 /* TextTagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTagCell.xib; sourceTree = "<group>"; };
 		CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NukeExtension.swift; sourceTree = "<group>"; };
+		CD936FC525887E170006441C /* UICollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtension.swift; sourceTree = "<group>"; };
+		CD936FCA25887E8D0006441C /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		CD936FE8258884840006441C /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		CDB6D35B254A5CE9001B0AEB /* Popcorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popcorn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -209,6 +221,27 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CD06B5F32588541500E15540 /* Section */ = {
+			isa = PBXGroup;
+			children = (
+				24ED62AD258371C700FC98B3 /* TextTabSectionController.swift */,
+				CD06B5E7258853E100E15540 /* TextTagSectionController.swift */,
+				CD06B5F42588542300E15540 /* View */,
+			);
+			path = Section;
+			sourceTree = "<group>";
+		};
+		CD06B5F42588542300E15540 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				24ED629B25836A8100FC98B3 /* TextTabCell.swift */,
+				24ED629C25836A8100FC98B3 /* TextTabCell.xib */,
+				CD06B5EC258853FE00E15540 /* TextTagCell.swift */,
+				CD06B5ED258853FE00E15540 /* TextTagCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		CDB6D352254A5CE9001B0AEB = {
 			isa = PBXGroup;
 			children = (
@@ -303,6 +336,8 @@
 				CDB6D51E254FCB37001B0AEB /* StringExtension.swift */,
 				CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */,
 				244AA2B025875B1800754687 /* UIViewExtension.swift */,
+				CD936FC525887E170006441C /* UICollectionViewExtension.swift */,
+				CD936FE8258884840006441C /* UINavigationControllerExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -330,10 +365,9 @@
 		CDB6D3B3254A8F62001B0AEB /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				CD936FCA25887E8D0006441C /* BaseViewController.swift */,
 				CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */,
-				24ED629B25836A8100FC98B3 /* TextTabCell.swift */,
-				24ED629C25836A8100FC98B3 /* TextTabCell.xib */,
-				24ED62AD258371C700FC98B3 /* TextTabSectionController.swift */,
+				CD06B5F32588541500E15540 /* Section */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -533,6 +567,7 @@
 				24ED629E25836A8100FC98B3 /* TextTabCell.xib in Resources */,
 				24E02D712585FE0A00591234 /* MediaVideoCell.xib in Resources */,
 				CDB6D453254BCC10001B0AEB /* HomePosterCell.xib in Resources */,
+				CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */,
 				CDBD1420256E388A003F625F /* ContentsDetailViewController.xib in Resources */,
 				CDB6D510254FC7DF001B0AEB /* Localizable.strings in Resources */,
 				CDB6D36B254A5CEA001B0AEB /* LaunchScreen.storyboard in Resources */,
@@ -669,13 +704,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				24ED62BF2585EBB000FC98B3 /* MediaSectionController.swift in Sources */,
+				CD06B5E8258853E100E15540 /* TextTagSectionController.swift in Sources */,
 				CDB6D452254BCC10001B0AEB /* HomePosterCell.swift in Sources */,
 				CDB6D458254BD611001B0AEB /* NSObjectExtension.swift in Sources */,
+				CD936FC625887E170006441C /* UICollectionViewExtension.swift in Sources */,
 				24ED6290258355A200FC98B3 /* Genre.swift in Sources */,
 				CDB6D40B254AB115001B0AEB /* Response.swift in Sources */,
 				24E02D8925860AFD00591234 /* Media.swift in Sources */,
 				CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */,
+				CD06B5EE258853FE00E15540 /* TextTagCell.swift in Sources */,
 				244AA2B125875B1800754687 /* UIViewExtension.swift in Sources */,
+				CD936FCB25887E8D0006441C /* BaseViewController.swift in Sources */,
 				CDB6D432254BB132001B0AEB /* IGListKitExtension.swift in Sources */,
 				CDB6D47E254BF35B001B0AEB /* ContentsCollection.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
@@ -699,6 +738,7 @@
 				CDB6D51F254FCB37001B0AEB /* StringExtension.swift in Sources */,
 				24E02D722585FE0A00591234 /* MediaVideoCell.swift in Sources */,
 				CDB6D3F6254AA4FE001B0AEB /* HomeViewController.swift in Sources */,
+				CD936FE9258884840006441C /* UINavigationControllerExtension.swift in Sources */,
 				CDB6D42A254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift in Sources */,
 				CDB6D525254FD329001B0AEB /* SplashViewController.swift in Sources */,
 			);

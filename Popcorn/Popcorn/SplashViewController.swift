@@ -40,7 +40,6 @@ class SplashViewController: UIViewController {
         
         groundTabBarController.viewControllers = viewControllers.map {
             let navi = UINavigationController(rootViewController: $0)
-            navi.navigationBar.prefersLargeTitles = true
             return navi
         }
         

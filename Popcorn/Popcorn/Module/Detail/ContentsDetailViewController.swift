@@ -8,20 +8,24 @@
 import UIKit
 
 enum MediaType: Int, CaseIterable {
-    case image
+    case backdrop
+    case poster
     case video
     
     var title: String {
         switch self {
-        case .image:
+        case .backdrop:
             return "배경"
+        case .poster:
+            return "포스터"
         case .video:
             return "동영상"
         }
     }
 }
 
-class ContentsDetailViewController: UIViewController {
+class ContentsDetailViewController: BaseViewController {
+    @IBOutlet weak var statusBarView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet private weak var blurView: UIView!
     @IBOutlet private weak var blurPosterIv: UIImageView!
@@ -37,9 +41,14 @@ class ContentsDetailViewController: UIViewController {
     @IBOutlet private weak var voteCountLb: UILabel!
     @IBOutlet private weak var overviewLb: UILabel!
     
+    @IBOutlet weak var genreCollectionView: UICollectionView!
     @IBOutlet weak var mediaTypeTabCollectionView: UICollectionView!
     @IBOutlet weak var mediaListCollectionView: UICollectionView!
     @IBOutlet weak var creditCollectionView: UICollectionView!
+    
+    lazy var genreAdapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+    }()
     
     lazy var mediaTypeAdapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
@@ -53,11 +62,16 @@ class ContentsDetailViewController: UIViewController {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
+    var mTransitionPointY: CGFloat?
+    
     var id: Int!
     var contents: Movie?
-    var mediaType: MediaType = .image
-    var imageInfos: [ImageInfo] = []
+    
+    var mediaType: MediaType = .backdrop
+    var backdropInfos: [ImageInfo] = []
+    var posterInfos: [ImageInfo] = []
     var videoInfos: [VideoInfo] = []
+    
     var credits: [Person] = []
     
     convenience init(id: Int) {
@@ -67,6 +81,13 @@ class ContentsDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setNavigation(title: contents?.title)
+        
+        scrollView.delegate = self
+        
+        genreAdapter.collectionView = genreCollectionView
+        genreAdapter.dataSource = self
         
         mediaTypeTabCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         mediaTypeAdapter.collectionView = mediaTypeTabCollectionView
@@ -87,27 +108,37 @@ class ContentsDetailViewController: UIViewController {
         getMovies()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setTransparent(true)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         mediaTypeTabCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.setTransparent(false)
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let top: CGFloat = blurView.frame.height - view.safeAreaInsets.top
+        let top: CGFloat = blurView.frame.height
         scrollView.contentInset = UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0)
+        mTransitionPointY = top
 
         contentsView.roundCorners([.topLeft, .topRight], radius: 25)
         
+        let minimumInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        genreCollectionView.centerContentHorizontalyByInsetIfNeeded(minimumInset: minimumInset)
     }
     
     func setupUI() {
         DispatchQueue.main.async {
-            // 상단 backdrop 이미지
-//            if let path = self.contents?.backdropPath, let url = URL(string: AppConstants.Domain.tmdbImage + path), self.backdropIv.image == nil {
-//                Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: self.backdropIv)
-//            }
-            
             // poster 이미지
             if let path = self.contents?.posterPath, let url = URL(string: AppConstants.Domain.tmdbImage + path), self.posterIv.image == nil {
                 Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: self.posterIv, completion: { result in
@@ -142,8 +173,9 @@ class ContentsDetailViewController: UIViewController {
                 }
                 
                 self.genreLb.text = genresStr
+                
+                self.genreAdapter.performUpdates(animated: true, completion: nil)
             }
-                    
             
             // 개봉일
             if let releaseDate = self.contents?.releaseDate {
@@ -192,12 +224,13 @@ class ContentsDetailViewController: UIViewController {
             }
         }
         
-        // 관련 이미지
+        // 관련 이미지(배경,포스터)
         APIManager.request(AppConstants.API.Movie.getImages(id), method: .get, params: nil, responseType: ListResponse.self) { (result) in
             switch result {
             case .success(let response):
-                self.imageInfos = response.backdrops ?? []
-                if self.mediaType == .image {
+                self.backdropInfos = response.backdrops ?? []
+                self.posterInfos = response.posters ?? []
+                if self.mediaType == .backdrop || self.mediaType == .poster {
                     self.mediaListAdapter.performUpdates(animated: true, completion: nil)
                 }
             case .failure(let error):
@@ -205,7 +238,7 @@ class ContentsDetailViewController: UIViewController {
             }
         }
         
-        // 관련 비디오
+        // 관련 비디오(유튜브)
         APIManager.request(AppConstants.API.Movie.getVideos(id), method: .get, params: nil, responseType: Response<VideoInfo>.self) { (result) in
             switch result {
             case .success(let response):
@@ -237,25 +270,28 @@ class ContentsDetailViewController: UIViewController {
     }
     
     func changeMediaType(_ type: MediaType) {
+        guard mediaType != type else {
+            return
+        }
         mediaType = type
         self.mediaListAdapter.performUpdates(animated: true, completion: nil)
+        self.mediaListAdapter.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: false)
     }
-    
-    @IBAction func buttonTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-    
 }
 
 extension ContentsDetailViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         switch listAdapter {
+        case genreAdapter:
+            return (contents?.genres ?? []).map { $0.name as ListDiffable }
         case mediaTypeAdapter:
             return MediaType.allCases.map { $0.title as ListDiffable }
         case mediaListAdapter:
             switch mediaType {
-            case .image:
-                return imageInfos
+            case .backdrop:
+                return backdropInfos
+            case .poster:
+                return posterInfos
             case .video:
                 return videoInfos
             }
@@ -268,6 +304,10 @@ extension ContentsDetailViewController: ListAdapterDataSource {
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         switch listAdapter {
+        case genreAdapter:
+            let section = TextTagSectionController()
+            section.delegate = self
+            return section
         case mediaTypeAdapter:
             let section = TextTabSectionController()
             section.delegate = self
@@ -286,10 +326,37 @@ extension ContentsDetailViewController: ListAdapterDataSource {
     }
 }
 
+extension ContentsDetailViewController: TextTagDelegate {
+    func didSelectTag(index: Int) {
+        if let genre = contents?.genres?[index] {
+            print(genre)
+        }
+    }
+}
+
 extension ContentsDetailViewController: TextTabDelegate {
     func didSelectTab(index: Int) {
         if let type = MediaType(rawValue: index) {
             changeMediaType(type)
+        }
+    }
+}
+
+extension ContentsDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let pointY = mTransitionPointY, scrollView == self.scrollView else {
+            return
+        }
+        
+        print(pointY, scrollView.contentOffset.y)
+        if scrollView.contentOffset.y + scrollView.contentInset.top >= pointY  {
+            UIView.animate(withDuration: 0.3) {
+                self.statusBarView.backgroundColor = .systemBackground
+            }
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.statusBarView.backgroundColor = .clear
+            }
         }
     }
 }

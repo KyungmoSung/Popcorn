@@ -27,7 +27,7 @@ class MediaSectionController: ListSectionController {
         let height = context.containerSize.height
 
         switch mediaType {
-        case .image:
+        case .backdrop, .poster:
             if let ratio = imageInfo?.aspectRatio {
                 return CGSize(width: height * CGFloat(ratio), height: height)
             } else {
@@ -44,7 +44,7 @@ class MediaSectionController: ListSectionController {
         }
         
         switch mediaType {
-        case .image:
+        case .backdrop, .poster:
             let cell: MediaImageCell = context.dequeueReusableXibCell(for: self, at: index)
             if let filePath = imageInfo?.filePath {
                 cell.backdropImgPath = filePath

@@ -7,7 +7,17 @@
 
 import Foundation
 
-struct Genre: Codable {
+class Genre: Codable {
     let id: Int!
     let name: String!
+}
+
+extension Genre: ListDiffable {
+    func diffIdentifier() -> NSObjectProtocol {
+        return id as NSObjectProtocol
+    }
+    
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        return true
+    }
 }

@@ -71,6 +71,6 @@ class EmbeddedSectionController: ListSectionController {
         let vc = ContentsDetailViewController(id: contents.id)
         vc.modalPresentationStyle = .fullScreen
         vc.contents = contents
-        viewController?.present(vc, animated: true, completion: nil)
+        viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }
