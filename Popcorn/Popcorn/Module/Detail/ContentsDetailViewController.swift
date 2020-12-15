@@ -127,9 +127,6 @@ class ContentsDetailViewController: BaseViewController {
         scrollView.contentInset = UIEdgeInsets(top: blurView.frame.height, left: 0, bottom: 0, right: 0)
 
         contentsView.roundCorners([.topLeft, .topRight], radius: 25)
-        
-        let minimumInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        genreCollectionView.centerContentHorizontalyByInsetIfNeeded(minimumInset: minimumInset)
     }
     
     func setupUI() {
@@ -157,8 +154,11 @@ class ContentsDetailViewController: BaseViewController {
             }
             
             // 장르
-            if let genres = self.contents?.genres {
-                self.genreAdapter.performUpdates(animated: true, completion: nil)
+            if let _ = self.contents?.genres {
+                self.genreAdapter.performUpdates(animated: false) { (_) in
+                    let minimumInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+                    self.genreCollectionView.centerContentHorizontalyByInsetIfNeeded(minimumInset: minimumInset)
+                }
             }
             
             // 개봉일
