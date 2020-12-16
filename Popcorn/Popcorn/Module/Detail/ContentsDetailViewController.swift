@@ -25,24 +25,22 @@ enum MediaType: Int, CaseIterable {
 }
 
 class ContentsDetailViewController: BaseViewController {
-    @IBOutlet weak var statusBarView: UIView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private weak var statusBarView: UIView!
+    @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var blurView: UIView!
     @IBOutlet private weak var blurPosterIv: UIImageView!
     @IBOutlet private weak var posterIv: UIImageView!
     
     @IBOutlet private weak var contentsView: UIView!
     @IBOutlet private weak var titleLb: UILabel!
-    @IBOutlet private weak var originalTitleLb: UILabel!
-    @IBOutlet private weak var runtimeLb: UILabel!
-    @IBOutlet private weak var voteAverageLb: UILabel!
-    @IBOutlet private weak var voteCountLb: UILabel!
+    @IBOutlet private weak var subTitleLb: UILabel!
+    @IBOutlet private weak var buttonContainerView: UIView!
     @IBOutlet private weak var overviewLb: UILabel!
     
-    @IBOutlet weak var genreCollectionView: UICollectionView!
-    @IBOutlet weak var mediaTypeTabCollectionView: UICollectionView!
-    @IBOutlet weak var mediaListCollectionView: UICollectionView!
-    @IBOutlet weak var creditCollectionView: UICollectionView!
+    @IBOutlet private weak var genreCollectionView: UICollectionView!
+    @IBOutlet private weak var mediaTypeTabCollectionView: UICollectionView!
+    @IBOutlet private weak var mediaListCollectionView: UICollectionView!
+    @IBOutlet private weak var creditCollectionView: UICollectionView!
     
     lazy var genreAdapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
@@ -97,7 +95,7 @@ class ContentsDetailViewController: BaseViewController {
         creditAdapter.collectionView = creditCollectionView
         creditAdapter.dataSource = self
 
-        blurPosterIv.applyBlur()
+        blurPosterIv.applyBlur(style: .dark)
         posterIv.applyShadow()
         
         setupUI()
@@ -127,6 +125,7 @@ class ContentsDetailViewController: BaseViewController {
         scrollView.contentInset = UIEdgeInsets(top: blurView.frame.height, left: 0, bottom: 0, right: 0)
 
         contentsView.roundCorners([.topLeft, .topRight], radius: 25)
+        buttonContainerView.applyShadow()
     }
     
     func setupUI() {
@@ -148,11 +147,6 @@ class ContentsDetailViewController: BaseViewController {
                 self.titleLb.text = title
             }
             
-            // original 제목
-            if let originalTitle = self.contents?.originalTitle {
-                self.originalTitleLb.text = originalTitle
-            }
-            
             // 장르
             if let _ = self.contents?.genres {
                 self.genreAdapter.performUpdates(animated: false) { (_) in
@@ -167,22 +161,12 @@ class ContentsDetailViewController: BaseViewController {
                 dateFormatter.dateFormat = "yyyy"
                 let year = dateFormatter.string(from: releaseDate)
                 
-                self.originalTitleLb.text = (self.originalTitleLb.text ?? "") + "(\(year))"
+                self.subTitleLb.text = year
             }
             
             // 상영시간
             if let runtime = self.contents?.runtime {
-                self.runtimeLb.text = "\(runtime)분"
-            }
-            
-            // 평점
-            if let voteAverage = self.contents?.voteAverage {
-                self.voteAverageLb.text = "\(voteAverage)"
-            }
-            
-            // 평가자수
-            if let voteCount = self.contents?.voteCount {
-                self.voteCountLb.text = "\(voteCount)"
+                self.subTitleLb.text = (self.subTitleLb.text ?? "") + " · \(runtime)분"
             }
             
             // 줄거리
@@ -336,10 +320,12 @@ extension ContentsDetailViewController: UIScrollViewDelegate {
             if scrollView.contentOffset.y >= 0  {
                 UIView.animate(withDuration: 0.3) {
                     self.statusBarView.backgroundColor = .systemBackground
+                    self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.label]
                 }
             } else {
                 UIView.animate(withDuration: 0.3) {
                     self.statusBarView.backgroundColor = .clear
+                    self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.clear]
                 }
             }
         }

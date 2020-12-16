@@ -58,8 +58,8 @@ extension UIView {
         }
     }
     
-    func applyBlur(alpha: CGFloat = 1.0) {
-        let effect = UIBlurEffect(style: .regular)
+    func applyBlur(style: UIBlurEffect.Style = .regular, alpha: CGFloat = 1.0) {
+        let effect = UIBlurEffect(style: style)
         let effectView = UIVisualEffectView(effect: effect)
 
         effectView.frame = self.bounds
