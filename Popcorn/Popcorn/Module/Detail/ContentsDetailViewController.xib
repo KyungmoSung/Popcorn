@@ -23,6 +23,7 @@
                 <outlet property="posterIv" destination="S2N-Fr-wSW" id="1NS-m6-k5N"/>
                 <outlet property="recommendationCollectionView" destination="Woz-te-nm7" id="8ak-XY-Hp4"/>
                 <outlet property="scrollView" destination="Mlk-Bp-PLi" id="Suz-Py-3h0"/>
+                <outlet property="similarCollectionView" destination="22b-NX-evv" id="OGb-qM-q6b"/>
                 <outlet property="statusBarView" destination="lXz-4v-Jev" id="9xS-5r-Iee"/>
                 <outlet property="subTitleLb" destination="1hf-4r-pRM" id="AVV-c5-S6i"/>
                 <outlet property="titleLb" destination="TX0-U9-Y2P" id="Jva-hc-AWG"/>
@@ -69,10 +70,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="1264"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tXq-pj-7Rm">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="1264"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="1314.6666666666667"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="sU4-HB-8Zb">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="1086.3333333333333"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="1314.6666666666667"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Rjj-zo-CDg">
                                             <rect key="frame" x="0.0" y="30" width="414" height="57"/>
@@ -401,6 +402,36 @@
                                                 <constraint firstItem="Woz-te-nm7" firstAttribute="leading" secondItem="n7h-BW-Uto" secondAttribute="leading" id="J7t-Ge-cQi"/>
                                                 <constraint firstItem="qPz-ey-zij" firstAttribute="leading" secondItem="n7h-BW-Uto" secondAttribute="leading" constant="20" id="XZ0-0h-KA8"/>
                                                 <constraint firstAttribute="trailing" secondItem="Woz-te-nm7" secondAttribute="trailing" id="fqc-NW-KbH"/>
+                                            </constraints>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Ajd-V3-Pi5">
+                                            <rect key="frame" x="0.0" y="1086.3333333333333" width="414" height="198.33333333333326"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Similar" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZ8-Bd-zH8">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="26.333333333333332"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="22b-NX-evv">
+                                                    <rect key="frame" x="0.0" y="38.333333333333485" width="414" height="160"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="160" id="VsW-mY-Y1e"/>
+                                                    </constraints>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="12" minimumInteritemSpacing="12" id="Ks9-KW-TO1">
+                                                        <size key="itemSize" width="128" height="128"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                </collectionView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="sZ8-Bd-zH8" secondAttribute="trailing" constant="20" id="Tea-cr-fEs"/>
+                                                <constraint firstAttribute="trailing" secondItem="22b-NX-evv" secondAttribute="trailing" id="Zur-R0-A2C"/>
+                                                <constraint firstItem="sZ8-Bd-zH8" firstAttribute="leading" secondItem="Ajd-V3-Pi5" secondAttribute="leading" constant="20" id="d4t-2i-0IU"/>
+                                                <constraint firstItem="22b-NX-evv" firstAttribute="leading" secondItem="Ajd-V3-Pi5" secondAttribute="leading" id="kZL-h0-aqi"/>
                                             </constraints>
                                         </stackView>
                                     </subviews>

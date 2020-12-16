@@ -43,6 +43,7 @@ class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var mediaListCollectionView: UICollectionView!
     @IBOutlet private weak var creditCollectionView: UICollectionView!
     @IBOutlet private weak var recommendationCollectionView: UICollectionView!
+    @IBOutlet private weak var similarCollectionView: UICollectionView!
     
     lazy var genreAdapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
@@ -64,6 +65,10 @@ class ContentsDetailViewController: BaseViewController {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
+    lazy var similarAdapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+    }()
+    
     var id: Int!
     var contents: Movie?
     
@@ -71,9 +76,9 @@ class ContentsDetailViewController: BaseViewController {
     var backdropInfos: [ImageInfo] = []
     var posterInfos: [ImageInfo] = []
     var videoInfos: [VideoInfo] = []
-    var recommendations: [Movie] = []
-    
     var credits: [Person] = []
+    var recommendations: [Movie] = []
+    var similars: [Movie] = []
     
     convenience init(id: Int) {
         self.init()
@@ -105,6 +110,10 @@ class ContentsDetailViewController: BaseViewController {
         recommendationCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         recommendationAdapter.collectionView = recommendationCollectionView
         recommendationAdapter.dataSource = self
+        
+        similarCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        similarAdapter.collectionView = similarCollectionView
+        similarAdapter.dataSource = self
 
         blurPosterIv.applyBlur(style: .dark)
         posterIv.applyShadow()
@@ -268,6 +277,18 @@ class ContentsDetailViewController: BaseViewController {
                 Log.d(error)
             }
         }
+        
+        // 비슷한
+        APIManager.request(AppConstants.API.Movie.getSimilar(id), method: .get, params: nil, responseType: PageResponse<Movie>.self) { (result) in
+            switch result {
+            case .success(let response):
+                self.similars = response.results ?? []
+                
+                self.similarAdapter.performUpdates(animated: true, completion: nil)
+            case .failure(let error):
+                Log.d(error)
+            }
+        }
     }
     
     func changeMediaType(_ type: MediaType) {
@@ -300,6 +321,8 @@ extension ContentsDetailViewController: ListAdapterDataSource {
             return credits
         case recommendationAdapter:
             return recommendations
+        case similarAdapter:
+            return similars
         default:
             return []
         }
@@ -319,7 +342,7 @@ extension ContentsDetailViewController: ListAdapterDataSource {
             return MediaSectionController(mediaType: mediaType)
         case creditAdapter:
             return CreditSectionController()
-        case recommendationAdapter:
+        case recommendationAdapter, similarAdapter:
             return EmbeddedSectionController(category: .none)
         default:
             return ListSectionController()
