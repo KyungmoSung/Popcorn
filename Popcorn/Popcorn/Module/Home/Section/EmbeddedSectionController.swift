@@ -18,7 +18,7 @@ class EmbeddedSectionController: ListSectionController {
         self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
     }
     
-    convenience init(category: ContentsCategory?) {
+    convenience init(category: ContentsCategory) {
         self.init()
         self.category = category
     }

@@ -21,6 +21,7 @@
                 <outlet property="mediaTypeTabCollectionView" destination="Hk7-5s-Sep" id="bfX-7f-93d"/>
                 <outlet property="overviewLb" destination="VSq-sr-ccS" id="8MS-JI-fBQ"/>
                 <outlet property="posterIv" destination="S2N-Fr-wSW" id="1NS-m6-k5N"/>
+                <outlet property="recommendationCollectionView" destination="Woz-te-nm7" id="8ak-XY-Hp4"/>
                 <outlet property="scrollView" destination="Mlk-Bp-PLi" id="Suz-Py-3h0"/>
                 <outlet property="statusBarView" destination="lXz-4v-Jev" id="9xS-5r-Iee"/>
                 <outlet property="subTitleLb" destination="1hf-4r-pRM" id="AVV-c5-S6i"/>
@@ -71,7 +72,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="1264"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="sU4-HB-8Zb">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="858"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="1086.3333333333333"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Rjj-zo-CDg">
                                             <rect key="frame" x="0.0" y="30" width="414" height="57"/>
@@ -370,6 +371,36 @@
                                                 <constraint firstItem="ggg-3j-Swx" firstAttribute="leading" secondItem="TEj-97-bnh" secondAttribute="leading" id="lSU-Nt-kjX"/>
                                                 <constraint firstAttribute="trailing" secondItem="6iD-xw-MxT" secondAttribute="trailing" constant="20" id="lbG-wP-TEo"/>
                                                 <constraint firstItem="6iD-xw-MxT" firstAttribute="leading" secondItem="TEj-97-bnh" secondAttribute="leading" constant="20" id="pOm-ja-wOO"/>
+                                            </constraints>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="n7h-BW-Uto">
+                                            <rect key="frame" x="0.0" y="858" width="414" height="198.33333333333326"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recommendations" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPz-ey-zij">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="26.333333333333332"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Woz-te-nm7">
+                                                    <rect key="frame" x="0.0" y="38.333333333333371" width="414" height="160"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="160" id="OKG-8H-8fs"/>
+                                                    </constraints>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="12" minimumInteritemSpacing="12" id="WSm-1L-dZc">
+                                                        <size key="itemSize" width="128" height="128"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                </collectionView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="qPz-ey-zij" secondAttribute="trailing" constant="20" id="0bG-6f-WdM"/>
+                                                <constraint firstItem="Woz-te-nm7" firstAttribute="leading" secondItem="n7h-BW-Uto" secondAttribute="leading" id="J7t-Ge-cQi"/>
+                                                <constraint firstItem="qPz-ey-zij" firstAttribute="leading" secondItem="n7h-BW-Uto" secondAttribute="leading" constant="20" id="XZ0-0h-KA8"/>
+                                                <constraint firstAttribute="trailing" secondItem="Woz-te-nm7" secondAttribute="trailing" id="fqc-NW-KbH"/>
                                             </constraints>
                                         </stackView>
                                     </subviews>

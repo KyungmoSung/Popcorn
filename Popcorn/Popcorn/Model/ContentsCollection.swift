@@ -12,6 +12,7 @@ enum ContentsCategory: String {
     case popular
     case topRated
     case upcoming
+    case none
     
     var title: String {
         return self.rawValue.localized

@@ -42,6 +42,7 @@ class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var mediaTypeTabCollectionView: UICollectionView!
     @IBOutlet private weak var mediaListCollectionView: UICollectionView!
     @IBOutlet private weak var creditCollectionView: UICollectionView!
+    @IBOutlet private weak var recommendationCollectionView: UICollectionView!
     
     lazy var genreAdapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
@@ -59,6 +60,10 @@ class ContentsDetailViewController: BaseViewController {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
+    lazy var recommendationAdapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+    }()
+    
     var id: Int!
     var contents: Movie?
     
@@ -66,6 +71,7 @@ class ContentsDetailViewController: BaseViewController {
     var backdropInfos: [ImageInfo] = []
     var posterInfos: [ImageInfo] = []
     var videoInfos: [VideoInfo] = []
+    var recommendations: [Movie] = []
     
     var credits: [Person] = []
     
@@ -95,6 +101,10 @@ class ContentsDetailViewController: BaseViewController {
         creditCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         creditAdapter.collectionView = creditCollectionView
         creditAdapter.dataSource = self
+        
+        recommendationCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        recommendationAdapter.collectionView = recommendationCollectionView
+        recommendationAdapter.dataSource = self
 
         blurPosterIv.applyBlur(style: .dark)
         posterIv.applyShadow()
@@ -246,6 +256,18 @@ class ContentsDetailViewController: BaseViewController {
                 Log.d(error)
             }
         }
+        
+        // 추천목록
+        APIManager.request(AppConstants.API.Movie.getRecommendations(id), method: .get, params: nil, responseType: PageResponse<Movie>.self) { (result) in
+            switch result {
+            case .success(let response):
+                self.recommendations = response.results ?? []
+                
+                self.recommendationAdapter.performUpdates(animated: true, completion: nil)
+            case .failure(let error):
+                Log.d(error)
+            }
+        }
     }
     
     func changeMediaType(_ type: MediaType) {
@@ -276,6 +298,8 @@ extension ContentsDetailViewController: ListAdapterDataSource {
             }
         case creditAdapter:
             return credits
+        case recommendationAdapter:
+            return recommendations
         default:
             return []
         }
@@ -295,6 +319,8 @@ extension ContentsDetailViewController: ListAdapterDataSource {
             return MediaSectionController(mediaType: mediaType)
         case creditAdapter:
             return CreditSectionController()
+        case recommendationAdapter:
+            return EmbeddedSectionController(category: .none)
         default:
             return ListSectionController()
         }

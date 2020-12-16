@@ -74,7 +74,11 @@ extension HorizontalSectionController: ListAdapterDataSource {
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return EmbeddedSectionController(category: contentsCollection?.category)
+        guard let category = contentsCollection?.category else {
+            return ListSectionController()
+        }
+        
+        return EmbeddedSectionController(category: category)
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {

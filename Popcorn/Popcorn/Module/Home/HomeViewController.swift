@@ -53,6 +53,8 @@ class HomeViewController: BaseViewController {
                 api = AppConstants.API.Movie.getUpcoming
             case .topRated:
                 api = AppConstants.API.Movie.getTopRated
+            case .none:
+                return
             }
             
             APIManager.request(api, method: .get, params: params, responseType: PageResponse<Movie>.self .self) { (result) in
