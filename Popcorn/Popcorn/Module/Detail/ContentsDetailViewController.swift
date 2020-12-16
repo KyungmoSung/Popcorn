@@ -35,6 +35,7 @@ class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet private weak var subTitleLb: UILabel!
     @IBOutlet private weak var buttonContainerView: UIView!
+    @IBOutlet private weak var voteAverageLb: UILabel!
     @IBOutlet private weak var overviewLb: UILabel!
     
     @IBOutlet private weak var genreCollectionView: UICollectionView!
@@ -167,6 +168,12 @@ class ContentsDetailViewController: BaseViewController {
             // 상영시간
             if let runtime = self.contents?.runtime {
                 self.subTitleLb.text = (self.subTitleLb.text ?? "") + " · \(runtime)분"
+            }
+            
+            
+            // 평점
+            if let voteAverage = self.contents?.voteAverage {
+                self.voteAverageLb.text = "\(voteAverage) / 10"
             }
             
             // 줄거리
