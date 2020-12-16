@@ -32,7 +32,8 @@ class EmbeddedSectionController: ListSectionController {
         default:
             let containerHeight: CGFloat = context.containerSize.height
             let titleTopMargin: CGFloat = 12
-            let posterHeight: CGFloat = containerHeight - titleTopMargin - String.height(for: .systemFont(ofSize: 13))
+            let labelHeight: CGFloat = ceil(String.height(for: .systemFont(ofSize: 13, weight: .semibold))) * 2
+            let posterHeight: CGFloat = containerHeight - titleTopMargin - labelHeight
             let posterRatio: CGFloat = 2 / 3
             let posterWidth: CGFloat = posterHeight * posterRatio
             return CGSize(width: posterWidth, height: containerHeight)
