@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -51,6 +51,8 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                     <real key="value" value="20"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="heroModifierString" value="poster"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </imageView>
                     </subviews>
@@ -456,12 +458,24 @@
                         <constraint firstItem="tXq-pj-7Rm" firstAttribute="bottom" secondItem="Mlk-Bp-PLi" secondAttribute="bottom" id="teH-pS-MY1"/>
                     </constraints>
                 </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Br2-Zu-Zmt">
+                    <rect key="frame" x="354" y="20" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="ibz-hI-Stb"/>
+                        <constraint firstAttribute="height" constant="40" id="vTL-Rr-gB2"/>
+                    </constraints>
+                    <state key="normal" image="icClose2"/>
+                    <connections>
+                        <action selector="didTapCloseBtn:" destination="-1" eventType="touchUpInside" id="ntV-ay-ReW"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Hm1-gC-Tcs"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Hm1-gC-Tcs" firstAttribute="trailing" secondItem="lXz-4v-Jev" secondAttribute="trailing" id="1fS-MF-W0O"/>
                 <constraint firstItem="BZx-kr-T40" firstAttribute="leading" secondItem="Hm1-gC-Tcs" secondAttribute="leading" id="2x6-ah-PEv"/>
+                <constraint firstItem="Br2-Zu-Zmt" firstAttribute="top" secondItem="Hm1-gC-Tcs" secondAttribute="top" constant="20" id="33r-d5-Fme"/>
                 <constraint firstItem="Mlk-Bp-PLi" firstAttribute="trailing" secondItem="Hm1-gC-Tcs" secondAttribute="trailing" id="5Z4-JQ-LXx"/>
                 <constraint firstItem="lXz-4v-Jev" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="7pD-Xj-Mnw"/>
                 <constraint firstItem="SIf-Tg-F3h" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Bgo-Pe-opM"/>
@@ -475,6 +489,7 @@
                 <constraint firstItem="Mlk-Bp-PLi" firstAttribute="leading" secondItem="Hm1-gC-Tcs" secondAttribute="leading" id="cMN-30-PZa"/>
                 <constraint firstItem="SIf-Tg-F3h" firstAttribute="leading" secondItem="Hm1-gC-Tcs" secondAttribute="leading" id="cxD-HX-4gv"/>
                 <constraint firstItem="Mlk-Bp-PLi" firstAttribute="top" secondItem="Hm1-gC-Tcs" secondAttribute="top" id="emM-b8-Izi"/>
+                <constraint firstItem="Hm1-gC-Tcs" firstAttribute="trailing" secondItem="Br2-Zu-Zmt" secondAttribute="trailing" constant="20" id="kAf-NP-8Gi"/>
                 <constraint firstItem="SIf-Tg-F3h" firstAttribute="trailing" secondItem="Hm1-gC-Tcs" secondAttribute="trailing" id="tfm-ou-UUG"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -483,6 +498,7 @@
     </objects>
     <resources>
         <image name="icAdd" width="72" height="72"/>
+        <image name="icClose2" width="64" height="64"/>
         <image name="icHeartNormal" width="72" height="72"/>
         <image name="icShare2" width="72" height="72"/>
         <image name="icStarNormal" width="72" height="72"/>

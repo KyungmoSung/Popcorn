@@ -30,6 +30,8 @@ class HomePosterCell: UICollectionViewCell {
                 return
             }
             Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: posterIv)
+            posterIv.hero.id = path
+            posterIv.heroModifiers = [.spring(stiffness: 300, damping: 25)]
         }
     }
     

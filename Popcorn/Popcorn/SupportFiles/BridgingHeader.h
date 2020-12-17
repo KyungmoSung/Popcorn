@@ -10,5 +10,6 @@
 
 @import IGListKit;
 @import Nuke;
+@import Hero;
 
 #endif /* BridgingHeader_h */

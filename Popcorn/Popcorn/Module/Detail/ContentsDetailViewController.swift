@@ -90,6 +90,8 @@ class ContentsDetailViewController: BaseViewController {
 
         setNavigation(title: contents?.title)
         
+        hero.isEnabled = true
+        
         scrollView.delegate = self
         
         genreAdapter.collectionView = genreCollectionView
@@ -125,7 +127,7 @@ class ContentsDetailViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setTransparent(true)
+//        navigationController?.setTransparent(true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -136,7 +138,7 @@ class ContentsDetailViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        navigationController?.setTransparent(false)
+//        navigationController?.setTransparent(false)
     }
     
     override func viewWillLayoutSubviews() {
@@ -160,6 +162,9 @@ class ContentsDetailViewController: BaseViewController {
                         break
                     }
                 })
+                self.posterIv.hero.id = path
+                self.posterIv.heroModifiers = [.spring(stiffness: 300, damping: 25)]
+
             }
             
             // 제목
@@ -298,6 +303,10 @@ class ContentsDetailViewController: BaseViewController {
         mediaType = type
         self.mediaListAdapter.performUpdates(animated: true, completion: nil)
         self.mediaListAdapter.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: false)
+    }
+    
+    @IBAction func didTapCloseBtn(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
