@@ -91,6 +91,7 @@ class ContentsDetailViewController: BaseViewController {
         setNavigation(title: contents?.title)
         
         hero.isEnabled = true
+        contentsView.hero.modifiers = [.translate(y: 500), .spring(stiffness: 90, damping: 15)]
         
         scrollView.delegate = self
         
