@@ -34,7 +34,6 @@ class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var contentsView: UIView!
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet private weak var subTitleLb: UILabel!
-    @IBOutlet private weak var buttonContainerView: UIView!
     @IBOutlet private weak var voteAverageLb: UILabel!
     @IBOutlet private weak var overviewLb: UILabel!
     
@@ -151,7 +150,6 @@ class ContentsDetailViewController: BaseViewController {
         scrollView.contentInset = UIEdgeInsets(top: blurView.frame.height, left: 0, bottom: 0, right: 0)
 
         contentsView.roundCorners([.topLeft, .topRight], radius: 25)
-        buttonContainerView.applyShadow()
     }
     
     func setupUI() {
@@ -173,32 +171,37 @@ class ContentsDetailViewController: BaseViewController {
                 self.titleLb.text = title
             }
             
+            // original 제목
+            if let originalTitle = self.contents?.originalTitle {
+                self.subTitleLb.text = originalTitle
+            }
+            
             // 장르
             if let _ = self.contents?.genres {
                 self.genreAdapter.performUpdates(animated: false) { (_) in
-                    let minimumInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-                    self.genreCollectionView.centerContentHorizontalyByInsetIfNeeded(minimumInset: minimumInset)
+//                    let minimumInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+//                    self.genreCollectionView.centerContentHorizontalyByInsetIfNeeded(minimumInset: minimumInset)
                 }
             }
             
-            // 개봉일
-            if let releaseDate = self.contents?.releaseDate.dateValue() {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy"
-                let year = dateFormatter.string(from: releaseDate)
-                
-                self.subTitleLb.text = year
-            }
-            
-            // 상영시간
-            if let runtime = self.contents?.runtime {
-                self.subTitleLb.text = (self.subTitleLb.text ?? "") + " · \(runtime)분"
-            }
+//            // 개봉일
+//            if let releaseDate = self.contents?.releaseDate.dateValue() {
+//                let dateFormatter = DateFormatter()
+//                dateFormatter.dateFormat = "yyyy"
+//                let year = dateFormatter.string(from: releaseDate)
+//
+//                self.subTitleLb.text = year
+//            }
+//
+//            // 상영시간
+//            if let runtime = self.contents?.runtime {
+//                self.subTitleLb.text = (self.subTitleLb.text ?? "") + " · \(runtime)분"
+//            }
             
             
             // 평점
             if let voteAverage = self.contents?.voteAverage {
-                self.voteAverageLb.text = "\(voteAverage) / 10"
+                self.voteAverageLb.text = "\(voteAverage)"
             }
             
             // 줄거리
