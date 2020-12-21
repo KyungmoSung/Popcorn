@@ -47,7 +47,7 @@ Desc</string>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="WVz-oW-6pi" firstAttribute="leading" secondItem="ejc-xZ-UMt" secondAttribute="leading" id="B2R-cs-Qn8"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="8Ih-xN-9uU" secondAttribute="bottom" constant="5" id="PaX-QQ-ekU"/>
@@ -84,7 +84,7 @@ Desc</string>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemBackgroundColor">
+        <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>

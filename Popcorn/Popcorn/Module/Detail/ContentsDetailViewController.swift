@@ -382,7 +382,7 @@ extension ContentsDetailViewController: UIScrollViewDelegate {
             let navigationBarHeight = navigationController?.navigationBar.frame.height ?? 0
             if scrollView.contentOffset.y + navigationBarHeight >= 0{
                 UIView.animate(withDuration: 0.2) {
-                    self.statusBarView.backgroundColor = .secondarySystemBackground
+                    self.statusBarView.backgroundColor = .secondarySystemGroupedBackground
                     self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.label]
                 }
             } else {
