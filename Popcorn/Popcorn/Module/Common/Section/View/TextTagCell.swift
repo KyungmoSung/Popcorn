@@ -16,11 +16,9 @@ class TextTagCell: UICollectionViewCell {
         }
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
-        contentView.cornerRadius = self.frame.height / 2
-        contentView.borderColor = .secondaryLabel
-        contentView.borderWidth = 0.5
+        contentView.applyShadow()
     }
 }
