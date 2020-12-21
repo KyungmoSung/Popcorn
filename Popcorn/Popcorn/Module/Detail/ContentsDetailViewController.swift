@@ -71,6 +71,7 @@ class ContentsDetailViewController: BaseViewController {
     
     var id: Int!
     var contents: Movie?
+    var posterHeroId: String?
     
     var mediaType: MediaType = .backdrop
     var backdropInfos: [ImageInfo] = []
@@ -90,7 +91,7 @@ class ContentsDetailViewController: BaseViewController {
 
         setNavigation(title: contents?.title)
         
-        posterIv.hero.id = self.contents?.posterPath ?? ""
+        posterIv.hero.id = posterHeroId
         posterIv.heroModifiers = [.spring(stiffness: 90, damping: 15)]
         contentsView.hero.modifiers = [.translate(y: 500), .spring(stiffness: 80, damping: 12)]
         
@@ -165,7 +166,6 @@ class ContentsDetailViewController: BaseViewController {
                         break
                     }
                 })
-                self.posterIv.hero.id = path
             }
             
             // 제목
@@ -390,8 +390,6 @@ extension ContentsDetailViewController: UIScrollViewDelegate {
                     self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.clear]
                 }
             }
-            let translateY = (scrollView.contentInset.top * 2) + scrollView.contentOffset.y
-//            contentsView.hero.modifiers = [.translate(y: translateY), .spring(stiffness: 90, damping: 15)]
         }
     }
 }

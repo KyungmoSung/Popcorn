@@ -11,6 +11,7 @@ class EmbeddedSectionController: ListSectionController {
 
     var category: ContentsCategory?
     var contents: Movie?
+    var uuid = UUID().uuidString
     
     override private init() {
         super.init()
@@ -56,6 +57,7 @@ class EmbeddedSectionController: ListSectionController {
             
             cell.title = contents?.title
             cell.posterImgPath = contents?.posterPath
+            cell.posterHeroId = uuid
             return cell
         }
     }
@@ -71,6 +73,7 @@ class EmbeddedSectionController: ListSectionController {
         
         let vc = ContentsDetailViewController(id: contents.id)
         vc.contents = contents
+        vc.posterHeroId = uuid
         
         viewController?.navigationController?.hero.navigationAnimationType = .fade
         viewController?.navigationController?.pushViewController(vc, animated: true)
