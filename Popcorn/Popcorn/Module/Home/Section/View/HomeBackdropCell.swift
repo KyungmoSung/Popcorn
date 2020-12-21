@@ -9,6 +9,8 @@ import UIKit
 
 class HomeBackdropCell: UICollectionViewCell {
     @IBOutlet private weak var backdropIv: UIImageView!
+    @IBOutlet private weak var voteView: UIView!
+    @IBOutlet private weak var voteLb: UILabel!
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet private weak var originalTitleLb: UILabel!
     
@@ -18,6 +20,16 @@ class HomeBackdropCell: UICollectionViewCell {
                 return
             }
             Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: backdropIv)
+        }
+    }
+    
+    var voteAverage: Double? {
+        didSet {
+            if let voteAverage = voteAverage {
+                voteLb.text = "\(voteAverage)"
+            } else {
+                voteLb.text = "-"
+            }
         }
     }
     
@@ -56,6 +68,11 @@ class HomeBackdropCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        voteView.applyBlur()
         contentView.applyShadow()
+    }
+    
+    override func layoutSubviews() {
+        voteView.roundCorners([.topLeft, .bottomRight], radius: 10)
     }
 }

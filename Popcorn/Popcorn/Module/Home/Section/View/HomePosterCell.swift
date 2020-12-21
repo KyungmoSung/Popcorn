@@ -11,6 +11,7 @@ class HomePosterCell: UICollectionViewCell {
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet private weak var posterIv: UIImageView!
     @IBOutlet private weak var voteView: UIView!
+    @IBOutlet private weak var voteLb: UILabel!
     
     var title: String? {
         didSet {
@@ -30,6 +31,16 @@ class HomePosterCell: UICollectionViewCell {
     var posterHeroId: String? {
         didSet {
             posterIv.hero.id = posterHeroId
+        }
+    }
+    
+    var voteAverage: Double? {
+        didSet {
+            if let voteAverage = voteAverage {
+                voteLb.text = "\(voteAverage)"
+            } else {
+                voteLb.text = "-"
+            }
         }
     }
     

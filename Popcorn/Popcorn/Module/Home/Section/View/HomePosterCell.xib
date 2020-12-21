@@ -37,16 +37,19 @@
                                     <constraint firstAttribute="height" constant="26" id="aXC-iB-qSV"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="mw0-nP-8ee">
-                                <rect key="frame" x="0.0" y="0.0" width="44" height="26"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="mw0-nP-8ee">
+                                <rect key="frame" x="5" y="0.0" width="39" height="26"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⭐️" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOh-6k-IFc">
-                                        <rect key="frame" x="0.0" y="7.5" width="16.5" height="11"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icStarFill" translatesAutoresizingMaskIntoConstraints="NO" id="SMd-lA-hdy">
+                                        <rect key="frame" x="0.0" y="8" width="10" height="10"/>
+                                        <color key="tintColor" systemColor="systemYellowColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="SMd-lA-hdy" secondAttribute="height" id="QsB-WV-RgU"/>
+                                            <constraint firstAttribute="width" constant="10" id="UOn-JU-Bpi"/>
+                                        </constraints>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pca-Ci-lF2">
-                                        <rect key="frame" x="18.5" y="6" width="25.5" height="14.5"/>
+                                        <rect key="frame" x="13" y="6" width="26" height="14.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -61,7 +64,7 @@
                             <constraint firstAttribute="trailing" secondItem="byP-TV-HOv" secondAttribute="trailing" id="KLr-37-FHd"/>
                             <constraint firstItem="mw0-nP-8ee" firstAttribute="top" secondItem="cGf-l4-3UQ" secondAttribute="top" id="UkB-p8-TH6"/>
                             <constraint firstItem="mw0-nP-8ee" firstAttribute="trailing" secondItem="cGf-l4-3UQ" secondAttribute="trailing" id="aWo-Aa-E5d"/>
-                            <constraint firstItem="mw0-nP-8ee" firstAttribute="leading" secondItem="cGf-l4-3UQ" secondAttribute="leading" id="cpM-jR-JFE"/>
+                            <constraint firstItem="mw0-nP-8ee" firstAttribute="leading" secondItem="cGf-l4-3UQ" secondAttribute="leading" constant="5" id="cpM-jR-JFE"/>
                             <constraint firstItem="cGf-l4-3UQ" firstAttribute="leading" secondItem="NDd-j1-rbx" secondAttribute="leading" id="iAs-0l-x2M"/>
                             <constraint firstAttribute="bottom" secondItem="byP-TV-HOv" secondAttribute="bottom" id="kcd-1g-Bln"/>
                             <constraint firstItem="cGf-l4-3UQ" firstAttribute="top" secondItem="NDd-j1-rbx" secondAttribute="top" id="rPH-tF-BYp"/>
@@ -95,14 +98,19 @@
             <connections>
                 <outlet property="posterIv" destination="byP-TV-HOv" id="Lcm-Xc-2mv"/>
                 <outlet property="titleLb" destination="v1G-Or-QRq" id="7ds-18-4fR"/>
+                <outlet property="voteLb" destination="pca-Ci-lF2" id="p13-di-pnS"/>
                 <outlet property="voteView" destination="cGf-l4-3UQ" id="32m-Lg-dDe"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="icStarFill" width="72" height="72"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

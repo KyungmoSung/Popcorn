@@ -120,11 +120,11 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="90I-X1-Ifa">
                                                                     <rect key="frame" x="6" y="0.0" width="113.66666666666667" height="50"/>
                                                                     <subviews>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZFX-6V-iCM">
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZFX-6V-iCM">
                                                                             <rect key="frame" x="0.0" y="0.0" width="113.66666666666667" height="50"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icStarNormal" translatesAutoresizingMaskIntoConstraints="NO" id="PQd-FV-Fx0">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="113.66666666666667" height="26.333333333333332"/>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icStarFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQd-FV-Fx0">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="113.66666666666667" height="24.333333333333332"/>
                                                                                     <color key="tintColor" systemColor="systemYellowColor"/>
                                                                                 </imageView>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="- / 10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pCA-WA-SsP">
@@ -153,11 +153,11 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="goM-bC-jg3">
                                                                     <rect key="frame" x="130" y="0.0" width="114" height="50"/>
                                                                     <subviews>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hQF-do-525">
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hQF-do-525">
                                                                             <rect key="frame" x="0.0" y="0.0" width="114" height="50"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icHeartNormal" translatesAutoresizingMaskIntoConstraints="NO" id="HHW-J4-F6C">
-                                                                                    <rect key="frame" x="0.0" y="2" width="114" height="24.333333333333332"/>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icHeartFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHW-J4-F6C">
+                                                                                    <rect key="frame" x="0.0" y="2" width="114" height="22.333333333333332"/>
                                                                                     <color key="tintColor" systemColor="systemPinkColor"/>
                                                                                 </imageView>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Favorite" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MD7-wt-edp">
@@ -191,8 +191,8 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="113.66666666666667" height="50"/>
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icAdd" translatesAutoresizingMaskIntoConstraints="NO" id="MQa-jj-4Ek">
-                                                                                    <rect key="frame" x="0.0" y="2" width="113.66666666666667" height="24.333333333333332"/>
-                                                                                    <color key="tintColor" systemColor="systemIndigoColor"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="113.66666666666667" height="26.333333333333332"/>
+                                                                                    <color key="tintColor" systemColor="systemTealColor"/>
                                                                                 </imageView>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="WatchList" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uwb-i2-jyP">
                                                                                     <rect key="frame" x="0.0" y="34.333333333333343" width="113.66666666666667" height="15.666666666666664"/>
@@ -201,7 +201,7 @@
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                             </subviews>
-                                                                            <edgeInsets key="layoutMargins" top="2" left="0.0" bottom="0.0" right="0.0"/>
+                                                                            <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                                                         </stackView>
                                                                     </subviews>
                                                                     <constraints>
@@ -484,15 +484,12 @@
         </view>
     </objects>
     <resources>
-        <image name="icAdd" width="72" height="72"/>
-        <image name="icHeartNormal" width="72" height="72"/>
+        <image name="icAdd" width="36" height="36"/>
+        <image name="icHeartFill" width="72" height="72"/>
         <image name="icShare2" width="72" height="72"/>
-        <image name="icStarNormal" width="72" height="72"/>
+        <image name="icStarFill" width="72" height="72"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -49,6 +49,7 @@ class EmbeddedSectionController: ListSectionController {
             let cell: HomeBackdropCell = context.dequeueReusableXibCell(for: self, at: index)
             
             cell.backdropImgPath = contents?.backdropPath
+            cell.voteAverage = contents?.voteAverage
             cell.title = contents?.title
             cell.originalTitle = contents?.originalTitle
             cell.releaseDate = contents?.releaseDate.dateValue()
@@ -59,6 +60,7 @@ class EmbeddedSectionController: ListSectionController {
             cell.title = contents?.title
             cell.posterImgPath = contents?.posterPath
             cell.posterHeroId = uuid
+            cell.voteAverage = contents?.voteAverage
             return cell
         }
     }
