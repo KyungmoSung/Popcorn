@@ -184,14 +184,14 @@ class ContentsDetailViewController: BaseViewController {
                 }
             }
             
-//            // 개봉일
-//            if let releaseDate = self.contents?.releaseDate.dateValue() {
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.dateFormat = "yyyy"
-//                let year = dateFormatter.string(from: releaseDate)
-//
-//                self.subTitleLb.text = year
-//            }
+            // 개봉연도
+            if let releaseDate = self.contents?.releaseDate.dateValue() {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy"
+                let year = dateFormatter.string(from: releaseDate)
+
+                self.subTitleLb.text = year + " · " + (self.subTitleLb.text ?? "")
+            }
 //
 //            // 상영시간
 //            if let runtime = self.contents?.runtime {

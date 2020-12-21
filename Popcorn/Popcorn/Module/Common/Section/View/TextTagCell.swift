@@ -15,10 +15,4 @@ class TextTagCell: UICollectionViewCell {
             titleLb.text = title
         }
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        contentView.applyShadow()
-    }
 }
