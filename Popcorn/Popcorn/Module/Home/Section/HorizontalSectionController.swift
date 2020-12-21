@@ -26,11 +26,11 @@ class HorizontalSectionController: ListSectionController {
         guard let context = collectionContext, let category = contentsCollection?.category else { return .zero }
         
         if category == .popular {
-            return CGSize(width: context.containerSize.width, height: 180)
+            let backdropHeight = context.containerSize.width * 9 / 16 // 16:9 비율
+            return CGSize(width: context.containerSize.width, height: backdropHeight)
         } else {
             return CGSize(width: context.containerSize.width, height: 220)
         }
-        
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {

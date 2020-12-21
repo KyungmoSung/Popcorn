@@ -21,6 +21,7 @@ final class EmbeddedCollectionViewCell: UICollectionViewCell {
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
         view.decelerationRate = .fast
+        view.clipsToBounds = false
         self.contentView.addSubview(view)
         return view
     }()

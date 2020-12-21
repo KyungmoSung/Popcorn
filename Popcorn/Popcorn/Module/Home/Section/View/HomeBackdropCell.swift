@@ -10,7 +10,7 @@ import UIKit
 class HomeBackdropCell: UICollectionViewCell {
     @IBOutlet private weak var backdropIv: UIImageView!
     @IBOutlet private weak var titleLb: UILabel!
-    @IBOutlet private weak var genreLb: UILabel!
+    @IBOutlet private weak var originalTitleLb: UILabel!
     
     var backdropImgPath: String? {
         didSet {
@@ -27,29 +27,35 @@ class HomeBackdropCell: UICollectionViewCell {
         }
     }
     
-    var genre: String? {
+    var originalTitle: String? {
         didSet {
-            genreLb.text = genre
-        }
-    }
-    
-    var index: Int? {
-        didSet {
-            if index == 0 {
-                medal = "🥇"
-            } else if index == 1 {
-                medal = "🥈"
-            } else if index == 2 {
-                medal = "🥉"
+            if title != originalTitle {
+                originalTitleLb.text = originalTitle
+            } else {
+                originalTitleLb.text = nil
             }
         }
     }
     
-    var medal: String? {
+    var releaseDate: Date? {
         didSet {
-            if let medal = medal, let title = title {
-                titleLb.text = "\(medal) \(title)"
+            if let releaseDate = releaseDate {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy"
+                let year = dateFormatter.string(from: releaseDate)
+                
+                if let text = originalTitleLb.text {
+                    originalTitleLb.text = year + " · " + text
+                } else {
+                    originalTitleLb.text = year
+                }
             }
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        contentView.applyShadow()
     }
 }

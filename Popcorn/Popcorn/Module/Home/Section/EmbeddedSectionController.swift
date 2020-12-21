@@ -50,7 +50,8 @@ class EmbeddedSectionController: ListSectionController {
             
             cell.backdropImgPath = contents?.backdropPath
             cell.title = contents?.title
-            cell.index = section
+            cell.originalTitle = contents?.originalTitle
+            cell.releaseDate = contents?.releaseDate.dateValue()
             return cell
         default:
             let cell: HomePosterCell = context.dequeueReusableXibCell(for: self, at: index)

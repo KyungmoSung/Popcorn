@@ -12,12 +12,6 @@ class CreditCell: UICollectionViewCell {
     @IBOutlet private weak var nameLb: UILabel!
     @IBOutlet private weak var descLb: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        contentView.applyShadow()
-    }
-    
     var profilePath: String? {
         didSet {
             guard let path = profilePath, let url = URL(string: AppConstants.Domain.tmdbImage + path) else {
@@ -37,5 +31,11 @@ class CreditCell: UICollectionViewCell {
         didSet {
             descLb.text = desc
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        contentView.applyShadow()
     }
 }

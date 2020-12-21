@@ -12,12 +12,6 @@ class HomePosterCell: UICollectionViewCell {
     @IBOutlet private weak var posterIv: UIImageView!
     @IBOutlet private weak var voteView: UIView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        voteView.applyBlur()
-    }
-
     var title: String? {
         didSet {
             titleLb.text = title
@@ -39,7 +33,14 @@ class HomePosterCell: UICollectionViewCell {
         }
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        voteView.applyBlur()
+    }
+
     override func layoutSubviews() {
-        voteView.roundCorners([.bottomRight], radius: 10)
+        voteView.roundCorners([.topLeft, .bottomRight], radius: 10)
+        posterIv.superview?.applyShadow()
     }
 }
