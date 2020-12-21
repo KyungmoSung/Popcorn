@@ -64,10 +64,6 @@
                         <constraint firstItem="S2N-Fr-wSW" firstAttribute="top" secondItem="BZx-kr-T40" secondAttribute="top" constant="20" id="oje-i2-c5K"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lXz-4v-Jev">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mlk-Bp-PLi">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="1264"/>
                     <subviews>
@@ -97,7 +93,7 @@
                                         </stackView>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="kgo-Kw-80f">
                                             <rect key="frame" x="0.0" y="117" width="414" height="30"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="Kwc-rk-Yud"/>
                                             </constraints>
@@ -271,7 +267,6 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="Bj0-dE-gcU" secondAttribute="bottom" id="C4L-w4-F0F"/>
                                                 <constraint firstItem="Bj0-dE-gcU" firstAttribute="leading" secondItem="EAb-q0-qSi" secondAttribute="leading" constant="20" id="MMm-yT-pyV"/>
@@ -313,7 +308,7 @@
                                                 </label>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Hk7-5s-Sep">
                                                     <rect key="frame" x="0.0" y="38.333333333333371" width="414" height="26"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="26" id="bDs-wK-LWl"/>
                                                     </constraints>
@@ -326,7 +321,7 @@
                                                 </collectionView>
                                                 <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="tm3-PL-U7j">
                                                     <rect key="frame" x="0.0" y="76.333333333333371" width="414" height="160"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="160" id="Lhv-ws-Cyo"/>
                                                     </constraints>
@@ -358,7 +353,7 @@
                                                 </label>
                                                 <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ggg-3j-Swx">
                                                     <rect key="frame" x="0.0" y="38.333333333333371" width="414" height="160"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="160" id="FOs-9W-th5"/>
                                                     </constraints>
@@ -388,7 +383,7 @@
                                                 </label>
                                                 <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Woz-te-nm7">
                                                     <rect key="frame" x="0.0" y="38.333333333333371" width="414" height="200"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="200" id="OKG-8H-8fs"/>
                                                     </constraints>
@@ -418,7 +413,7 @@
                                                 </label>
                                                 <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="22b-NX-evv">
                                                     <rect key="frame" x="0.0" y="38.333333333333485" width="414" height="200"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="200" id="VsW-mY-Y1e"/>
                                                     </constraints>
@@ -441,7 +436,7 @@
                                     <edgeInsets key="layoutMargins" top="30" left="0.0" bottom="30" right="0.0"/>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="sU4-HB-8Zb" firstAttribute="leading" secondItem="tXq-pj-7Rm" secondAttribute="leading" id="2Zi-VH-XRM"/>
                                 <constraint firstAttribute="trailing" secondItem="sU4-HB-8Zb" secondAttribute="trailing" id="gfx-cJ-LuC"/>
@@ -458,9 +453,13 @@
                         <constraint firstItem="tXq-pj-7Rm" firstAttribute="bottom" secondItem="Mlk-Bp-PLi" secondAttribute="bottom" id="teH-pS-MY1"/>
                     </constraints>
                 </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lXz-4v-Jev">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Hm1-gC-Tcs"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Hm1-gC-Tcs" firstAttribute="trailing" secondItem="lXz-4v-Jev" secondAttribute="trailing" id="1fS-MF-W0O"/>
                 <constraint firstItem="BZx-kr-T40" firstAttribute="leading" secondItem="Hm1-gC-Tcs" secondAttribute="leading" id="2x6-ah-PEv"/>
@@ -470,13 +469,13 @@
                 <constraint firstAttribute="bottom" secondItem="Mlk-Bp-PLi" secondAttribute="bottom" id="J4c-Wg-KsG"/>
                 <constraint firstItem="BZx-kr-T40" firstAttribute="top" secondItem="Hm1-gC-Tcs" secondAttribute="top" id="K3n-LR-RE3"/>
                 <constraint firstItem="Hm1-gC-Tcs" firstAttribute="bottom" secondItem="SIf-Tg-F3h" secondAttribute="bottom" id="Ldg-k2-gdh"/>
+                <constraint firstItem="Mlk-Bp-PLi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Oug-Ut-fuI"/>
                 <constraint firstItem="tXq-pj-7Rm" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" priority="250" id="RFY-CT-TYi"/>
                 <constraint firstItem="lXz-4v-Jev" firstAttribute="leading" secondItem="Hm1-gC-Tcs" secondAttribute="leading" id="Rff-ev-Wdb"/>
                 <constraint firstItem="BZx-kr-T40" firstAttribute="trailing" secondItem="Hm1-gC-Tcs" secondAttribute="trailing" id="S6f-E2-mJq"/>
                 <constraint firstItem="lXz-4v-Jev" firstAttribute="bottom" secondItem="Hm1-gC-Tcs" secondAttribute="top" id="Scn-Ot-L1o"/>
                 <constraint firstItem="Mlk-Bp-PLi" firstAttribute="leading" secondItem="Hm1-gC-Tcs" secondAttribute="leading" id="cMN-30-PZa"/>
                 <constraint firstItem="SIf-Tg-F3h" firstAttribute="leading" secondItem="Hm1-gC-Tcs" secondAttribute="leading" id="cxD-HX-4gv"/>
-                <constraint firstItem="Mlk-Bp-PLi" firstAttribute="top" secondItem="Hm1-gC-Tcs" secondAttribute="top" id="emM-b8-Izi"/>
                 <constraint firstItem="SIf-Tg-F3h" firstAttribute="trailing" secondItem="Hm1-gC-Tcs" secondAttribute="trailing" id="tfm-ou-UUG"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -488,6 +487,9 @@
         <image name="icHeartFill" width="72" height="72"/>
         <image name="icShare2" width="72" height="72"/>
         <image name="icStarFill" width="72" height="72"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

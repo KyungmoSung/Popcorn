@@ -93,7 +93,7 @@ class ContentsDetailViewController: BaseViewController {
         
         posterIv.hero.id = posterHeroId
         posterIv.heroModifiers = [.spring(stiffness: 90, damping: 15)]
-        contentsView.hero.modifiers = [.translate(y: 500), .spring(stiffness: 80, damping: 12)]
+        contentsView.hero.modifiers = [.delay(0.1), .translate(y: 500), .spring(stiffness: 80, damping: 12)]
         
         scrollView.delegate = self
         
@@ -379,13 +379,14 @@ extension ContentsDetailViewController: TextTabDelegate {
 extension ContentsDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == self.scrollView {
-            if scrollView.contentOffset.y >= 0  {
-                UIView.animate(withDuration: 0.3) {
-                    self.statusBarView.backgroundColor = .systemBackground
+            let navigationBarHeight = navigationController?.navigationBar.frame.height ?? 0
+            if scrollView.contentOffset.y + navigationBarHeight >= 0{
+                UIView.animate(withDuration: 0.2) {
+                    self.statusBarView.backgroundColor = .secondarySystemBackground
                     self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.label]
                 }
             } else {
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: 0.2) {
                     self.statusBarView.backgroundColor = .clear
                     self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.clear]
                 }
