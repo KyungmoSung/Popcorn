@@ -20,5 +20,6 @@ extension UINavigationController {
             navigationBar.shadowImage = nil
             view.backgroundColor = .systemBackground
         }
+        navigationBar.layoutIfNeeded()
     }
 }

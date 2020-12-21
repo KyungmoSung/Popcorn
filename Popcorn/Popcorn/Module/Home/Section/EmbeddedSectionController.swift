@@ -58,7 +58,6 @@ class EmbeddedSectionController: ListSectionController {
             cell.posterImgPath = contents?.posterPath
             return cell
         }
-        
     }
     
     override func didUpdate(to object: Any) {
@@ -69,10 +68,11 @@ class EmbeddedSectionController: ListSectionController {
         guard let contents = contents else {
             return
         }
+        
         let vc = ContentsDetailViewController(id: contents.id)
-        vc.modalPresentationStyle = .fullScreen
         vc.contents = contents
-        vc.hero.isEnabled = true
-        viewController?.present(vc, animated: true, completion: nil)
+        
+        viewController?.navigationController?.hero.navigationAnimationType = .fade
+        viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

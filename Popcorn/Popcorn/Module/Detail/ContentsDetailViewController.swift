@@ -90,8 +90,9 @@ class ContentsDetailViewController: BaseViewController {
 
         setNavigation(title: contents?.title)
         
-        hero.isEnabled = true
-        contentsView.hero.modifiers = [.translate(y: 500), .spring(stiffness: 90, damping: 15)]
+        posterIv.hero.id = self.contents?.posterPath ?? ""
+        posterIv.heroModifiers = [.spring(stiffness: 90, damping: 15)]
+        contentsView.hero.modifiers = [.translate(y: 500), .spring(stiffness: 80, damping: 12)]
         
         scrollView.delegate = self
         
@@ -128,7 +129,7 @@ class ContentsDetailViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        navigationController?.setTransparent(true)
+        navigationController?.setTransparent(true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -139,7 +140,8 @@ class ContentsDetailViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-//        navigationController?.setTransparent(false)
+        navigationController?.setTransparent(false)
+        contentsView.hero.modifiers?.removeAll()
     }
     
     override func viewWillLayoutSubviews() {
@@ -164,8 +166,6 @@ class ContentsDetailViewController: BaseViewController {
                     }
                 })
                 self.posterIv.hero.id = path
-                self.posterIv.heroModifiers = [.spring(stiffness: 300, damping: 25)]
-
             }
             
             // 제목
@@ -305,10 +305,6 @@ class ContentsDetailViewController: BaseViewController {
         self.mediaListAdapter.performUpdates(animated: true, completion: nil)
         self.mediaListAdapter.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: false)
     }
-    
-    @IBAction func didTapCloseBtn(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
 }
 
 extension ContentsDetailViewController: ListAdapterDataSource {
@@ -394,6 +390,8 @@ extension ContentsDetailViewController: UIScrollViewDelegate {
                     self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.clear]
                 }
             }
+            let translateY = (scrollView.contentInset.top * 2) + scrollView.contentOffset.y
+//            contentsView.hero.modifiers = [.translate(y: translateY), .spring(stiffness: 90, damping: 15)]
         }
     }
 }

@@ -14,6 +14,8 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        hero.isEnabled = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
