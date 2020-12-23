@@ -10,3 +10,13 @@ nowPlaying = "현재 상영 중";
 popular = "인기";
 topRated = "높은 평점";
 upcoming = "개봉 예정";
+
+originalLanguage = "언어";
+popularity = "인기도";
+releaseDate = "개봉일";
+revenue = "수익";
+runtime = "상영시간";
+budget = "제작비";
+
+hour = "시간";
+minute = "분";

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		242D62E5259377D100450120 /* InfoCardSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D62E4259377D100450120 /* InfoCardSectionController.swift */; };
+		242D62EB2593782D00450120 /* InfoCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D62E92593782D00450120 /* InfoCardCell.swift */; };
+		242D62EC2593782D00450120 /* InfoCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 242D62EA2593782D00450120 /* InfoCardCell.xib */; };
+		242D62FE25939D5100450120 /* NumberExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D62FD25939D5100450120 /* NumberExtension.swift */; };
 		244AA2B125875B1800754687 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244AA2B025875B1800754687 /* UIViewExtension.swift */; };
 		2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E33425864B20005CE9FB /* CreditSectionController.swift */; };
 		2457E33E25864BBE005CE9FB /* CreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E33C25864BBE005CE9FB /* CreditCell.swift */; };
@@ -85,6 +89,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		242D62E4259377D100450120 /* InfoCardSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardSectionController.swift; sourceTree = "<group>"; };
+		242D62E92593782D00450120 /* InfoCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardCell.swift; sourceTree = "<group>"; };
+		242D62EA2593782D00450120 /* InfoCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoCardCell.xib; sourceTree = "<group>"; };
+		242D62FD25939D5100450120 /* NumberExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberExtension.swift; sourceTree = "<group>"; };
 		244AA2B025875B1800754687 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		2457E33425864B20005CE9FB /* CreditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditSectionController.swift; sourceTree = "<group>"; };
 		2457E33C25864BBE005CE9FB /* CreditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCell.swift; sourceTree = "<group>"; };
@@ -228,6 +236,7 @@
 			children = (
 				24ED62AD258371C700FC98B3 /* TextTabSectionController.swift */,
 				CD06B5E7258853E100E15540 /* TextTagSectionController.swift */,
+				242D62E4259377D100450120 /* InfoCardSectionController.swift */,
 				CD06B5F42588542300E15540 /* View */,
 			);
 			path = Section;
@@ -240,6 +249,8 @@
 				24ED629C25836A8100FC98B3 /* TextTabCell.xib */,
 				CD06B5EC258853FE00E15540 /* TextTagCell.swift */,
 				CD06B5ED258853FE00E15540 /* TextTagCell.xib */,
+				242D62E92593782D00450120 /* InfoCardCell.swift */,
+				242D62EA2593782D00450120 /* InfoCardCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -348,6 +359,7 @@
 				244AA2B025875B1800754687 /* UIViewExtension.swift */,
 				CD936FC525887E170006441C /* UICollectionViewExtension.swift */,
 				CD936FE8258884840006441C /* UINavigationControllerExtension.swift */,
+				242D62FD25939D5100450120 /* NumberExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -571,6 +583,7 @@
 				24E02D712585FE0A00591234 /* MediaVideoCell.xib in Resources */,
 				CDB6D453254BCC10001B0AEB /* HomePosterCell.xib in Resources */,
 				CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */,
+				242D62EC2593782D00450120 /* InfoCardCell.xib in Resources */,
 				CDBD1420256E388A003F625F /* ContentsDetailViewController.xib in Resources */,
 				CDB6D510254FC7DF001B0AEB /* Localizable.strings in Resources */,
 				CDB6D36B254A5CEA001B0AEB /* LaunchScreen.storyboard in Resources */,
@@ -723,6 +736,7 @@
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
 				24E02D9125860B3800591234 /* Credit.swift in Sources */,
 				2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */,
+				242D62EB2593782D00450120 /* InfoCardCell.swift in Sources */,
 				2457E33E25864BBE005CE9FB /* CreditCell.swift in Sources */,
 				CDB6D3D5254A9927001B0AEB /* Constants.swift in Sources */,
 				CDB6D3C6254A9568001B0AEB /* APIManager.swift in Sources */,
@@ -731,6 +745,8 @@
 				CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */,
 				CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */,
 				CDB6D422254BAB70001B0AEB /* HorizontalSectionController.swift in Sources */,
+				242D62FE25939D5100450120 /* NumberExtension.swift in Sources */,
+				242D62E5259377D100450120 /* InfoCardSectionController.swift in Sources */,
 				CDB6D53C2550DA40001B0AEB /* HomeBackdropCell.swift in Sources */,
 				24ED62C52585EBF200FC98B3 /* MediaImageCell.swift in Sources */,
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,

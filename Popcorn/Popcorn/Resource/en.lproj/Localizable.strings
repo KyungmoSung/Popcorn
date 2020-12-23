@@ -10,3 +10,13 @@ nowPlaying = "Now Playing";
 popular = "Popular";
 topRated = "Top Rated";
 upcoming = "Upcoming";
+
+originalLanguage = "Language";
+popularity = "Popularity";
+releaseDate = "Release Date";
+revenue = "Revenue";
+runtime = "Runtime";
+budget = "Budget";
+
+hour = "h";
+minute = "m";

@@ -38,6 +38,7 @@ class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var overviewLb: UILabel!
     
     @IBOutlet private weak var genreCollectionView: UICollectionView!
+    @IBOutlet private weak var infoCollectionView: UICollectionView!
     @IBOutlet private weak var mediaTypeTabCollectionView: UICollectionView!
     @IBOutlet private weak var mediaListCollectionView: UICollectionView!
     @IBOutlet private weak var creditCollectionView: UICollectionView!
@@ -45,6 +46,10 @@ class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var similarCollectionView: UICollectionView!
     
     lazy var genreAdapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+    }()
+    
+    lazy var infoAdapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
@@ -79,6 +84,7 @@ class ContentsDetailViewController: BaseViewController {
     var credits: [Person] = []
     var recommendations: [Movie] = []
     var similars: [Movie] = []
+    var infoItems: [InfoItem] = []
     
     convenience init(id: Int) {
         self.init()
@@ -98,6 +104,10 @@ class ContentsDetailViewController: BaseViewController {
         
         genreAdapter.collectionView = genreCollectionView
         genreAdapter.dataSource = self
+        
+        infoCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        infoAdapter.collectionView = infoCollectionView
+        infoAdapter.dataSource = self
         
         mediaTypeTabCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         mediaTypeAdapter.collectionView = mediaTypeTabCollectionView
@@ -226,6 +236,9 @@ class ContentsDetailViewController: BaseViewController {
             case .success(let response):
                 self.contents = response
                 self.setupUI()
+                
+                self.infoItems = response.filteredInfo()
+                self.infoAdapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
             }
@@ -315,6 +328,8 @@ extension ContentsDetailViewController: ListAdapterDataSource {
         switch listAdapter {
         case genreAdapter:
             return (contents?.genres ?? []).map { $0.name as ListDiffable }
+        case infoAdapter:
+            return infoItems
         case mediaTypeAdapter:
             return MediaType.allCases.map { $0.title as ListDiffable }
         case mediaListAdapter:
@@ -343,6 +358,8 @@ extension ContentsDetailViewController: ListAdapterDataSource {
             let section = TextTagSectionController()
             section.delegate = self
             return section
+        case infoAdapter:
+            return InfoCardSectionController()
         case mediaTypeAdapter:
             let section = TextTabSectionController()
             section.delegate = self

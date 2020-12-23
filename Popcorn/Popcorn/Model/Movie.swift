@@ -28,6 +28,7 @@ class Movie: Codable {
     let genres: [Genre]?
     let runtime: Int?
     let revenue: Int!
+    let budget: Int!
     
     enum CodingKeys : String, CodingKey{
         case adult
@@ -39,6 +40,7 @@ class Movie: Codable {
         case genres
         case runtime
         case revenue
+        case budget
         case posterPath = "poster_path"
         case releaseDate = "release_date"
         case genreIds = "genre_ids"
@@ -50,6 +52,38 @@ class Movie: Codable {
         case backdropPath = "backdrop_path"
         case voteCount = "vote_count"
         case voteAverage = "vote_average"
+    }
+    
+    func filteredInfo() -> [InfoItem] {
+        var infoItems: [InfoItem] = []
+        
+        if let runtime = runtime {
+            let hour = "\(runtime / 60)" + "hour".localized
+            let minute = "\(runtime % 60)" + "minute".localized
+            infoItems.append(InfoItem(title: "runtime".localized, desc: "\(hour) \(minute)"))
+        }
+        
+        if let releaseDate = releaseDate.stringValue {
+            infoItems.append(InfoItem(title: "releaseDate".localized, desc: releaseDate))
+        }
+        
+        infoItems.append(InfoItem(title: "originalLanguage".localized, desc: originalLanguage))
+        
+        if let popularity = popularity {
+            infoItems.append(InfoItem(title: "popularity".localized, desc: "\(Int(popularity)) 점"))
+        }
+        
+        if let revenue = revenue, revenue > 0 {
+            infoItems.append(InfoItem(title: "revenue".localized, desc: revenue.asCurrencyFormat()))
+        }
+        
+        if let budget = budget, budget > 0 {
+            infoItems.append(InfoItem(title: "budget".localized, desc: budget.asCurrencyFormat()))
+        }
+        
+//        productionCountries
+        
+        return infoItems
     }
 }
 
