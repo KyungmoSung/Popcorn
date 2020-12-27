@@ -15,7 +15,8 @@ class TextTabCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             selectedBottomLine.isHidden = !isSelected
-            titleLb.font = .systemFont(ofSize: 15, weight: isSelected ? .semibold : .medium)
+            titleLb.font = .NanumSquare(size: 14, family: isSelected ? .ExtraBold : .Bold)
+//                systemFont(ofSize: 15, weight: isSelected ? .semibold : .medium)
             titleLb.textColor = isSelected ? .label : .secondaryLabel
             
             selectedBottomLineWidth.constant = isSelected ? 0 : frame.width

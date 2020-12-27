@@ -20,6 +20,17 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>NanumBarunGothicBold.ttf</string>
+		<string>NanumBarunGothicRegular.ttf</string>
+		<string>NanumBarunGothicLight.ttf</string>
+		<string>NanumBarunGothicUltraLight.ttf</string>
+		<string>NanumSquareBold.ttf</string>
+		<string>NanumSquareExtraBold.ttf</string>
+		<string>NanumSquareLight.ttf</string>
+		<string>NanumSquareRegular.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

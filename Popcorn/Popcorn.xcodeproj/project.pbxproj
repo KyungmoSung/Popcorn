@@ -15,6 +15,14 @@
 		2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E33425864B20005CE9FB /* CreditSectionController.swift */; };
 		2457E33E25864BBE005CE9FB /* CreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E33C25864BBE005CE9FB /* CreditCell.swift */; };
 		2457E33F25864BBE005CE9FB /* CreditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2457E33D25864BBE005CE9FB /* CreditCell.xib */; };
+		24661373259867E4008B982B /* NanumBarunGothicUltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466136A259867AF008B982B /* NanumBarunGothicUltraLight.ttf */; };
+		24661374259867E4008B982B /* NanumBarunGothicBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24661369259867AE008B982B /* NanumBarunGothicBold.ttf */; };
+		24661375259867E4008B982B /* NanumSquareBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466135E2598679D008B982B /* NanumSquareBold.ttf */; };
+		24661376259867E4008B982B /* NanumSquareLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 246613602598679D008B982B /* NanumSquareLight.ttf */; };
+		24661377259867E4008B982B /* NanumSquareExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466135D2598679D008B982B /* NanumSquareExtraBold.ttf */; };
+		24661378259867E4008B982B /* NanumSquareRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466135F2598679D008B982B /* NanumSquareRegular.ttf */; };
+		24661379259867E4008B982B /* NanumBarunGothicRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24661368259867AE008B982B /* NanumBarunGothicRegular.ttf */; };
+		2466137A259867E4008B982B /* NanumBarunGothicLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466136B259867AF008B982B /* NanumBarunGothicLight.ttf */; };
 		24E02D712585FE0A00591234 /* MediaVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24E02D6F2585FE0A00591234 /* MediaVideoCell.xib */; };
 		24E02D722585FE0A00591234 /* MediaVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E02D702585FE0A00591234 /* MediaVideoCell.swift */; };
 		24E02D8925860AFD00591234 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E02D8825860AFD00591234 /* Media.swift */; };
@@ -97,6 +105,14 @@
 		2457E33425864B20005CE9FB /* CreditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditSectionController.swift; sourceTree = "<group>"; };
 		2457E33C25864BBE005CE9FB /* CreditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCell.swift; sourceTree = "<group>"; };
 		2457E33D25864BBE005CE9FB /* CreditCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditCell.xib; sourceTree = "<group>"; };
+		2466135D2598679D008B982B /* NanumSquareExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareExtraBold.ttf; sourceTree = "<group>"; };
+		2466135E2598679D008B982B /* NanumSquareBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareBold.ttf; sourceTree = "<group>"; };
+		2466135F2598679D008B982B /* NanumSquareRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRegular.ttf; sourceTree = "<group>"; };
+		246613602598679D008B982B /* NanumSquareLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareLight.ttf; sourceTree = "<group>"; };
+		24661368259867AE008B982B /* NanumBarunGothicRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumBarunGothicRegular.ttf; sourceTree = "<group>"; };
+		24661369259867AE008B982B /* NanumBarunGothicBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumBarunGothicBold.ttf; sourceTree = "<group>"; };
+		2466136A259867AF008B982B /* NanumBarunGothicUltraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumBarunGothicUltraLight.ttf; sourceTree = "<group>"; };
+		2466136B259867AF008B982B /* NanumBarunGothicLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumBarunGothicLight.ttf; sourceTree = "<group>"; };
 		24E02D6F2585FE0A00591234 /* MediaVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaVideoCell.xib; sourceTree = "<group>"; };
 		24E02D702585FE0A00591234 /* MediaVideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaVideoCell.swift; sourceTree = "<group>"; };
 		24E02D8825860AFD00591234 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
@@ -195,6 +211,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2466135C2598678A008B982B /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				246613602598679D008B982B /* NanumSquareLight.ttf */,
+				2466135F2598679D008B982B /* NanumSquareRegular.ttf */,
+				2466135E2598679D008B982B /* NanumSquareBold.ttf */,
+				2466135D2598679D008B982B /* NanumSquareExtraBold.ttf */,
+				2466136A259867AF008B982B /* NanumBarunGothicUltraLight.ttf */,
+				2466136B259867AF008B982B /* NanumBarunGothicLight.ttf */,
+				24661368259867AE008B982B /* NanumBarunGothicRegular.ttf */,
+				24661369259867AE008B982B /* NanumBarunGothicBold.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		24ED62BC2585EB8300FC98B3 /* Section */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,6 +408,7 @@
 		CDB6D3AC254A8F0C001B0AEB /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				2466135C2598678A008B982B /* Font */,
 				CDB6D367254A5CEA001B0AEB /* Assets.xcassets */,
 				CDB6D369254A5CEA001B0AEB /* LaunchScreen.storyboard */,
 				CDB6D512254FC7DF001B0AEB /* Localizable.strings */,
@@ -580,18 +612,26 @@
 				2457E33F25864BBE005CE9FB /* CreditCell.xib in Resources */,
 				24ED62C62585EBF200FC98B3 /* MediaImageCell.xib in Resources */,
 				24ED629E25836A8100FC98B3 /* TextTabCell.xib in Resources */,
+				24661379259867E4008B982B /* NanumBarunGothicRegular.ttf in Resources */,
 				24E02D712585FE0A00591234 /* MediaVideoCell.xib in Resources */,
+				24661376259867E4008B982B /* NanumSquareLight.ttf in Resources */,
+				24661377259867E4008B982B /* NanumSquareExtraBold.ttf in Resources */,
 				CDB6D453254BCC10001B0AEB /* HomePosterCell.xib in Resources */,
 				CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */,
 				242D62EC2593782D00450120 /* InfoCardCell.xib in Resources */,
 				CDBD1420256E388A003F625F /* ContentsDetailViewController.xib in Resources */,
+				2466137A259867E4008B982B /* NanumBarunGothicLight.ttf in Resources */,
 				CDB6D510254FC7DF001B0AEB /* Localizable.strings in Resources */,
 				CDB6D36B254A5CEA001B0AEB /* LaunchScreen.storyboard in Resources */,
+				24661375259867E4008B982B /* NanumSquareBold.ttf in Resources */,
 				CDB6D526254FD329001B0AEB /* SplashViewController.xib in Resources */,
 				CDB6D53D2550DA40001B0AEB /* HomeBackdropCell.xib in Resources */,
 				CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */,
+				24661374259867E4008B982B /* NanumBarunGothicBold.ttf in Resources */,
+				24661378259867E4008B982B /* NanumSquareRegular.ttf in Resources */,
 				CDB6D3F7254AA4FE001B0AEB /* HomeViewController.xib in Resources */,
 				CDB6D45F254BE003001B0AEB /* HomeHeaderView.xib in Resources */,
+				24661373259867E4008B982B /* NanumBarunGothicUltraLight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
