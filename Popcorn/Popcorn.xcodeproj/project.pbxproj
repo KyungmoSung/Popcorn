@@ -1004,7 +1004,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.kr.sung.Popcorn;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.kmsung.popcorn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Popcorn/SupportFiles/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
@@ -1026,7 +1026,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.kr.sung.Popcorn;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.kmsung.popcorn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Popcorn/SupportFiles/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;

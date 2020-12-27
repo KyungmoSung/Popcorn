@@ -10,7 +10,7 @@ import Alamofire
 typealias APIResponse<T> = Swift.Result<T, Error>
 
 class APIManager {
-    static func request<T: Decodable>(_ api: String, method: HTTPMethod, params: [String: Any]?, progress: Bool = true, responseType: T.Type, response: @escaping (APIResponse<T>) -> Void) {
+    static func request<T: Decodable>(_ api: String, method: HTTPMethod, params: [String: Any]?, Localization: Bool = true, progress: Bool = true, responseType: T.Type, response: @escaping (APIResponse<T>) -> Void) {
         guard let url = URL(string: AppConstants.Domain.tmdbAPI + api) else {
             Log.e(AppConstants.Domain.tmdbAPI + api)
             return
@@ -18,7 +18,10 @@ class APIManager {
         
         var requestParams = params ?? [:]
         requestParams["api_key"] = AppConstants.Key.tmdb
-        
+        if Localization {
+            requestParams["language"] = "ko"
+            requestParams["region"] = "KR"
+        }
         var hTTPHeaders = HTTPHeaders.init()
         hTTPHeaders["Accept"] = "application/json"
         let manager = Alamofire.Session.default

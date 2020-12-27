@@ -235,12 +235,6 @@ class ContentsDetailViewController: BaseViewController {
         var params: [String: Any] = [:]
         
         // 영화 상세 정보
-        params = [
-            "api_key": AppConstants.Key.tmdb,
-            "language": "ko",
-            "page": 1,
-            "region": "ko"
-        ]
         APIManager.request(AppConstants.API.Movie.getDetails(id), method: .get, params: params, responseType: Movie.self .self) { (result) in
             switch result {
             case .success(let response):
@@ -255,7 +249,7 @@ class ContentsDetailViewController: BaseViewController {
         }
         
         // 관련 이미지(배경,포스터)
-        APIManager.request(AppConstants.API.Movie.getImages(id), method: .get, params: nil, responseType: ListResponse.self) { (result) in
+        APIManager.request(AppConstants.API.Movie.getImages(id), method: .get, params: nil, Localization: false, responseType: ListResponse.self) { (result) in
             switch result {
             case .success(let response):
                 self.backdropInfos = response.backdrops ?? []
@@ -323,7 +317,7 @@ class ContentsDetailViewController: BaseViewController {
         }
         
         // 리뷰목록
-        APIManager.request(AppConstants.API.Movie.getReviews(id), method: .get, params: nil, responseType: PageResponse<Review>.self) { (result) in
+        APIManager.request(AppConstants.API.Movie.getReviews(id), method: .get, params: nil, Localization: false, responseType: PageResponse<Review>.self) { (result) in
             switch result {
             case .success(let response):
                 self.reviews = response.results ?? []
