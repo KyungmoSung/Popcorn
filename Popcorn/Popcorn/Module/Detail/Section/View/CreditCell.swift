@@ -14,10 +14,11 @@ class CreditCell: UICollectionViewCell {
     
     var profilePath: String? {
         didSet {
-            guard let path = profilePath, let url = URL(string: AppConstants.Domain.tmdbImage + path) else {
-                return
+            if let path = profilePath, let url = URL(string: AppConstants.Domain.tmdbImage + path) {
+                Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: profileIv)
+            } else {
+                profileIv.image = UIImage(named: "icAvatar")
             }
-            Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: profileIv)
         }
     }
     

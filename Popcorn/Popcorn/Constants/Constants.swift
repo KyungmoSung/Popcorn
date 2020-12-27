@@ -21,25 +21,26 @@ enum AppConstants {
     
     enum API {
         enum Auth {
-            static let createRequestToken                   = "/authentication/token/new"
-            static let validateRequestToken                 = "/authentication/token/validate_with_login"
-            static let createSession                        = "/authentication/session/new"
+            static let createRequestToken              = "/authentication/token/new"
+            static let validateRequestToken            = "/authentication/token/validate_with_login"
+            static let createSession                   = "/authentication/session/new"
         }
         
         enum Movie {
-            static let getPopular                           = "/movie/popular"
-            static let getTopRated                          = "/movie/top_rated"
-            static let getNowPlaying                        = "/movie/now_playing"
-            static let getUpcoming                          = "/movie/upcoming"
-            static let searchMovies                         = "/search/movie"
-            static let getGenreList                         = "/genre/movie/list"
+            static let getPopular                      = "/movie/popular"
+            static let getTopRated                     = "/movie/top_rated"
+            static let getNowPlaying                   = "/movie/now_playing"
+            static let getUpcoming                     = "/movie/upcoming"
+            static let searchMovies                    = "/search/movie"
+            static let getGenreList                    = "/genre/movie/list"
             
-            static func getDetails(_ movieId: Int)          -> String { return "/movie/\(movieId)" }
-            static func getCredits(_ movieId: Int)          -> String { return "/movie/\(movieId)/credits" }
-            static func getRecommendations(_ movieId: Int)  -> String { return "/movie/\(movieId)/recommendations" }
-            static func getSimilar(_ movieId: Int)          -> String { return "/movie/\(movieId)/similar" }
-            static func getVideos(_ movieId: Int)           -> String { return "/movie/\(movieId)/videos" }
-            static func getImages(_ movieId: Int)           -> String { return "/movie/\(movieId)/images" }
+            static func getDetails(_ id: Int)          -> String { return "/movie/\(id)" }
+            static func getCredits(_ id: Int)          -> String { return "/movie/\(id)/credits" }
+            static func getRecommendations(_ id: Int)  -> String { return "/movie/\(id)/recommendations" }
+            static func getSimilar(_ id: Int)          -> String { return "/movie/\(id)/similar" }
+            static func getVideos(_ id: Int)           -> String { return "/movie/\(id)/videos" }
+            static func getImages(_ id: Int)           -> String { return "/movie/\(id)/images" }
+            static func getReviews(_ id: Int)          -> String { return "/movie/\(id)/reviews" }
         }
     }
 }

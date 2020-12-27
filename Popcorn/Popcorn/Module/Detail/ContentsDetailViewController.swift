@@ -44,6 +44,7 @@ class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var creditCollectionView: UICollectionView!
     @IBOutlet private weak var recommendationCollectionView: UICollectionView!
     @IBOutlet private weak var similarCollectionView: UICollectionView!
+    @IBOutlet private weak var reviewCollectionView: UICollectionView!
     
     lazy var genreAdapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
@@ -73,6 +74,10 @@ class ContentsDetailViewController: BaseViewController {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
+    lazy var reviewAdapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+    }()
+    
     var id: Int!
     var contents: Movie?
     var posterHeroId: String?
@@ -85,6 +90,7 @@ class ContentsDetailViewController: BaseViewController {
     var recommendations: [Movie] = []
     var similars: [Movie] = []
     var infoItems: [InfoItem] = []
+    var reviews: [Review] = []
     
     convenience init(id: Int) {
         self.init()
@@ -128,6 +134,10 @@ class ContentsDetailViewController: BaseViewController {
         similarCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         similarAdapter.collectionView = similarCollectionView
         similarAdapter.dataSource = self
+        
+        reviewCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        reviewAdapter.collectionView = reviewCollectionView
+        reviewAdapter.dataSource = self
 
         blurPosterIv.applyBlur(style: .dark)
         posterIv.applyShadow()
@@ -300,13 +310,25 @@ class ContentsDetailViewController: BaseViewController {
             }
         }
         
-        // 비슷한
+        // 비슷한목록
         APIManager.request(AppConstants.API.Movie.getSimilar(id), method: .get, params: nil, responseType: PageResponse<Movie>.self) { (result) in
             switch result {
             case .success(let response):
                 self.similars = response.results ?? []
                 
                 self.similarAdapter.performUpdates(animated: true, completion: nil)
+            case .failure(let error):
+                Log.d(error)
+            }
+        }
+        
+        // 리뷰목록
+        APIManager.request(AppConstants.API.Movie.getReviews(id), method: .get, params: nil, responseType: PageResponse<Review>.self) { (result) in
+            switch result {
+            case .success(let response):
+                self.reviews = response.results ?? []
+                
+                self.reviewAdapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
             }
@@ -347,6 +369,8 @@ extension ContentsDetailViewController: ListAdapterDataSource {
             return recommendations
         case similarAdapter:
             return similars
+        case reviewAdapter:
+            return reviews
         default:
             return []
         }
@@ -370,6 +394,8 @@ extension ContentsDetailViewController: ListAdapterDataSource {
             return CreditSectionController()
         case recommendationAdapter, similarAdapter:
             return EmbeddedSectionController(category: .none)
+        case reviewAdapter:
+            return ReviewSectionController()
         default:
             return ListSectionController()
         }
