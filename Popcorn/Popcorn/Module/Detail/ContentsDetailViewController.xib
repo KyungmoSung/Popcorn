@@ -395,7 +395,7 @@
         </view>
     </objects>
     <resources>
-        <image name="icStarFill" width="72" height="72"/>
+        <image name="icStarFill" width="48" height="48"/>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

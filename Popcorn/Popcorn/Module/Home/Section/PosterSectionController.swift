@@ -1,5 +1,5 @@
 //
-//  EmbeddedSectionController.swift
+//  PosterSectionController.swift
 //  Popcorn
 //
 //  Created by Front-Artist on 2020/10/30.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class EmbeddedSectionController: ListSectionController {
+class PosterSectionController: ListSectionController {
 
-    var category: ContentsCategory?
+    var homeSection: Section.Home?
     var contents: Movie?
     var uuid = UUID().uuidString
     
@@ -19,15 +19,15 @@ class EmbeddedSectionController: ListSectionController {
         self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
     }
     
-    convenience init(category: ContentsCategory) {
+    convenience init(homeSection: Section.Home) {
         self.init()
-        self.category = category
+        self.homeSection = homeSection
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext, let category = category else { return .zero }
+        guard let context = collectionContext, let homeSection = homeSection else { return .zero }
         
-        switch category {
+        switch homeSection {
         case .popular:
             return CGSize(width: context.containerSize.width - 60, height: context.containerSize.height)
         default:
@@ -42,9 +42,9 @@ class EmbeddedSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let category = category else { return UICollectionViewCell() }
+        guard let context = collectionContext, let homeSection = homeSection else { return UICollectionViewCell() }
 
-        switch category {
+        switch homeSection {
         case .popular:
             let cell: HomeBackdropCell = context.dequeueReusableXibCell(for: self, at: index)
             

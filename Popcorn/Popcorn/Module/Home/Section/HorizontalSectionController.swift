@@ -23,9 +23,9 @@ class HorizontalSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext, let category = contentsCollection?.category else { return .zero }
+        guard let context = collectionContext, let homeSection = contentsCollection?.homeSection else { return .zero }
         
-        if category == .popular {
+        if homeSection == .popular {
             let backdropHeight = context.containerSize.width * 9 / 16 // 16:9 비율
             return CGSize(width: context.containerSize.width, height: backdropHeight)
         } else {
@@ -62,7 +62,7 @@ extension HorizontalSectionController: ListSupplementaryViewSource {
         guard let context = collectionContext else { return UICollectionReusableView() }
         
         let headerView: HomeHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
-        headerView.title = contentsCollection?.category.title
+        headerView.title = contentsCollection?.homeSection.title
         
         return headerView
     }
@@ -74,11 +74,11 @@ extension HorizontalSectionController: ListAdapterDataSource {
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        guard let category = contentsCollection?.category else {
+        guard let homeSection = contentsCollection?.homeSection else {
             return ListSectionController()
         }
         
-        return EmbeddedSectionController(category: category)
+        return PosterSectionController(homeSection: homeSection)
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {

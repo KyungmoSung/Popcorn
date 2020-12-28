@@ -387,7 +387,7 @@ extension ContentsDetailViewController: ListAdapterDataSource {
         case creditAdapter:
             return CreditSectionController()
         case recommendationAdapter, similarAdapter:
-            return EmbeddedSectionController(category: .none)
+            return PosterSectionController(homeSection: .none)
         case reviewAdapter:
             return ReviewSectionController()
         default:
