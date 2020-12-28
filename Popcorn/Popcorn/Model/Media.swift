@@ -7,8 +7,11 @@
 
 import Foundation
 
+protocol Media {}
+
 // MARK: - ImageInfo
-class ImageInfo: Codable {
+class ImageInfo: Media, Codable {
+    var type: ImageType!
     let aspectRatio: Double
     let filePath: String
     let height: Int
@@ -38,7 +41,7 @@ extension ImageInfo: ListDiffable {
 }
 
 // MARK: - VideoInfo
-class VideoInfo: Codable {
+class VideoInfo: Media, Codable {
     let id: String
     let iso_639_1: String
     let iso_3166_1: String

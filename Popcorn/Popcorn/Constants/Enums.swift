@@ -20,10 +20,11 @@ struct Section {
         }
     }
 
-    enum Detail: String {
+    enum Detail: String, CaseIterable {
         case detail
         case synopsis
-        case media
+        case image
+        case video
         case credit
         case recommendation
         case similar
@@ -31,6 +32,46 @@ struct Section {
         
         var title: String {
             return self.rawValue.localized
+        }
+        
+        var height: CGFloat {
+            switch self {
+            case .detail:
+                return 80
+            case .synopsis:
+                return 100
+            case .image:
+                return 160
+            case .video:
+                return 160
+            case .credit:
+                return 160
+            case .recommendation:
+                return 200
+            case .similar:
+                return 200
+            case .review:
+                return 250
+            }
+        }
+    }
+}
+
+enum MediaType: String {
+    case image
+    case video
+}
+
+enum ImageType: String {
+    case poster
+    case backdrop
+    
+    var title: String {
+        switch self {
+        case .backdrop:
+            return "배경"
+        case .poster:
+            return "포스터"
         }
     }
 }

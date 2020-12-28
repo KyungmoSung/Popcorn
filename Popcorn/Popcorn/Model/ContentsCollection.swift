@@ -28,3 +28,21 @@ class ContentsCollection: NSObject, ListDiffable {
         return self.homeSection == object.homeSection && self.contents == object.contents
     }
 }
+
+class DetailSectionItem: NSObject, ListDiffable {
+    let detailSection: Section.Detail
+    var items: [ListDiffable]
+    
+    init(_ detailSection: Section.Detail, items: [ListDiffable] = []) {
+        self.detailSection = detailSection
+        self.items = items
+    }
+    
+    func diffIdentifier() -> NSObjectProtocol {
+        return self
+    }
+    
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        return true
+    }
+}
