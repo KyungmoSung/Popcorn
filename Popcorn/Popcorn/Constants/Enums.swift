@@ -21,6 +21,7 @@ struct Section {
     }
 
     enum Detail: String, CaseIterable {
+        case genre
         case detail
         case synopsis
         case image
@@ -36,6 +37,8 @@ struct Section {
         
         var height: CGFloat {
             switch self {
+            case .genre:
+                return 30
             case .detail:
                 return 80
             case .synopsis:

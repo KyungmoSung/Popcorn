@@ -52,7 +52,7 @@
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EUw-qL-0F8" secondAttribute="trailing" constant="16" id="DNH-PO-7zw"/>
                             <constraint firstItem="EUw-qL-0F8" firstAttribute="centerY" secondItem="i4M-Ef-p0u" secondAttribute="centerY" id="gab-v6-KOm"/>
                             <constraint firstAttribute="height" constant="80" id="gyG-Rt-aAC"/>
-                            <constraint firstAttribute="height" relation="lessThanOrEqual" secondItem="i4M-Ef-p0u" secondAttribute="width" multiplier="1:1" priority="250" id="sdy-g0-S8q"/>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" secondItem="i4M-Ef-p0u" secondAttribute="width" multiplier="1:1" priority="750" id="sdy-g0-S8q"/>
                             <constraint firstItem="EUw-qL-0F8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="i4M-Ef-p0u" secondAttribute="leading" constant="16" id="xa2-Nl-tgF"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>

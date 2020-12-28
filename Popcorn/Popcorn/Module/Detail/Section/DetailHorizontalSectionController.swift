@@ -31,21 +31,24 @@ class DetailHorizontalSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext else { return UICollectionViewCell() }
+        guard let context = collectionContext, let detailSection = sectionItem?.detailSection else { return UICollectionViewCell() }
         
         let cell: EmbeddedCollectionViewCell = context.dequeueReusableCell(for: self, at: index)
-            if let detailSection = sectionItem?.detailSection, detailSection == .detail {
-                let layout = PagingCollectionViewLayout()
-                layout.scrollDirection = .horizontal
-                layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-                cell.collectionView.collectionViewLayout = layout
-                layout.invalidateLayout()
-            } else {
-                let layout = PagingCollectionViewLayout()
-                layout.scrollDirection = .horizontal
-                cell.collectionView.collectionViewLayout = layout
-                layout.invalidateLayout()
-            }
+        
+        switch detailSection {
+        case .genre, .detail:
+            let layout = PagingCollectionViewLayout()
+            layout.scrollDirection = .horizontal
+            layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+            cell.collectionView.collectionViewLayout = layout
+            layout.invalidateLayout()
+        default:
+            let layout = PagingCollectionViewLayout()
+            layout.scrollDirection = .horizontal
+            cell.collectionView.collectionViewLayout = layout
+            layout.invalidateLayout()
+        }
+        
         adapter.collectionView = cell.collectionView
         
         return cell
@@ -62,9 +65,16 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
     }
     
     func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
-        guard let context = collectionContext else { return .zero }
-
-        return CGSize(width: context.containerSize.width, height: 70)
+        guard let context = collectionContext, let detailSection = sectionItem?.detailSection else {
+            return .zero
+        }
+        
+        switch detailSection {
+        case .genre:
+            return CGSize(width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude)
+        default:
+            return CGSize(width: context.containerSize.width, height: 70)
+        }
     }
     
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
@@ -88,6 +98,12 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
         }
         
         switch detailSection {
+        case .genre:
+            let section = TextTagSectionController()
+            if let contentsDetailVC = viewController as? ContentsDetailViewController {
+                section.delegate = contentsDetailVC
+            }
+            return section
         case .detail:
             return InfoCardSectionController()
         case .synopsis:

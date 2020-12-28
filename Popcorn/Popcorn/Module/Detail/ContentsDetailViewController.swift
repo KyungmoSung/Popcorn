@@ -73,6 +73,13 @@ class ContentsDetailViewController: BaseViewController {
     
     var detailSections: [ListDiffable] {
         var sections: [ListDiffable] = []
+        
+        if let genres = contents?.genres {
+            let genreNames = genres.map { $0.name as ListDiffable }
+            let section = DetailSectionItem(.genre, items: genreNames)
+            sections.append(section)
+        }
+        
         if infoItems.count > 0 {
             let section = DetailSectionItem(.detail, items: infoItems)
             sections.append(section)
@@ -146,7 +153,6 @@ class ContentsDetailViewController: BaseViewController {
         genreAdapter.collectionView = genreCollectionView
         genreAdapter.dataSource = self
         
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         adapter.collectionView = collectionView
         adapter.dataSource = self
         
