@@ -31,8 +31,13 @@ struct Section {
         case similar
         case review
         
-        var title: String {
-            return self.rawValue.localized
+        var title: String? {
+            switch self {
+            case .genre:
+                return nil
+            default:
+                return self.rawValue.localized
+            }
         }
         
         var height: CGFloat {
@@ -57,6 +62,15 @@ struct Section {
                 return 250
             }
         }
+        
+        var subTitles: [String]? {
+            switch self {
+            case .image:
+                return ImageType.allCases.map { $0.title }
+            default:
+                return nil
+            }
+        }
     }
 }
 
@@ -65,7 +79,7 @@ enum MediaType: String {
     case video
 }
 
-enum ImageType: String {
+enum ImageType: Int, CaseIterable {
     case poster
     case backdrop
     

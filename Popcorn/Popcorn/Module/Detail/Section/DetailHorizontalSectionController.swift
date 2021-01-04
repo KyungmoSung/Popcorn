@@ -10,8 +10,19 @@ import UIKit
 class DetailHorizontalSectionController: ListSectionController {
 
     private var sectionItem: DetailSectionItem?
+    var selectedSubSection: Int = 0 {
+        didSet {
+            cellAdapter.performUpdates(animated: true, completion: nil)
+        }
+    }
     
-    lazy var adapter: ListAdapter = {
+    lazy var cellAdapter: ListAdapter = {
+        let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self.viewController)
+        adapter.dataSource = self
+        return adapter
+    }()
+    
+    lazy var headerAdapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self.viewController)
         adapter.dataSource = self
         return adapter
@@ -31,7 +42,9 @@ class DetailHorizontalSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let detailSection = sectionItem?.detailSection else { return UICollectionViewCell() }
+        guard let context = collectionContext, let detailSection = sectionItem?.detailSection else {
+            return UICollectionViewCell()
+        }
         
         let cell: EmbeddedCollectionViewCell = context.dequeueReusableCell(for: self, at: index)
         
@@ -49,7 +62,7 @@ class DetailHorizontalSectionController: ListSectionController {
             layout.invalidateLayout()
         }
         
-        adapter.collectionView = cell.collectionView
+        cellAdapter.collectionView = cell.collectionView
         
         return cell
     }
@@ -65,15 +78,18 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
     }
     
     func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
-        guard let context = collectionContext, let detailSection = sectionItem?.detailSection else {
+        guard let context = collectionContext else {
             return .zero
         }
         
-        switch detailSection {
-        case .genre:
+        if sectionItem?.detailSection.title == nil {
             return CGSize(width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude)
-        default:
-            return CGSize(width: context.containerSize.width, height: 70)
+        } else {
+            if sectionItem?.detailSection.subTitles?.count ?? 0 > 0 {
+                return CGSize(width: context.containerSize.width, height: 118)
+            } else {
+                return CGSize(width: context.containerSize.width, height: 82)
+            }
         }
     }
     
@@ -83,13 +99,38 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
         let headerView: HomeHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
         headerView.title = sectionItem?.detailSection.title
         
+        if sectionItem?.detailSection.subTitles?.count ?? 0 > 0 {
+            headerAdapter.collectionView?.isHidden = false
+            headerAdapter.collectionView = headerView.tabCollectionView
+        } else {
+            headerAdapter.collectionView?.isHidden = true
+            headerAdapter.collectionView = nil
+        }
+        
         return headerView
     }
 }
 
 extension DetailHorizontalSectionController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return sectionItem?.items ?? []
+        guard let detailSection = sectionItem?.detailSection else {
+            return []
+        }
+        
+        if listAdapter == cellAdapter {
+            switch detailSection {
+            case .image:
+                if let items = sectionItem?.items as? [ImageInfo] {
+                    return items.filter{ return $0.type == ImageType(rawValue: selectedSubSection) }
+                } else {
+                    return []
+                }
+            default:
+                return sectionItem?.items ?? []
+            }
+        } else {
+            return (sectionItem?.detailSection.subTitles ?? []) as [ListDiffable]
+        }
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
@@ -97,33 +138,45 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             return ListSectionController()
         }
         
-        switch detailSection {
-        case .genre:
-            let section = TextTagSectionController()
-            if let contentsDetailVC = viewController as? ContentsDetailViewController {
-                section.delegate = contentsDetailVC
+        if listAdapter == cellAdapter {
+            switch detailSection {
+            case .genre:
+                let section = TextTagSectionController()
+                if let contentsDetailVC = viewController as? ContentsDetailViewController {
+                    section.delegate = contentsDetailVC
+                }
+                return section
+            case .detail:
+                return InfoCardSectionController()
+            case .synopsis:
+                return ListSectionController()
+            case .image:
+                return MediaSectionController()
+            case .video:
+                return MediaSectionController()
+            case .credit:
+                return CreditSectionController()
+            case .recommendation:
+                return PosterSectionController(type: .poster)
+            case .similar:
+                return PosterSectionController(type: .poster)
+            case .review:
+                return ReviewSectionController()
             }
+        } else {
+            let section = TextTabSectionController()
+            section.delegate = self
             return section
-        case .detail:
-            return InfoCardSectionController()
-        case .synopsis:
-            return ListSectionController()
-        case .image:
-            return MediaSectionController()
-        case .video:
-            return MediaSectionController()
-        case .credit:
-            return CreditSectionController()
-        case .recommendation:
-            return PosterSectionController(type: .poster)
-        case .similar:
-            return PosterSectionController(type: .poster)
-        case .review:
-            return ReviewSectionController()
         }
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
+    }
+}
+
+extension DetailHorizontalSectionController: TextTabDelegate {
+    func didSelectTab(index: Int) {
+        selectedSubSection = index
     }
 }

@@ -71,8 +71,8 @@ class ContentsDetailViewController: BaseViewController {
     var contents: Movie?
     var posterHeroId: String?
     
-    var detailSections: [ListDiffable] {
-        var sections: [ListDiffable] = []
+    var detailSections: [DetailSectionItem] {
+        var sections: [DetailSectionItem] = []
         
         if let genres = contents?.genres {
             let genreNames = genres.map { $0.name as ListDiffable }
@@ -200,6 +200,10 @@ class ContentsDetailViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         mediaTypeTabCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+
+        if let index = detailSections.firstIndex(where: { $0.detailSection == .image }), let sectionController = adapter.sectionController(forSection: index) as? DetailHorizontalSectionController {
+            sectionController.headerAdapter.collectionView?.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

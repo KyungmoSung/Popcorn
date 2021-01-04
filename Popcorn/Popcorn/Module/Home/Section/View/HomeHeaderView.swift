@@ -9,6 +9,7 @@ import UIKit
 
 class HomeHeaderView: UICollectionViewCell {
     @IBOutlet private weak var titleLb: UILabel!
+    @IBOutlet weak var tabCollectionView: UICollectionView!
     
     var title: String? {
         get {
@@ -18,5 +19,4 @@ class HomeHeaderView: UICollectionViewCell {
             titleLb.text = newValue
         }
     }
-
 }
