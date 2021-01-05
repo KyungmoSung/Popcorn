@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.3.0)
+  - FloatingPanel (2.1.0)
   - Hero (1.5.0)
   - IGListDiffKit (4.0.0)
   - IGListKit (4.0.0):
@@ -8,6 +9,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
+  - FloatingPanel
   - Hero
   - IGListKit (~> 4.0.0)
   - Nuke (~> 9.0)
@@ -15,6 +17,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - FloatingPanel
     - Hero
     - IGListDiffKit
     - IGListKit
@@ -22,11 +25,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 2c792affbdc2f18016e08fdbcacd60aebe1ba593
+  FloatingPanel: 1af47b69e26df98b8728307254a9a0f4eb3cd645
   Hero: b7385b75e7259da62f4f85462f59a5082d66b058
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   Nuke: dd2e6be6a34c042a7861e190632781d11f253026
 
-PODFILE CHECKSUM: f0720e6af4996a95cb0e435e423b53ad3edba6a7
+PODFILE CHECKSUM: 1d95923fe8e3dfc79ee5b967d4d52587a154d06a
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.0.rc.1

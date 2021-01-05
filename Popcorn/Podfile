@@ -10,6 +10,7 @@ target 'Popcorn' do
   pod 'IGListKit', '~> 4.0.0'
   pod 'Nuke', '~> 9.0'
   pod 'Hero'
+  pod 'FloatingPanel'
 
   target 'PopcornTests' do
     inherit! :search_paths
