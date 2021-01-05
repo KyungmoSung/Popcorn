@@ -12,8 +12,9 @@ protocol TextTabDelegate: class {
 }
 
 class TextTabSectionController: ListSectionController {
-    var title: String?
     weak var delegate: TextTabDelegate?
+    
+    var title: String?
     
     override init() {
         super.init()
@@ -22,13 +23,17 @@ class TextTabSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext else { return .zero }
+        guard let context = collectionContext else {
+            return .zero
+        }
         
         return CGSize(width: 30, height: context.containerSize.height)
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let title = title else { return UICollectionViewCell() }
+        guard let context = collectionContext, let title = title else {
+            return UICollectionViewCell()
+        }
         
         let cell: TextTabCell = context.dequeueReusableXibCell(for: self, at: index)
         cell.title = title

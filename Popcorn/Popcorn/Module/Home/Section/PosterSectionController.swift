@@ -1,5 +1,5 @@
 //
-//  EmbeddedSectionController.swift
+//  PosterSectionController.swift
 //  Popcorn
 //
 //  Created by Front-Artist on 2020/10/30.
@@ -7,9 +7,8 @@
 
 import UIKit
 
-class EmbeddedSectionController: ListSectionController {
-
-    var category: ContentsCategory?
+class PosterSectionController: ListSectionController {
+    var type: ImageType?
     var contents: Movie?
     var uuid = UUID().uuidString
     
@@ -19,16 +18,16 @@ class EmbeddedSectionController: ListSectionController {
         self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
     }
     
-    convenience init(category: ContentsCategory) {
+    convenience init(type: ImageType) {
         self.init()
-        self.category = category
+        self.type = type
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext, let category = category else { return .zero }
+        guard let context = collectionContext, let type = type else { return .zero }
         
-        switch category {
-        case .popular:
+        switch type {
+        case .backdrop:
             return CGSize(width: context.containerSize.width - 60, height: context.containerSize.height)
         default:
             let containerHeight: CGFloat = context.containerSize.height
@@ -42,10 +41,10 @@ class EmbeddedSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let category = category else { return UICollectionViewCell() }
+        guard let context = collectionContext, let type = type else { return UICollectionViewCell() }
 
-        switch category {
-        case .popular:
+        switch type {
+        case .backdrop:
             let cell: HomeBackdropCell = context.dequeueReusableXibCell(for: self, at: index)
             
             cell.backdropImgPath = contents?.backdropPath

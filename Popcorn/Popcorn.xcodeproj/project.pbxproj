@@ -27,6 +27,8 @@
 		24C95D62259880840020C15C /* ReviewSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C95D61259880840020C15C /* ReviewSectionController.swift */; };
 		24C95D68259880BA0020C15C /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C95D66259880BA0020C15C /* ReviewCell.swift */; };
 		24C95D69259880BA0020C15C /* ReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24C95D67259880BA0020C15C /* ReviewCell.xib */; };
+		24C95D802599B0290020C15C /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C95D7F2599B0290020C15C /* Enums.swift */; };
+		24C95D8B2599C4B20020C15C /* DetailHorizontalSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C95D8A2599C4B20020C15C /* DetailHorizontalSectionController.swift */; };
 		24E02D712585FE0A00591234 /* MediaVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24E02D6F2585FE0A00591234 /* MediaVideoCell.xib */; };
 		24E02D722585FE0A00591234 /* MediaVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E02D702585FE0A00591234 /* MediaVideoCell.swift */; };
 		24E02D8925860AFD00591234 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E02D8825860AFD00591234 /* Media.swift */; };
@@ -64,7 +66,7 @@
 		CDB6D422254BAB70001B0AEB /* HorizontalSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D421254BAB70001B0AEB /* HorizontalSectionController.swift */; };
 		CDB6D42A254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D429254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift */; };
 		CDB6D432254BB132001B0AEB /* IGListKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D42E254BB103001B0AEB /* IGListKitExtension.swift */; };
-		CDB6D437254BB1B5001B0AEB /* EmbeddedSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D436254BB1B5001B0AEB /* EmbeddedSectionController.swift */; };
+		CDB6D437254BB1B5001B0AEB /* PosterSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D436254BB1B5001B0AEB /* PosterSectionController.swift */; };
 		CDB6D452254BCC10001B0AEB /* HomePosterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D450254BCC10001B0AEB /* HomePosterCell.swift */; };
 		CDB6D453254BCC10001B0AEB /* HomePosterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D451254BCC10001B0AEB /* HomePosterCell.xib */; };
 		CDB6D458254BD611001B0AEB /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D457254BD611001B0AEB /* NSObjectExtension.swift */; };
@@ -121,6 +123,8 @@
 		24C95D61259880840020C15C /* ReviewSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSectionController.swift; sourceTree = "<group>"; };
 		24C95D66259880BA0020C15C /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		24C95D67259880BA0020C15C /* ReviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewCell.xib; sourceTree = "<group>"; };
+		24C95D7F2599B0290020C15C /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		24C95D8A2599C4B20020C15C /* DetailHorizontalSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHorizontalSectionController.swift; sourceTree = "<group>"; };
 		24E02D6F2585FE0A00591234 /* MediaVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaVideoCell.xib; sourceTree = "<group>"; };
 		24E02D702585FE0A00591234 /* MediaVideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaVideoCell.swift; sourceTree = "<group>"; };
 		24E02D8825860AFD00591234 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
@@ -173,7 +177,7 @@
 		CDB6D421254BAB70001B0AEB /* HorizontalSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSectionController.swift; sourceTree = "<group>"; };
 		CDB6D429254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedCollectionViewCell.swift; sourceTree = "<group>"; };
 		CDB6D42E254BB103001B0AEB /* IGListKitExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGListKitExtension.swift; sourceTree = "<group>"; };
-		CDB6D436254BB1B5001B0AEB /* EmbeddedSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedSectionController.swift; sourceTree = "<group>"; };
+		CDB6D436254BB1B5001B0AEB /* PosterSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterSectionController.swift; sourceTree = "<group>"; };
 		CDB6D450254BCC10001B0AEB /* HomePosterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePosterCell.swift; sourceTree = "<group>"; };
 		CDB6D451254BCC10001B0AEB /* HomePosterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePosterCell.xib; sourceTree = "<group>"; };
 		CDB6D457254BD611001B0AEB /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
@@ -237,6 +241,7 @@
 		24ED62BC2585EB8300FC98B3 /* Section */ = {
 			isa = PBXGroup;
 			children = (
+				24C95D8A2599C4B20020C15C /* DetailHorizontalSectionController.swift */,
 				24ED62BE2585EBB000FC98B3 /* MediaSectionController.swift */,
 				2457E33425864B20005CE9FB /* CreditSectionController.swift */,
 				24C95D61259880840020C15C /* ReviewSectionController.swift */,
@@ -441,6 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				CDB6D3D4254A9927001B0AEB /* Constants.swift */,
+				24C95D7F2599B0290020C15C /* Enums.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -472,7 +478,7 @@
 			isa = PBXGroup;
 			children = (
 				CDB6D421254BAB70001B0AEB /* HorizontalSectionController.swift */,
-				CDB6D436254BB1B5001B0AEB /* EmbeddedSectionController.swift */,
+				CDB6D436254BB1B5001B0AEB /* PosterSectionController.swift */,
 				CDB6D43B254BB1BD001B0AEB /* View */,
 			);
 			path = Section;
@@ -793,7 +799,7 @@
 				2457E33E25864BBE005CE9FB /* CreditCell.swift in Sources */,
 				CDB6D3D5254A9927001B0AEB /* Constants.swift in Sources */,
 				CDB6D3C6254A9568001B0AEB /* APIManager.swift in Sources */,
-				CDB6D437254BB1B5001B0AEB /* EmbeddedSectionController.swift in Sources */,
+				CDB6D437254BB1B5001B0AEB /* PosterSectionController.swift in Sources */,
 				24ED62AE258371C700FC98B3 /* TextTabSectionController.swift in Sources */,
 				CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */,
 				CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */,
@@ -804,6 +810,7 @@
 				24ED62C52585EBF200FC98B3 /* MediaImageCell.swift in Sources */,
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
 				24C95D68259880BA0020C15C /* ReviewCell.swift in Sources */,
+				24C95D802599B0290020C15C /* Enums.swift in Sources */,
 				CDBD141F256E388A003F625F /* ContentsDetailViewController.swift in Sources */,
 				CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */,
 				CD936FEE258894FC0006441C /* AnyValue.swift in Sources */,
@@ -817,6 +824,7 @@
 				CDB6D42A254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift in Sources */,
 				CDB6D525254FD329001B0AEB /* SplashViewController.swift in Sources */,
 				24C95D62259880840020C15C /* ReviewSectionController.swift in Sources */,
+				24C95D8B2599C4B20020C15C /* DetailHorizontalSectionController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

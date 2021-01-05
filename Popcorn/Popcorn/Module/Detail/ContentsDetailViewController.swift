@@ -7,23 +7,6 @@
 
 import UIKit
 
-enum MediaType: Int, CaseIterable {
-    case backdrop
-    case poster
-    case video
-    
-    var title: String {
-        switch self {
-        case .backdrop:
-            return "배경"
-        case .poster:
-            return "포스터"
-        case .video:
-            return "동영상"
-        }
-    }
-}
-
 class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var statusBarView: UIView!
     @IBOutlet private weak var scrollView: UIScrollView!
@@ -37,6 +20,8 @@ class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var voteAverageLb: UILabel!
     @IBOutlet private weak var overviewLb: UILabel!
     
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     @IBOutlet private weak var genreCollectionView: UICollectionView!
     @IBOutlet private weak var infoCollectionView: UICollectionView!
     @IBOutlet private weak var mediaTypeTabCollectionView: UICollectionView!
@@ -45,6 +30,10 @@ class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var recommendationCollectionView: UICollectionView!
     @IBOutlet private weak var similarCollectionView: UICollectionView!
     @IBOutlet private weak var reviewCollectionView: UICollectionView!
+    
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+    }()
     
     lazy var genreAdapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
@@ -82,10 +71,63 @@ class ContentsDetailViewController: BaseViewController {
     var contents: Movie?
     var posterHeroId: String?
     
-    var mediaType: MediaType = .backdrop
+    var detailSections: [DetailSectionItem] {
+        var sections: [DetailSectionItem] = []
+        
+        if let genres = contents?.genres {
+            let genreNames = genres.map { $0.name as ListDiffable }
+            let section = DetailSectionItem(.genre, items: genreNames)
+            sections.append(section)
+        }
+        
+        if infoItems.count > 0 {
+            let section = DetailSectionItem(.detail, items: infoItems)
+            sections.append(section)
+        }
+        
+        if let overview = contents?.overview, !overview.isEmpty {
+            let section = DetailSectionItem(.synopsis, items: [overview as ListDiffable])
+            sections.append(section)
+        }
+        
+        if imageInfos.count > 0 {
+            let section = DetailSectionItem(.image, items: imageInfos)
+            sections.append(section)
+        }
+        
+        if videoInfos.count > 0 {
+            let section = DetailSectionItem(.video, items: videoInfos)
+            sections.append(section)
+        }
+        
+        if credits.count > 0 {
+            let section = DetailSectionItem(.credit, items: credits)
+            sections.append(section)
+        }
+        
+        if recommendations.count > 0 {
+            let section = DetailSectionItem(.recommendation, items: recommendations)
+            sections.append(section)
+        }
+        
+        if similars.count > 0 {
+            let section = DetailSectionItem(.similar, items: similars)
+            sections.append(section)
+        }
+        
+        if reviews.count > 0 {
+            let section = DetailSectionItem(.review, items: reviews)
+            sections.append(section)
+        }
+        
+        return sections
+    }
+    
+    var mediaType: ImageType = .backdrop
     var backdropInfos: [ImageInfo] = []
     var posterInfos: [ImageInfo] = []
     var videoInfos: [VideoInfo] = []
+    var imageInfos: [ImageInfo] = []
     var credits: [Person] = []
     var recommendations: [Movie] = []
     var similars: [Movie] = []
@@ -110,6 +152,9 @@ class ContentsDetailViewController: BaseViewController {
         
         genreAdapter.collectionView = genreCollectionView
         genreAdapter.dataSource = self
+        
+        adapter.collectionView = collectionView
+        adapter.dataSource = self
         
         infoCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         infoAdapter.collectionView = infoCollectionView
@@ -155,6 +200,10 @@ class ContentsDetailViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         mediaTypeTabCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+
+        if let index = detailSections.firstIndex(where: { $0.detailSection == .image }), let sectionController = adapter.sectionController(forSection: index) as? DetailHorizontalSectionController {
+            sectionController.headerAdapter.collectionView?.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -243,6 +292,7 @@ class ContentsDetailViewController: BaseViewController {
                 
                 self.infoItems = response.filteredInfo()
                 self.infoAdapter.performUpdates(animated: true, completion: nil)
+                self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
             }
@@ -254,9 +304,19 @@ class ContentsDetailViewController: BaseViewController {
             case .success(let response):
                 self.backdropInfos = response.backdrops ?? []
                 self.posterInfos = response.posters ?? []
-                if self.mediaType == .backdrop || self.mediaType == .poster {
-                    self.mediaListAdapter.performUpdates(animated: true, completion: nil)
-                }
+                
+                let backdrops = response.backdrops ?? []
+                let posters = response.posters ?? []
+                
+                backdrops.forEach { $0.type = .backdrop }
+                posters.forEach { $0.type = .poster }
+                
+                self.imageInfos = backdrops + posters
+                
+//                if self.mediaType == .backdrop || self.mediaType == .poster {
+//                    self.mediaListAdapter.performUpdates(animated: true, completion: nil)
+//                }
+                self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
             }
@@ -267,9 +327,10 @@ class ContentsDetailViewController: BaseViewController {
             switch result {
             case .success(let response):
                 self.videoInfos = response.results ?? []
-                if self.mediaType == .video {
-                    self.mediaListAdapter.performUpdates(animated: true, completion: nil)
-                }
+//                if self.mediaType == .video {
+//                    self.mediaListAdapter.performUpdates(animated: true, completion: nil)
+//                }
+                self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
             }
@@ -286,7 +347,7 @@ class ContentsDetailViewController: BaseViewController {
                 }
                 
                 self.creditAdapter.performUpdates(animated: true, completion: nil)
-                
+                self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
             }
@@ -299,6 +360,7 @@ class ContentsDetailViewController: BaseViewController {
                 self.recommendations = response.results ?? []
                 
                 self.recommendationAdapter.performUpdates(animated: true, completion: nil)
+                self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
             }
@@ -311,6 +373,7 @@ class ContentsDetailViewController: BaseViewController {
                 self.similars = response.results ?? []
                 
                 self.similarAdapter.performUpdates(animated: true, completion: nil)
+                self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
             }
@@ -323,20 +386,21 @@ class ContentsDetailViewController: BaseViewController {
                 self.reviews = response.results ?? []
                 
                 self.reviewAdapter.performUpdates(animated: true, completion: nil)
+                self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
             }
         }
     }
     
-    func changeMediaType(_ type: MediaType) {
-        guard mediaType != type else {
-            return
-        }
-        mediaType = type
-        self.mediaListAdapter.performUpdates(animated: true, completion: nil)
-        self.mediaListAdapter.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: false)
-    }
+//    func changeMediaType(_ type: MediaType) {
+//        guard mediaType != type else {
+//            return
+//        }
+//        mediaType = type
+//        self.mediaListAdapter.performUpdates(animated: true, completion: nil)
+//        self.mediaListAdapter.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: false)
+//    }
 }
 
 extension ContentsDetailViewController: ListAdapterDataSource {
@@ -346,17 +410,17 @@ extension ContentsDetailViewController: ListAdapterDataSource {
             return (contents?.genres ?? []).map { $0.name as ListDiffable }
         case infoAdapter:
             return infoItems
-        case mediaTypeAdapter:
-            return MediaType.allCases.map { $0.title as ListDiffable }
-        case mediaListAdapter:
-            switch mediaType {
-            case .backdrop:
-                return backdropInfos
-            case .poster:
-                return posterInfos
-            case .video:
-                return videoInfos
-            }
+//        case mediaTypeAdapter:
+//            return MediaType.allCases.map { $0.title as ListDiffable }
+//        case mediaListAdapter:
+//            switch mediaType {
+//            case .backdrop:
+//                return backdropInfos
+//            case .poster:
+//                return posterInfos
+//            case .video:
+//                return videoInfos
+//            }
         case creditAdapter:
             return credits
         case recommendationAdapter:
@@ -365,6 +429,8 @@ extension ContentsDetailViewController: ListAdapterDataSource {
             return similars
         case reviewAdapter:
             return reviews
+        case adapter:
+            return detailSections
         default:
             return []
         }
@@ -383,13 +449,15 @@ extension ContentsDetailViewController: ListAdapterDataSource {
             section.delegate = self
             return section
         case mediaListAdapter:
-            return MediaSectionController(mediaType: mediaType)
+            return MediaSectionController()
         case creditAdapter:
             return CreditSectionController()
         case recommendationAdapter, similarAdapter:
-            return EmbeddedSectionController(category: .none)
+            return PosterSectionController(type: .poster)
         case reviewAdapter:
             return ReviewSectionController()
+        case adapter:
+            return DetailHorizontalSectionController()
         default:
             return ListSectionController()
         }
@@ -410,9 +478,9 @@ extension ContentsDetailViewController: TextTagDelegate {
 
 extension ContentsDetailViewController: TextTabDelegate {
     func didSelectTab(index: Int) {
-        if let type = MediaType(rawValue: index) {
-            changeMediaType(type)
-        }
+//        if let type = MediaType(rawValue: index) {
+//            changeMediaType(type)
+//        }
     }
 }
 

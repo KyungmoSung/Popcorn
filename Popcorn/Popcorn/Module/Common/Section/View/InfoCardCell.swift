@@ -28,5 +28,4 @@ class InfoCardCell: UICollectionViewCell {
         
         contentView.applyShadow()
     }
-
 }

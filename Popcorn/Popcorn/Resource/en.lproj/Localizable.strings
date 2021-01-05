@@ -11,6 +11,14 @@ popular = "Popular";
 topRated = "Top Rated";
 upcoming = "Upcoming";
 
+detail = "Details";
+synopsis = "Synopsis";
+media = "Media";
+credit = "Case & Crew";
+recommendation = "Recommendation";
+similar = "Similar";
+review = "Review";
+
 originalLanguage = "Language";
 popularity = "Popularity";
 releaseDate = "Release Date";

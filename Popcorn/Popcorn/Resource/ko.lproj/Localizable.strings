@@ -11,6 +11,14 @@ popular = "인기";
 topRated = "높은 평점";
 upcoming = "개봉 예정";
 
+detail = "상세 정보";
+synopsis = "시놉시스";
+media = "미디어";
+credit = "출연 & 제작";
+recommendation = "추천 작품";
+similar = "비슷한 작품";
+review = "리뷰";
+
 originalLanguage = "언어";
 popularity = "인기도";
 releaseDate = "개봉일";

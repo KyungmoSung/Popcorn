@@ -7,24 +7,12 @@
 
 import Foundation
 
-enum ContentsCategory: String {
-    case nowPlaying
-    case popular
-    case topRated
-    case upcoming
-    case none
-    
-    var title: String {
-        return self.rawValue.localized
-    }
-}
-
 class ContentsCollection: NSObject, ListDiffable {
-    let category: ContentsCategory
+    let homeSection: Section.Home
     var contents: [Movie]
     
-    init(category: ContentsCategory, contents: [Movie] = []) {
-        self.category = category
+    init(homeSection: Section.Home, contents: [Movie] = []) {
+        self.homeSection = homeSection
         self.contents = contents
     }
     
@@ -37,6 +25,24 @@ class ContentsCollection: NSObject, ListDiffable {
             return false
         }
 
-        return self.category == object.category && self.contents == object.contents
+        return self.homeSection == object.homeSection && self.contents == object.contents
+    }
+}
+
+class DetailSectionItem: NSObject, ListDiffable {
+    let detailSection: Section.Detail
+    var items: [ListDiffable]
+    
+    init(_ detailSection: Section.Detail, items: [ListDiffable] = []) {
+        self.detailSection = detailSection
+        self.items = items
+    }
+    
+    func diffIdentifier() -> NSObjectProtocol {
+        return self
+    }
+    
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        return true
     }
 }
