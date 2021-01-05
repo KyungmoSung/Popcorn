@@ -189,6 +189,15 @@ class ContentsDetailViewController: BaseViewController {
         
         setupUI()
         getMovies()
+        
+        let contentVC = UICollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        adapter.collectionView = contentVC.collectionView
+        
+        let fpc = FloatingPanelController(delegate: self)
+        fpc.layout = FloatingLayout()
+        fpc.set(contentViewController: contentVC)
+        fpc.track(scrollView: contentVC.collectionView)
+        fpc.addPanel(toParent: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -500,5 +509,22 @@ extension ContentsDetailViewController: UIScrollViewDelegate {
                 }
             }
         }
+    }
+}
+
+extension ContentsDetailViewController: FloatingPanelControllerDelegate {
+ 
+}
+
+class FloatingLayout: FloatingPanelLayout {
+    var position: FloatingPanelPosition = .bottom
+    var initialState: FloatingPanelState = .half
+    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
+        return [
+            .full: FloatingPanelLayoutAnchor(absoluteInset: 0.0, edge: .top, referenceGuide: .superview),
+            .half: FloatingPanelLayoutAnchor(fractionalInset: 0.3, edge: .bottom, referenceGuide: .safeArea),
+//            .tip: FloatingPanelLayoutAnchor(absoluteInset: 44.0, edge: .bottom, referenceGuide: .safeArea),
+        ]
+
     }
 }

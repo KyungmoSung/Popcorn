@@ -11,5 +11,6 @@
 @import IGListKit;
 @import Nuke;
 @import Hero;
+@import FloatingPanel;
 
 #endif /* BridgingHeader_h */
