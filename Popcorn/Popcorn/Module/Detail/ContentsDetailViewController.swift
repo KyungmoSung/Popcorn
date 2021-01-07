@@ -68,17 +68,31 @@ class ContentsDetailViewController: BaseViewController {
     }()
     
     var id: Int!
-    var contents: Movie?
+    var contents: Movie!
     var posterHeroId: String?
     
     var detailSections: [DetailSectionItem] {
         var sections: [DetailSectionItem] = []
         
-        if let genres = contents?.genres {
-            let genreNames = genres.map { $0.name as ListDiffable }
-            let section = DetailSectionItem(.genre, items: genreNames)
-            sections.append(section)
+        var subtitle: String = ""
+        
+        // 개봉연도
+        if let releaseDate = self.contents?.releaseDate.dateValue() {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy"
+            let year = dateFormatter.string(from: releaseDate)
+
+            subtitle = year + " · " + subtitle
         }
+        
+        // original 제목
+        if let originalTitle = self.contents?.originalTitle {
+            subtitle += " · " + originalTitle
+        }
+        
+        let genreNames = (contents?.genres ?? []).map { $0.name as ListDiffable }
+        let section = DetailSectionItem(.title(title: contents.title, subTitle: subtitle, voteAverage: self.contents?.voteAverage ?? 0), items: genreNames)
+        sections.append(section)
         
         if infoItems.count > 0 {
             let section = DetailSectionItem(.detail, items: infoItems)
@@ -513,7 +527,22 @@ extension ContentsDetailViewController: UIScrollViewDelegate {
 }
 
 extension ContentsDetailViewController: FloatingPanelControllerDelegate {
- 
+    func floatingPanelWillEndDragging(_ fpc: FloatingPanelController, withVelocity velocity: CGPoint, targetState: UnsafeMutablePointer<FloatingPanelState>) {
+        switch targetState.pointee {
+        case .full:
+            UIView.animate(withDuration: 0.3) {
+                self.statusBarView.backgroundColor = .secondarySystemGroupedBackground
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.label]
+            }
+        case .half:
+            UIView.animate(withDuration: 0.3) {
+                self.statusBarView.backgroundColor = .clear
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.clear]
+            }
+        default:
+            break
+        }
+    }
 }
 
 class FloatingLayout: FloatingPanelLayout {
@@ -521,7 +550,7 @@ class FloatingLayout: FloatingPanelLayout {
     var initialState: FloatingPanelState = .half
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
         return [
-            .full: FloatingPanelLayoutAnchor(absoluteInset: 0.0, edge: .top, referenceGuide: .superview),
+            .full: FloatingPanelLayoutAnchor(absoluteInset: 0.0, edge: .top, referenceGuide: .safeArea),
             .half: FloatingPanelLayoutAnchor(fractionalInset: 0.3, edge: .bottom, referenceGuide: .safeArea),
 //            .tip: FloatingPanelLayoutAnchor(absoluteInset: 44.0, edge: .bottom, referenceGuide: .safeArea),
         ]

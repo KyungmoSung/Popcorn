@@ -49,7 +49,7 @@ class DetailHorizontalSectionController: ListSectionController {
         let cell: EmbeddedCollectionViewCell = context.dequeueReusableCell(for: self, at: index)
         
         switch detailSection {
-        case .genre, .detail:
+        case .title, .detail:
             let layout = PagingCollectionViewLayout()
             layout.scrollDirection = .horizontal
             layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
@@ -78,15 +78,16 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
     }
     
     func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
-        guard let context = collectionContext else {
+        guard let context = collectionContext, let detailSection = sectionItem?.detailSection else {
             return .zero
         }
         
-        if sectionItem?.detailSection.title == nil {
-            return CGSize(width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude)
-        } else {
-            if sectionItem?.detailSection.subTitles?.count ?? 0 > 0 {
-                return CGSize(width: context.containerSize.width, height: 118)
+        switch detailSection {
+        case .title(_, _, _):
+            return CGSize(width: context.containerSize.width, height: 120)
+        default:
+            if detailSection.subTabs?.count ?? 0 > 0 {
+                return CGSize(width: context.containerSize.width, height: 120)
             } else {
                 return CGSize(width: context.containerSize.width, height: 82)
             }
@@ -94,20 +95,29 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
     }
     
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
-        guard let context = collectionContext else { return UICollectionReusableView() }
-        
-        let headerView: HomeHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
-        headerView.title = sectionItem?.detailSection.title
-        
-        if sectionItem?.detailSection.subTitles?.count ?? 0 > 0 {
-            headerAdapter.collectionView?.isHidden = false
-            headerAdapter.collectionView = headerView.tabCollectionView
-        } else {
-            headerAdapter.collectionView?.isHidden = true
-            headerAdapter.collectionView = nil
+        guard let context = collectionContext, let detailSection = sectionItem?.detailSection else { return UICollectionReusableView() }
+        switch detailSection {
+        case .title(let title, let subTitle, let voteAverage):
+            let headerView: ContentsHeaderVIew = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
+            headerView.title = title
+            headerView.subTitle = subTitle
+            headerView.voteAverage = voteAverage
+            return headerView
+        default:
+            let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
+            headerView.title = sectionItem?.detailSection.sectionTitle
+            
+            if sectionItem?.detailSection.subTabs?.count ?? 0 > 0 {
+                headerAdapter.collectionView?.isHidden = false
+                headerAdapter.collectionView = headerView.tabCollectionView
+            } else {
+                headerAdapter.collectionView?.isHidden = true
+                headerAdapter.collectionView = nil
+            }
+            
+            return headerView
         }
         
-        return headerView
     }
 }
 
@@ -129,7 +139,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
                 return sectionItem?.items ?? []
             }
         } else {
-            return (sectionItem?.detailSection.subTitles ?? []) as [ListDiffable]
+            return (sectionItem?.detailSection.subTabs ?? []) as [ListDiffable]
         }
     }
     
@@ -140,7 +150,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
         
         if listAdapter == cellAdapter {
             switch detailSection {
-            case .genre:
+            case .title:
                 let section = TextTagSectionController()
                 if let contentsDetailVC = viewController as? ContentsDetailViewController {
                     section.delegate = contentsDetailVC

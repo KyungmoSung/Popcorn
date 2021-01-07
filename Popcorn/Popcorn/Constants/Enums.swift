@@ -20,8 +20,8 @@ struct Section {
         }
     }
 
-    enum Detail: String, CaseIterable {
-        case genre
+    enum Detail: Equatable {
+        case title(title: String, subTitle: String, voteAverage: Double)
         case detail
         case synopsis
         case image
@@ -31,18 +31,32 @@ struct Section {
         case similar
         case review
         
-        var title: String? {
+        var sectionTitle: String? {
             switch self {
-            case .genre:
+            case .title:
                 return nil
-            default:
-                return self.rawValue.localized
+            case .detail:
+                return "detail".localized
+            case .synopsis:
+                return "synopsis".localized
+            case .image:
+                return "image".localized
+            case .video:
+                return "video".localized
+            case .credit:
+                return "credit".localized
+            case .recommendation:
+                return "recommendation".localized
+            case .similar:
+                return "similar".localized
+            case .review:
+                return "review".localized
             }
         }
         
         var height: CGFloat {
             switch self {
-            case .genre:
+            case .title:
                 return 30
             case .detail:
                 return 80
@@ -63,7 +77,7 @@ struct Section {
             }
         }
         
-        var subTitles: [String]? {
+        var subTabs: [String]? {
             switch self {
             case .image:
                 return ImageType.allCases.map { $0.title }
