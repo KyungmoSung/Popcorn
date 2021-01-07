@@ -8,62 +8,11 @@
 import UIKit
 
 class ContentsDetailViewController: BaseViewController {
-    @IBOutlet private weak var statusBarView: UIView!
-    @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var blurView: UIView!
     @IBOutlet private weak var blurPosterIv: UIImageView!
     @IBOutlet private weak var posterIv: UIImageView!
     
-    @IBOutlet private weak var contentsView: UIView!
-    @IBOutlet private weak var titleLb: UILabel!
-    @IBOutlet private weak var subTitleLb: UILabel!
-    @IBOutlet private weak var voteAverageLb: UILabel!
-    @IBOutlet private weak var overviewLb: UILabel!
-    
-    @IBOutlet weak var collectionView: UICollectionView!
-    
-    @IBOutlet private weak var genreCollectionView: UICollectionView!
-    @IBOutlet private weak var infoCollectionView: UICollectionView!
-    @IBOutlet private weak var mediaTypeTabCollectionView: UICollectionView!
-    @IBOutlet private weak var mediaListCollectionView: UICollectionView!
-    @IBOutlet private weak var creditCollectionView: UICollectionView!
-    @IBOutlet private weak var recommendationCollectionView: UICollectionView!
-    @IBOutlet private weak var similarCollectionView: UICollectionView!
-    @IBOutlet private weak var reviewCollectionView: UICollectionView!
-    
     lazy var adapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
-    }()
-    
-    lazy var genreAdapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
-    }()
-    
-    lazy var infoAdapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
-    }()
-    
-    lazy var mediaTypeAdapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
-    }()
-    
-    lazy var mediaListAdapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
-    }()
-    
-    lazy var creditAdapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
-    }()
-    
-    lazy var recommendationAdapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
-    }()
-    
-    lazy var similarAdapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
-    }()
-    
-    lazy var reviewAdapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
@@ -82,7 +31,7 @@ class ContentsDetailViewController: BaseViewController {
             dateFormatter.dateFormat = "yyyy"
             let year = dateFormatter.string(from: releaseDate)
 
-            subtitle = year + " · " + subtitle
+            subtitle = year
         }
         
         // original 제목
@@ -160,43 +109,6 @@ class ContentsDetailViewController: BaseViewController {
         
         posterIv.hero.id = posterHeroId
         posterIv.heroModifiers = [.spring(stiffness: 90, damping: 15)]
-        contentsView.hero.modifiers = [.delay(0.1), .translate(y: 500), .spring(stiffness: 80, damping: 12)]
-        
-        scrollView.delegate = self
-        
-        genreAdapter.collectionView = genreCollectionView
-        genreAdapter.dataSource = self
-        
-        adapter.collectionView = collectionView
-        adapter.dataSource = self
-        
-        infoCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        infoAdapter.collectionView = infoCollectionView
-        infoAdapter.dataSource = self
-        
-        mediaTypeTabCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        mediaTypeAdapter.collectionView = mediaTypeTabCollectionView
-        mediaTypeAdapter.dataSource = self
-        
-        mediaListCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        mediaListAdapter.collectionView = mediaListCollectionView
-        mediaListAdapter.dataSource = self
-        
-        creditCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        creditAdapter.collectionView = creditCollectionView
-        creditAdapter.dataSource = self
-        
-        recommendationCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        recommendationAdapter.collectionView = recommendationCollectionView
-        recommendationAdapter.dataSource = self
-        
-        similarCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        similarAdapter.collectionView = similarCollectionView
-        similarAdapter.dataSource = self
-        
-        reviewCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        reviewAdapter.collectionView = reviewCollectionView
-        reviewAdapter.dataSource = self
 
         blurPosterIv.applyBlur(style: .dark)
         posterIv.applyShadow()
@@ -206,7 +118,8 @@ class ContentsDetailViewController: BaseViewController {
         
         let contentVC = UICollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
         adapter.collectionView = contentVC.collectionView
-        
+        adapter.dataSource = self
+
         let fpc = FloatingPanelController(delegate: self)
         fpc.layout = FloatingLayout()
         fpc.set(contentViewController: contentVC)
@@ -222,7 +135,6 @@ class ContentsDetailViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        mediaTypeTabCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
 
         if let index = detailSections.firstIndex(where: { $0.detailSection == .image }), let sectionController = adapter.sectionController(forSection: index) as? DetailHorizontalSectionController {
             sectionController.headerAdapter.collectionView?.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
@@ -233,15 +145,6 @@ class ContentsDetailViewController: BaseViewController {
         super.viewWillDisappear(animated)
         
         navigationController?.setTransparent(false)
-        contentsView.hero.modifiers?.removeAll()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-
-        scrollView.contentInset = UIEdgeInsets(top: blurView.frame.height, left: 0, bottom: 0, right: 0)
-
-        contentsView.roundCorners([.topLeft, .topRight], radius: 25)
     }
     
     func setupUI() {
@@ -257,49 +160,6 @@ class ContentsDetailViewController: BaseViewController {
                     }
                 })
             }
-            
-            // 제목
-            if let title = self.contents?.title {
-                self.titleLb.text = title
-            }
-            
-            // original 제목
-            if let originalTitle = self.contents?.originalTitle {
-                self.subTitleLb.text = originalTitle
-            }
-            
-            // 장르
-            if let _ = self.contents?.genres {
-                self.genreAdapter.performUpdates(animated: false) { (_) in
-//                    let minimumInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-//                    self.genreCollectionView.centerContentHorizontalyByInsetIfNeeded(minimumInset: minimumInset)
-                }
-            }
-            
-            // 개봉연도
-            if let releaseDate = self.contents?.releaseDate.dateValue() {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy"
-                let year = dateFormatter.string(from: releaseDate)
-
-                self.subTitleLb.text = year + " · " + (self.subTitleLb.text ?? "")
-            }
-//
-//            // 상영시간
-//            if let runtime = self.contents?.runtime {
-//                self.subTitleLb.text = (self.subTitleLb.text ?? "") + " · \(runtime)분"
-//            }
-            
-            
-            // 평점
-            if let voteAverage = self.contents?.voteAverage {
-                self.voteAverageLb.text = "\(voteAverage)"
-            }
-            
-            // 줄거리
-            if let overview = self.contents?.overview {
-                self.overviewLb.text = overview
-            }
         }
     }
     
@@ -314,7 +174,6 @@ class ContentsDetailViewController: BaseViewController {
                 self.setupUI()
                 
                 self.infoItems = response.filteredInfo()
-                self.infoAdapter.performUpdates(animated: true, completion: nil)
                 self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
@@ -336,9 +195,6 @@ class ContentsDetailViewController: BaseViewController {
                 
                 self.imageInfos = backdrops + posters
                 
-//                if self.mediaType == .backdrop || self.mediaType == .poster {
-//                    self.mediaListAdapter.performUpdates(animated: true, completion: nil)
-//                }
                 self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
@@ -350,9 +206,6 @@ class ContentsDetailViewController: BaseViewController {
             switch result {
             case .success(let response):
                 self.videoInfos = response.results ?? []
-//                if self.mediaType == .video {
-//                    self.mediaListAdapter.performUpdates(animated: true, completion: nil)
-//                }
                 self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
@@ -369,7 +222,6 @@ class ContentsDetailViewController: BaseViewController {
                     self.credits.insert(director, at: 0)
                 }
                 
-                self.creditAdapter.performUpdates(animated: true, completion: nil)
                 self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
@@ -381,8 +233,6 @@ class ContentsDetailViewController: BaseViewController {
             switch result {
             case .success(let response):
                 self.recommendations = response.results ?? []
-                
-                self.recommendationAdapter.performUpdates(animated: true, completion: nil)
                 self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
@@ -394,8 +244,6 @@ class ContentsDetailViewController: BaseViewController {
             switch result {
             case .success(let response):
                 self.similars = response.results ?? []
-                
-                self.similarAdapter.performUpdates(animated: true, completion: nil)
                 self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
@@ -407,83 +255,21 @@ class ContentsDetailViewController: BaseViewController {
             switch result {
             case .success(let response):
                 self.reviews = response.results ?? []
-                
-                self.reviewAdapter.performUpdates(animated: true, completion: nil)
                 self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
                 Log.d(error)
             }
         }
     }
-    
-//    func changeMediaType(_ type: MediaType) {
-//        guard mediaType != type else {
-//            return
-//        }
-//        mediaType = type
-//        self.mediaListAdapter.performUpdates(animated: true, completion: nil)
-//        self.mediaListAdapter.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: false)
-//    }
 }
 
 extension ContentsDetailViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        switch listAdapter {
-        case genreAdapter:
-            return (contents?.genres ?? []).map { $0.name as ListDiffable }
-        case infoAdapter:
-            return infoItems
-//        case mediaTypeAdapter:
-//            return MediaType.allCases.map { $0.title as ListDiffable }
-//        case mediaListAdapter:
-//            switch mediaType {
-//            case .backdrop:
-//                return backdropInfos
-//            case .poster:
-//                return posterInfos
-//            case .video:
-//                return videoInfos
-//            }
-        case creditAdapter:
-            return credits
-        case recommendationAdapter:
-            return recommendations
-        case similarAdapter:
-            return similars
-        case reviewAdapter:
-            return reviews
-        case adapter:
-            return detailSections
-        default:
-            return []
-        }
+        return detailSections
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        switch listAdapter {
-        case genreAdapter:
-            let section = TextTagSectionController()
-            section.delegate = self
-            return section
-        case infoAdapter:
-            return InfoCardSectionController()
-        case mediaTypeAdapter:
-            let section = TextTabSectionController()
-            section.delegate = self
-            return section
-        case mediaListAdapter:
-            return MediaSectionController()
-        case creditAdapter:
-            return CreditSectionController()
-        case recommendationAdapter, similarAdapter:
-            return PosterSectionController(type: .poster)
-        case reviewAdapter:
-            return ReviewSectionController()
-        case adapter:
-            return DetailHorizontalSectionController()
-        default:
-            return ListSectionController()
-        }
+        return DetailHorizontalSectionController()
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
@@ -507,36 +293,15 @@ extension ContentsDetailViewController: TextTabDelegate {
     }
 }
 
-extension ContentsDetailViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == self.scrollView {
-            let navigationBarHeight = navigationController?.navigationBar.frame.height ?? 0
-            if scrollView.contentOffset.y + navigationBarHeight >= 0{
-                UIView.animate(withDuration: 0.2) {
-                    self.statusBarView.backgroundColor = .secondarySystemGroupedBackground
-                    self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.label]
-                }
-            } else {
-                UIView.animate(withDuration: 0.2) {
-                    self.statusBarView.backgroundColor = .clear
-                    self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.clear]
-                }
-            }
-        }
-    }
-}
-
 extension ContentsDetailViewController: FloatingPanelControllerDelegate {
     func floatingPanelWillEndDragging(_ fpc: FloatingPanelController, withVelocity velocity: CGPoint, targetState: UnsafeMutablePointer<FloatingPanelState>) {
         switch targetState.pointee {
         case .full:
             UIView.animate(withDuration: 0.3) {
-                self.statusBarView.backgroundColor = .secondarySystemGroupedBackground
                 self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.label]
             }
         case .half:
             UIView.animate(withDuration: 0.3) {
-                self.statusBarView.backgroundColor = .clear
                 self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.clear]
             }
         default:
