@@ -117,6 +117,7 @@ class ContentsDetailViewController: BaseViewController {
         getMovies()
         
         let contentVC = UICollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        contentVC.collectionView.backgroundColor = .secondarySystemGroupedBackground
         adapter.collectionView = contentVC.collectionView
         adapter.dataSource = self
 

@@ -23,10 +23,10 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OFG-KW-41n">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="120"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="110"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bYv-fN-jkH">
-                                <rect key="frame" x="30" y="50" width="240" height="60"/>
+                                <rect key="frame" x="30" y="40" width="240" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vl8-Df-70i">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="24"/>
@@ -39,7 +39,7 @@
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="pMi-FS-8Hy">
                                         <rect key="frame" x="0.0" y="34" width="240" height="26"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="P8y-wF-xpL"/>
                                         </constraints>
@@ -53,9 +53,8 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="bYv-fN-jkH" firstAttribute="top" secondItem="OFG-KW-41n" secondAttribute="top" constant="50" id="9xB-Vb-MBa"/>
+                            <constraint firstItem="bYv-fN-jkH" firstAttribute="top" secondItem="OFG-KW-41n" secondAttribute="top" constant="40" id="9xB-Vb-MBa"/>
                             <constraint firstItem="bYv-fN-jkH" firstAttribute="leading" secondItem="OFG-KW-41n" secondAttribute="leading" constant="30" id="Iaj-5R-1Lw"/>
                             <constraint firstAttribute="bottom" secondItem="bYv-fN-jkH" secondAttribute="bottom" constant="10" id="V9x-qc-EoL"/>
                             <constraint firstAttribute="trailing" secondItem="bYv-fN-jkH" secondAttribute="trailing" constant="30" id="s9d-P0-eg2"/>
@@ -78,7 +77,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <systemColor name="systemBackgroundColor">
+        <systemColor name="secondarySystemGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>

@@ -87,9 +87,9 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
             return CGSize(width: context.containerSize.width, height: 120)
         default:
             if detailSection.subTabs?.count ?? 0 > 0 {
-                return CGSize(width: context.containerSize.width, height: 120)
+                return CGSize(width: context.containerSize.width, height: 110)
             } else {
-                return CGSize(width: context.containerSize.width, height: 82)
+                return CGSize(width: context.containerSize.width, height: 72)
             }
         }
     }
