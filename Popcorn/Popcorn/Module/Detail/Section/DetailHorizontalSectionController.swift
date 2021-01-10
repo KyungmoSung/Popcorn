@@ -85,12 +85,10 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
         switch detailSection {
         case .title(_, _, _):
             return CGSize(width: context.containerSize.width, height: 120)
+        case .image(_):
+            return CGSize(width: context.containerSize.width, height: 110)
         default:
-            if detailSection.subTabs?.count ?? 0 > 0 {
-                return CGSize(width: context.containerSize.width, height: 110)
-            } else {
-                return CGSize(width: context.containerSize.width, height: 72)
-            }
+            return CGSize(width: context.containerSize.width, height: 72)
         }
     }
     
@@ -99,25 +97,31 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
         switch detailSection {
         case .title(let title, let subTitle, let voteAverage):
             let headerView: ContentsHeaderVIew = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
+            
             headerView.title = title
             headerView.subTitle = subTitle
             headerView.voteAverage = voteAverage
+            
+            return headerView
+        case .image(_):
+            let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
+            
+            headerView.title = sectionItem?.detailSection.sectionTitle
+            
+            headerAdapter.collectionView?.isHidden = false
+            headerAdapter.collectionView = headerView.tabCollectionView
+            
             return headerView
         default:
             let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
+            
             headerView.title = sectionItem?.detailSection.sectionTitle
             
-            if sectionItem?.detailSection.subTabs?.count ?? 0 > 0 {
-                headerAdapter.collectionView?.isHidden = false
-                headerAdapter.collectionView = headerView.tabCollectionView
-            } else {
-                headerAdapter.collectionView?.isHidden = true
-                headerAdapter.collectionView = nil
-            }
+            headerAdapter.collectionView?.isHidden = true
+            headerAdapter.collectionView = nil
             
             return headerView
         }
-        
     }
 }
 
@@ -139,7 +143,12 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
                 return sectionItem?.items ?? []
             }
         } else {
-            return (sectionItem?.detailSection.subTabs ?? []) as [ListDiffable]
+            switch detailSection {
+            case .image(let tabs):
+                return tabs as [ListDiffable]
+            default:
+                return []
+            }
         }
     }
     

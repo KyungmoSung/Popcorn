@@ -54,7 +54,7 @@ class ContentsDetailViewController: BaseViewController {
         }
         
         if imageInfos.count > 0 {
-            let section = DetailSectionItem(.image, items: imageInfos)
+            let section = DetailSectionItem(.image(tabs: ImageType.allCases.map { $0.title }), items: imageInfos)
             sections.append(section)
         }
         
@@ -137,7 +137,7 @@ class ContentsDetailViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if let index = detailSections.firstIndex(where: { $0.detailSection == .image }), let sectionController = adapter.sectionController(forSection: index) as? DetailHorizontalSectionController {
+        if let index = detailSections.firstIndex(where: { $0.items is [ImageInfo] }), let sectionController = adapter.sectionController(forSection: index) as? DetailHorizontalSectionController {
             sectionController.headerAdapter.collectionView?.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
         }
     }

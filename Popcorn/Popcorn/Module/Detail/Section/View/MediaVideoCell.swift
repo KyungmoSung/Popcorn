@@ -22,10 +22,12 @@ class MediaVideoCell: UICollectionViewCell {
     }
     
     func loadYouTube(key: String) {
-        if let url = URL(string: AppConstants.Domain.youtubeEmbed + key) {
-            let request = URLRequest(url: url)
-            webView.scrollView.isScrollEnabled = false
-            webView.load(request)
+        DispatchQueue.main.async {
+            if let url = URL(string: AppConstants.Domain.youtubeEmbed + key) {
+                let request = URLRequest(url: url)
+                self.webView.scrollView.isScrollEnabled = false
+                self.webView.load(request)
+            }
         }
     }
 }
@@ -33,7 +35,7 @@ class MediaVideoCell: UICollectionViewCell {
 extension MediaVideoCell: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         
-        let scriptFontSizeAdjustment = "document.body.style.zoom = '0.9'"
+        let scriptFontSizeAdjustment = "document.body.style.zoom = '0.8'"
         webView.evaluateJavaScript(scriptFontSizeAdjustment)
         
         indicatorView.isHidden = false

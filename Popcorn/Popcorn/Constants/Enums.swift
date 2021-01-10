@@ -24,7 +24,7 @@ struct Section {
         case title(title: String, subTitle: String, voteAverage: Double)
         case detail
         case synopsis
-        case image
+        case image(tabs: [String])
         case video
         case credit
         case recommendation
@@ -74,15 +74,6 @@ struct Section {
                 return 200
             case .review:
                 return 250
-            }
-        }
-        
-        var subTabs: [String]? {
-            switch self {
-            case .image:
-                return ImageType.allCases.map { $0.title }
-            default:
-                return nil
             }
         }
     }
