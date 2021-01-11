@@ -21,7 +21,7 @@ struct Section {
     }
 
     enum Detail: Equatable {
-        case title(title: String, subTitle: String, voteAverage: Double)
+        case title(title: String, subTitle: String, voteAverage: Double, genres: [String])
         case detail
         case synopsis
         case image(tabs: [String])
@@ -57,7 +57,7 @@ struct Section {
         var height: CGFloat {
             switch self {
             case .title:
-                return 30
+                return 0
             case .detail:
                 return 80
             case .synopsis:

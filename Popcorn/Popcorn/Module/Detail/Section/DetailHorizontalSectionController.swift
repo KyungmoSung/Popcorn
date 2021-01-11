@@ -63,26 +63,23 @@ class DetailHorizontalSectionController: ListSectionController {
         let cell: EmbeddedCollectionViewCell = context.dequeueReusableXibCell(for: self, at: index)
         cellAdapter.collectionView = cell.collectionView
         
+        let layout = PagingCollectionViewLayout()
+        
         switch detailSection {
-        case .title, .detail: // 가로 스크롤 & 자동 넓이
-            let layout = PagingCollectionViewLayout()
+        case .detail: // 가로 스크롤 & 자동 넓이
             layout.scrollDirection = .horizontal
-            cell.collectionView.collectionViewLayout = layout
             cell.collectionView.isScrollEnabled = true
             layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         case .synopsis: // 세로 스크롤 & 자동 높이
-            let layout = PagingCollectionViewLayout()
             layout.scrollDirection = .vertical
-            cell.collectionView.collectionViewLayout = layout
             cell.collectionView.isScrollEnabled = false
             layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        default: // 세로 스크롤
-            let layout = PagingCollectionViewLayout()
+        default: // 가로 스크롤
             layout.scrollDirection = .horizontal
-            cell.collectionView.collectionViewLayout = layout
             cell.collectionView.isScrollEnabled = true
         }
         
+        cell.collectionView.collectionViewLayout = layout
         cell.collectionView.collectionViewLayout.invalidateLayout()
         
         return cell
@@ -104,8 +101,9 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
         }
         
         switch detailSection {
-        case .title(_, _, _):
-            return CGSize(width: context.containerSize.width, height: 120)
+        case .title(let title, _, _, _):
+            let titleHeight = title.height(for: .NanumSquare(size: 30, family: .ExtraBold), lineSpacing: 0, numberOfLines: 0, width: context.containerSize.width - 132)
+            return CGSize(width: context.containerSize.width, height: 223 + ceil(titleHeight))
         case .image(_):
             return CGSize(width: context.containerSize.width, height: 110)
         default:
@@ -116,13 +114,14 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
         guard let context = collectionContext, let detailSection = sectionItem?.detailSection else { return UICollectionReusableView() }
         switch detailSection {
-        case .title(let title, let subTitle, let voteAverage):
+        case .title(let title, let subTitle, let voteAverage, _):
             let headerView: ContentsHeaderVIew = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
             headerView.title = title
             headerView.subTitle = subTitle
             headerView.voteAverage = voteAverage
-            
+            headerAdapter.collectionView = headerView.genreCollectionView
+
             return headerView
         case .image(_):
             let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
@@ -157,20 +156,22 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             case .image: // 선택된 이미지타입만 필터링 (포스터/배경)
                 if let items = sectionItem?.items as? [ImageInfo] {
                     return items.filter{ return $0.type == ImageType(rawValue: selectedSubSection) }
-                } else {
-                    return []
                 }
             default:
                 return sectionItem?.items ?? []
             }
         } else {
             switch detailSection {
+            case .title(_, _ , _, let genres):
+                return genres as [ListDiffable]
             case .image(let tabs):
                 return tabs as [ListDiffable]
             default:
-                return []
+                break
             }
         }
+        
+        return []
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
@@ -180,8 +181,6 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
         
         if listAdapter == cellAdapter {
             switch detailSection {
-            case .title:
-                return TextTagSectionController(delegate: self)
             case .detail:
                 return InfoCardSectionController()
             case .synopsis:
@@ -198,10 +197,21 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
                 return PosterSectionController(type: .poster)
             case .review:
                 return ReviewSectionController()
+            default:
+                break
             }
         } else {
-            return TextTabSectionController(delegate: self)
+            switch detailSection {
+            case .title:
+                return TextTagSectionController(delegate: self)
+            case .image:
+                return TextTabSectionController(delegate: self)
+            default:
+                break
+            }
         }
+        
+        return ListSectionController()
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {

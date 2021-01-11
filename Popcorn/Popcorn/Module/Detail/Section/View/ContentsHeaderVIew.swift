@@ -8,11 +8,11 @@
 import UIKit
 
 class ContentsHeaderVIew: UICollectionViewCell {
-    
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet private weak var subTitleLb: UILabel!
     @IBOutlet private weak var voteAverageLb: UILabel!
     @IBOutlet private weak var starIv: UIImageView!
+    @IBOutlet weak var genreCollectionView: UICollectionView!
     
     var title: String? {
         didSet {

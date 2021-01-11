@@ -8,7 +8,6 @@
 import UIKit
 
 class ContentsDetailViewController: BaseViewController {
-    @IBOutlet private weak var blurView: UIView!
     @IBOutlet private weak var blurPosterIv: UIImageView!
     @IBOutlet private weak var posterIv: UIImageView!
     
@@ -52,13 +51,12 @@ class ContentsDetailViewController: BaseViewController {
             subtitle += " · " + originalTitle
         }
         
-        let genreNames = (contents?.genres ?? []).map { $0.name as ListDiffable }
-        let titleSection = DetailSectionItem(.title(title: contents.title, subTitle: subtitle, voteAverage: self.contents?.voteAverage ?? 0), items: genreNames)
+        let genreNames = (contents?.genres ?? []).map { $0.name }.compactMap { $0 }
+        let titleSection = DetailSectionItem(.title(title: contents.title, subTitle: subtitle, voteAverage: self.contents?.voteAverage ?? 0, genres: genreNames), items: [])
         sections.append(titleSection)
 
         let detailSection = DetailSectionItem(.detail, items: infoItems)
         sections.append(detailSection)
-
         
         // 시놉시스 (tagline + overview)
         var synopsisInfo: [ListDiffable] = []
