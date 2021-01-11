@@ -15,10 +15,15 @@ class TextTagSectionController: ListSectionController {
     var title: String?
     weak var delegate: TextTagDelegate?
     
-    override init() {
+    override private init() {
         super.init()
         
         self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 6)
+    }
+    
+    convenience init(delegate: TextTagDelegate) {
+        self.init()
+        self.delegate = delegate
     }
     
     override func sizeForItem(at index: Int) -> CGSize {

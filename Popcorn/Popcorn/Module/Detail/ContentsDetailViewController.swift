@@ -22,6 +22,17 @@ class ContentsDetailViewController: BaseViewController {
     var contents: Movie!
     var posterHeroId: String?
     
+    var mediaType: ImageType = .backdrop
+    var backdropInfos: [ImageInfo] = []
+    var posterInfos: [ImageInfo] = []
+    var videoInfos: [VideoInfo] = []
+    var imageInfos: [ImageInfo] = []
+    var credits: [Person] = []
+    var recommendations: [Movie] = []
+    var similars: [Movie] = []
+    var infoItems: [InfoItem] = []
+    var reviews: [Review] = []
+    
     var detailSections: [DetailSectionItem] {
         var sections: [DetailSectionItem] = []
         
@@ -42,13 +53,12 @@ class ContentsDetailViewController: BaseViewController {
         }
         
         let genreNames = (contents?.genres ?? []).map { $0.name as ListDiffable }
-        let section = DetailSectionItem(.title(title: contents.title, subTitle: subtitle, voteAverage: self.contents?.voteAverage ?? 0), items: genreNames)
-        sections.append(section)
-        
-        if infoItems.count > 0 {
-            let section = DetailSectionItem(.detail, items: infoItems)
-            sections.append(section)
-        }
+        let titleSection = DetailSectionItem(.title(title: contents.title, subTitle: subtitle, voteAverage: self.contents?.voteAverage ?? 0), items: genreNames)
+        sections.append(titleSection)
+
+        let detailSection = DetailSectionItem(.detail, items: infoItems)
+        sections.append(detailSection)
+
         
         // 시놉시스 (tagline + overview)
         var synopsisInfo: [ListDiffable] = []
@@ -97,17 +107,6 @@ class ContentsDetailViewController: BaseViewController {
         
         return sections
     }
-    
-    var mediaType: ImageType = .backdrop
-    var backdropInfos: [ImageInfo] = []
-    var posterInfos: [ImageInfo] = []
-    var videoInfos: [VideoInfo] = []
-    var imageInfos: [ImageInfo] = []
-    var credits: [Person] = []
-    var recommendations: [Movie] = []
-    var similars: [Movie] = []
-    var infoItems: [InfoItem] = []
-    var reviews: [Review] = []
     
     convenience init(id: Int) {
         self.init()
@@ -206,8 +205,7 @@ class ContentsDetailViewController: BaseViewController {
             switch result {
             case .success(let response):
                 self.contents = response
-                self.setupUI()
-                
+
                 self.infoItems = response.filteredInfo()
                 self.adapter.performUpdates(animated: true, completion: nil)
             case .failure(let error):
@@ -312,22 +310,6 @@ extension ContentsDetailViewController: ListAdapterDataSource {
     }
 }
 
-extension ContentsDetailViewController: TextTagDelegate {
-    func didSelectTag(index: Int) {
-        if let genre = contents?.genres?[index] {
-            print(genre)
-        }
-    }
-}
-
-extension ContentsDetailViewController: TextTabDelegate {
-    func didSelectTab(index: Int) {
-//        if let type = MediaType(rawValue: index) {
-//            changeMediaType(type)
-//        }
-    }
-}
-
 extension ContentsDetailViewController: FloatingPanelControllerDelegate {
     func floatingPanelWillEndDragging(_ fpc: FloatingPanelController, withVelocity velocity: CGPoint, targetState: UnsafeMutablePointer<FloatingPanelState>) {
         switch targetState.pointee {
@@ -354,6 +336,5 @@ class FloatingLayout: FloatingPanelLayout {
             .half: FloatingPanelLayoutAnchor(fractionalInset: 0.3, edge: .bottom, referenceGuide: .safeArea),
 //            .tip: FloatingPanelLayoutAnchor(absoluteInset: 44.0, edge: .bottom, referenceGuide: .safeArea),
         ]
-
     }
 }

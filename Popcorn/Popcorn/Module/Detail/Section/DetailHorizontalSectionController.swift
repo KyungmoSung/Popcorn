@@ -181,11 +181,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
         if listAdapter == cellAdapter {
             switch detailSection {
             case .title:
-                let section = TextTagSectionController()
-                if let contentsDetailVC = viewController as? ContentsDetailViewController {
-                    section.delegate = contentsDetailVC
-                }
-                return section
+                return TextTagSectionController(delegate: self)
             case .detail:
                 return InfoCardSectionController()
             case .synopsis:
@@ -204,9 +200,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
                 return ReviewSectionController()
             }
         } else {
-            let section = TextTabSectionController()
-            section.delegate = self
-            return section
+            return TextTabSectionController(delegate: self)
         }
     }
     
@@ -218,5 +212,13 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
 extension DetailHorizontalSectionController: TextTabDelegate {
     func didSelectTab(index: Int) {
         selectedSubSection = index
+    }
+}
+
+extension DetailHorizontalSectionController: TextTagDelegate {
+    func didSelectTag(index: Int) {
+        if let items = sectionItem?.items as? [String], items.count > index {
+            print(items[index])
+        }
     }
 }

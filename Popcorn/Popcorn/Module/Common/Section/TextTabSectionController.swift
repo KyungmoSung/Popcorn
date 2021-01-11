@@ -16,10 +16,15 @@ class TextTabSectionController: ListSectionController {
     
     var title: String?
     
-    override init() {
+    override private init() {
         super.init()
         
         self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+    }
+    
+    convenience init(delegate: TextTabDelegate) {
+        self.init()
+        self.delegate = delegate
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
