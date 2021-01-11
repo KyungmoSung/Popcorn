@@ -11,6 +11,7 @@ class Movie: Codable {
     let posterPath: String?
     let adult: Bool!
     let overview: String!
+    let tagline: String!
     let releaseDate: AnyValue!
     let genreIds: [Int]!
     let id: Int!
@@ -33,6 +34,7 @@ class Movie: Codable {
     enum CodingKeys : String, CodingKey{
         case adult
         case overview
+        case tagline
         case id
         case title
         case popularity

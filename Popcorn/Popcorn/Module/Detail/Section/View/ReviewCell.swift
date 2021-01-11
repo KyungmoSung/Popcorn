@@ -47,7 +47,7 @@ class ReviewCell: UICollectionViewCell {
     
     var contents: String? {
         didSet {
-            contentsLb.text = contents
+            contentsLb.attributedText = contents?.attributedString(font: UIFont.NanumSquare(size: 14, family: .Regular))
         }
     }
     

@@ -38,6 +38,20 @@ class DetailHorizontalSectionController: ListSectionController {
             return .zero
         }
         
+        switch detailSection {
+        case .synopsis:
+            if let items = sectionItem?.items as? [String], items.count > 0 {
+                // 텍스트 높이 계산
+                let totalHeight = items
+                    .enumerated()
+                    .map{ $0.element.height(for: .NanumSquare(size: 14, family: (items.count >= 2) ? (($0.offset == 0) ? .Bold : .Regular) : .Regular), width: context.containerSize.width - 60) }
+                    .reduce(0) { $0 + $1 }
+                return CGSize(width: context.containerSize.width, height: totalHeight)
+            }
+        default:
+            break
+        }
+        
         return CGSize(width: context.containerSize.width, height: detailSection.height)
     }
     
@@ -46,23 +60,30 @@ class DetailHorizontalSectionController: ListSectionController {
             return UICollectionViewCell()
         }
         
-        let cell: EmbeddedCollectionViewCell = context.dequeueReusableCell(for: self, at: index)
+        let cell: EmbeddedCollectionViewCell = context.dequeueReusableXibCell(for: self, at: index)
+        cellAdapter.collectionView = cell.collectionView
         
         switch detailSection {
-        case .title, .detail:
+        case .title, .detail: // 가로 스크롤 & 자동 넓이
             let layout = PagingCollectionViewLayout()
             layout.scrollDirection = .horizontal
+            cell.collectionView.collectionViewLayout = layout
+            cell.collectionView.isScrollEnabled = true
             layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        case .synopsis: // 세로 스크롤 & 자동 높이
+            let layout = PagingCollectionViewLayout()
+            layout.scrollDirection = .vertical
             cell.collectionView.collectionViewLayout = layout
-            layout.invalidateLayout()
-        default:
+            cell.collectionView.isScrollEnabled = false
+            layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        default: // 세로 스크롤
             let layout = PagingCollectionViewLayout()
             layout.scrollDirection = .horizontal
             cell.collectionView.collectionViewLayout = layout
-            layout.invalidateLayout()
+            cell.collectionView.isScrollEnabled = true
         }
         
-        cellAdapter.collectionView = cell.collectionView
+        cell.collectionView.collectionViewLayout.invalidateLayout()
         
         return cell
     }
@@ -133,7 +154,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
         
         if listAdapter == cellAdapter {
             switch detailSection {
-            case .image:
+            case .image: // 선택된 이미지타입만 필터링 (포스터/배경)
                 if let items = sectionItem?.items as? [ImageInfo] {
                     return items.filter{ return $0.type == ImageType(rawValue: selectedSubSection) }
                 } else {
@@ -168,7 +189,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             case .detail:
                 return InfoCardSectionController()
             case .synopsis:
-                return ListSectionController()
+                return SynopsisSectionController()
             case .image:
                 return MediaSectionController()
             case .video:

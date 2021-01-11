@@ -23,6 +23,10 @@
 		24661378259867E4008B982B /* NanumSquareRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466135F2598679D008B982B /* NanumSquareRegular.ttf */; };
 		24661379259867E4008B982B /* NanumBarunGothicRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24661368259867AE008B982B /* NanumBarunGothicRegular.ttf */; };
 		2466137A259867E4008B982B /* NanumBarunGothicLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466136B259867AF008B982B /* NanumBarunGothicLight.ttf */; };
+		24A4292B25AAE3AF00845C94 /* SynopsisSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A4292A25AAE3AF00845C94 /* SynopsisSectionController.swift */; };
+		24A4293125AAE41500845C94 /* SynopsisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A4292F25AAE41500845C94 /* SynopsisCell.swift */; };
+		24A4293225AAE41500845C94 /* SynopsisCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24A4293025AAE41500845C94 /* SynopsisCell.xib */; };
+		24A4294225AAF9AD00845C94 /* EmbeddedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24A4294025AAF9AD00845C94 /* EmbeddedCollectionViewCell.xib */; };
 		24B3BE1B25A71AFC00AFBF1C /* ContentsHeaderVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3BE1925A71AFC00AFBF1C /* ContentsHeaderVIew.swift */; };
 		24B3BE1C25A71AFC00AFBF1C /* ContentsHeaderVIew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24B3BE1A25A71AFC00AFBF1C /* ContentsHeaderVIew.xib */; };
 		24C95D5D25987F1E0020C15C /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C95D5C25987F1E0020C15C /* Review.swift */; };
@@ -121,6 +125,10 @@
 		24661369259867AE008B982B /* NanumBarunGothicBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumBarunGothicBold.ttf; sourceTree = "<group>"; };
 		2466136A259867AF008B982B /* NanumBarunGothicUltraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumBarunGothicUltraLight.ttf; sourceTree = "<group>"; };
 		2466136B259867AF008B982B /* NanumBarunGothicLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumBarunGothicLight.ttf; sourceTree = "<group>"; };
+		24A4292A25AAE3AF00845C94 /* SynopsisSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynopsisSectionController.swift; sourceTree = "<group>"; };
+		24A4292F25AAE41500845C94 /* SynopsisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynopsisCell.swift; sourceTree = "<group>"; };
+		24A4293025AAE41500845C94 /* SynopsisCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SynopsisCell.xib; sourceTree = "<group>"; };
+		24A4294025AAF9AD00845C94 /* EmbeddedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmbeddedCollectionViewCell.xib; sourceTree = "<group>"; };
 		24B3BE1925A71AFC00AFBF1C /* ContentsHeaderVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsHeaderVIew.swift; sourceTree = "<group>"; };
 		24B3BE1A25A71AFC00AFBF1C /* ContentsHeaderVIew.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentsHeaderVIew.xib; sourceTree = "<group>"; };
 		24C95D5C25987F1E0020C15C /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -249,6 +257,7 @@
 				24ED62BE2585EBB000FC98B3 /* MediaSectionController.swift */,
 				2457E33425864B20005CE9FB /* CreditSectionController.swift */,
 				24C95D61259880840020C15C /* ReviewSectionController.swift */,
+				24A4292A25AAE3AF00845C94 /* SynopsisSectionController.swift */,
 				24ED62BD2585EB9200FC98B3 /* View */,
 			);
 			path = Section;
@@ -267,6 +276,8 @@
 				24C95D67259880BA0020C15C /* ReviewCell.xib */,
 				24B3BE1925A71AFC00AFBF1C /* ContentsHeaderVIew.swift */,
 				24B3BE1A25A71AFC00AFBF1C /* ContentsHeaderVIew.xib */,
+				24A4292F25AAE41500845C94 /* SynopsisCell.swift */,
+				24A4293025AAE41500845C94 /* SynopsisCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -494,6 +505,7 @@
 			isa = PBXGroup;
 			children = (
 				CDB6D429254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift */,
+				24A4294025AAF9AD00845C94 /* EmbeddedCollectionViewCell.xib */,
 				CDB6D45C254BE003001B0AEB /* SectionHeaderView.swift */,
 				CDB6D45D254BE003001B0AEB /* SectionHeaderView.xib */,
 				CDB6D450254BCC10001B0AEB /* HomePosterCell.swift */,
@@ -639,6 +651,7 @@
 				24661379259867E4008B982B /* NanumBarunGothicRegular.ttf in Resources */,
 				24E02D712585FE0A00591234 /* MediaVideoCell.xib in Resources */,
 				24661376259867E4008B982B /* NanumSquareLight.ttf in Resources */,
+				24A4293225AAE41500845C94 /* SynopsisCell.xib in Resources */,
 				24661377259867E4008B982B /* NanumSquareExtraBold.ttf in Resources */,
 				CDB6D453254BCC10001B0AEB /* HomePosterCell.xib in Resources */,
 				CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */,
@@ -650,6 +663,7 @@
 				24661375259867E4008B982B /* NanumSquareBold.ttf in Resources */,
 				CDB6D526254FD329001B0AEB /* SplashViewController.xib in Resources */,
 				CDB6D53D2550DA40001B0AEB /* HomeBackdropCell.xib in Resources */,
+				24A4294225AAF9AD00845C94 /* EmbeddedCollectionViewCell.xib in Resources */,
 				24C95D69259880BA0020C15C /* ReviewCell.xib in Resources */,
 				CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */,
 				24B3BE1C25A71AFC00AFBF1C /* ContentsHeaderVIew.xib in Resources */,
@@ -785,6 +799,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24A4293125AAE41500845C94 /* SynopsisCell.swift in Sources */,
 				24ED62BF2585EBB000FC98B3 /* MediaSectionController.swift in Sources */,
 				24B3BE1B25A71AFC00AFBF1C /* ContentsHeaderVIew.swift in Sources */,
 				CD06B5E8258853E100E15540 /* TextTagSectionController.swift in Sources */,
@@ -811,6 +826,7 @@
 				24ED62AE258371C700FC98B3 /* TextTabSectionController.swift in Sources */,
 				CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */,
 				CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */,
+				24A4292B25AAE3AF00845C94 /* SynopsisSectionController.swift in Sources */,
 				CDB6D422254BAB70001B0AEB /* HorizontalSectionController.swift in Sources */,
 				242D62FE25939D5100450120 /* NumberExtension.swift in Sources */,
 				242D62E5259377D100450120 /* InfoCardSectionController.swift in Sources */,

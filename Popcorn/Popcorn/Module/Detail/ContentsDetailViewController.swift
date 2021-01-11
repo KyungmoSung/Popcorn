@@ -12,6 +12,8 @@ class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var blurPosterIv: UIImageView!
     @IBOutlet private weak var posterIv: UIImageView!
     
+    var collectionView: UICollectionView?
+    
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
@@ -48,8 +50,18 @@ class ContentsDetailViewController: BaseViewController {
             sections.append(section)
         }
         
-        if let overview = contents?.overview, !overview.isEmpty {
-            let section = DetailSectionItem(.synopsis, items: [overview as ListDiffable])
+        // 시놉시스 (tagline + overview)
+        var synopsisInfo: [ListDiffable] = []
+        if let tagline = contents?.tagline, !tagline.isEmpty {
+            synopsisInfo.append((tagline + "\n") as ListDiffable)
+        }
+        
+        if let overview = contents?.overview?.replacingOccurrences(of: ". ", with: ".\n"), !overview.isEmpty {
+            synopsisInfo.append(overview as ListDiffable)
+        }
+        
+        if synopsisInfo.count > 0 {
+            let section = DetailSectionItem(.synopsis, items: synopsisInfo)
             sections.append(section)
         }
         
@@ -109,23 +121,10 @@ class ContentsDetailViewController: BaseViewController {
         
         posterIv.hero.id = posterHeroId
         posterIv.heroModifiers = [.spring(stiffness: 90, damping: 15)]
-
-        blurPosterIv.applyBlur(style: .dark)
-        posterIv.applyShadow()
         
+        setupFloatingPanel()
         setupUI()
         getMovies()
-        
-        let contentVC = UICollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        contentVC.collectionView.backgroundColor = .secondarySystemGroupedBackground
-        adapter.collectionView = contentVC.collectionView
-        adapter.dataSource = self
-
-        let fpc = FloatingPanelController(delegate: self)
-        fpc.layout = FloatingLayout()
-        fpc.set(contentViewController: contentVC)
-        fpc.track(scrollView: contentVC.collectionView)
-        fpc.addPanel(toParent: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -148,8 +147,43 @@ class ContentsDetailViewController: BaseViewController {
         navigationController?.setTransparent(false)
     }
     
+    func setupFloatingPanel() {
+        let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        
+        let contentVC = UICollectionViewController(collectionViewLayout: layout)
+        contentVC.collectionView.backgroundColor = .secondarySystemGroupedBackground
+
+        collectionView = contentVC.collectionView
+        adapter.collectionView = contentVC.collectionView
+        adapter.dataSource = self
+
+        let fpc = FloatingPanelController(delegate: self)
+        fpc.layout = FloatingLayout()
+        fpc.set(contentViewController: contentVC)
+        fpc.track(scrollView: contentVC.collectionView)
+        fpc.addPanel(toParent: self)
+        
+        let shadow = SurfaceAppearance.Shadow()
+        shadow.color = UIColor.black
+        shadow.offset = CGSize(width: 0, height: 16)
+        shadow.radius = 20
+        shadow.spread = 0
+        shadow.opacity = 1
+        
+        let appearance = SurfaceAppearance()
+        appearance.shadows = [shadow]
+        appearance.cornerRadius = 20
+        appearance.backgroundColor = .clear
+
+        fpc.surfaceView.appearance = appearance
+    }
+    
     func setupUI() {
         DispatchQueue.main.async {
+            self.blurPosterIv.applyBlur(style: .dark)
+            self.posterIv.applyShadow()
+            
             // poster 이미지
             if let path = self.contents?.posterPath, let url = URL(string: AppConstants.Domain.tmdbImage + path), self.posterIv.image == nil {
                 Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: self.posterIv, completion: { result in

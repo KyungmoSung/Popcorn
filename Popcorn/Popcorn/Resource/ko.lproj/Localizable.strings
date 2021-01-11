@@ -13,7 +13,8 @@ upcoming = "개봉 예정";
 
 detail = "상세 정보";
 synopsis = "시놉시스";
-media = "미디어";
+image = "이미지";
+video = "비디오";
 credit = "출연 & 제작";
 recommendation = "추천 작품";
 similar = "비슷한 작품";
