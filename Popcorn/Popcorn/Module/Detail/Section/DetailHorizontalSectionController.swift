@@ -60,7 +60,7 @@ class DetailHorizontalSectionController: ListSectionController {
             return UICollectionViewCell()
         }
         
-        let cell: EmbeddedCollectionViewCell = context.dequeueReusableXibCell(for: self, at: index)
+        let cell: EmbeddedCollectionViewCell = context.dequeueReusableCell(for: self, at: index)
         cellAdapter.collectionView = cell.collectionView
         
         let layout = PagingCollectionViewLayout()

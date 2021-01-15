@@ -36,7 +36,7 @@ class HorizontalSectionController: ListSectionController {
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         guard let context = collectionContext else { return UICollectionViewCell() }
         
-        let cell: EmbeddedCollectionViewCell = context.dequeueReusableXibCell(for: self, at: index)
+        let cell: EmbeddedCollectionViewCell = context.dequeueReusableCell(for: self, at: index)
         let layout = PagingCollectionViewLayout()
         layout.scrollDirection = .horizontal
         cell.collectionView.collectionViewLayout = layout
