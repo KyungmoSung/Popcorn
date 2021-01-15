@@ -104,7 +104,7 @@
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icStarBorder" translatesAutoresizingMaskIntoConstraints="NO" id="Mbt-gb-Crf">
                                                                 <rect key="frame" x="0.0" y="0.0" width="89.5" height="25"/>
-                                                                <color key="tintColor" systemColor="labelColor"/>
+                                                                <color key="tintColor" systemColor="systemYellowColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="25" id="m8b-rt-jc3"/>
                                                                 </constraints>
@@ -143,7 +143,7 @@
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icFavorite" translatesAutoresizingMaskIntoConstraints="NO" id="q3z-Ds-ZcQ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="89" height="23"/>
-                                                                <color key="tintColor" systemColor="labelColor"/>
+                                                                <color key="tintColor" systemColor="systemPinkColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="23" id="7bU-r4-Rzs"/>
                                                                 </constraints>
@@ -182,7 +182,7 @@
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icAddList" translatesAutoresizingMaskIntoConstraints="NO" id="nWO-B1-PR1">
                                                                 <rect key="frame" x="0.0" y="0.0" width="89.5" height="25"/>
-                                                                <color key="tintColor" systemColor="labelColor"/>
+                                                                <color key="tintColor" systemColor="systemPurpleColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="25" id="VCk-J2-HJE"/>
                                                                 </constraints>
@@ -221,7 +221,7 @@
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icShare3" translatesAutoresizingMaskIntoConstraints="NO" id="06E-6h-AcJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="89" height="23"/>
-                                                                <color key="tintColor" systemColor="labelColor"/>
+                                                                <color key="tintColor" systemColor="systemTealColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="23" id="vFH-Xd-c5Z"/>
                                                                 </constraints>
@@ -299,8 +299,14 @@
         <image name="icShare3" width="48" height="48"/>
         <image name="icStarBorder" width="48" height="48"/>
         <image name="icStarFill" width="48" height="48"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
