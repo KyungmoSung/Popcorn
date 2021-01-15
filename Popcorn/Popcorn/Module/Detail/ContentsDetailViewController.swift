@@ -54,9 +54,6 @@ class ContentsDetailViewController: BaseViewController {
         let genreNames = (contents?.genres ?? []).map { $0.name }.compactMap { $0 }
         let titleSection = DetailSectionItem(.title(title: contents.title, subTitle: subtitle, voteAverage: self.contents?.voteAverage ?? 0, genres: genreNames), items: [])
         sections.append(titleSection)
-
-        let detailSection = DetailSectionItem(.detail, items: infoItems)
-        sections.append(detailSection)
         
         // 시놉시스 (tagline + overview)
         var synopsisInfo: [ListDiffable] = []
@@ -73,33 +70,45 @@ class ContentsDetailViewController: BaseViewController {
             sections.append(section)
         }
         
-        if imageInfos.count > 0 {
-            let section = DetailSectionItem(.image(tabs: ImageType.allCases.map { $0.title }), items: imageInfos)
-            sections.append(section)
-        }
-        
-        if videoInfos.count > 0 {
-            let section = DetailSectionItem(.video, items: videoInfos)
-            sections.append(section)
-        }
-        
+        // 출연 & 제작
         if credits.count > 0 {
             let section = DetailSectionItem(.credit, items: credits)
             sections.append(section)
         }
         
+        // 상세정보
+        if infoItems.count > 0 {
+            let detailSection = DetailSectionItem(.detail, items: infoItems)
+            sections.append(detailSection)
+        }
+        
+        // 이미지 ( poster + backdrop )
+        if imageInfos.count > 0 {
+            let section = DetailSectionItem(.image(tabs: ImageType.allCases.map { $0.title }), items: imageInfos)
+            sections.append(section)
+        }
+        
+        // 비디오
+        if videoInfos.count > 0 {
+            let section = DetailSectionItem(.video, items: videoInfos)
+            sections.append(section)
+        }
+        
+        // 리뷰
+        if reviews.count > 0 {
+            let section = DetailSectionItem(.review, items: reviews)
+            sections.append(section)
+        }
+        
+        // 추천 작품
         if recommendations.count > 0 {
             let section = DetailSectionItem(.recommendation, items: recommendations)
             sections.append(section)
         }
         
+        // 비슷한 작품
         if similars.count > 0 {
             let section = DetailSectionItem(.similar, items: similars)
-            sections.append(section)
-        }
-        
-        if reviews.count > 0 {
-            let section = DetailSectionItem(.review, items: reviews)
             sections.append(section)
         }
         
@@ -174,6 +183,8 @@ class ContentsDetailViewController: BaseViewController {
         appearance.backgroundColor = .clear
 
         fpc.surfaceView.appearance = appearance
+        
+        fpc.view.hero.modifiers = [.delay(0.1), .translate(y: 500), .spring(stiffness: 80, damping: 12)]
     }
     
     func setupUI() {
