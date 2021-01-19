@@ -183,13 +183,17 @@ class ContentsDetailViewController: BaseViewController {
         appearance.backgroundColor = .clear
 
         fpc.surfaceView.appearance = appearance
-        
-        fpc.view.hero.modifiers = [.delay(0.1), .translate(y: 500), .spring(stiffness: 80, damping: 12)]
+
+        fpc.view.hero.modifiers = [
+            .when({ (context) -> Bool in
+                return context.isPresenting && context.isAppearing // 화면이 처음 보여지는 경우에만 애니메이션 적용
+            }, .translate(y: 500), .spring(stiffness: 80, damping: 12))
+        ]
     }
     
     func setupUI() {
         DispatchQueue.main.async {
-            self.blurPosterIv.applyBlur(style: .dark)
+            self.blurPosterIv.applyBlur(style: .regular)
             self.posterIv.applyShadow()
             
             // poster 이미지
@@ -341,9 +345,8 @@ class FloatingLayout: FloatingPanelLayout {
     var initialState: FloatingPanelState = .half
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
         return [
-            .full: FloatingPanelLayoutAnchor(absoluteInset: 0.0, edge: .top, referenceGuide: .safeArea),
+            .full: FloatingPanelLayoutAnchor(absoluteInset: 10.0, edge: .top, referenceGuide: .safeArea),
             .half: FloatingPanelLayoutAnchor(fractionalInset: 0.3, edge: .bottom, referenceGuide: .safeArea),
-//            .tip: FloatingPanelLayoutAnchor(absoluteInset: 44.0, edge: .bottom, referenceGuide: .safeArea),
         ]
     }
 }

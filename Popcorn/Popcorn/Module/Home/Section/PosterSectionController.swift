@@ -73,6 +73,7 @@ class PosterSectionController: ListSectionController {
             return
         }
         
+        let animated = !(viewController is ContentsDetailViewController) // 상세화면에서 상세화면 이동 시 애니메이션 미적용
         let vc = ContentsDetailViewController(id: contents.id)
         vc.contents = contents
         vc.posterHeroId = uuid
