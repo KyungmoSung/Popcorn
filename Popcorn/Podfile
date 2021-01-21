@@ -11,6 +11,7 @@ target 'Popcorn' do
   pod 'Nuke', '~> 9.0'
   pod 'Hero'
   pod 'FloatingPanel'
+  pod 'SkeletonView'
 
   target 'PopcornTests' do
     inherit! :search_paths

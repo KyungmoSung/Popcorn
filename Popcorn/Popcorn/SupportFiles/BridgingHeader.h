@@ -12,5 +12,6 @@
 @import Nuke;
 @import Hero;
 @import FloatingPanel;
+@import SkeletonView;
 
 #endif /* BridgingHeader_h */

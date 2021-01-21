@@ -6,6 +6,7 @@ PODS:
   - IGListKit (4.0.0):
     - IGListDiffKit (= 4.0.0)
   - Nuke (9.1.2)
+  - SkeletonView (1.11.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - Hero
   - IGListKit (~> 4.0.0)
   - Nuke (~> 9.0)
+  - SkeletonView
 
 SPEC REPOS:
   trunk:
@@ -22,6 +24,7 @@ SPEC REPOS:
     - IGListDiffKit
     - IGListKit
     - Nuke
+    - SkeletonView
 
 SPEC CHECKSUMS:
   Alamofire: 2c792affbdc2f18016e08fdbcacd60aebe1ba593
@@ -30,7 +33,8 @@ SPEC CHECKSUMS:
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   Nuke: dd2e6be6a34c042a7861e190632781d11f253026
+  SkeletonView: cc84ce90a804dd0dd7198dd802833411c8a64eaf
 
-PODFILE CHECKSUM: 1d95923fe8e3dfc79ee5b967d4d52587a154d06a
+PODFILE CHECKSUM: 05613664c9158fe0a0253610586b77748bbd0b05
 
 COCOAPODS: 1.10.0.rc.1
