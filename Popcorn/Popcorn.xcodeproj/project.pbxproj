@@ -87,6 +87,7 @@
 		CDB6D53D2550DA40001B0AEB /* HomeBackdropCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D53B2550DA40001B0AEB /* HomeBackdropCell.xib */; };
 		CDBD141F256E388A003F625F /* ContentsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD141D256E388A003F625F /* ContentsDetailViewController.swift */; };
 		CDBD1420256E388A003F625F /* ContentsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDBD141E256E388A003F625F /* ContentsDetailViewController.xib */; };
+		CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD109B625B91AFC00225C4E /* Loadingable.swift */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -203,6 +204,7 @@
 		CDB6D53B2550DA40001B0AEB /* HomeBackdropCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeBackdropCell.xib; sourceTree = "<group>"; };
 		CDBD141D256E388A003F625F /* ContentsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsDetailViewController.swift; sourceTree = "<group>"; };
 		CDBD141E256E388A003F625F /* ContentsDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentsDetailViewController.xib; sourceTree = "<group>"; };
+		CDD109B625B91AFC00225C4E /* Loadingable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadingable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,6 +487,7 @@
 				24E02D8825860AFD00591234 /* Media.swift */,
 				24E02D9025860B3800591234 /* Credit.swift */,
 				24C95D5C25987F1E0020C15C /* Review.swift */,
+				CDD109B625B91AFC00225C4E /* Loadingable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -813,6 +816,7 @@
 				CDB6D47E254BF35B001B0AEB /* ContentsCollection.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
 				24E02D9125860B3800591234 /* Credit.swift in Sources */,
+				CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */,
 				2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */,
 				242D62EB2593782D00450120 /* InfoCardCell.swift in Sources */,
 				2457E33E25864BBE005CE9FB /* CreditCell.swift in Sources */,

@@ -27,12 +27,18 @@ class HomeViewController: BaseViewController {
         setNavigation(title: "Popcorn🍿", navigationBar: false, tabBar: true)
         
         for homeSection in homeSections {
-            contentsCollections.append(ContentsCollection(homeSection: homeSection))
+            var contents: [Movie] = []
+            for i in 0...5 {
+                contents.append(Movie(id: i, isLoading: true))
+            }
+            contentsCollections.append(ContentsCollection(homeSection: homeSection, contents: contents))
         }
+        
+        adapter.performUpdates(animated: true, completion: nil)
         
         getMovies(for: homeSections, page: 1)
     }
-
+    
     func getMovies(for homeSections: [Section.Home], page: Int) {
         let params: [String: Any] = [
             "api_key": AppConstants.Key.tmdb,
@@ -63,10 +69,17 @@ class HomeViewController: BaseViewController {
                 
                 switch result {
                 case .success(let response):
-                    guard let contents = response.results else { return }
-                    
+                    guard let contents = response.results else {
+                        return
+                    }
+
                     let contentsCollection = self.contentsCollections.filter { $0.homeSection == homeSection }.first
-                    contentsCollection?.contents.append(contentsOf: contents)
+                    
+                    if page == 1 {
+                        contentsCollection?.contents = contents
+                    } else {
+                        contentsCollection?.contents.append(contentsOf: contents)
+                    }
                 case .failure(let error):
                     Log.d(error)
                 }

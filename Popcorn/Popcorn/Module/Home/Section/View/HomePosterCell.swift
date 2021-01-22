@@ -47,11 +47,14 @@ class HomePosterCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        isSkeletonable = true
         voteView.applyBlur()
     }
 
     override func layoutSubviews() {
         voteView.roundCorners([.topLeft, .bottomRight], radius: 10)
-        posterIv.superview?.applyShadow()
+        posterIv.applyShadow()
+        layoutSkeletonIfNeeded()
+        contentView.layoutSkeletonIfNeeded()
     }
 }

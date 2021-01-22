@@ -7,29 +7,29 @@
 
 import Foundation
 
-class Movie: Codable {
-    let posterPath: String?
-    let adult: Bool!
-    let overview: String!
-    let tagline: String!
-    let releaseDate: AnyValue!
-    let genreIds: [Int]!
-    let id: Int!
-    let originalTitle: String!
-    let originalLanguage: String!
+class Movie: Loadingable, Codable {
+    var posterPath: String?
+    var adult: Bool!
+    var overview: String!
+    var tagline: String!
+    var releaseDate: AnyValue!
+    var genreIds: [Int]!
+    var id: Int!
+    var originalTitle: String!
+    var originalLanguage: String!
 //    let spokenLanguages: [ISO]!
 //    let productionCountries: [ISO]!
 //    let productionCompanies: [ProductionCompany]!
-    let title: String!
-    let backdropPath: String?
-    let popularity: Double!
-    let voteCount: Int!
-    let video: Bool!
-    let voteAverage: Double!
-    let genres: [Genre]?
-    let runtime: Int?
-    let revenue: Int!
-    let budget: Int!
+    var title: String!
+    var backdropPath: String?
+    var popularity: Double!
+    var voteCount: Int!
+    var video: Bool!
+    var voteAverage: Double!
+    var genres: [Genre]?
+    var runtime: Int?
+    var revenue: Int!
+    var budget: Int!
     
     enum CodingKeys : String, CodingKey{
         case adult
@@ -54,6 +54,13 @@ class Movie: Codable {
         case backdropPath = "backdrop_path"
         case voteCount = "vote_count"
         case voteAverage = "vote_average"
+    }
+    
+    init(id: Int, isLoading: Bool) {
+        super.init()
+
+        self.id = id
+        self.isLoading = isLoading
     }
     
     func filteredInfo() -> [InfoItem] {

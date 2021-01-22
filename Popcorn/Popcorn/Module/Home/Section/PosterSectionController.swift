@@ -46,20 +46,28 @@ class PosterSectionController: ListSectionController {
         switch type {
         case .backdrop:
             let cell: HomeBackdropCell = context.dequeueReusableXibCell(for: self, at: index)
-            
-            cell.backdropImgPath = contents?.backdropPath
-            cell.voteAverage = contents?.voteAverage
-            cell.title = contents?.title
-            cell.originalTitle = contents?.originalTitle
-            cell.releaseDate = contents?.releaseDate.dateValue()
+            if contents?.isLoading ?? false {
+                cell.showAnimatedGradientSkeleton(transition: .crossDissolve(0.3))
+            } else {
+                cell.hideSkeleton(transition: .crossDissolve(0.3))
+                cell.backdropImgPath = contents?.backdropPath
+                cell.voteAverage = contents?.voteAverage
+                cell.title = contents?.title
+                cell.originalTitle = contents?.originalTitle
+                cell.releaseDate = contents?.releaseDate.dateValue()
+            }
             return cell
         default:
             let cell: HomePosterCell = context.dequeueReusableXibCell(for: self, at: index)
-            
-            cell.title = contents?.title
-            cell.posterImgPath = contents?.posterPath
-            cell.posterHeroId = uuid
-            cell.voteAverage = contents?.voteAverage
+            if contents?.isLoading ?? false {
+                cell.showAnimatedGradientSkeleton(transition: .crossDissolve(0.3))
+            } else {
+                cell.hideSkeleton(transition: .crossDissolve(0.3))
+                cell.title = contents?.title
+                cell.posterImgPath = contents?.posterPath
+                cell.posterHeroId = uuid
+                cell.voteAverage = contents?.voteAverage
+            }
             return cell
         }
     }
