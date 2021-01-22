@@ -41,32 +41,34 @@ class PosterSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let type = type else { return UICollectionViewCell() }
+        guard let context = collectionContext, let contents = contents, let type = type else {
+            return UICollectionViewCell()
+        }
 
         switch type {
         case .backdrop:
             let cell: HomeBackdropCell = context.dequeueReusableXibCell(for: self, at: index)
-            if contents?.isLoading ?? false {
+            if contents.isLoading {
                 cell.showAnimatedGradientSkeleton(transition: .crossDissolve(0.3))
             } else {
-                cell.hideSkeleton(transition: .crossDissolve(0.3))
-                cell.backdropImgPath = contents?.backdropPath
-                cell.voteAverage = contents?.voteAverage
-                cell.title = contents?.title
-                cell.originalTitle = contents?.originalTitle
-                cell.releaseDate = contents?.releaseDate.dateValue()
+                cell.hideSkeleton(transition: .crossDissolve(1.0))
+                cell.backdropImgPath = contents.backdropPath
+                cell.voteAverage = contents.voteAverage
+                cell.title = contents.title
+                cell.originalTitle = contents.originalTitle
+                cell.releaseDate = contents.releaseDate.dateValue()
             }
             return cell
         default:
             let cell: HomePosterCell = context.dequeueReusableXibCell(for: self, at: index)
-            if contents?.isLoading ?? false {
+            if contents.isLoading {
                 cell.showAnimatedGradientSkeleton(transition: .crossDissolve(0.3))
             } else {
-                cell.hideSkeleton(transition: .crossDissolve(0.3))
-                cell.title = contents?.title
-                cell.posterImgPath = contents?.posterPath
+                cell.hideSkeleton(transition: .crossDissolve(1.0))
+                cell.title = contents.title
+                cell.posterImgPath = contents.posterPath
                 cell.posterHeroId = uuid
-                cell.voteAverage = contents?.voteAverage
+                cell.voteAverage = contents.voteAverage
             }
             return cell
         }
@@ -81,7 +83,6 @@ class PosterSectionController: ListSectionController {
             return
         }
         
-        let animated = !(viewController is ContentsDetailViewController) // 상세화면에서 상세화면 이동 시 애니메이션 미적용
         let vc = ContentsDetailViewController(id: contents.id)
         vc.contents = contents
         vc.posterHeroId = uuid

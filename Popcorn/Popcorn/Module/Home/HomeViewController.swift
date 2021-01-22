@@ -28,14 +28,14 @@ class HomeViewController: BaseViewController {
         
         for homeSection in homeSections {
             var contents: [Movie] = []
-            for i in 0...5 {
+            for i in 0...2 {
                 contents.append(Movie(id: i, isLoading: true))
             }
             contentsCollections.append(ContentsCollection(homeSection: homeSection, contents: contents))
         }
         
         adapter.performUpdates(animated: true, completion: nil)
-        
+
         getMovies(for: homeSections, page: 1)
     }
     
@@ -45,10 +45,8 @@ class HomeViewController: BaseViewController {
             "language": "ko",
             "page": page
         ]
-        
-        var completedCount = 0
-        
-        for homeSection in homeSections {
+                
+        for (index, homeSection) in homeSections.enumerated() {
             var api: String!
             switch homeSection {
             case .popular:
@@ -65,28 +63,27 @@ class HomeViewController: BaseViewController {
             
             APIManager.request(api, method: .get, params: params, responseType: PageResponse<Movie>.self .self) { (result) in
                 
-                completedCount += 1
+                let contentsCollection = self.contentsCollections[index]
                 
                 switch result {
                 case .success(let response):
                     guard let contents = response.results else {
                         return
                     }
-
-                    let contentsCollection = self.contentsCollections.filter { $0.homeSection == homeSection }.first
                     
                     if page == 1 {
-                        contentsCollection?.contents = contents
+                        contentsCollection.contents = contents
                     } else {
-                        contentsCollection?.contents.append(contentsOf: contents)
+                        contentsCollection.contents.append(contentsOf: contents)
                     }
                 case .failure(let error):
                     Log.d(error)
                 }
                 
+                
                 // 모든 요청이 완료되면 컬렉션뷰 업데이트
-                if completedCount == homeSections.count {
-                    self.adapter.performUpdates(animated: true, completion: nil)
+                if let sc = self.adapter.sectionController(for: contentsCollection) as? HorizontalSectionController {
+                    sc.adapter.performUpdates(animated: true, completion: nil)
                 }
             }
         }

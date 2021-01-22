@@ -25,7 +25,9 @@ class ContentsCollection: NSObject, ListDiffable {
             return false
         }
 
-        return self.homeSection == object.homeSection && self.contents == object.contents
+        return self.homeSection == object.homeSection
+            && self.contents == object.contents
+            && self.contents.reduce(""){ $0 + "\($1.id ?? 0)" } == object.contents.reduce(""){ $0 + "\($1.id ?? 0)" }
     }
 }
 
