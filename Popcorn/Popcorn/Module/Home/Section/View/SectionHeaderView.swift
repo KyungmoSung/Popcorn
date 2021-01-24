@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol SectionHeaderViewDelegate: class {
+    func didTapMoreBtn()
+}
+
 class SectionHeaderView: UICollectionViewCell {
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet weak var tabCollectionView: UICollectionView!
+    
+    weak var delegate: SectionHeaderViewDelegate?
     
     var title: String? {
         get {
@@ -18,5 +24,9 @@ class SectionHeaderView: UICollectionViewCell {
         set {
             titleLb.text = newValue
         }
+    }
+    
+    @IBAction func didTapMoreBtn(_ sender: Any) {
+        delegate?.didTapMoreBtn()
     }
 }

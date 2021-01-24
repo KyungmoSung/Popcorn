@@ -32,7 +32,7 @@ class ContentsDetailViewController: BaseViewController {
     var infoItems: [InfoItem] = []
     var reviews: [Review] = []
     
-    var detailSections: [DetailSectionItem] {
+    var sectionItems: [DetailSectionItem] {
         var sections: [DetailSectionItem] = []
         
         var subtitle: String = ""
@@ -137,12 +137,14 @@ class ContentsDetailViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         navigationController?.setTransparent(true)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.clear]
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if let index = detailSections.firstIndex(where: { $0.items is [ImageInfo] }), let sectionController = adapter.sectionController(forSection: index) as? DetailHorizontalSectionController {
+        if let index = sectionItems.firstIndex(where: { $0.items is [ImageInfo] }), let sectionController = adapter.sectionController(forSection: index) as? DetailHorizontalSectionController {
             sectionController.headerAdapter.collectionView?.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
         }
     }
@@ -151,6 +153,7 @@ class ContentsDetailViewController: BaseViewController {
         super.viewWillDisappear(animated)
         
         navigationController?.setTransparent(false)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.label]
     }
     
     func setupFloatingPanel() {
@@ -311,7 +314,7 @@ class ContentsDetailViewController: BaseViewController {
 
 extension ContentsDetailViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return detailSections
+        return sectionItems
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {

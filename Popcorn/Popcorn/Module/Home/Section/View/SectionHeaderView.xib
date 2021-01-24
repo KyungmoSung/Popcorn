@@ -28,15 +28,31 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bYv-fN-jkH">
                                 <rect key="frame" x="30" y="40" width="240" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vl8-Df-70i">
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0NJ-XT-HGT">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="cvc-Z7-kx2"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="NanumSquareEB" family="NanumSquare" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vl8-Df-70i">
+                                                <rect key="frame" x="0.0" y="0.0" width="216" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="cvc-Z7-kx2"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="NanumSquareEB" family="NanumSquare" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6o-fw-1ko">
+                                                <rect key="frame" x="216" y="0.0" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="x6o-fw-1ko" secondAttribute="height" multiplier="1:1" id="pzk-NI-Gny"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="icMore"/>
+                                                <connections>
+                                                    <action selector="didTapMoreBtn:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Vsr-Bg-Lzh"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="pMi-FS-8Hy">
                                         <rect key="frame" x="0.0" y="34" width="240" height="26"/>
                                         <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
@@ -77,6 +93,10 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="icMore" width="48" height="48"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="secondarySystemGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

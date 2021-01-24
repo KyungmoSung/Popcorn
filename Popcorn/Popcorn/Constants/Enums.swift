@@ -7,8 +7,12 @@
 
 import Foundation
 
+protocol SectionType {
+    var title: String { get }
+}
+
 struct Section {
-    enum Home: String {
+    enum Home: String, SectionType {        
         case nowPlaying
         case popular
         case topRated
@@ -20,7 +24,9 @@ struct Section {
         }
     }
 
-    enum Detail: Equatable {
+    enum Detail: RawRepresentable, SectionType {
+        typealias RawValue = String
+        
         case title(title: String, subTitle: String, voteAverage: Double, genres: [Genre])
         case detail
         case synopsis
@@ -31,27 +37,56 @@ struct Section {
         case similar
         case review
         
-        var sectionTitle: String? {
+        var rawValue: String {
             switch self {
             case .title:
-                return nil
+                return "title"
             case .detail:
-                return "detail".localized
+                return "detail"
             case .synopsis:
-                return "synopsis".localized
+                return "synopsis"
             case .image:
-                return "image".localized
+                return "image"
             case .video:
-                return "video".localized
+                return "video"
             case .credit:
-                return "credit".localized
+                return "credit"
             case .recommendation:
-                return "recommendation".localized
+                return "recommendation"
             case .similar:
-                return "similar".localized
+                return "similar"
             case .review:
-                return "review".localized
+                return "review"
             }
+        }
+        
+        init?(rawValue: String) {
+            switch rawValue {
+            case "title":
+                self = .title(title: "", subTitle: "", voteAverage: 0, genres: [])
+            case "detail":
+                self = .detail
+            case "synopsis":
+                self = .synopsis
+            case "image":
+                self = .image(tabs: [])
+            case "video":
+                self = .video
+            case "credit":
+                self = .credit
+            case "recommendation":
+                self = .recommendation
+            case "similar":
+                self = .similar
+            case "review":
+                self = .review
+            default:
+                return nil
+            }
+        }
+        
+        var title: String {
+            return self.rawValue.localized
         }
         
         var height: CGFloat {
@@ -84,7 +119,7 @@ enum MediaType: String {
     case video
 }
 
-enum ImageType: Int, CaseIterable {
+enum ImageType: Int, CaseIterable, SectionType {
     case poster
     case backdrop
     

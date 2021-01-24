@@ -19,7 +19,7 @@ class HomeViewController: BaseViewController {
     
     let homeSections: [Section.Home] = [.popular, .nowPlaying, .upcoming, .topRated]
     
-    var contentsCollections: [ContentsCollection] = []
+    var sectionItems: [HomeSectionItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +27,11 @@ class HomeViewController: BaseViewController {
         setNavigation(title: "Popcorn🍿", navigationBar: false, tabBar: true)
         
         for homeSection in homeSections {
-            var contents: [Movie] = []
+            var items: [Movie] = []
             for i in 0...2 {
-                contents.append(Movie(id: i, isLoading: true))
+                items.append(Movie(id: i, isLoading: true))
             }
-            contentsCollections.append(ContentsCollection(homeSection: homeSection, contents: contents))
+            sectionItems.append(HomeSectionItem(homeSection, items: items))
         }
         
         adapter.performUpdates(animated: true, completion: nil)
@@ -61,18 +61,18 @@ class HomeViewController: BaseViewController {
             
             APIManager.request(api, method: .get, params: params, responseType: PageResponse<Movie>.self .self) { (result) in
                 
-                let contentsCollection = self.contentsCollections[index]
+                let sectionItem = self.sectionItems[index]
                 
                 switch result {
                 case .success(let response):
-                    guard let contents = response.results else {
+                    guard let item = response.results else {
                         return
                     }
                     
                     if page == 1 {
-                        contentsCollection.contents = contents
+                        sectionItem.items = item
                     } else {
-                        contentsCollection.contents.append(contentsOf: contents)
+                        sectionItem.items.append(contentsOf: item)
                     }
                 case .failure(let error):
                     Log.d(error)
@@ -80,7 +80,7 @@ class HomeViewController: BaseViewController {
                 
                 
                 // 모든 요청이 완료되면 컬렉션뷰 업데이트
-                if let sc = self.adapter.sectionController(for: contentsCollection) as? HorizontalSectionController {
+                if let sc = self.adapter.sectionController(for: sectionItem) as? HomeHorizontalSectionController {
                     sc.adapter.performUpdates(animated: true, completion: nil)
                 }
             }
@@ -90,11 +90,11 @@ class HomeViewController: BaseViewController {
 
 extension HomeViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return contentsCollections
+        return sectionItems
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return HorizontalSectionController()
+        return HomeHorizontalSectionController()
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {

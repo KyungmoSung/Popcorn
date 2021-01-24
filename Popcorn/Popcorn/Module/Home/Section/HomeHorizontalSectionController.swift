@@ -1,5 +1,5 @@
 //
-//  HorizontalSectionController.swift
+//  HomeHorizontalSectionController.swift
 //  Popcorn
 //
 //  Created by Front-Artist on 2020/10/30.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class HorizontalSectionController: ListSectionController {
+class HomeHorizontalSectionController: ListSectionController {
 
-    private var contentsCollection: ContentsCollection?
+    private var sectionItem: HomeSectionItem?
     
     lazy var adapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self.viewController)
@@ -23,12 +23,15 @@ class HorizontalSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext, let homeSection = contentsCollection?.homeSection else { return .zero }
+        guard let context = collectionContext, let sectionItem = sectionItem else {
+            return .zero
+        }
         
-        if homeSection == .popular {
+        switch sectionItem.sectionType {
+        case .popular:
             let backdropHeight = context.containerSize.width * 9 / 16 // 16:9 비율
             return CGSize(width: context.containerSize.width, height: backdropHeight)
-        } else {
+        default:
             return CGSize(width: context.containerSize.width, height: 220)
         }
     }
@@ -47,11 +50,11 @@ class HorizontalSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        contentsCollection = object as? ContentsCollection
+        sectionItem = object as? HomeSectionItem
     }
 }
 
-extension HorizontalSectionController: ListSupplementaryViewSource {
+extension HomeHorizontalSectionController: ListSupplementaryViewSource {
     func supportedElementKinds() -> [String] {
         return [UICollectionView.elementKindSectionHeader]
     }
@@ -66,31 +69,43 @@ extension HorizontalSectionController: ListSupplementaryViewSource {
         guard let context = collectionContext else { return UICollectionReusableView() }
         
         let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
-        headerView.title = contentsCollection?.homeSection.title
+        headerView.delegate = self
+        headerView.title = sectionItem?.sectionType.title
         
         return headerView
     }
 }
 
-extension HorizontalSectionController: ListAdapterDataSource {
+extension HomeHorizontalSectionController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return contentsCollection?.contents ?? []
+        guard let sectionItem = sectionItem else {
+            return []
+        }
+        
+        switch sectionItem.sectionType {
+        case .popular:
+            return [ContentsSectionItem(.backdrop, items: sectionItem.items)]
+        default:
+            return [ContentsSectionItem(.poster, items: sectionItem.items)]
+        }
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        guard let homeSection = contentsCollection?.homeSection else {
-            return ListSectionController()
-        }
-        
-        switch homeSection {
-        case .popular:
-            return PosterSectionController(type: .backdrop)
-        default:
-            return PosterSectionController(type: .poster)
-        }
+        return PosterSectionController(direction: .horizontal)
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
+    }
+}
+
+extension HomeHorizontalSectionController: SectionHeaderViewDelegate {
+    func didTapMoreBtn() {
+        guard let sectionItem = sectionItem else {
+            return
+        }
+        
+        let vc = ContentsListViewController(title: sectionItem.sectionType.title, sectionItem: ContentsSectionItem(.poster, items: sectionItem.items))
+        viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }
