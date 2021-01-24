@@ -25,18 +25,29 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NDd-j1-rbx">
                         <rect key="frame" x="0.0" y="0.0" width="80" height="160"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="byP-TV-HOv">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1xr-2c-u4a">
                                 <rect key="frame" x="0.0" y="0.0" width="80" height="120"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="byP-TV-HOv">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="byP-TV-HOv" secondAttribute="height" multiplier="2:3" id="I0W-tw-I6A"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="byP-TV-HOv" secondAttribute="height" multiplier="2:3" id="I0W-tw-I6A"/>
+                                    <constraint firstAttribute="bottom" secondItem="byP-TV-HOv" secondAttribute="bottom" id="0Lb-Yq-PIh"/>
+                                    <constraint firstItem="byP-TV-HOv" firstAttribute="leading" secondItem="1xr-2c-u4a" secondAttribute="leading" id="1OM-G0-9fb"/>
+                                    <constraint firstItem="byP-TV-HOv" firstAttribute="top" secondItem="1xr-2c-u4a" secondAttribute="top" id="S2z-h6-0Va"/>
+                                    <constraint firstAttribute="trailing" secondItem="byP-TV-HOv" secondAttribute="trailing" id="YOm-yV-PXl"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cGf-l4-3UQ">
                                 <rect key="frame" x="0.0" y="0.0" width="44" height="26"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -81,17 +92,17 @@
                             </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="byP-TV-HOv" firstAttribute="leading" secondItem="NDd-j1-rbx" secondAttribute="leading" id="1BX-5q-3tz"/>
-                            <constraint firstItem="byP-TV-HOv" firstAttribute="top" secondItem="NDd-j1-rbx" secondAttribute="top" id="Buq-mk-Bti"/>
                             <constraint firstAttribute="trailing" secondItem="v1G-Or-QRq" secondAttribute="trailing" id="It1-DV-wMV"/>
-                            <constraint firstItem="v1G-Or-QRq" firstAttribute="top" secondItem="byP-TV-HOv" secondAttribute="bottom" constant="12" id="JjO-EI-DDy"/>
-                            <constraint firstAttribute="trailing" secondItem="byP-TV-HOv" secondAttribute="trailing" id="KLr-37-FHd"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="v1G-Or-QRq" secondAttribute="bottom" id="QT7-ko-mxJ"/>
                             <constraint firstItem="mw0-nP-8ee" firstAttribute="top" secondItem="cGf-l4-3UQ" secondAttribute="top" id="UkB-p8-TH6"/>
+                            <constraint firstItem="1xr-2c-u4a" firstAttribute="top" secondItem="NDd-j1-rbx" secondAttribute="top" id="YeQ-rD-1NT"/>
                             <constraint firstItem="mw0-nP-8ee" firstAttribute="trailing" secondItem="cGf-l4-3UQ" secondAttribute="trailing" id="aWo-Aa-E5d"/>
+                            <constraint firstAttribute="trailing" secondItem="1xr-2c-u4a" secondAttribute="trailing" id="af9-cZ-HJp"/>
                             <constraint firstItem="mw0-nP-8ee" firstAttribute="leading" secondItem="cGf-l4-3UQ" secondAttribute="leading" constant="5" id="cpM-jR-JFE"/>
+                            <constraint firstItem="v1G-Or-QRq" firstAttribute="top" secondItem="1xr-2c-u4a" secondAttribute="bottom" constant="12" id="flE-Zw-Kxz"/>
                             <constraint firstItem="cGf-l4-3UQ" firstAttribute="leading" secondItem="NDd-j1-rbx" secondAttribute="leading" id="iAs-0l-x2M"/>
                             <constraint firstItem="v1G-Or-QRq" firstAttribute="leading" secondItem="NDd-j1-rbx" secondAttribute="leading" id="pxa-yN-aam"/>
+                            <constraint firstItem="1xr-2c-u4a" firstAttribute="leading" secondItem="NDd-j1-rbx" secondAttribute="leading" id="r2C-fO-xPN"/>
                             <constraint firstItem="cGf-l4-3UQ" firstAttribute="top" secondItem="NDd-j1-rbx" secondAttribute="top" id="rPH-tF-BYp"/>
                             <constraint firstItem="mw0-nP-8ee" firstAttribute="bottom" secondItem="cGf-l4-3UQ" secondAttribute="bottom" id="sXG-Yr-kaR"/>
                         </constraints>
