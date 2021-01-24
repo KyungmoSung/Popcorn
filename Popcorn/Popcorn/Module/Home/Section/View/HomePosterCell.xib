@@ -47,6 +47,9 @@
                                     <constraint firstItem="byP-TV-HOv" firstAttribute="top" secondItem="1xr-2c-u4a" secondAttribute="top" id="S2z-h6-0Va"/>
                                     <constraint firstAttribute="trailing" secondItem="byP-TV-HOv" secondAttribute="trailing" id="YOm-yV-PXl"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cGf-l4-3UQ">
                                 <rect key="frame" x="0.0" y="0.0" width="44" height="26"/>
@@ -122,6 +125,9 @@
                 <constraint firstAttribute="bottom" secondItem="NDd-j1-rbx" secondAttribute="bottom" id="rTX-fD-mal"/>
             </constraints>
             <size key="customSize" width="80" height="160"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="posterIv" destination="byP-TV-HOv" id="Lcm-Xc-2mv"/>
                 <outlet property="titleLb" destination="v1G-Or-QRq" id="7ds-18-4fR"/>

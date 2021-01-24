@@ -24,6 +24,7 @@ class HomePosterCell: UICollectionViewCell {
             guard let path = posterImgPath, let url = URL(string: AppConstants.Domain.tmdbImage + path) else {
                 return
             }
+
             Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: posterIv)
         }
     }
@@ -47,9 +48,9 @@ class HomePosterCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        isSkeletonable = true
         voteView.applyBlur()
         voteView.roundCorners([.topLeft, .bottomRight], radius: 10)
+        
         posterIv.superview?.applyShadow()
     }
 }

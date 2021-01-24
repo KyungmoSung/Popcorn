@@ -163,7 +163,8 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
         } else {
             switch detailSection {
             case .title(_, _ , _, let genres):
-                return genres as [ListDiffable]
+                let tags = genres.map { Tag(id: $0.id, name: $0.name, isLoading: $0.isLoading) }
+                return tags as [ListDiffable]
             case .image(let tabs):
                 return tabs as [ListDiffable]
             default:

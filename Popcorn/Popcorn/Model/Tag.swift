@@ -1,37 +1,31 @@
 //
-//  Genre.swift
+//  Tag.swift
 //  Popcorn
 //
-//  Created by Kyungmo on 2020/12/11.
+//  Created by Kyungmo on 2021/01/24.
 //
 
 import Foundation
 
-class Genre: Loadingable, Codable {
+class Tag: Loadingable {
     var id: Int!
     var name: String!
     
-    init(id: Int, isLoading: Bool) {
+    init(id: Int, name: String, isLoading: Bool) {
         super.init()
 
         self.id = id
-        self.name = ""
+        self.name = name
         self.isLoading = isLoading
     }
 }
 
-extension Genre: ListDiffable {
+extension Tag: ListDiffable {
     func diffIdentifier() -> NSObjectProtocol {
         return id as NSObjectProtocol
     }
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         return true
-    }
-}
-
-extension Genre: Equatable {
-    static func == (lhs: Genre, rhs: Genre) -> Bool {
-        return (lhs.id == rhs.id) && (lhs.name == rhs.name)
     }
 }

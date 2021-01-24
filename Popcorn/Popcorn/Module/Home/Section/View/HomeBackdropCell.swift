@@ -69,10 +69,8 @@ class HomeBackdropCell: UICollectionViewCell {
         super.awakeFromNib()
         
         voteView.applyBlur()
-        contentView.applyShadow()
-    }
-    
-    override func layoutSubviews() {
         voteView.roundCorners([.topLeft, .bottomRight], radius: 10)
+        
+        contentView.applyShadow()
     }
 }

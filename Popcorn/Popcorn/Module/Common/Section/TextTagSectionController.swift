@@ -12,7 +12,7 @@ protocol TextTagDelegate: class {
 }
 
 class TextTagSectionController: ListSectionController {
-    var title: String?
+    var tag: Tag?
     weak var delegate: TextTagDelegate?
     
     override private init() {
@@ -33,16 +33,21 @@ class TextTagSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let title = title else { return UICollectionViewCell() }
+        guard let context = collectionContext, let tag = tag else { return UICollectionViewCell() }
         
         let cell: TextTagCell = context.dequeueReusableXibCell(for: self, at: index)
-        cell.title = title
+        if tag.isLoading {
+            cell.showAnimatedGradientSkeleton(transition: .crossDissolve(0.3))
+        } else {
+            cell.hideSkeleton(transition: .crossDissolve(0.3))
+            cell.title = tag.name
+        }
         
         return cell
     }
     
     override func didUpdate(to object: Any) {
-        title = object as? String
+        tag = object as? Tag
     }
     
     override func didSelectItem(at index: Int) {

@@ -41,8 +41,6 @@ class HomeViewController: BaseViewController {
     
     func getMovies(for homeSections: [Section.Home], page: Int) {
         let params: [String: Any] = [
-            "api_key": AppConstants.Key.tmdb,
-            "language": "ko",
             "page": page
         ]
                 

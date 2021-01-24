@@ -51,7 +51,7 @@ class ContentsDetailViewController: BaseViewController {
             subtitle += " · " + originalTitle
         }
         
-        let genreNames = (contents?.genres ?? []).map { $0.name }.compactMap { $0 }
+        let genreNames = (contents?.genres ?? [Genre(id: 0, isLoading: true), Genre(id: 1, isLoading: true), Genre(id: 2, isLoading: true)]).compactMap { $0 }
         let titleSection = DetailSectionItem(.title(title: contents.title, subTitle: subtitle, voteAverage: self.contents?.voteAverage ?? 0, genres: genreNames), items: [])
         sections.append(titleSection)
         

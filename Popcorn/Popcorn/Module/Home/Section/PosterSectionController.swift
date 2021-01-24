@@ -51,7 +51,7 @@ class PosterSectionController: ListSectionController {
             if contents.isLoading {
                 cell.showAnimatedGradientSkeleton(transition: .crossDissolve(0.3))
             } else {
-                cell.hideSkeleton(transition: .crossDissolve(1.0))
+                cell.hideSkeleton(transition: .crossDissolve(0.3))
                 cell.backdropImgPath = contents.backdropPath
                 cell.voteAverage = contents.voteAverage
                 cell.title = contents.title
@@ -64,7 +64,7 @@ class PosterSectionController: ListSectionController {
             if contents.isLoading {
                 cell.showAnimatedGradientSkeleton(transition: .crossDissolve(0.3))
             } else {
-                cell.hideSkeleton(transition: .crossDissolve(1.0))
+                cell.hideSkeleton(transition: .crossDissolve(0.3))
                 cell.title = contents.title
                 cell.posterImgPath = contents.posterPath
                 cell.posterHeroId = uuid

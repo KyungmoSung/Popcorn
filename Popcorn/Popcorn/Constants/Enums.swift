@@ -21,7 +21,7 @@ struct Section {
     }
 
     enum Detail: Equatable {
-        case title(title: String, subTitle: String, voteAverage: Double, genres: [String])
+        case title(title: String, subTitle: String, voteAverage: Double, genres: [Genre])
         case detail
         case synopsis
         case image(tabs: [String])
