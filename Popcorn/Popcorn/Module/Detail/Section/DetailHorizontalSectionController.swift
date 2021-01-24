@@ -131,6 +131,8 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
             let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
             headerView.title = sectionItem.sectionType.title
+            headerView.expandable = true
+            headerView.delegate = self
             
             headerAdapter.collectionView?.isHidden = false
             headerAdapter.collectionView = headerView.tabCollectionView
@@ -140,6 +142,13 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
             let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
             headerView.title = sectionItem.sectionType.title
+            if sectionItem.sectionType == .synopsis || sectionItem.sectionType == .detail {
+                headerView.expandable = false
+                headerView.delegate = nil
+            } else {
+                headerView.expandable = true
+                headerView.delegate = self
+            }
             
             headerAdapter.collectionView?.isHidden = true
             headerAdapter.collectionView = nil
@@ -235,5 +244,16 @@ extension DetailHorizontalSectionController: TextTagDelegate {
         if let items = sectionItem?.items as? [String], items.count > index {
             print(items[index])
         }
+    }
+}
+
+extension DetailHorizontalSectionController: SectionHeaderViewDelegate {
+    func didTapExpandBtn() {
+        guard let sectionItem = sectionItem else {
+            return
+        }
+        
+        let vc = ContentsListViewController(title: sectionItem.sectionType.title, sectionItem: ContentsSectionItem(.poster, items: sectionItem.items))
+        viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

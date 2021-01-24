@@ -69,6 +69,7 @@ extension HomeHorizontalSectionController: ListSupplementaryViewSource {
         guard let context = collectionContext else { return UICollectionReusableView() }
         
         let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
+        headerView.expandable = true
         headerView.delegate = self
         headerView.title = sectionItem?.sectionType.title
         
@@ -100,7 +101,7 @@ extension HomeHorizontalSectionController: ListAdapterDataSource {
 }
 
 extension HomeHorizontalSectionController: SectionHeaderViewDelegate {
-    func didTapMoreBtn() {
+    func didTapExpandBtn() {
         guard let sectionItem = sectionItem else {
             return
         }
