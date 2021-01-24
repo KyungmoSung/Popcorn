@@ -11,17 +11,17 @@ protocol ListDiffableItems: ListDiffable {
     var items: [ListDiffable] { get set }
 }
 
-protocol SectionItem: ListDiffableItems {
+protocol ListDiffableSectionItem: ListDiffableItems {
     associatedtype SectionType
 
     var sectionType: SectionType { get set }
 }
 
-class HomeSectionItem: NSObject, SectionItem {
-    var sectionType: Section.Home
+class SectionItem<T: RawRepresentable & SectionType>: NSObject, ListDiffableSectionItem {
+    var sectionType: T
     var items: [ListDiffable]
     
-    init(_ sectionType: Section.Home, items: [ListDiffable] = []) {
+    init(_ sectionType: T, items: [ListDiffable] = []) {
         self.sectionType = sectionType
         self.items = items
     }
@@ -35,20 +35,5 @@ class HomeSectionItem: NSObject, SectionItem {
     }
 }
 
-class DetailSectionItem: NSObject, SectionItem {
-    var sectionType: Section.Detail
-    var items: [ListDiffable]
-    
-    init(_ sectionType: Section.Detail, items: [ListDiffable] = []) {
-        self.sectionType = sectionType
-        self.items = items
-    }
-    
-    func diffIdentifier() -> NSObjectProtocol {
-        return self
-    }
-    
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        return self === object
-    }
-}
+typealias HomeSectionItem = SectionItem<Section.Home>
+typealias DetailSectionItem =  SectionItem<Section.Detail>
