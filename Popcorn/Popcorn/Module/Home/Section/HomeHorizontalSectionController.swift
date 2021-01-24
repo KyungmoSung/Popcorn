@@ -83,16 +83,20 @@ extension HomeHorizontalSectionController: ListAdapterDataSource {
             return []
         }
         
-        switch sectionItem.sectionType {
-        case .popular:
-            return [ContentsSectionItem(.backdrop, items: sectionItem.items)]
-        default:
-            return [ContentsSectionItem(.poster, items: sectionItem.items)]
-        }
+        return [sectionItem]
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return PosterSectionController(direction: .horizontal)
+        guard let sectionItem = sectionItem else {
+            return ListSectionController()
+        }
+
+        switch sectionItem.sectionType {
+        case .popular:
+            return PosterSectionController(type: .backdrop, direction: .horizontal)
+        default:
+            return PosterSectionController(type: .poster, direction: .horizontal)
+        }
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
@@ -101,12 +105,12 @@ extension HomeHorizontalSectionController: ListAdapterDataSource {
 }
 
 extension HomeHorizontalSectionController: SectionHeaderViewDelegate {
-    func didTapExpandBtn() {
+    func didTapExpandBtn(index: Int) {
         guard let sectionItem = sectionItem else {
             return
         }
         
-        let vc = ContentsListViewController(title: sectionItem.sectionType.title, sectionItem: ContentsSectionItem(.poster, items: sectionItem.items))
+        let vc = ContentsListViewController(title: sectionItem.sectionType.title, sectionItem: sectionItem)
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

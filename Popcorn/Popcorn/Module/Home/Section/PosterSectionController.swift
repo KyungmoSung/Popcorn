@@ -8,9 +8,10 @@
 import UIKit
 
 class PosterSectionController: ListSectionController {
-    var sectionItem: ContentsSectionItem?
+    var sectionItem: ListDiffableItems?
+    var type: ImageType = .poster
     var direction: UICollectionView.ScrollDirection = .horizontal
-    var uuid: String?
+    var uuid: String = UUID().uuidString
     
     override private init() {
         super.init()
@@ -18,8 +19,10 @@ class PosterSectionController: ListSectionController {
         minimumLineSpacing = 12
     }
     
-    convenience init(direction: UICollectionView.ScrollDirection) {
+    convenience init(type: ImageType, direction: UICollectionView.ScrollDirection) {
         self.init()
+        
+        self.type = type
         self.direction = direction
     }
     
@@ -28,10 +31,10 @@ class PosterSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext, let sectionItem = sectionItem else { return .zero }
+        guard let context = collectionContext else { return .zero }
         switch direction {
         case .horizontal:
-            switch sectionItem.sectionType {
+            switch type {
             case .backdrop:
                 return CGSize(width: context.containerSize.width - 60, height: context.containerSize.height)
             case .poster:
@@ -44,7 +47,7 @@ class PosterSectionController: ListSectionController {
                 return CGSize(width: posterWidth, height: containerHeight)
             }
         case .vertical:
-            switch sectionItem.sectionType {
+            switch type {
             case .backdrop:
                 return CGSize(width: context.containerSize.width - 60, height: context.containerSize.height)
             case .poster:
@@ -67,7 +70,7 @@ class PosterSectionController: ListSectionController {
             return UICollectionViewCell()
         }
         
-        switch sectionItem.sectionType {
+        switch type {
         case .backdrop:
             let cell: HomeBackdropCell = context.dequeueReusableXibCell(for: self, at: index)
             if item.isLoading {
@@ -89,7 +92,7 @@ class PosterSectionController: ListSectionController {
                 cell.hideSkeleton(transition: .crossDissolve(0.3))
                 cell.title = item.title
                 cell.posterImgPath = item.posterPath
-                cell.posterHeroId = "\(viewController?.className ?? "")\(sectionItem.sectionType.title)\(item.id ?? 0)"
+                cell.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(item.id ?? 0)"
                 cell.voteAverage = item.voteAverage
             }
             return cell
@@ -97,7 +100,7 @@ class PosterSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        sectionItem = object as? ContentsSectionItem
+        sectionItem = object as? ListDiffableItems
     }
     
     override func didSelectItem(at index: Int) {
@@ -107,7 +110,7 @@ class PosterSectionController: ListSectionController {
         
         let vc = ContentsDetailViewController(id: item.id)
         vc.contents = item
-        vc.posterHeroId = "\(viewController?.className ?? "")\(sectionItem.sectionType.title)\(item.id ?? 0)"
+        vc.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(item.id ?? 0)"
         
         viewController?.navigationController?.hero.navigationAnimationType = .fade
         viewController?.navigationController?.pushViewController(vc, animated: true)

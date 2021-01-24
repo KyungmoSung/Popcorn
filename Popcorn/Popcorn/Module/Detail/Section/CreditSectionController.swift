@@ -8,12 +8,22 @@
 import UIKit
 
 class CreditSectionController: ListSectionController {
-    var person: Person?
-    
-    override init() {
+    var sectionItem: DetailSectionItem?
+    var direction: UICollectionView.ScrollDirection = .horizontal
+
+    override private init() {
         super.init()
         
-        self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        minimumLineSpacing = 12
+    }
+    
+    convenience init(direction: UICollectionView.ScrollDirection) {
+        self.init()
+        self.direction = direction
+    }
+    
+    override func numberOfItems() -> Int {
+        return sectionItem?.items.count ?? 0
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
@@ -21,18 +31,30 @@ class CreditSectionController: ListSectionController {
             return .zero
         }
         
-        let height = context.containerSize.height
-        return CGSize(width: height * 0.5, height: height)
+        switch direction {
+        case .horizontal:
+            let height = context.containerSize.height
+            return CGSize(width: height * 0.5, height: height)
+        case .vertical:
+            let numberOfItemInRow: CGFloat = 3
+            let containerWidth = context.containerSize.width - context.containerInset.right - context.containerInset.left
+            let width: CGFloat = (containerWidth - minimumLineSpacing * (numberOfItemInRow - 1)) / numberOfItemInRow
+
+//            let height = context.containerSize.height
+            return CGSize(width: width, height: width * 2)
+        default:
+            return .zero
+        }
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext else {
+        guard let context = collectionContext, let sectionItem = sectionItem, let person = sectionItem.items[index] as? Person else {
             return UICollectionViewCell()
         }
         
         let cell: CreditCell = context.dequeueReusableXibCell(for: self, at: index)
-        cell.profilePath = person?.profilePath
-        cell.name = person?.name
+        cell.profilePath = person.profilePath
+        cell.name = person.name
         
         if let cast = person as? Cast {
             cell.desc = cast.character
@@ -44,6 +66,6 @@ class CreditSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        person = object as? Person
+        sectionItem = object as? DetailSectionItem
     }
 }

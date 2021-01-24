@@ -12,7 +12,7 @@ protocol SectionType {
 }
 
 struct Section {
-    enum Home: String, SectionType {        
+    enum Home: Int, SectionType {
         case nowPlaying
         case popular
         case topRated
@@ -20,12 +20,23 @@ struct Section {
         case none
         
         var title: String {
-            return self.rawValue.localized
+            switch self {
+            case .nowPlaying:
+                return "nowPlaying".localized
+            case .popular:
+                return "popular".localized
+            case .topRated:
+                return "topRated".localized
+            case .upcoming:
+                return "upcoming".localized
+            case .none:
+                return "none".localized
+            }
         }
     }
 
     enum Detail: RawRepresentable, SectionType {
-        typealias RawValue = String
+        typealias RawValue = Int
         
         case title(title: String, subTitle: String, voteAverage: Double, genres: [Genre])
         case detail
@@ -37,48 +48,48 @@ struct Section {
         case similar
         case review
         
-        var rawValue: String {
+        var rawValue: Int {
             switch self {
             case .title:
-                return "title"
+                return 0
             case .detail:
-                return "detail"
+                return 1
             case .synopsis:
-                return "synopsis"
+                return 2
             case .image:
-                return "image"
+                return 3
             case .video:
-                return "video"
+                return 4
             case .credit:
-                return "credit"
+                return 5
             case .recommendation:
-                return "recommendation"
+                return 6
             case .similar:
-                return "similar"
+                return 7
             case .review:
-                return "review"
+                return 8
             }
         }
         
-        init?(rawValue: String) {
+        init?(rawValue: Int) {
             switch rawValue {
-            case "title":
+            case 0:
                 self = .title(title: "", subTitle: "", voteAverage: 0, genres: [])
-            case "detail":
+            case 1:
                 self = .detail
-            case "synopsis":
+            case 2:
                 self = .synopsis
-            case "image":
+            case 3:
                 self = .image(tabs: [])
-            case "video":
+            case 4:
                 self = .video
-            case "credit":
+            case 5:
                 self = .credit
-            case "recommendation":
+            case 6:
                 self = .recommendation
-            case "similar":
+            case 7:
                 self = .similar
-            case "review":
+            case 8:
                 self = .review
             default:
                 return nil
@@ -86,7 +97,26 @@ struct Section {
         }
         
         var title: String {
-            return self.rawValue.localized
+            switch self {
+            case .title:
+                return "title".localized
+            case .detail:
+                return "detail".localized
+            case .synopsis:
+                return "synopsis".localized
+            case .image:
+                return "image".localized
+            case .video:
+                return "video".localized
+            case .credit:
+                return "credit".localized
+            case .recommendation:
+                return "recommendation".localized
+            case .similar:
+                return "similar".localized
+            case .review:
+                return "review".localized
+            }
         }
         
         var height: CGFloat {
@@ -119,7 +149,7 @@ enum MediaType: String {
     case video
 }
 
-enum ImageType: Int, CaseIterable, SectionType {
+enum ImageType: Int, CaseIterable {
     case poster
     case backdrop
     

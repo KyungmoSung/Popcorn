@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SectionHeaderViewDelegate: class {
-    func didTapExpandBtn()
+    func didTapExpandBtn(index: Int)
 }
 
 class SectionHeaderView: UICollectionViewCell {
@@ -33,7 +33,9 @@ class SectionHeaderView: UICollectionViewCell {
         }
     }
     
+    var index: Int = -1
+    
     @IBAction func didTapExpandBtn(_ sender: Any) {
-        delegate?.didTapExpandBtn()
+        delegate?.didTapExpandBtn(index: index)
     }
 }

@@ -130,6 +130,7 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
         case .image(_):
             let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
+            headerView.index = sectionItem.sectionType.rawValue
             headerView.title = sectionItem.sectionType.title
             headerView.expandable = true
             headerView.delegate = self
@@ -141,6 +142,7 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
         default:
             let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
+            headerView.index = sectionItem.sectionType.rawValue
             headerView.title = sectionItem.sectionType.title
             if sectionItem.sectionType == .synopsis || sectionItem.sectionType == .detail {
                 headerView.expandable = false
@@ -170,8 +172,10 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
                 if let items = sectionItem.items as? [ImageInfo] {
                     return items.filter{ return $0.type == ImageType(rawValue: selectedSubSection) }
                 }
+            case .credit:
+                return [sectionItem]
             case .recommendation, .similar:
-                return [ContentsSectionItem(.poster, items: sectionItem.items)]
+                return [sectionItem]
             default:
                 return sectionItem.items
             }
@@ -206,9 +210,9 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             case .video:
                 return MediaSectionController()
             case .credit:
-                return CreditSectionController()
+                return CreditSectionController(direction: .horizontal)
             case .recommendation, .similar:
-                return PosterSectionController(direction: .horizontal)
+                return PosterSectionController(type: .poster, direction: .horizontal)
             case .review:
                 return ReviewSectionController()
             default:
@@ -248,12 +252,21 @@ extension DetailHorizontalSectionController: TextTagDelegate {
 }
 
 extension DetailHorizontalSectionController: SectionHeaderViewDelegate {
-    func didTapExpandBtn() {
-        guard let sectionItem = sectionItem else {
+    func didTapExpandBtn(index: Int) {
+        guard let sectionItem = sectionItem, let type = Section.Detail(rawValue: index) else {
             return
         }
-        
-        let vc = ContentsListViewController(title: sectionItem.sectionType.title, sectionItem: ContentsSectionItem(.poster, items: sectionItem.items))
+        let vc = ContentsListViewController()
+        vc.title = sectionItem.sectionType.title
+
+        switch type {
+        case .recommendation, .similar:
+            vc.sectionItem = sectionItem
+        case .credit:
+            vc.sectionItem = sectionItem
+        default:
+            return
+        }
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

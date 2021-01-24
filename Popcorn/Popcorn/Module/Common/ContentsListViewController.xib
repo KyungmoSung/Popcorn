@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContentsListViewController" customModule="Popcorn" customModuleProvider="target">
             <connections>
-                <outlet property="collectionView" destination="REr-Kk-jTA" id="pGK-DB-eWZ"/>
+                <outlet property="collectionView" destination="REr-Kk-jTA" id="KSg-Dw-0HI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

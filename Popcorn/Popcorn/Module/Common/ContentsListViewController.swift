@@ -7,17 +7,16 @@
 
 import UIKit
 
-class ContentsListViewController: BaseViewController {
-
+class ContentsListViewController: BaseViewController, ListAdapterDataSource {
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
-    var sectionItem: ContentsSectionItem!
+    var sectionItem: ListDiffableItems!
     
-    convenience init(title: String, sectionItem: ContentsSectionItem) {
+    convenience init(title: String, sectionItem: ListDiffableItems) {
         self.init()
 
         self.title = title
@@ -33,15 +32,25 @@ class ContentsListViewController: BaseViewController {
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-}
-
-extension ContentsListViewController: ListAdapterDataSource {
+    
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return [sectionItem]
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return PosterSectionController(direction: .vertical)
+        guard let object = object as? ListDiffableItems else {
+            return ListSectionController()
+        }
+        
+        switch object.items.first {
+        case is Movie:
+            return PosterSectionController(type: .poster, direction: .vertical)
+        case is Person:
+            return CreditSectionController(direction: .vertical)
+        
+        default:
+            return ListSectionController()
+        }
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
