@@ -7,32 +7,17 @@
 
 import Foundation
 
-
-class InfoItem: NSObject, ListDiffable {
-    var title: String
-    var desc: String
-    
-    init(title: String, desc: String) {
-        self.title = title
-        self.desc = desc
-    }
-    
-    func diffIdentifier() -> NSObjectProtocol {
-        return self
-    }
-    
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        return true
-    }
-}
-
 class InfoCardSectionController: ListSectionController {
-    var info: InfoItem?
+    var sectionItem: DetailSectionItem?
     
     override init() {
         super.init()
         
-        self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        minimumLineSpacing = 12
+    }
+    
+    override func numberOfItems() -> Int {
+        return sectionItem?.items.count ?? 0
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
@@ -42,7 +27,7 @@ class InfoCardSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let info = info else { return UICollectionViewCell() }
+        guard let context = collectionContext, let info = sectionItem?.items[index] as? DetailInfo else { return UICollectionViewCell() }
         
         let cell: InfoCardCell = context.dequeueReusableXibCell(for: self, at: index)
         cell.title = info.title
@@ -52,6 +37,6 @@ class InfoCardSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        info = object as? InfoItem
+        sectionItem = object as? DetailSectionItem
     }
 }

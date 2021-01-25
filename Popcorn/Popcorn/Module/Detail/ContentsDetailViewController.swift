@@ -29,7 +29,7 @@ class ContentsDetailViewController: BaseViewController {
     var credits: [Person] = []
     var recommendations: [Movie] = []
     var similars: [Movie] = []
-    var infoItems: [InfoItem] = []
+    var infoItems: [DetailInfo] = []
     var reviews: [Review] = []
     
     var sectionItems: [DetailSectionItem] {

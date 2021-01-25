@@ -63,31 +63,31 @@ class Movie: Loadingable, Codable {
         self.isLoading = isLoading
     }
     
-    func filteredInfo() -> [InfoItem] {
-        var infoItems: [InfoItem] = []
+    func filteredInfo() -> [DetailInfo] {
+        var infoItems: [DetailInfo] = []
         
         if let runtime = runtime {
             let hour = "\(runtime / 60)" + "hour".localized
             let minute = "\(runtime % 60)" + "minute".localized
-            infoItems.append(InfoItem(title: "runtime".localized, desc: "\(hour) \(minute)"))
+            infoItems.append(DetailInfo(title: "runtime".localized, desc: "\(hour) \(minute)"))
         }
         
         if let releaseDate = releaseDate.stringValue {
-            infoItems.append(InfoItem(title: "releaseDate".localized, desc: releaseDate))
+            infoItems.append(DetailInfo(title: "releaseDate".localized, desc: releaseDate))
         }
         
-        infoItems.append(InfoItem(title: "originalLanguage".localized, desc: originalLanguage))
+        infoItems.append(DetailInfo(title: "originalLanguage".localized, desc: originalLanguage))
         
         if let popularity = popularity {
-            infoItems.append(InfoItem(title: "popularity".localized, desc: "\(Int(popularity)) 점"))
+            infoItems.append(DetailInfo(title: "popularity".localized, desc: "\(Int(popularity)) 점"))
         }
         
         if let revenue = revenue, revenue > 0 {
-            infoItems.append(InfoItem(title: "revenue".localized, desc: revenue.asCurrencyFormat()))
+            infoItems.append(DetailInfo(title: "revenue".localized, desc: revenue.asCurrencyFormat()))
         }
         
         if let budget = budget, budget > 0 {
-            infoItems.append(InfoItem(title: "budget".localized, desc: budget.asCurrencyFormat()))
+            infoItems.append(DetailInfo(title: "budget".localized, desc: budget.asCurrencyFormat()))
         }
         
 //        productionCountries
@@ -95,8 +95,6 @@ class Movie: Loadingable, Codable {
         return infoItems
     }
 }
-
-
 
 extension Movie: Equatable, ListDiffable {
     static func == (lhs: Movie, rhs: Movie) -> Bool {

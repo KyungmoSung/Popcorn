@@ -8,12 +8,16 @@
 import Foundation
 
 class ReviewSectionController: ListSectionController {
-    var review: Review?
+    var sectionItem: DetailSectionItem?
     
     override init() {
         super.init()
         
-        self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        minimumLineSpacing = 12
+    }
+    
+    override func numberOfItems() -> Int {
+        return sectionItem?.items.count ?? 0
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
@@ -26,17 +30,17 @@ class ReviewSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext else {
+        guard let context = collectionContext, let review = sectionItem?.items[index] as? Review else {
             return UICollectionViewCell()
         }
         
         let cell: ReviewCell = context.dequeueReusableXibCell(for: self, at: index)
-        cell.avatarPath = review?.authorDetails.avatarPath
-        cell.name = review?.author ?? review?.authorDetails.username
-        cell.contents = review?.content
-        cell.rate = review?.authorDetails.rating
+        cell.avatarPath = review.authorDetails.avatarPath
+        cell.name = review.author ?? review.authorDetails.username
+        cell.contents = review.content
+        cell.rate = review.authorDetails.rating
         
-        if let dateStr = review?.updatedAt ?? review?.createdAt, let date = dateStr.dateValue(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") {
+        if let dateStr = review.updatedAt ?? review.createdAt, let date = dateStr.dateValue(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy.MM.dd"
             cell.date = dateFormatter.string(from: date)
@@ -46,6 +50,6 @@ class ReviewSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        review = object as? Review
+        sectionItem = object as? DetailSectionItem
     }
 }

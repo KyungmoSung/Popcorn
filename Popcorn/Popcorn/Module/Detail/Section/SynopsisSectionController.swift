@@ -8,12 +8,14 @@
 import Foundation
         
 class SynopsisSectionController: ListSectionController {
-    var synopsis: String?
-    
+    var sectionItem: DetailSectionItem?
+
     override init() {
         super.init()
-        
-        self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+
+    override func numberOfItems() -> Int {
+        return sectionItem?.items.count ?? 0
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
@@ -25,7 +27,7 @@ class SynopsisSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext else {
+        guard let context = collectionContext, let synopsis = sectionItem?.items[index] as? String else {
             return UICollectionViewCell()
         }
         
@@ -37,6 +39,6 @@ class SynopsisSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        synopsis = object as? String
+        sectionItem = object as? DetailSectionItem
     }
 }

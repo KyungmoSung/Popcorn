@@ -53,6 +53,7 @@
 		CD06B5E8258853E100E15540 /* TextTagSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD06B5E7258853E100E15540 /* TextTagSectionController.swift */; };
 		CD06B5EE258853FE00E15540 /* TextTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD06B5EC258853FE00E15540 /* TextTagCell.swift */; };
 		CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD06B5ED258853FE00E15540 /* TextTagCell.xib */; };
+		CD39C67625BE8F7500408D05 /* DetailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD39C67525BE8F7500408D05 /* DetailInfo.swift */; };
 		CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */; };
 		CD936FC625887E170006441C /* UICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FC525887E170006441C /* UICollectionViewExtension.swift */; };
 		CD936FCB25887E8D0006441C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FCA25887E8D0006441C /* BaseViewController.swift */; };
@@ -165,6 +166,7 @@
 		CD06B5E7258853E100E15540 /* TextTagSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTagSectionController.swift; sourceTree = "<group>"; };
 		CD06B5EC258853FE00E15540 /* TextTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTagCell.swift; sourceTree = "<group>"; };
 		CD06B5ED258853FE00E15540 /* TextTagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTagCell.xib; sourceTree = "<group>"; };
+		CD39C67525BE8F7500408D05 /* DetailInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfo.swift; sourceTree = "<group>"; };
 		CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NukeExtension.swift; sourceTree = "<group>"; };
 		CD936FC525887E170006441C /* UICollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtension.swift; sourceTree = "<group>"; };
 		CD936FCA25887E8D0006441C /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				24E02D9025860B3800591234 /* Credit.swift */,
 				24C95D5C25987F1E0020C15C /* Review.swift */,
 				247FF85525BD56AA00BC73D2 /* Tag.swift */,
+				CD39C67525BE8F7500408D05 /* DetailInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -850,6 +853,7 @@
 				CDBD141F256E388A003F625F /* ContentsDetailViewController.swift in Sources */,
 				CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */,
 				CD936FEE258894FC0006441C /* AnyValue.swift in Sources */,
+				CD39C67625BE8F7500408D05 /* DetailInfo.swift in Sources */,
 				24ED629D25836A8100FC98B3 /* TextTabCell.swift in Sources */,
 				CDB6D45E254BE003001B0AEB /* SectionHeaderView.swift in Sources */,
 				CDB6D51F254FCB37001B0AEB /* StringExtension.swift in Sources */,

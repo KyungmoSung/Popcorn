@@ -10,10 +10,10 @@ import Foundation
 // MARK: - Review
 class Review: Codable, ListDiffable {
     let id: String
-    let author: String
+    let author: String?
     let authorDetails: Author
     let content: String
-    let createdAt: AnyValue
+    let createdAt: AnyValue?
     let updatedAt: AnyValue?
     let url: String
 

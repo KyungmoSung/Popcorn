@@ -8,16 +8,21 @@
 import Foundation
 
 class MediaSectionController: ListSectionController {
-    var media: Media?
+    var sectionItem: DetailSectionItem?
     
     override init() {
         super.init()
         
-        self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        minimumLineSpacing = 12
+        minimumInteritemSpacing = 12
+    }
+    
+    override func numberOfItems() -> Int {
+        return sectionItem?.items.count ?? 0
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext else {
+        guard let context = collectionContext, let media = sectionItem?.items[index] as? Media else {
             return .zero
         }
         
@@ -34,7 +39,7 @@ class MediaSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext else {
+        guard let context = collectionContext, let media = sectionItem?.items[index] as? Media else {
             return UICollectionViewCell()
         }
         
@@ -53,6 +58,6 @@ class MediaSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        media = object as? Media
+        sectionItem = object as? DetailSectionItem
     }
 }

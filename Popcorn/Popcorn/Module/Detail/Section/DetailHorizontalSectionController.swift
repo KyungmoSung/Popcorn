@@ -8,7 +8,7 @@
 import UIKit
 
 class DetailHorizontalSectionController: ListSectionController {
-
+    
     private var sectionItem: DetailSectionItem?
     
     var selectedSubSection: Int = 0 {
@@ -32,6 +32,10 @@ class DetailHorizontalSectionController: ListSectionController {
     override init() {
         super.init()
         supplementaryViewSource = self
+    }
+    
+    override func numberOfItems() -> Int {
+        return 1
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
@@ -170,14 +174,11 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             switch sectionItem.sectionType {
             case .image: // 선택된 이미지타입만 필터링 (포스터/배경)
                 if let items = sectionItem.items as? [ImageInfo] {
-                    return items.filter{ return $0.type == ImageType(rawValue: selectedSubSection) }
+                    let filterItem = items.filter{ return $0.type == ImageType(rawValue: selectedSubSection) }
+                    return [DetailSectionItem(sectionItem.sectionType, items: filterItem)]
                 }
-            case .credit:
-                return [sectionItem]
-            case .recommendation, .similar:
-                return [sectionItem]
             default:
-                return sectionItem.items
+                return [sectionItem]
             }
         } else {
             switch sectionItem.sectionType {
@@ -205,9 +206,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
                 return InfoCardSectionController()
             case .synopsis:
                 return SynopsisSectionController()
-            case .image:
-                return MediaSectionController()
-            case .video:
+            case .image, .video:
                 return MediaSectionController()
             case .credit:
                 return CreditSectionController(direction: .horizontal)
