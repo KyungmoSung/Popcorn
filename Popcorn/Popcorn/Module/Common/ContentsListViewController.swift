@@ -47,7 +47,8 @@ class ContentsListViewController: BaseViewController, ListAdapterDataSource {
             return PosterSectionController(type: .poster, direction: .vertical)
         case is Person:
             return CreditSectionController(direction: .vertical)
-        
+        case is Media:
+            return MediaSectionController(direction: .vertical)
         default:
             return ListSectionController()
         }

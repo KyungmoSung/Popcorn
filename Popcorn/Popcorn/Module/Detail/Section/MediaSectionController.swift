@@ -9,12 +9,18 @@ import Foundation
 
 class MediaSectionController: ListSectionController {
     var sectionItem: DetailSectionItem?
+    var direction: UICollectionView.ScrollDirection = .horizontal
     
     override init() {
         super.init()
         
         minimumLineSpacing = 12
         minimumInteritemSpacing = 12
+    }
+    
+    convenience init(direction: UICollectionView.ScrollDirection) {
+        self.init()
+        self.direction = direction
     }
     
     override func numberOfItems() -> Int {
@@ -26,16 +32,49 @@ class MediaSectionController: ListSectionController {
             return .zero
         }
         
-        let height = context.containerSize.height
-
-        switch media {
-        case let imageInfo as ImageInfo:
-            return CGSize(width: height * CGFloat(imageInfo.aspectRatio), height: height)
-        case is VideoInfo:
-            return CGSize(width: height / 9 * 16, height: height)
+        let containerHeight = context.containerSize.height - context.containerInset.top - context.containerInset.bottom
+        let containerWidth = context.containerSize.width - context.containerInset.right - context.containerInset.left
+        let videoRatio: CGFloat = 16 / 9
+        
+        var size: CGSize = .zero
+        
+        switch direction {
+        case .horizontal:
+            switch media {
+            case let imageInfo as ImageInfo:
+                size.width = containerHeight * CGFloat(imageInfo.aspectRatio)
+                size.height = containerHeight
+            case is VideoInfo:
+                size.width = containerHeight * videoRatio
+                size.height = containerHeight
+            default:
+                break
+            }
+        case .vertical:
+            switch media {
+            case let imageInfo as ImageInfo:
+                switch imageInfo.type {
+                case .backdrop:
+                    size.width = containerWidth
+                    size.height = containerWidth / CGFloat(imageInfo.aspectRatio)
+                case .poster:
+                    let numberOfItemsInRow: CGFloat = 2
+                    size.width = (containerWidth - minimumLineSpacing * (numberOfItemsInRow - 1)) / numberOfItemsInRow
+                    size.height = size.width / CGFloat(imageInfo.aspectRatio)
+                default:
+                    break
+                }
+            case is VideoInfo:
+                size.width = containerWidth
+                size.height = containerWidth / videoRatio
+            default:
+                break
+            }
         default:
-            return .zero
+            break
         }
+        
+        return size
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {

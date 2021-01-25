@@ -207,7 +207,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             case .synopsis:
                 return SynopsisSectionController()
             case .image, .video:
-                return MediaSectionController()
+                return MediaSectionController(direction: .horizontal)
             case .credit:
                 return CreditSectionController(direction: .horizontal)
             case .recommendation, .similar:
@@ -257,15 +257,8 @@ extension DetailHorizontalSectionController: SectionHeaderViewDelegate {
         }
         let vc = ContentsListViewController()
         vc.title = sectionItem.sectionType.title
+        vc.sectionItem = sectionItem
 
-        switch type {
-        case .recommendation, .similar:
-            vc.sectionItem = sectionItem
-        case .credit:
-            vc.sectionItem = sectionItem
-        default:
-            return
-        }
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -31,38 +31,37 @@ class PosterSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext else { return .zero }
+        guard let context = collectionContext else {
+            return .zero
+        }
+        
+        let containerHeight = context.containerSize.height - context.containerInset.top - context.containerInset.bottom
+        let containerWidth = context.containerSize.width - context.containerInset.right - context.containerInset.left
+        let posterRatio: CGFloat = 2 / 3
+        let titleTopMargin: CGFloat = 12
+        let labelHeight: CGFloat = ceil(String.height(for: .systemFont(ofSize: 13, weight: .semibold))) * 2
+
+        var size: CGSize = .zero
+        
         switch direction {
         case .horizontal:
             switch type {
             case .backdrop:
-                return CGSize(width: context.containerSize.width - 60, height: context.containerSize.height)
+                size.width = context.containerSize.width - 60
+                size.height = containerHeight
             case .poster:
-                let containerHeight: CGFloat = context.containerSize.height
-                let titleTopMargin: CGFloat = 12
-                let labelHeight: CGFloat = ceil(String.height(for: .systemFont(ofSize: 13, weight: .semibold))) * 2
-                let posterHeight: CGFloat = containerHeight - titleTopMargin - labelHeight
-                let posterRatio: CGFloat = 2 / 3
-                let posterWidth: CGFloat = posterHeight * posterRatio
-                return CGSize(width: posterWidth, height: containerHeight)
+                size.width = (containerHeight - titleTopMargin - labelHeight) * posterRatio
+                size.height = containerHeight
             }
         case .vertical:
-            switch type {
-            case .backdrop:
-                return CGSize(width: context.containerSize.width - 60, height: context.containerSize.height)
-            case .poster:
-                let numberOfItemInRow: CGFloat = 3
-                let containerWidth = context.containerSize.width - context.containerInset.right - context.containerInset.left
-                let width: CGFloat = (containerWidth - minimumLineSpacing * (numberOfItemInRow - 1)) / numberOfItemInRow
-                let titleTopMargin: CGFloat = 12
-                let labelHeight: CGFloat = ceil(String.height(for: .systemFont(ofSize: 13, weight: .semibold))) * 2
-                let posterRatio: CGFloat = 2 / 3
-                let heigth: CGFloat = (width / posterRatio) + titleTopMargin + labelHeight
-                return CGSize(width: width, height: heigth)
-            }
+            let numberOfItemInRow: CGFloat = 3
+            size.width = (containerWidth - minimumLineSpacing * (numberOfItemInRow - 1)) / numberOfItemInRow
+            size.height = (size.width / posterRatio) + titleTopMargin + labelHeight
         default:
-            return .zero
+            break
         }
+        
+        return size
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {

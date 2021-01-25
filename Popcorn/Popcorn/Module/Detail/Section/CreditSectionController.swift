@@ -31,14 +31,15 @@ class CreditSectionController: ListSectionController {
             return .zero
         }
         
+        let containerHeight = context.containerSize.height - context.containerInset.top - context.containerInset.bottom
+        let containerWidth = context.containerSize.width - context.containerInset.right - context.containerInset.left
+        
         switch direction {
         case .horizontal:
-            let height = context.containerSize.height
-            return CGSize(width: height * 0.5, height: height)
+            return CGSize(width: containerHeight * 0.5, height: containerHeight)
         case .vertical:
-            let numberOfItemInRow: CGFloat = 3
-            let containerWidth = context.containerSize.width - context.containerInset.right - context.containerInset.left
-            let width: CGFloat = (containerWidth - minimumLineSpacing * (numberOfItemInRow - 1)) / numberOfItemInRow
+            let numberOfItemsInRow: CGFloat = 3
+            let width: CGFloat = (containerWidth - minimumLineSpacing * (numberOfItemsInRow - 1)) / numberOfItemsInRow
 
 //            let height = context.containerSize.height
             return CGSize(width: width, height: width * 2)
