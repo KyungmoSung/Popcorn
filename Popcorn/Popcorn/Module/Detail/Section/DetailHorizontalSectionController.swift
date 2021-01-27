@@ -68,25 +68,24 @@ class DetailHorizontalSectionController: ListSectionController {
         let cell: EmbeddedCollectionViewCell = context.dequeueReusableCell(for: self, at: index)
         cellAdapter.collectionView = cell.collectionView
         
-        let layout = PagingCollectionViewLayout()
-        
-        switch sectionItem.sectionType {
-        case .detail: // 가로 스크롤 & 자동 넓이
-            layout.scrollDirection = .horizontal
-            cell.collectionView.isScrollEnabled = true
-            layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        case .synopsis: // 세로 스크롤 & 자동 높이
-            layout.scrollDirection = .vertical
-            cell.collectionView.isScrollEnabled = false
-            layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        default: // 가로 스크롤
-            layout.scrollDirection = .horizontal
-            cell.collectionView.isScrollEnabled = true
+        if let layout = cell.collectionView.collectionViewLayout as? PagingCollectionViewLayout {
+            switch sectionItem.sectionType {
+            case .detail: // 가로 스크롤 & 자동 넓이
+                layout.scrollDirection = .horizontal
+                cell.collectionView.isScrollEnabled = true
+                layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+            case .synopsis: // 세로 스크롤 & 자동 높이
+                layout.scrollDirection = .vertical
+                cell.collectionView.isScrollEnabled = false
+                layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+            default: // 가로 스크롤
+                layout.scrollDirection = .horizontal
+                cell.collectionView.isScrollEnabled = true
+                layout.estimatedItemSize = .zero
+            }
+            
+            cell.collectionView.collectionViewLayout.invalidateLayout()
         }
-        
-        cell.collectionView.collectionViewLayout = layout
-        cell.collectionView.collectionViewLayout.invalidateLayout()
-        
         return cell
     }
     
