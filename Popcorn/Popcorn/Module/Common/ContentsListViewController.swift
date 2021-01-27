@@ -49,6 +49,8 @@ class ContentsListViewController: BaseViewController, ListAdapterDataSource {
             return CreditSectionController(direction: .vertical)
         case is Media:
             return MediaSectionController(direction: .vertical)
+        case is Review:
+            return ReviewSectionController(direction: .vertical)
         default:
             return ListSectionController()
         }

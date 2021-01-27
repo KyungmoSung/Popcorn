@@ -11,7 +11,7 @@ class MediaSectionController: ListSectionController {
     var sectionItem: DetailSectionItem?
     var direction: UICollectionView.ScrollDirection = .horizontal
     
-    override init() {
+    override private init() {
         super.init()
         
         minimumLineSpacing = 12

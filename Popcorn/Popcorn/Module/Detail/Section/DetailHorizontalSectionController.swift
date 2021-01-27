@@ -213,7 +213,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             case .recommendation, .similar:
                 return PosterSectionController(type: .poster, direction: .horizontal)
             case .review:
-                return ReviewSectionController()
+                return ReviewSectionController(direction: .horizontal)
             default:
                 break
             }

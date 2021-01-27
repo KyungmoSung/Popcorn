@@ -9,11 +9,17 @@ import Foundation
 
 class ReviewSectionController: ListSectionController {
     var sectionItem: DetailSectionItem?
+    var direction: UICollectionView.ScrollDirection = .horizontal
     
-    override init() {
+    override private init() {
         super.init()
         
         minimumLineSpacing = 12
+    }
+    
+    convenience init(direction: UICollectionView.ScrollDirection) {
+        self.init()
+        self.direction = direction
     }
     
     override func numberOfItems() -> Int {
@@ -21,12 +27,29 @@ class ReviewSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext else {
+        guard let context = collectionContext, let review = sectionItem?.items[index] as? Review else {
             return .zero
         }
         
-        let insets = context.containerInset.left * 2
-        return CGSize(width: context.containerSize.width - insets, height: context.containerSize.height)
+        let containerHeight = context.containerSize.height - context.containerInset.top - context.containerInset.bottom
+        let containerWidth = context.containerSize.width - context.containerInset.right - context.containerInset.left
+        
+        var size: CGSize = .zero
+        
+        switch direction {
+        case .horizontal:
+            size.width = containerWidth
+            size.height = containerHeight
+        case .vertical:
+            let font = UIFont.NanumSquare(size: 14, family: .Regular)
+            let labelHeight = review.content.height(for: font, lineSpacing: 6, numberOfLines: 0, width: containerWidth - 40)
+            size.width = containerWidth
+            size.height = 110 + labelHeight
+        default:
+            break
+        }
+        
+        return size
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
