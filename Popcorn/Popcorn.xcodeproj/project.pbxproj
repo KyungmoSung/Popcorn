@@ -271,15 +271,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		CD936FF22588950D0006441C /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				CDD9F66925C153AF00B83536 /* AnyValue.swift */,
-				CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */,
-			);
-			path = Custom;
-			sourceTree = "<group>";
-		};
 		CDB6D352254A5CE9001B0AEB = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +298,7 @@
 			children = (
 				CDB6D3ED254AA3DC001B0AEB /* SupportFiles */,
 				CDB6D3D3254A97F9001B0AEB /* Constants */,
+				CDB6D3AA254A8EEE001B0AEB /* Extensions */,
 				CDB6D3A8254A8ED2001B0AEB /* Helpers */,
 				CDB6D3FB254AA926001B0AEB /* Models */,
 				CDB6D3AC254A8F0C001B0AEB /* Resources */,
@@ -338,23 +330,15 @@
 		CDB6D3A8254A8ED2001B0AEB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				CD936FF22588950D0006441C /* Custom */,
-				CDB6D3AA254A8EEE001B0AEB /* Extension */,
-				CDB6D3A9254A8EE5001B0AEB /* Manager */,
+				CDD9F66925C153AF00B83536 /* AnyValue.swift */,
+				CDB6D3C5254A9568001B0AEB /* APIManager.swift */,
+				CDB6D3D9254A9CC0001B0AEB /* Log.swift */,
+				CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		CDB6D3A9254A8EE5001B0AEB /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-				CDB6D3C5254A9568001B0AEB /* APIManager.swift */,
-				CDB6D3D9254A9CC0001B0AEB /* Log.swift */,
-			);
-			path = Manager;
-			sourceTree = "<group>";
-		};
-		CDB6D3AA254A8EEE001B0AEB /* Extension */ = {
+		CDB6D3AA254A8EEE001B0AEB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				CDB6D42E254BB103001B0AEB /* IGListKitExtension.swift */,
@@ -366,7 +350,7 @@
 				CD936FE8258884840006441C /* UINavigationControllerExtension.swift */,
 				244AA2B025875B1800754687 /* UIViewExtension.swift */,
 			);
-			path = Extension;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		CDB6D3AC254A8F0C001B0AEB /* Resources */ = {
