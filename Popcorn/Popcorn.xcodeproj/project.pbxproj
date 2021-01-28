@@ -417,9 +417,8 @@
 		CDD9F66225C14CF900B83536 /* SectionControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CDD9F68125C23DCE00B83536 /* HorizontalSectionController */,
 				2457E33425864B20005CE9FB /* CreditSectionController.swift */,
-				24C95D8A2599C4B20020C15C /* DetailHorizontalSectionController.swift */,
-				CDB6D421254BAB70001B0AEB /* HomeHorizontalSectionController.swift */,
 				242D62E4259377D100450120 /* InfoCardSectionController.swift */,
 				24ED62BE2585EBB000FC98B3 /* MediaSectionController.swift */,
 				CDB6D436254BB1B5001B0AEB /* PosterSectionController.swift */,
@@ -480,6 +479,15 @@
 				CD06B5ED258853FE00E15540 /* TextTagCell.xib */,
 			);
 			path = Xibs;
+			sourceTree = "<group>";
+		};
+		CDD9F68125C23DCE00B83536 /* HorizontalSectionController */ = {
+			isa = PBXGroup;
+			children = (
+				24C95D8A2599C4B20020C15C /* DetailHorizontalSectionController.swift */,
+				CDB6D421254BAB70001B0AEB /* HomeHorizontalSectionController.swift */,
+			);
+			path = HorizontalSectionController;
 			sourceTree = "<group>";
 		};
 		F2CE6D418E3B6F02793648D5 /* Frameworks */ = {
