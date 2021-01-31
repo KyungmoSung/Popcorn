@@ -109,9 +109,9 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
             let titleHeight = title.height(for: .NanumSquare(size: 30, family: .ExtraBold), lineSpacing: 0, numberOfLines: 0, width: context.containerSize.width - 132)
             return CGSize(width: context.containerSize.width, height: 223 + ceil(titleHeight))
         case .image(_):
-            return CGSize(width: context.containerSize.width, height: 110)
+            return CGSize(width: context.containerSize.width, height: 121)
         default:
-            return CGSize(width: context.containerSize.width, height: 72)
+            return CGSize(width: context.containerSize.width, height: 85)
         }
     }
     
@@ -137,8 +137,8 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
             headerView.title = sectionItem.sectionType.title
             headerView.expandable = true
             headerView.delegate = self
+            headerView.tabCollectionView.isHidden = false
             
-            headerAdapter.collectionView?.isHidden = false
             headerAdapter.collectionView = headerView.tabCollectionView
             
             return headerView
@@ -155,7 +155,8 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
                 headerView.delegate = self
             }
             
-            headerAdapter.collectionView?.isHidden = true
+            headerView.tabCollectionView.isHidden = true
+            
             headerAdapter.collectionView = nil
             
             return headerView

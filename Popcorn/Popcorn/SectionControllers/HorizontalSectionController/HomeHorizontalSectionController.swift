@@ -62,7 +62,7 @@ extension HomeHorizontalSectionController: ListSupplementaryViewSource {
     func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
         guard let context = collectionContext else { return .zero }
 
-        return CGSize(width: context.containerSize.width, height: 72)
+        return CGSize(width: context.containerSize.width, height: 85)
     }
     
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
@@ -72,6 +72,7 @@ extension HomeHorizontalSectionController: ListSupplementaryViewSource {
         headerView.expandable = true
         headerView.delegate = self
         headerView.title = sectionItem?.sectionType.title
+        headerView.tabCollectionView.isHidden = true
         
         return headerView
     }
