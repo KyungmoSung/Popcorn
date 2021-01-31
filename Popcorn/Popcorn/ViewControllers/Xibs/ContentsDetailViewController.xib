@@ -28,7 +28,7 @@
                     <rect key="frame" x="0.0" y="44" width="390" height="536.33333333333337"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S2N-Fr-wSW">
-                            <rect key="frame" x="60" y="65.666666666666686" width="270" height="405"/>
+                            <rect key="frame" x="50" y="50.666666666666686" width="290" height="435"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="S2N-Fr-wSW" secondAttribute="height" multiplier="2:3" id="kdV-ka-Ov9"/>
                             </constraints>
@@ -43,7 +43,7 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="S2N-Fr-wSW" firstAttribute="leading" secondItem="BZx-kr-T40" secondAttribute="leading" constant="60" id="CMa-00-pcs"/>
+                        <constraint firstItem="S2N-Fr-wSW" firstAttribute="leading" secondItem="BZx-kr-T40" secondAttribute="leading" constant="50" id="CMa-00-pcs"/>
                         <constraint firstItem="S2N-Fr-wSW" firstAttribute="centerX" secondItem="BZx-kr-T40" secondAttribute="centerX" id="Dzu-EE-MTf"/>
                         <constraint firstItem="S2N-Fr-wSW" firstAttribute="centerY" secondItem="BZx-kr-T40" secondAttribute="centerY" id="vgc-uf-ySn"/>
                     </constraints>

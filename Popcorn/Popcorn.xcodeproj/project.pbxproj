@@ -23,6 +23,8 @@
 		24661378259867E4008B982B /* NanumSquareRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466135F2598679D008B982B /* NanumSquareRegular.ttf */; };
 		24661379259867E4008B982B /* NanumBarunGothicRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24661368259867AE008B982B /* NanumBarunGothicRegular.ttf */; };
 		2466137A259867E4008B982B /* NanumBarunGothicLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466136B259867AF008B982B /* NanumBarunGothicLight.ttf */; };
+		246A3A2425C692AF002CEFF7 /* PersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246A3A2225C692AF002CEFF7 /* PersonDetailViewController.swift */; };
+		246A3A2525C692AF002CEFF7 /* PersonDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 246A3A2325C692AF002CEFF7 /* PersonDetailViewController.xib */; };
 		247FF85625BD56AA00BC73D2 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247FF85525BD56AA00BC73D2 /* Tag.swift */; };
 		247FF85C25BD604F00BC73D2 /* ContentsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247FF85A25BD604F00BC73D2 /* ContentsListViewController.swift */; };
 		247FF85D25BD604F00BC73D2 /* ContentsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 247FF85B25BD604F00BC73D2 /* ContentsListViewController.xib */; };
@@ -129,6 +131,8 @@
 		24661369259867AE008B982B /* NanumBarunGothicBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumBarunGothicBold.ttf; sourceTree = "<group>"; };
 		2466136A259867AF008B982B /* NanumBarunGothicUltraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumBarunGothicUltraLight.ttf; sourceTree = "<group>"; };
 		2466136B259867AF008B982B /* NanumBarunGothicLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumBarunGothicLight.ttf; sourceTree = "<group>"; };
+		246A3A2225C692AF002CEFF7 /* PersonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailViewController.swift; sourceTree = "<group>"; };
+		246A3A2325C692AF002CEFF7 /* PersonDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonDetailViewController.xib; sourceTree = "<group>"; };
 		247FF85525BD56AA00BC73D2 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		247FF85A25BD604F00BC73D2 /* ContentsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsListViewController.swift; sourceTree = "<group>"; };
 		247FF85B25BD604F00BC73D2 /* ContentsListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentsListViewController.xib; sourceTree = "<group>"; };
@@ -408,6 +412,7 @@
 				CDBD141D256E388A003F625F /* ContentsDetailViewController.swift */,
 				247FF85A25BD604F00BC73D2 /* ContentsListViewController.swift */,
 				CDB6D3F4254AA4FE001B0AEB /* HomeViewController.swift */,
+				246A3A2225C692AF002CEFF7 /* PersonDetailViewController.swift */,
 				CDB6D523254FD328001B0AEB /* SplashViewController.swift */,
 				CDD9F66725C152AB00B83536 /* Xibs */,
 			);
@@ -457,6 +462,7 @@
 				CDBD141E256E388A003F625F /* ContentsDetailViewController.xib */,
 				247FF85B25BD604F00BC73D2 /* ContentsListViewController.xib */,
 				CDB6D3F5254AA4FE001B0AEB /* HomeViewController.xib */,
+				246A3A2325C692AF002CEFF7 /* PersonDetailViewController.xib */,
 				CDB6D524254FD328001B0AEB /* SplashViewController.xib */,
 			);
 			path = Xibs;
@@ -633,6 +639,7 @@
 				24B3BE1C25A71AFC00AFBF1C /* ContentsHeaderVIew.xib in Resources */,
 				24661374259867E4008B982B /* NanumBarunGothicBold.ttf in Resources */,
 				24661378259867E4008B982B /* NanumSquareRegular.ttf in Resources */,
+				246A3A2525C692AF002CEFF7 /* PersonDetailViewController.xib in Resources */,
 				CDB6D3F7254AA4FE001B0AEB /* HomeViewController.xib in Resources */,
 				CDB6D45F254BE003001B0AEB /* SectionHeaderView.xib in Resources */,
 				24661373259867E4008B982B /* NanumBarunGothicUltraLight.ttf in Resources */,
@@ -766,6 +773,7 @@
 				24A4293125AAE41500845C94 /* SynopsisCell.swift in Sources */,
 				24ED62BF2585EBB000FC98B3 /* MediaSectionController.swift in Sources */,
 				24B3BE1B25A71AFC00AFBF1C /* ContentsHeaderVIew.swift in Sources */,
+				246A3A2425C692AF002CEFF7 /* PersonDetailViewController.swift in Sources */,
 				CD06B5E8258853E100E15540 /* TextTagSectionController.swift in Sources */,
 				CDB6D452254BCC10001B0AEB /* HomePosterCell.swift in Sources */,
 				CDB6D458254BD611001B0AEB /* NSObjectExtension.swift in Sources */,

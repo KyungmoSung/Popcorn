@@ -10,6 +10,7 @@ import UIKit
 class CreditSectionController: ListSectionController {
     var sectionItem: DetailSectionItem?
     var direction: UICollectionView.ScrollDirection = .horizontal
+    var uuid: String = UUID().uuidString
 
     override private init() {
         super.init()
@@ -60,6 +61,7 @@ class CreditSectionController: ListSectionController {
         
         let cell: CreditCell = context.dequeueReusableXibCell(for: self, at: index)
         cell.profilePath = person.profilePath
+        cell.profileHeroId = "\(viewController?.className ?? "")\(uuid)\(person.id ?? 0)"
         cell.name = person.name
         
         if let cast = person as? Cast {
@@ -73,5 +75,17 @@ class CreditSectionController: ListSectionController {
     
     override func didUpdate(to object: Any) {
         sectionItem = object as? DetailSectionItem
+    }
+    
+    override func didSelectItem(at index: Int) {
+        guard let sectionItem = sectionItem, let item = sectionItem.items[index] as? Person else {
+            return
+        }
+
+        let vc = PersonDetailViewController(person: item)
+        vc.profileHeroId = "\(viewController?.className ?? "")\(uuid)\(item.id ?? 0)"
+        
+        viewController?.navigationController?.hero.navigationAnimationType = .fade
+        viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

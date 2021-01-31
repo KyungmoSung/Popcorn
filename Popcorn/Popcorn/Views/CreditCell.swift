@@ -22,6 +22,12 @@ class CreditCell: UICollectionViewCell {
         }
     }
     
+    var profileHeroId: String? {
+        didSet {
+            profileIv.hero.id = profileHeroId
+        }
+    }
+    
     var name: String? {
         didSet {
             nameLb.text = name
