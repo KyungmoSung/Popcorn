@@ -39,7 +39,7 @@ class PosterSectionController: ListSectionController {
         let containerWidth = context.containerSize.width - context.containerInset.right - context.containerInset.left
         let posterRatio: CGFloat = 2 / 3
         let titleTopMargin: CGFloat = 12
-        let labelHeight: CGFloat = ceil(String.height(for: .systemFont(ofSize: 13, weight: .semibold))) * 2
+        let labelHeight: CGFloat = 29
 
         var size: CGSize = .zero
         

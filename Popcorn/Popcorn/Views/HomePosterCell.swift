@@ -16,6 +16,7 @@ class HomePosterCell: UICollectionViewCell {
     var title: String? {
         didSet {
             titleLb.text = title
+            titleLb.numberOfLines = 2 // 스켈레톤뷰 적용시 셀 밖으로 벗어나는 현상 방지
         }
     }
     
@@ -47,6 +48,8 @@ class HomePosterCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        titleLb.numberOfLines = 1 // 스켈레톤뷰 적용시 셀 밖으로 벗어나는 현상 방지
         
         voteView.applyBlur()
         voteView.roundCorners([.topLeft, .bottomRight], radius: 10)
