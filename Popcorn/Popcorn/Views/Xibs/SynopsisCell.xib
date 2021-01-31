@@ -7,6 +7,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="NanumSquareExtraBold.ttf">
+            <string>NanumSquareEB</string>
+        </array>
         <array key="NanumSquareRegular.ttf">
             <string>NanumSquareR</string>
         </array>
@@ -24,7 +27,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHa-NK-qyn">
                         <rect key="frame" x="0.0" y="0.0" width="271" height="15.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yph-lf-sb9">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yph-lf-sb9">
                                 <rect key="frame" x="0.0" y="0.0" width="271" height="15.5"/>
                                 <fontDescription key="fontDescription" name="NanumSquareR" family="NanumSquare" pointSize="14"/>
                                 <nil key="textColor"/>
@@ -38,16 +41,36 @@
                             <constraint firstItem="yph-lf-sb9" firstAttribute="top" secondItem="AHa-NK-qyn" secondAttribute="top" id="zA8-gd-EOt"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1BM-n9-apR">
+                        <rect key="frame" x="194" y="0.0" width="77" height="15.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="더보기" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="50U-Sx-u7k">
+                                <rect key="frame" x="38.5" y="0.0" width="38.5" height="15.5"/>
+                                <fontDescription key="fontDescription" name="NanumSquareEB" family="NanumSquare" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="50U-Sx-u7k" secondAttribute="width" multiplier="2" id="3mY-jY-DaF"/>
+                            <constraint firstItem="50U-Sx-u7k" firstAttribute="top" secondItem="1BM-n9-apR" secondAttribute="top" id="Xex-kF-YOy"/>
+                            <constraint firstAttribute="trailing" secondItem="50U-Sx-u7k" secondAttribute="trailing" id="Yud-Ll-wCb"/>
+                            <constraint firstAttribute="bottom" secondItem="50U-Sx-u7k" secondAttribute="bottom" id="izt-Q9-f9A"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstItem="AHa-NK-qyn" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="4m0-dB-oLS"/>
                 <constraint firstItem="AHa-NK-qyn" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Bqe-RU-FTf"/>
                 <constraint firstAttribute="trailing" secondItem="AHa-NK-qyn" secondAttribute="trailing" id="EW0-8C-FbO"/>
+                <constraint firstItem="1BM-n9-apR" firstAttribute="bottom" secondItem="yph-lf-sb9" secondAttribute="bottom" id="QAh-0I-imS"/>
+                <constraint firstItem="1BM-n9-apR" firstAttribute="trailing" secondItem="yph-lf-sb9" secondAttribute="trailing" id="WoC-d7-WJa"/>
                 <constraint firstAttribute="bottom" secondItem="AHa-NK-qyn" secondAttribute="bottom" priority="999" id="cUS-wK-jMc"/>
             </constraints>
             <size key="customSize" width="271" height="144"/>
             <connections>
+                <outlet property="expandView" destination="1BM-n9-apR" id="2me-1O-Pe8"/>
                 <outlet property="synopsisLb" destination="yph-lf-sb9" id="kba-Vz-W3z"/>
             </connections>
             <point key="canvasLocation" x="292.02898550724638" y="154.01785714285714"/>

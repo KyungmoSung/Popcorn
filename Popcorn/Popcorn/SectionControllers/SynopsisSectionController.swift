@@ -7,13 +7,26 @@
 
 import Foundation
         
+protocol SynopsisSectionControllerDelegate: class {
+    func didTapSynopsisItem(at index: Int, isExpand: Bool)
+}
+
 class SynopsisSectionController: ListSectionController {
     var sectionItem: DetailSectionItem?
+    var isExpand: Bool = false
 
-    override init() {
+    weak var delegate: SynopsisSectionControllerDelegate?
+    
+    override private init() {
         super.init()
     }
-
+    
+    convenience init(delegate: SynopsisSectionControllerDelegate?) {
+        self.init()
+        self.delegate = delegate
+    }
+    
+    
     override func numberOfItems() -> Int {
         return sectionItem?.items.count ?? 0
     }
@@ -23,7 +36,10 @@ class SynopsisSectionController: ListSectionController {
             return .zero
         }
         
-        return CGSize(width: context.containerSize.width - 60, height: context.containerSize.height)
+        let containerHeight = context.containerSize.height - context.containerInset.top - context.containerInset.bottom
+        let containerWidth = context.containerSize.width - context.containerInset.right - context.containerInset.left
+
+        return CGSize(width: containerWidth, height: containerHeight)
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -33,6 +49,7 @@ class SynopsisSectionController: ListSectionController {
         
         let cell: SynopsisCell = context.dequeueReusableXibCell(for: self, at: index)
         cell.isTagline = isFirstSection && !isLastSection
+        cell.isExpand = isExpand
         cell.synopsis = synopsis
 
         return cell
@@ -40,5 +57,16 @@ class SynopsisSectionController: ListSectionController {
     
     override func didUpdate(to object: Any) {
         sectionItem = object as? DetailSectionItem
+    }
+    
+    override func didSelectItem(at index: Int) {
+        guard let cell = collectionContext?.cellForItem(at: index, sectionController: self) as? SynopsisCell else {
+            return
+        }
+        
+        isExpand.toggle()
+        
+        cell.isExpand = isExpand
+        delegate?.didTapSynopsisItem(at: index, isExpand: isExpand)
     }
 }

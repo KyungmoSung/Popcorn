@@ -10,6 +10,7 @@ import UIKit
 class DetailHorizontalSectionController: ListSectionController {
     
     private var sectionItem: DetailSectionItem?
+    var isExpand: Bool = false
     
     var selectedSubSection: Int = 0 {
         didSet {
@@ -47,9 +48,14 @@ class DetailHorizontalSectionController: ListSectionController {
         case .synopsis:
             if let items = sectionItem.items as? [String], items.count > 0 {
                 // 텍스트 높이 계산
-                let totalHeight = items
+                let totalHeight: CGFloat = items
                     .enumerated()
-                    .map{ $0.element.height(for: .NanumSquare(size: 14, family: (items.count >= 2) ? (($0.offset == 0) ? .Bold : .Regular) : .Regular), width: context.containerSize.width - 60) }
+                    .map {
+                        let text = isExpand ? $0.element.replacingOccurrences(of: ". ", with: ".\n\n") : $0.element
+                        let numberOfLines = isExpand ? 0 : 5
+                        let font = UIFont.NanumSquare(size: 14, family: .Regular)
+                        return text.height(for: font, numberOfLines: numberOfLines, width: context.containerSize.width - 60)
+                    }
                     .reduce(0) { $0 + $1 }
                 return CGSize(width: context.containerSize.width, height: totalHeight)
             }
@@ -77,7 +83,7 @@ class DetailHorizontalSectionController: ListSectionController {
             case .synopsis: // 세로 스크롤 & 자동 높이
                 layout.scrollDirection = .vertical
                 cell.collectionView.isScrollEnabled = false
-                layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+                layout.estimatedItemSize = .zero
             default: // 가로 스크롤
                 layout.scrollDirection = .horizontal
                 cell.collectionView.isScrollEnabled = true
@@ -205,7 +211,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             case .detail:
                 return InfoCardSectionController()
             case .synopsis:
-                return SynopsisSectionController()
+                return SynopsisSectionController(delegate: self)
             case .image, .video:
                 return MediaSectionController(direction: .horizontal)
             case .credit:
@@ -260,5 +266,23 @@ extension DetailHorizontalSectionController: SectionHeaderViewDelegate {
         vc.sectionItem = sectionItem
 
         viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension DetailHorizontalSectionController: SynopsisSectionControllerDelegate {
+    /// 시놉시스 탭 시 글 전체가 보이도록 확장/축소
+    func didTapSynopsisItem(at index: Int, isExpand: Bool) {
+        self.isExpand = isExpand
+        
+        if let vc = viewController as? ContentsDetailViewController {
+            vc.collectionView?.collectionViewLayout.invalidateLayout()
+
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+                vc.collectionView?.layoutIfNeeded()
+            } completion: { (_) in
+                self.cellAdapter.collectionView?.collectionViewLayout.invalidateLayout()
+                self.cellAdapter.collectionView?.layoutIfNeeded()
+            }
+        }
     }
 }
