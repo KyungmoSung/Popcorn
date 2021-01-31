@@ -33,19 +33,24 @@ class CreditSectionController: ListSectionController {
         
         let containerHeight = context.containerSize.height - context.containerInset.top - context.containerInset.bottom
         let containerWidth = context.containerSize.width - context.containerInset.right - context.containerInset.left
+        let imgRatio: CGFloat = 4 / 5
+        let labelHeight: CGFloat = 55.5
         
+        var size: CGSize = .zero
+
         switch direction {
         case .horizontal:
-            return CGSize(width: containerHeight * 0.5, height: containerHeight)
+            size.width = (containerHeight - labelHeight) * imgRatio
+            size.height = containerHeight
         case .vertical:
             let numberOfItemsInRow: CGFloat = 3
-            let width: CGFloat = (containerWidth - minimumLineSpacing * (numberOfItemsInRow - 1)) / numberOfItemsInRow
-
-//            let height = context.containerSize.height
-            return CGSize(width: width, height: width * 2)
+            size.width = (containerWidth - minimumLineSpacing * (numberOfItemsInRow - 1)) / numberOfItemsInRow
+            size.height = (size.width / imgRatio) + labelHeight
         default:
-            return .zero
+            break
         }
+        
+        return size
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {

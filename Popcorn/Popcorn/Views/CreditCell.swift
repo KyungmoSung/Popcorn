@@ -37,6 +37,6 @@ class CreditCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        contentView.applyShadow()
+        profileIv.superview?.applyShadow()
     }
 }
