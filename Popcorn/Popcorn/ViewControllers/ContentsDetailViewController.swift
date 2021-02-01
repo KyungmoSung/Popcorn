@@ -21,6 +21,8 @@ class ContentsDetailViewController: BaseViewController {
     var contents: Movie!
     var posterHeroId: String?
     
+    var selectedImageTitleIndex: Int = 0
+    
     var mediaType: ImageType = .backdrop
     var backdropInfos: [ImageInfo] = []
     var posterInfos: [ImageInfo] = []

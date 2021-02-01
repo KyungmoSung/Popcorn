@@ -15,6 +15,7 @@ class SectionHeaderView: UICollectionViewCell {
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet private weak var expandBtn: UIButton!
     @IBOutlet weak var tabCollectionView: UICollectionView!
+    @IBOutlet weak var titleCollectionView: UICollectionView!
     
     weak var delegate: SectionHeaderViewDelegate?
     

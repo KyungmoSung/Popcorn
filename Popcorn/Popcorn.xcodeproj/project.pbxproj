@@ -57,6 +57,9 @@
 		CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD06B5ED258853FE00E15540 /* TextTagCell.xib */; };
 		CD39C67625BE8F7500408D05 /* DetailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD39C67525BE8F7500408D05 /* DetailInfo.swift */; };
 		CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */; };
+		CD8F017E25C7C21700BD8FFD /* HeaderTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */; };
+		CD8F017F25C7C21700BD8FFD /* HeaderTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */; };
+		CD8F018425C7C40300BD8FFD /* HeaderTitleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8F018325C7C40300BD8FFD /* HeaderTitleSectionController.swift */; };
 		CD936FC625887E170006441C /* UICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FC525887E170006441C /* UICollectionViewExtension.swift */; };
 		CD936FCB25887E8D0006441C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FCA25887E8D0006441C /* BaseViewController.swift */; };
 		CD936FE9258884840006441C /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FE8258884840006441C /* UINavigationControllerExtension.swift */; };
@@ -172,6 +175,9 @@
 		CD06B5ED258853FE00E15540 /* TextTagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTagCell.xib; sourceTree = "<group>"; };
 		CD39C67525BE8F7500408D05 /* DetailInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfo.swift; sourceTree = "<group>"; };
 		CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NukeExtension.swift; sourceTree = "<group>"; };
+		CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleCell.swift; sourceTree = "<group>"; };
+		CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTitleCell.xib; sourceTree = "<group>"; };
+		CD8F018325C7C40300BD8FFD /* HeaderTitleSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleSectionController.swift; sourceTree = "<group>"; };
 		CD936FC525887E170006441C /* UICollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtension.swift; sourceTree = "<group>"; };
 		CD936FCA25887E8D0006441C /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		CD936FE8258884840006441C /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
@@ -431,6 +437,7 @@
 				24A4292A25AAE3AF00845C94 /* SynopsisSectionController.swift */,
 				24ED62AD258371C700FC98B3 /* TextTabSectionController.swift */,
 				CD06B5E7258853E100E15540 /* TextTagSectionController.swift */,
+				CD8F018325C7C40300BD8FFD /* HeaderTitleSectionController.swift */,
 			);
 			path = SectionControllers;
 			sourceTree = "<group>";
@@ -451,6 +458,8 @@
 				24A4292F25AAE41500845C94 /* SynopsisCell.swift */,
 				24ED629B25836A8100FC98B3 /* TextTabCell.swift */,
 				CD06B5EC258853FE00E15540 /* TextTagCell.swift */,
+				CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */,
+				CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */,
 				CDD9F66825C152C400B83536 /* Xibs */,
 			);
 			path = Views;
@@ -621,6 +630,7 @@
 				24661379259867E4008B982B /* NanumBarunGothicRegular.ttf in Resources */,
 				24E02D712585FE0A00591234 /* MediaVideoCell.xib in Resources */,
 				24661376259867E4008B982B /* NanumSquareLight.ttf in Resources */,
+				CD8F017F25C7C21700BD8FFD /* HeaderTitleCell.xib in Resources */,
 				24A4293225AAE41500845C94 /* SynopsisCell.xib in Resources */,
 				24661377259867E4008B982B /* NanumSquareExtraBold.ttf in Resources */,
 				CDB6D453254BCC10001B0AEB /* HomePosterCell.xib in Resources */,
@@ -781,6 +791,7 @@
 				CD936FC625887E170006441C /* UICollectionViewExtension.swift in Sources */,
 				24ED6290258355A200FC98B3 /* Genre.swift in Sources */,
 				CDB6D40B254AB115001B0AEB /* Response.swift in Sources */,
+				CD8F017E25C7C21700BD8FFD /* HeaderTitleCell.swift in Sources */,
 				24E02D8925860AFD00591234 /* Media.swift in Sources */,
 				CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */,
 				CD06B5EE258853FE00E15540 /* TextTagCell.swift in Sources */,
@@ -789,6 +800,7 @@
 				CD936FCB25887E8D0006441C /* BaseViewController.swift in Sources */,
 				CDB6D432254BB132001B0AEB /* IGListKitExtension.swift in Sources */,
 				CDB6D47E254BF35B001B0AEB /* SectionItem.swift in Sources */,
+				CD8F018425C7C40300BD8FFD /* HeaderTitleSectionController.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
 				24E02D9125860B3800591234 /* Credit.swift in Sources */,
 				CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */,

@@ -30,6 +30,12 @@ class DetailHorizontalSectionController: ListSectionController {
         return adapter
     }()
     
+    lazy var headerTitleAdapter: ListAdapter = {
+        let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self.viewController)
+        adapter.dataSource = self
+        return adapter
+    }()
+    
     override init() {
         super.init()
         supplementaryViewSource = self
@@ -149,6 +155,7 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
             headerView.tabCollectionView.isHidden = false
             
             headerAdapter.collectionView = headerView.tabCollectionView
+            headerTitleAdapter.collectionView = headerView.titleCollectionView
             
             return headerView
         default:
@@ -182,18 +189,25 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
         if listAdapter == cellAdapter {
             switch sectionItem.sectionType {
             case .image: // 선택된 이미지타입만 필터링 (포스터/배경)
-                if let items = sectionItem.items as? [ImageInfo] {
-                    let filterItem = items.filter{ return $0.type == ImageType(rawValue: selectedSubSection) }
+                if let items = sectionItem.items as? [ImageInfo], let vc = viewController as? ContentsDetailViewController {
+                    let filterItem = items.filter{ return $0.type == ImageType(rawValue: vc.selectedImageTitleIndex) }
                     return [DetailSectionItem(sectionItem.sectionType, items: filterItem)]
                 }
             default:
                 return [sectionItem]
             }
-        } else {
+        } else if listAdapter == headerAdapter {
             switch sectionItem.sectionType {
             case .title(_, _ , _, let genres):
                 let tags = genres.map { Tag(id: $0.id, name: $0.name, isLoading: $0.isLoading) }
                 return tags as [ListDiffable]
+            case .image(let tabs):
+                return tabs as [ListDiffable]
+            default:
+                break
+            }
+        } else {
+            switch sectionItem.sectionType {
             case .image(let tabs):
                 return tabs as [ListDiffable]
             default:
@@ -226,7 +240,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             default:
                 break
             }
-        } else {
+        } else if listAdapter == headerAdapter {
             switch sectionItem.sectionType {
             case .title:
                 return TextTagSectionController(delegate: self)
@@ -235,6 +249,8 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             default:
                 break
             }
+        } else {
+            return HeaderTitleSectionController(delegate: self)
         }
         
         return ListSectionController()
@@ -285,6 +301,29 @@ extension DetailHorizontalSectionController: SynopsisSectionControllerDelegate {
             } completion: { (_) in
                 self.cellAdapter.collectionView?.collectionViewLayout.invalidateLayout()
                 self.cellAdapter.collectionView?.layoutIfNeeded()
+            }
+        }
+    }
+}
+
+extension DetailHorizontalSectionController: HeaderTitleSectionDelegate {
+    func didSelectHeaderTitle(section: Int) {
+        guard let vc = viewController as? ContentsDetailViewController else {
+            return
+        }
+        
+        vc.selectedImageTitleIndex = section
+        headerTitleAdapter.collectionView?.reloadData()
+        
+        // collectionView update/scroll fade 애니메이션 적용
+        UIView.animate(withDuration: 0.2) {
+            self.cellAdapter.collectionView?.alpha = 0
+        } completion: { (_) in
+            self.cellAdapter.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: false)
+            self.cellAdapter.performUpdates(animated: false) { (_) in
+                UIView.animate(withDuration: 0.2) {
+                    self.cellAdapter.collectionView?.alpha = 1
+                }
             }
         }
     }
