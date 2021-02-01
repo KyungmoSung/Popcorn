@@ -51,9 +51,12 @@ class DetailHorizontalSectionController: ListSectionController {
                 let totalHeight: CGFloat = items
                     .enumerated()
                     .map {
-                        let text = isExpand ? $0.element.replacingOccurrences(of: ". ", with: ".\n\n") : $0.element
-                        let numberOfLines = isExpand ? 0 : 5
-                        let font = UIFont.NanumSquare(size: 14, family: .Regular)
+                        let isTagline = items.count > 1 && $0.offset == 0
+                        let numberOfLines = isTagline ? 0 : (isExpand ? 0 : 5)
+                        let font = UIFont.NanumSquare(size: 14, family: isTagline ? .ExtraBold : .Regular)
+                        
+                        let text = isTagline ? $0.element : (isExpand ? $0.element.replacingOccurrences(of: ". ", with: ".\n\n") : $0.element)
+                        
                         return text.height(for: font, numberOfLines: numberOfLines, width: context.containerSize.width - 60)
                     }
                     .reduce(0) { $0 + $1 }

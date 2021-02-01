@@ -13,9 +13,18 @@ class SynopsisCell: UICollectionViewCell {
     
     var gradient: CAGradientLayer?
     
-    var isTagline: Bool = false
+    var isTagline: Bool = false {
+        didSet {
+            expandView.isHidden = isTagline
+        }
+    }
+    
     var isExpand: Bool = false {
         didSet {
+            guard !isTagline else {
+                return
+            }
+            
             if isExpand {
                 // 확장된 경우 가독성을 위해 마침표마다 한줄 추가
                 UIView.transition(with: synopsisLb, duration: 0.5, options: .transitionCrossDissolve, animations: {
@@ -44,7 +53,7 @@ class SynopsisCell: UICollectionViewCell {
 
     var synopsis: String? {
         didSet {
-            synopsisLb.attributedText = synopsis?.attributedString(font: UIFont.NanumSquare(size: 14, family: isTagline ? .Bold : .Regular))
+            synopsisLb.attributedText = synopsis?.attributedString(font: UIFont.NanumSquare(size: 14, family: isTagline ? .ExtraBold : .Regular))
         }
     }
     

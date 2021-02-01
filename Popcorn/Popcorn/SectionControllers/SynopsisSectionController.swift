@@ -32,23 +32,30 @@ class SynopsisSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext else {
+        guard let context = collectionContext, let sectionItem = sectionItem, let originText = sectionItem.items[index] as? String else {
             return .zero
         }
         
-        let containerHeight = context.containerSize.height - context.containerInset.top - context.containerInset.bottom
         let containerWidth = context.containerSize.width - context.containerInset.right - context.containerInset.left
+        
+        let isTagline = sectionItem.items.count > 1 && index == 0
+        let font = UIFont.NanumSquare(size: 14, family: isTagline ? .ExtraBold : .Regular)
+        let numberOfLines = isTagline ? 0 : (isExpand ? 0 : 5)
 
-        return CGSize(width: containerWidth, height: containerHeight)
+        let text = isTagline ? originText : (isExpand ? originText.replacingOccurrences(of: ". ", with: ".\n\n") : originText)
+
+        let height = text.height(for: font, numberOfLines: numberOfLines, width: containerWidth)
+
+        return CGSize(width: containerWidth, height: height)
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let synopsis = sectionItem?.items[index] as? String else {
+        guard let context = collectionContext, let sectionItem = sectionItem, let synopsis = sectionItem.items[index] as? String else {
             return UICollectionViewCell()
         }
         
         let cell: SynopsisCell = context.dequeueReusableXibCell(for: self, at: index)
-        cell.isTagline = isFirstSection && !isLastSection
+        cell.isTagline = sectionItem.items.count > 1 && index == 0
         cell.isExpand = isExpand
         cell.synopsis = synopsis
 
@@ -60,13 +67,18 @@ class SynopsisSectionController: ListSectionController {
     }
     
     override func didSelectItem(at index: Int) {
-        guard let cell = collectionContext?.cellForItem(at: index, sectionController: self) as? SynopsisCell else {
+        guard let cells = collectionContext?.visibleCells(for: self) else {
             return
         }
         
         isExpand.toggle()
         
-        cell.isExpand = isExpand
+        cells.forEach {
+            if let cell = $0 as? SynopsisCell {
+                cell.isExpand = isExpand
+            }
+        }
+        
         delegate?.didTapSynopsisItem(at: index, isExpand: isExpand)
     }
 }

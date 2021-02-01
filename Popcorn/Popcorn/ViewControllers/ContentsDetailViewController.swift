@@ -56,17 +56,17 @@ class ContentsDetailViewController: BaseViewController {
         sections.append(titleSection)
         
         // 시놉시스 (tagline + overview)
-        var synopsis: String = ""
+        var synopsisInfo: [ListDiffable] = []
         if let tagline = contents?.tagline, !tagline.isEmpty {
-            synopsis = tagline
+            synopsisInfo.append((tagline + "\n") as ListDiffable)
         }
         
         if let overview = contents?.overview, !overview.isEmpty {
-            synopsis = synopsis.isEmpty ? overview : (synopsis + "\n\n" + overview)
+            synopsisInfo.append(overview as ListDiffable)
         }
         
-        if !synopsis.isEmpty {
-            let section = DetailSectionItem(.synopsis, items: [synopsis as ListDiffable])
+        if synopsisInfo.count > 0 {
+            let section = DetailSectionItem(.synopsis, items: synopsisInfo)
             sections.append(section)
         }
         
