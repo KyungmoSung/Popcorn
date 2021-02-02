@@ -123,12 +123,15 @@ extension HomeViewController: ListAdapterDataSource {
 }
 
 extension HomeViewController: HeaderTitleSectionDelegate {
-    func didSelectHeaderTitle(section: Int) {
-        guard let type = ContentsType(rawValue: section) else {
+    func didSelectHeaderTitle(index: Int) {
+        guard let type = ContentsType(rawValue: index) else {
             return
         }
         
         selectedContentsType = type
-        print(selectedContentsType)
+        
+        var objects = headerAdapter.objects()
+        objects.remove(at: index)
+        headerAdapter.reloadObjects(objects)
     }
 }

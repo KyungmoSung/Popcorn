@@ -8,7 +8,7 @@
 import Foundation
 
 protocol TextTabDelegate: class {
-    func didSelectTab(index: Int, title: String)
+    func didSelectTab(index: Int)
 }
 
 class TextTabSectionController: ListSectionController {
@@ -52,10 +52,6 @@ class TextTabSectionController: ListSectionController {
     }
     
     override func didSelectItem(at index: Int) {
-        guard let title = title else {
-            return
-        }
-        
-        delegate?.didSelectTab(index: section, title: title)
+        delegate?.didSelectTab(index: section)
     }
 }

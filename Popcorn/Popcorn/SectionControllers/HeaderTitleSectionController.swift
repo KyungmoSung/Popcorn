@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HeaderTitleSectionDelegate: class {
-    func didSelectHeaderTitle(section: Int)
+    func didSelectHeaderTitle(index: Int)
 }
 
 class HeaderTitleSectionController: ListSectionController {
@@ -34,13 +34,13 @@ class HeaderTitleSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext else {
+        guard let context = collectionContext, let vc = viewController as? HomeViewController else {
             return UICollectionViewCell()
         }
         
         let cell: HeaderTitleCell = context.dequeueReusableXibCell(for: self, at: index)
         cell.title = title
-//        cell.isSelected = (vc.selectedImageTitleIndex == section)
+        cell.isSelected = (vc.selectedContentsType.rawValue == section)
         
         return cell
     }
@@ -50,6 +50,6 @@ class HeaderTitleSectionController: ListSectionController {
     }
     
     override func didSelectItem(at index: Int) {
-        delegate?.didSelectHeaderTitle(section: section)
+        delegate?.didSelectHeaderTitle(index: section)
     }
 }

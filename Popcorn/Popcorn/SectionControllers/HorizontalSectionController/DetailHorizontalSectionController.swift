@@ -240,7 +240,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
 }
 
 extension DetailHorizontalSectionController: TextTabDelegate {
-    func didSelectTab(index: Int, title: String) {
+    func didSelectTab(index: Int) {
         guard let type = ImageType(rawValue: index), let vc = viewController as? ContentsDetailViewController, vc.selectedImageType != type else {
             return
         }
