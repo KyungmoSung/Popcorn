@@ -8,45 +8,52 @@
 import UIKit
 
 class HomeViewController: BaseViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var contentsCollectionView: UICollectionView!
+    @IBOutlet weak var headerCollectionView: UICollectionView!
     
-    lazy var adapter: ListAdapter = {
+    lazy var contentsAdapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self)
-        adapter.collectionView = collectionView
         adapter.dataSource = self
         return adapter
     }()
     
-    let homeSections: [Section.Home] = [.popular, .nowPlaying, .upcoming, .topRated]
+    lazy var headerAdapter: ListAdapter = {
+        let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+        adapter.dataSource = self
+        return adapter
+    }()
     
-    var sectionItems: [HomeSectionItem] = []
+    var contentsSectionItems: [ContentsSectionItem] = []
+    var homeSectionItems: [HomeSectionItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setNavigation(title: "Popcorn🍿", navigationBar: false, tabBar: true)
         
-        for homeSection in homeSections {
-            var items: [Movie] = []
-            for i in 0...2 {
-                items.append(Movie(id: i, isLoading: true))
-            }
-            sectionItems.append(HomeSectionItem(homeSection, items: items))
+        contentsAdapter.collectionView = contentsCollectionView
+        headerAdapter.collectionView = headerCollectionView
+        contentsCollectionView.contentInset = UIEdgeInsets(top: 66, left: 0, bottom: 0, right: 0)
+        headerCollectionView.contentInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
+
+        for section in Section.Home.allCases {
+            let items: [ListDiffable] = [Int](0...2).map{ Movie(id: $0, isLoading: true) }
+            homeSectionItems.append(HomeSectionItem(section, items: items))
         }
         
-        adapter.performUpdates(animated: true, completion: nil)
+        contentsAdapter.performUpdates(animated: true, completion: nil)
 
-        getMovies(for: homeSections, page: 1)
+        getMovies(for: Section.Home.allCases, page: 1)
     }
     
-    func getMovies(for homeSections: [Section.Home], page: Int) {
+    func getMovies(for sections: [Section.Home], page: Int) {
         let params: [String: Any] = [
             "page": page
         ]
                 
-        for (index, homeSection) in homeSections.enumerated() {
+        for (index, sections) in sections.enumerated() {
             var api: String!
-            switch homeSection {
+            switch sections {
             case .popular:
                 api = AppConstants.API.Movie.getPopular
             case .nowPlaying:
@@ -55,13 +62,11 @@ class HomeViewController: BaseViewController {
                 api = AppConstants.API.Movie.getUpcoming
             case .topRated:
                 api = AppConstants.API.Movie.getTopRated
-            case .none:
-                return
             }
             
             APIManager.request(api, method: .get, params: params, responseType: PageResponse<Movie>.self .self) { (result) in
                 
-                let sectionItem = self.sectionItems[index]
+                let sectionItem = self.homeSectionItems[index]
                 
                 switch result {
                 case .success(let response):
@@ -80,7 +85,7 @@ class HomeViewController: BaseViewController {
                 
                 
                 // 모든 요청이 완료되면 컬렉션뷰 업데이트
-                if let sc = self.adapter.sectionController(for: sectionItem) as? HomeHorizontalSectionController {
+                if let sc = self.contentsAdapter.sectionController(for: sectionItem) as? HomeHorizontalSectionController {
                     sc.adapter.performUpdates(animated: true, completion: nil)
                 }
             }
@@ -90,14 +95,34 @@ class HomeViewController: BaseViewController {
 
 extension HomeViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return sectionItems
+        switch listAdapter {
+        case contentsAdapter:
+            return homeSectionItems
+        case headerAdapter:
+            return Section.ContentsType.allCases.map{ $0.title as ListDiffable }
+        default:
+            return []
+        }
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return HomeHorizontalSectionController()
+        switch listAdapter {
+        case contentsAdapter:
+            return HomeHorizontalSectionController()
+        case headerAdapter:
+            return HeaderTitleSectionController(delegate: self)
+        default:
+            return ListSectionController()
+        }
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
+    }
+}
+
+extension HomeViewController: HeaderTitleSectionDelegate {
+    func didSelectHeaderTitle(section: Int) {
+        print(section)
     }
 }

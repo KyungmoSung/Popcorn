@@ -17,7 +17,7 @@ protocol ListDiffableSectionItem: ListDiffableItems {
     var sectionType: SectionType { get set }
 }
 
-class SectionItem<T: RawRepresentable & SectionType>: NSObject, ListDiffableSectionItem {
+class SectionItem<T: SectionType>: NSObject, ListDiffableSectionItem {
     var sectionType: T
     var items: [ListDiffable]
     
@@ -34,6 +34,7 @@ class SectionItem<T: RawRepresentable & SectionType>: NSObject, ListDiffableSect
         return self === object
     }
 }
-
+typealias ContentsSectionItem = SectionItem<Section.ContentsType>
 typealias HomeSectionItem = SectionItem<Section.Home>
 typealias DetailSectionItem =  SectionItem<Section.Detail>
+

@@ -5,6 +5,8 @@
   Created by Front-Artist on 2020/11/02.
   
 */
+movies = "Movies";
+tvShows = "TV shows";
 
 nowPlaying = "Now Playing";
 popular = "Popular";
@@ -15,6 +17,8 @@ detail = "Details";
 synopsis = "Synopsis";
 image = "Images";
 video = "Videos";
+backdrop = "Backdrop";
+poster = "Poster";
 credit = "Cast & Crew";
 recommendation = "Recommendations";
 similar = "Similars";

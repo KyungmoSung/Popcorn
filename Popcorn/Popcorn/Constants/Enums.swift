@@ -7,30 +7,39 @@
 
 import Foundation
 
-protocol SectionType {
-    var title: String { get }
-}
+protocol SectionType {}
 
 struct Section {
-    enum Home: Int, SectionType {
-        case nowPlaying
-        case popular
-        case topRated
-        case upcoming
-        case none
+    enum ContentsType: Int, SectionType, CaseIterable {
+        case movies
+        case tvShows
         
         var title: String {
             switch self {
-            case .nowPlaying:
-                return "nowPlaying".localized
+            case .movies:
+                return "movies".localized
+            case .tvShows:
+                return "tvShows".localized
+            }
+        }
+    }
+    
+    enum Home: Int, SectionType, CaseIterable {
+        case popular
+        case nowPlaying
+        case topRated
+        case upcoming
+
+        var title: String {
+            switch self {
             case .popular:
                 return "popular".localized
+            case .nowPlaying:
+                return "nowPlaying".localized
             case .topRated:
                 return "topRated".localized
             case .upcoming:
                 return "upcoming".localized
-            case .none:
-                return "none".localized
             }
         }
     }
@@ -156,9 +165,9 @@ enum ImageType: Int, CaseIterable {
     var title: String {
         switch self {
         case .backdrop:
-            return "배경"
+            return "backdrop".localized
         case .poster:
-            return "포스터"
+            return "poster".localized
         }
     }
 }

@@ -27,24 +27,30 @@ class HomeHorizontalSectionController: ListSectionController {
             return .zero
         }
         
+        var size = context.containerSize
+        
         switch sectionItem.sectionType {
         case .popular:
-            let backdropHeight = context.containerSize.width * 9 / 16 // 16:9 비율
-            return CGSize(width: context.containerSize.width, height: backdropHeight)
+            size.height = context.containerSize.width * 9 / 16 // 16:9 비율
         default:
-            return CGSize(width: context.containerSize.width, height: 220)
+            size.height = 220
         }
+        
+        return size
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext else { return UICollectionViewCell() }
+        guard let context = collectionContext, let sectionItem = sectionItem else {
+            return UICollectionViewCell()
+        }
         
         let cell: EmbeddedCollectionViewCell = context.dequeueReusableCell(for: self, at: index)
-        let layout = PagingCollectionViewLayout()
-        layout.scrollDirection = .horizontal
-        cell.collectionView.collectionViewLayout = layout
-
         adapter.collectionView = cell.collectionView
+        
+        if let layout = cell.collectionView.collectionViewLayout as? PagingCollectionViewLayout {
+            layout.scrollDirection = .horizontal
+            cell.collectionView.isScrollEnabled = true
+        }
         
         return cell
     }
@@ -60,8 +66,10 @@ extension HomeHorizontalSectionController: ListSupplementaryViewSource {
     }
     
     func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
-        guard let context = collectionContext else { return .zero }
-
+        guard let context = collectionContext else {
+            return .zero
+        }
+        
         return CGSize(width: context.containerSize.width, height: 85)
     }
     

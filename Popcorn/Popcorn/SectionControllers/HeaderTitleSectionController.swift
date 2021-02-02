@@ -12,9 +12,10 @@ protocol HeaderTitleSectionDelegate: class {
 }
 
 class HeaderTitleSectionController: ListSectionController {
-    var title: String?
     weak var delegate: HeaderTitleSectionDelegate?
     
+    var title: String?
+
     override private init() {
         super.init()
         
@@ -33,7 +34,7 @@ class HeaderTitleSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let title = title, let vc = viewController as? ContentsDetailViewController else {
+        guard let context = collectionContext else {
             return UICollectionViewCell()
         }
         

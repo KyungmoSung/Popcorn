@@ -21,19 +21,30 @@
                 <rect key="frame" x="0.0" y="0.0" width="233" height="90"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiL-Qa-PgH">
-                        <rect key="frame" x="0.0" y="0.0" width="233" height="90"/>
-                        <fontDescription key="fontDescription" name="NanumSquareEB" family="NanumSquare" pointSize="22"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lbp-bw-Jhw">
+                        <rect key="frame" x="0.0" y="0.0" width="83.5" height="35.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiL-Qa-PgH">
+                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="35.5"/>
+                                <fontDescription key="fontDescription" name="NanumSquareEB" family="NanumSquare" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="qiL-Qa-PgH" firstAttribute="leading" secondItem="Lbp-bw-Jhw" secondAttribute="leading" id="hsR-eY-kmT"/>
+                            <constraint firstAttribute="bottom" secondItem="qiL-Qa-PgH" secondAttribute="bottom" id="o0T-FZ-n0r"/>
+                            <constraint firstAttribute="trailing" secondItem="qiL-Qa-PgH" secondAttribute="trailing" id="tqw-lS-1gV"/>
+                            <constraint firstItem="qiL-Qa-PgH" firstAttribute="top" secondItem="Lbp-bw-Jhw" secondAttribute="top" id="wuD-hE-STY"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="qiL-Qa-PgH" secondAttribute="trailing" id="G2H-XM-You"/>
-                <constraint firstItem="qiL-Qa-PgH" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="UZy-Dc-D4w"/>
-                <constraint firstAttribute="bottom" secondItem="qiL-Qa-PgH" secondAttribute="bottom" id="mL5-BH-yDG"/>
-                <constraint firstItem="qiL-Qa-PgH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="oeQ-dC-wJv"/>
+                <constraint firstAttribute="trailing" secondItem="Lbp-bw-Jhw" secondAttribute="trailing" priority="999" id="8a4-9g-DoE"/>
+                <constraint firstItem="Lbp-bw-Jhw" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="H28-br-dCo"/>
+                <constraint firstAttribute="bottom" secondItem="Lbp-bw-Jhw" secondAttribute="bottom" priority="999" id="RxB-0N-PET"/>
+                <constraint firstItem="Lbp-bw-Jhw" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="qTy-na-VOY"/>
             </constraints>
             <size key="customSize" width="233" height="90"/>
             <connections>
