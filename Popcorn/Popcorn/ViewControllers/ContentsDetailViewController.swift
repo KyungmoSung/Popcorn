@@ -39,7 +39,7 @@ class ContentsDetailViewController: BaseViewController {
         var subtitle: String = ""
         
         // 개봉연도
-        if let releaseDate = self.contents?.releaseDate.dateValue() {
+        if let releaseDate = self.contents?.releaseDate?.dateValue() {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy"
             let year = dateFormatter.string(from: releaseDate)

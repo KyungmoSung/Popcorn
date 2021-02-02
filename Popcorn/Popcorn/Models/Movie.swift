@@ -7,60 +7,57 @@
 
 import Foundation
 
-class Movie: Loadingable, Codable {
-    var posterPath: String?
-    var adult: Bool!
-    var overview: String!
-    var tagline: String!
-    var releaseDate: AnyValue!
-    var genreIds: [Int]!
-    var id: Int!
-    var originalTitle: String!
-    var originalLanguage: String!
-//    let spokenLanguages: [ISO]!
-//    let productionCountries: [ISO]!
-//    let productionCompanies: [ProductionCompany]!
+class Movie: Contents {
     var title: String!
-    var backdropPath: String?
-    var popularity: Double!
-    var voteCount: Int!
-    var video: Bool!
-    var voteAverage: Double!
+    var originalTitle: String!
+    var adult: Bool?
+    var tagline: String?
+    var releaseDate: AnyValue?
+    var video: Bool?
     var genres: [Genre]?
     var runtime: Int?
-    var revenue: Int!
-    var budget: Int!
+    var revenue: Int?
+    var budget: Int?
+    var spokenLanguages: [Language]?
+    var productionCountries: [Country]?
+    //    let productionCompanies: [ProductionCompany]
     
     enum CodingKeys : String, CodingKey{
-        case adult
-        case overview
-        case tagline
-        case id
         case title
-        case popularity
+        case originalTitle = "original_title"
+        case adult
+        case tagline
+        case releaseDate = "release_date"
         case video
         case genres
         case runtime
         case revenue
         case budget
-        case posterPath = "poster_path"
-        case releaseDate = "release_date"
-        case genreIds = "genre_ids"
-        case originalTitle = "original_title"
-        case originalLanguage = "original_language"
-//        case spokenLanguages = "spoken_languages"
-//        case productionCountries = "production_countries"
+        case spokenLanguages = "spoken_languages"
+        case productionCountries = "production_countries"
 //        case productionCompanies = "production_companies"
-        case backdropPath = "backdrop_path"
-        case voteCount = "vote_count"
-        case voteAverage = "vote_average"
     }
     
-    init(id: Int, isLoading: Bool) {
-        super.init()
-
-        self.id = id
-        self.isLoading = isLoading
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
+        self.originalTitle = try container.decodeIfPresent(String.self, forKey: .originalTitle)
+        self.adult = try container.decodeIfPresent(Bool.self, forKey: .adult)
+        self.tagline = try container.decodeIfPresent(String.self, forKey: .tagline)
+        self.releaseDate = try container.decodeIfPresent(AnyValue.self, forKey: .releaseDate)
+        self.video = try container.decodeIfPresent(Bool.self, forKey: .video)
+        self.genres = try container.decodeIfPresent([Genre].self, forKey: .genres)
+        self.runtime = try container.decodeIfPresent(Int.self, forKey: .runtime)
+        self.revenue = try container.decodeIfPresent(Int.self, forKey: .revenue)
+        self.budget = try container.decodeIfPresent(Int.self, forKey: .budget)
+        self.spokenLanguages = try container.decodeIfPresent([Language].self, forKey: .spokenLanguages)
+        self.productionCountries = try container.decodeIfPresent([Country].self, forKey: .productionCountries)
+        
+        try super.init(from: decoder)
+    }
+    
+    override init(id: Int, isLoading: Bool) {
+        super.init(id: id, isLoading: isLoading)
     }
     
     func filteredInfo() -> [DetailInfo] {
@@ -72,11 +69,13 @@ class Movie: Loadingable, Codable {
             infoItems.append(DetailInfo(title: "runtime".localized, desc: "\(hour) \(minute)"))
         }
         
-        if let releaseDate = releaseDate.stringValue {
+        if let releaseDate = releaseDate?.stringValue {
             infoItems.append(DetailInfo(title: "releaseDate".localized, desc: releaseDate))
         }
         
-        infoItems.append(DetailInfo(title: "originalLanguage".localized, desc: originalLanguage))
+        if let originalLanguage = originalLanguage {
+            infoItems.append(DetailInfo(title: "originalLanguage".localized, desc: originalLanguage.rawValue))
+        }
         
         if let popularity = popularity {
             infoItems.append(DetailInfo(title: "popularity".localized, desc: "\(Int(popularity)) 점"))
@@ -93,23 +92,5 @@ class Movie: Loadingable, Codable {
 //        productionCountries
         
         return infoItems
-    }
-}
-
-extension Movie: Equatable, ListDiffable {
-    static func == (lhs: Movie, rhs: Movie) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-    func diffIdentifier() -> NSObjectProtocol {
-        return id as NSObjectProtocol
-    }
-    
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        guard let object = object as? Movie else {
-            return false
-        }
-
-        return self.id == object.id
     }
 }

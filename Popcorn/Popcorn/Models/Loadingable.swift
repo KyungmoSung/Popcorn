@@ -7,6 +7,6 @@
 
 import Foundation
 
-class Loadingable {
-    var isLoading: Bool = false
+protocol Loadingable {
+    var isLoading: Bool { get set }
 }

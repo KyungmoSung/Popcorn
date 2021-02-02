@@ -10,20 +10,6 @@ import Foundation
 protocol SectionType {}
 
 struct Section {
-    enum ContentsType: Int, SectionType, CaseIterable {
-        case movies
-        case tvShows
-        
-        var title: String {
-            switch self {
-            case .movies:
-                return "movies".localized
-            case .tvShows:
-                return "tvShows".localized
-            }
-        }
-    }
-    
     enum Home: Int, SectionType, CaseIterable {
         case popular
         case nowPlaying
@@ -168,6 +154,20 @@ enum ImageType: Int, CaseIterable {
             return "backdrop".localized
         case .poster:
             return "poster".localized
+        }
+    }
+}
+
+enum ContentsType: Int, CaseIterable {
+    case movies
+    case tvShows
+    
+    var title: String {
+        switch self {
+        case .movies:
+            return "movies".localized
+        case .tvShows:
+            return "tvShows".localized
         }
     }
 }

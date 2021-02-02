@@ -11,9 +11,9 @@ class Tag: Loadingable {
     var id: Int!
     var name: String!
     
+    var isLoading: Bool = false
+    
     init(id: Int, name: String, isLoading: Bool) {
-        super.init()
-
         self.id = id
         self.name = name
         self.isLoading = isLoading

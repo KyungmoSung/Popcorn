@@ -34,7 +34,7 @@ class SectionItem<T: SectionType>: NSObject, ListDiffableSectionItem {
         return self === object
     }
 }
-typealias ContentsSectionItem = SectionItem<Section.ContentsType>
+
 typealias HomeSectionItem = SectionItem<Section.Home>
 typealias DetailSectionItem =  SectionItem<Section.Detail>
 

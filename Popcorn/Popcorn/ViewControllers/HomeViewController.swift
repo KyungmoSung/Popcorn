@@ -23,7 +23,8 @@ class HomeViewController: BaseViewController {
         return adapter
     }()
     
-    var contentsSectionItems: [ContentsSectionItem] = []
+    var selectedContentsType: ContentsType = .movies
+
     var homeSectionItems: [HomeSectionItem] = []
     
     override func viewDidLoad() {
@@ -99,7 +100,7 @@ extension HomeViewController: ListAdapterDataSource {
         case contentsAdapter:
             return homeSectionItems
         case headerAdapter:
-            return Section.ContentsType.allCases.map{ $0.title as ListDiffable }
+            return ContentsType.allCases.map{ $0.title as ListDiffable }
         default:
             return []
         }
@@ -123,6 +124,11 @@ extension HomeViewController: ListAdapterDataSource {
 
 extension HomeViewController: HeaderTitleSectionDelegate {
     func didSelectHeaderTitle(section: Int) {
-        print(section)
+        guard let type = ContentsType(rawValue: section) else {
+            return
+        }
+        
+        selectedContentsType = type
+        print(selectedContentsType)
     }
 }

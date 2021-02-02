@@ -11,11 +11,16 @@ class Genre: Loadingable, Codable {
     var id: Int!
     var name: String!
     
-    init(id: Int, isLoading: Bool) {
-        super.init()
-
+    var isLoading: Bool = false
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+    }
+    
+    init(id: Int, name: String = "", isLoading: Bool) {
         self.id = id
-        self.name = ""
+        self.name = name
         self.isLoading = isLoading
     }
 }

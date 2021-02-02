@@ -80,7 +80,7 @@ class PosterSectionController: ListSectionController {
                 cell.voteAverage = item.voteAverage
                 cell.title = item.title
                 cell.originalTitle = item.originalTitle
-                cell.releaseDate = item.releaseDate.dateValue()
+                cell.releaseDate = item.releaseDate?.dateValue()
             }
             return cell
         default:
@@ -91,7 +91,7 @@ class PosterSectionController: ListSectionController {
                 cell.hideSkeleton(transition: .crossDissolve(0.3))
                 cell.title = item.title
                 cell.posterImgPath = item.posterPath
-                cell.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(item.id ?? 0)"
+                cell.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(item.id)"
                 cell.voteAverage = item.voteAverage
             }
             return cell
@@ -109,7 +109,7 @@ class PosterSectionController: ListSectionController {
         
         let vc = ContentsDetailViewController(id: item.id)
         vc.contents = item
-        vc.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(item.id ?? 0)"
+        vc.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(item.id)"
         
         viewController?.navigationController?.hero.navigationAnimationType = .fade
         viewController?.navigationController?.pushViewController(vc, animated: true)
