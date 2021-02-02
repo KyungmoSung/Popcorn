@@ -8,7 +8,7 @@
 import Foundation
 
 protocol TextTabDelegate: class {
-    func didSelectTab(index: Int)
+    func didSelectTab(index: Int, title: String)
 }
 
 class TextTabSectionController: ListSectionController {
@@ -36,12 +36,13 @@ class TextTabSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let title = title else {
+        guard let context = collectionContext, let vc = viewController as? ContentsDetailViewController else {
             return UICollectionViewCell()
         }
         
         let cell: TextTabCell = context.dequeueReusableXibCell(for: self, at: index)
         cell.title = title
+        cell.isSelected = (vc.selectedImageType.rawValue == section)
         
         return cell
     }
@@ -51,6 +52,10 @@ class TextTabSectionController: ListSectionController {
     }
     
     override func didSelectItem(at index: Int) {
-        delegate?.didSelectTab(index: section)
+        guard let title = title else {
+            return
+        }
+        
+        delegate?.didSelectTab(index: section, title: title)
     }
 }

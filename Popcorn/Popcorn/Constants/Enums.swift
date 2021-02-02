@@ -150,8 +150,8 @@ enum MediaType: String {
 }
 
 enum ImageType: Int, CaseIterable {
-    case poster
     case backdrop
+    case poster
     
     var title: String {
         switch self {

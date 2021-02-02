@@ -39,7 +39,7 @@ class HeaderTitleSectionController: ListSectionController {
         
         let cell: HeaderTitleCell = context.dequeueReusableXibCell(for: self, at: index)
         cell.title = title
-        cell.isSelected = (vc.selectedImageTitleIndex == section)
+//        cell.isSelected = (vc.selectedImageTitleIndex == section)
         
         return cell
     }

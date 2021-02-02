@@ -12,12 +12,6 @@ class DetailHorizontalSectionController: ListSectionController {
     private var sectionItem: DetailSectionItem?
     var isExpand: Bool = false
     
-    var selectedSubSection: Int = 0 {
-        didSet {
-            cellAdapter.performUpdates(animated: true, completion: nil)
-        }
-    }
-    
     lazy var cellAdapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self.viewController)
         adapter.dataSource = self
@@ -25,12 +19,6 @@ class DetailHorizontalSectionController: ListSectionController {
     }()
     
     lazy var headerAdapter: ListAdapter = {
-        let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self.viewController)
-        adapter.dataSource = self
-        return adapter
-    }()
-    
-    lazy var headerTitleAdapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self.viewController)
         adapter.dataSource = self
         return adapter
@@ -155,7 +143,6 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
             headerView.tabCollectionView.isHidden = false
             
             headerAdapter.collectionView = headerView.tabCollectionView
-            headerTitleAdapter.collectionView = headerView.titleCollectionView
             
             return headerView
         default:
@@ -182,32 +169,25 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
 
 extension DetailHorizontalSectionController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        guard let sectionItem = sectionItem else {
+        guard let sectionItem = sectionItem, let vc = viewController as? ContentsDetailViewController else {
             return []
         }
         
         if listAdapter == cellAdapter {
             switch sectionItem.sectionType {
             case .image: // 선택된 이미지타입만 필터링 (포스터/배경)
-                if let items = sectionItem.items as? [ImageInfo], let vc = viewController as? ContentsDetailViewController {
-                    let filterItem = items.filter{ return $0.type == ImageType(rawValue: vc.selectedImageTitleIndex) }
+                if let items = sectionItem.items as? [ImageInfo] {
+                    let filterItem = items.filter{ return $0.type == vc.selectedImageType }
                     return [DetailSectionItem(sectionItem.sectionType, items: filterItem)]
                 }
             default:
                 return [sectionItem]
             }
-        } else if listAdapter == headerAdapter {
+        } else {
             switch sectionItem.sectionType {
             case .title(_, _ , _, let genres):
                 let tags = genres.map { Tag(id: $0.id, name: $0.name, isLoading: $0.isLoading) }
                 return tags as [ListDiffable]
-            case .image(let tabs):
-                return tabs as [ListDiffable]
-            default:
-                break
-            }
-        } else {
-            switch sectionItem.sectionType {
             case .image(let tabs):
                 return tabs as [ListDiffable]
             default:
@@ -240,7 +220,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             default:
                 break
             }
-        } else if listAdapter == headerAdapter {
+        } else {
             switch sectionItem.sectionType {
             case .title:
                 return TextTagSectionController(delegate: self)
@@ -249,8 +229,6 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             default:
                 break
             }
-        } else {
-            return HeaderTitleSectionController(delegate: self)
         }
         
         return ListSectionController()
@@ -262,8 +240,30 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
 }
 
 extension DetailHorizontalSectionController: TextTabDelegate {
-    func didSelectTab(index: Int) {
-        selectedSubSection = index
+    func didSelectTab(index: Int, title: String) {
+        guard let type = ImageType(rawValue: index), let vc = viewController as? ContentsDetailViewController, vc.selectedImageType != type else {
+            return
+        }
+        
+        vc.selectedImageType = type
+        
+        // collectionView update/scroll fade 애니메이션 적용
+        UIView.animate(withDuration: 0.2) {
+            self.cellAdapter.collectionView?.alpha = 0
+        } completion: { (_) in
+            if let object = self.cellAdapter.objects().first {
+                self.cellAdapter.scroll(to: object, supplementaryKinds: nil, scrollDirection: .horizontal, scrollPosition: .left, animated: false)
+            }
+            self.cellAdapter.performUpdates(animated: false) { (_) in
+                UIView.animate(withDuration: 0.2) {
+                    self.cellAdapter.collectionView?.alpha = 1
+                }
+            }
+        }
+        
+        var objects = headerAdapter.objects()
+        objects.remove(at: index)
+        headerAdapter.reloadObjects(objects)
     }
 }
 
@@ -301,29 +301,6 @@ extension DetailHorizontalSectionController: SynopsisSectionControllerDelegate {
             } completion: { (_) in
                 self.cellAdapter.collectionView?.collectionViewLayout.invalidateLayout()
                 self.cellAdapter.collectionView?.layoutIfNeeded()
-            }
-        }
-    }
-}
-
-extension DetailHorizontalSectionController: HeaderTitleSectionDelegate {
-    func didSelectHeaderTitle(section: Int) {
-        guard let vc = viewController as? ContentsDetailViewController else {
-            return
-        }
-        
-        vc.selectedImageTitleIndex = section
-        headerTitleAdapter.collectionView?.reloadData()
-        
-        // collectionView update/scroll fade 애니메이션 적용
-        UIView.animate(withDuration: 0.2) {
-            self.cellAdapter.collectionView?.alpha = 0
-        } completion: { (_) in
-            self.cellAdapter.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: false)
-            self.cellAdapter.performUpdates(animated: false) { (_) in
-                UIView.animate(withDuration: 0.2) {
-                    self.cellAdapter.collectionView?.alpha = 1
-                }
             }
         }
     }
