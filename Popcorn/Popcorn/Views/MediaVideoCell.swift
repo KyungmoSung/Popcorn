@@ -19,16 +19,20 @@ class MediaVideoCell: UICollectionViewCell {
         contentView.applyShadow()
         webView.contentMode = .scaleAspectFill
         webView.navigationDelegate = self
+        webView.scrollView.contentInsetAdjustmentBehavior = .never
     }
     
     func loadYouTube(key: String) {
-        DispatchQueue.main.async {
-            if let url = URL(string: AppConstants.Domain.youtubeEmbed + key) {
-                let request = URLRequest(url: url)
-                self.webView.scrollView.isScrollEnabled = false
-                self.webView.load(request)
+        // 웹뷰 로딩이 완료되기 전에 스크롤뷰 버벅거리는 현상을 방지
+        DispatchQueue.global(qos: .default).async(execute: {
+            DispatchQueue.main.async {
+                if let url = URL(string: AppConstants.Domain.youtubeEmbed + key) {
+                    let request = URLRequest(url: url)
+                    self.webView.scrollView.isScrollEnabled = false
+                    self.webView.load(request)
+                }
             }
-        }
+        })
     }
 }
 
