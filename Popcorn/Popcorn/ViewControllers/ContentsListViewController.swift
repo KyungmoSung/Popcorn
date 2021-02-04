@@ -43,7 +43,7 @@ class ContentsListViewController: BaseViewController, ListAdapterDataSource {
         }
         
         switch object.items.first {
-        case is Movie:
+        case is Movie, is TVShow:
             return PosterSectionController(type: .poster, direction: .vertical)
         case is Person:
             return CreditSectionController(direction: .vertical)

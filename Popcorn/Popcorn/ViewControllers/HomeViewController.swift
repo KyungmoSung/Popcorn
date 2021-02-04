@@ -70,11 +70,11 @@ class HomeViewController: BaseViewController {
             "page": page
         ]
                 
-        for (index, sections) in sections.enumerated() {
+        for (index, section) in sections.enumerated() {
             var api: String!
-            switch sections {
-            case let movieSections as Section.Home.Movie:
-                switch movieSections {
+            switch section {
+            case let movieSection as Section.Home.Movie:
+                switch movieSection {
                 case .popular:
                     api = AppConstants.API.Movie.getPopular
                 case .nowPlaying:
@@ -97,8 +97,8 @@ class HomeViewController: BaseViewController {
                         Log.d(error)
                     }
                 }
-            case let tvShowSections as Section.Home.TVShow:
-                switch tvShowSections {
+            case let tvShowSection as Section.Home.TVShow:
+                switch tvShowSection {
                 case .popular:
                     api = AppConstants.API.TVShow.getPopular
                 case .tvAiringToday:

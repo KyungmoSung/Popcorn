@@ -17,8 +17,18 @@ class ContentsDetailViewController: BaseViewController {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
-    var id: Int!
-    var contents: Movie!
+    var contents: Contents!
+    var contentsType: ContentsType {
+        switch contents {
+        case is Movie:
+            return .movies
+        case is TVShow:
+            return .tvShows
+        default:
+            fatalError()
+        }
+    }
+    
     var posterHeroId: String?
     
     var selectedImageType: ImageType = .backdrop
@@ -33,7 +43,10 @@ class ContentsDetailViewController: BaseViewController {
     var infoItems: [DetailInfo] = []
     var reviews: [Review] = []
     
-    var sectionItems: [SectionItem] {
+    var sectionItems: [SectionItem] = []
+    
+    /*
+    {
         var sections: [SectionItem] = []
         
         var subtitle: String = ""
@@ -115,23 +128,36 @@ class ContentsDetailViewController: BaseViewController {
         
         return sections
     }
+    */
     
-    convenience init(id: Int) {
+    convenience init(contents: Contents) {
         self.init()
-        self.id = id
+        self.contents = contents
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setNavigation(title: contents?.title)
+        switch contents {
+        case let movie as Movie:
+            setNavigation(title: movie.title)
+        case let tvShow as TVShow:
+            setNavigation(title: tvShow.name)
+        default:
+            break
+        }
         
         posterIv.hero.id = posterHeroId
         posterIv.heroModifiers = [.spring(stiffness: 90, damping: 15)]
         
+        for sectionType in Section.Detail.allCases {
+            sectionItems.append(SectionItem(sectionType))
+        }
+        
+        
         setupFloatingPanel()
         setupUI()
-        getMovies()
+        requestInfo(for: Section.Detail.allCases)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -214,11 +240,129 @@ class ContentsDetailViewController: BaseViewController {
         }
     }
     
+    func updateSectionItems(_ items: [ListDiffable], at index: Int) {
+        let sectionItem = self.sectionItems[index]
+        sectionItem.items = items
+        
+        if let sc = self.adapter.sectionController(for: sectionItem) as? DetailHorizontalSectionController {
+            sc.collectionContext?.performBatch(animated: true, updates: { (batchContext) in
+                batchContext.reload(sc)
+            })
+        }
+    }
+    
+    func requestInfo(for sections: [SectionType]) {
+        for (index, section) in sections.enumerated() {
+            switch section {
+            case let movieSection as Section.Detail:
+                switch movieSection {
+                case .title:
+                    // 영화 상세 정보
+                    APIManager.request(AppConstants.API.Movie.getDetails(contents.id), method: .get, params: nil, responseType: Movie.self .self) { (result) in
+                        switch result {
+                        case .success(let response):
+                            self.contents = response
+                            
+                            let infos = response.filteredInfo()
+                            self.updateSectionItems(infos, at: index)
+                        case .failure(let error):
+                            Log.d(error)
+                        }
+                    }
+                case .synopsis:
+                    break
+                case .credit:
+                    // 출연, 감독
+                    APIManager.request(AppConstants.API.Movie.getCredits(contents.id), method: .get, params: nil, responseType: ListResponse.self) { (result) in
+                        switch result {
+                        case .success(let response):
+                            var credits: [Person] = response.cast ?? []
+                            // 감독을 맨 앞에 삽입
+                            if let director = response.crew?.filter({ $0.job == "Director" }).first {
+                                credits.insert(director, at: 0)
+                            }
+                            
+                            self.updateSectionItems(credits, at: index)
+                        case .failure(let error):
+                            Log.d(error)
+                        }
+                    }
+                case .detail:
+                    break
+                case .image:
+                    // 관련 이미지(배경,포스터)
+                    APIManager.request(AppConstants.API.Movie.getImages(contents.id), method: .get, params: nil, Localization: false, responseType: ListResponse.self) { (result) in
+                        switch result {
+                        case .success(let response):
+                            let backdrops = response.backdrops ?? []
+                            let posters = response.posters ?? []
+                            
+                            backdrops.forEach { $0.type = .backdrop }
+                            posters.forEach { $0.type = .poster }
+                            
+                            let imageInfos = backdrops + posters
+                            self.updateSectionItems(imageInfos, at: index)
+                        case .failure(let error):
+                            Log.d(error)
+                        }
+                    }
+                case .video:
+                    // 관련 비디오(유튜브)
+                    APIManager.request(AppConstants.API.Movie.getVideos(contents.id), method: .get, params: nil, responseType: Response<VideoInfo>.self) { (result) in
+                        switch result {
+                        case .success(let response):
+                            let videoInfos = response.results ?? []
+                            self.updateSectionItems(videoInfos, at: index)
+                        case .failure(let error):
+                            Log.d(error)
+                        }
+                    }
+                case .review:
+                    // 리뷰목록
+                    APIManager.request(AppConstants.API.Movie.getReviews(contents.id), method: .get, params: nil, Localization: false, responseType: PageResponse<Review>.self) { (result) in
+                        switch result {
+                        case .success(let response):
+                            let reviews = response.results ?? []
+                            self.updateSectionItems(reviews, at: index)
+                        case .failure(let error):
+                            Log.d(error)
+                        }
+                    }
+                case .recommendation:
+                    // 추천목록
+                    APIManager.request(AppConstants.API.Movie.getRecommendations(contents.id), method: .get, params: nil, responseType: PageResponse<Movie>.self) { (result) in
+                        switch result {
+                        case .success(let response):
+                            let recommendations = response.results ?? []
+                            self.updateSectionItems(recommendations, at: index)
+                        case .failure(let error):
+                            Log.d(error)
+                        }
+                    }
+                case .similar:
+                    // 비슷한목록
+                    APIManager.request(AppConstants.API.Movie.getSimilar(contents.id), method: .get, params: nil, responseType: PageResponse<Movie>.self) { (result) in
+                        switch result {
+                        case .success(let response):
+                            let similars = response.results ?? []
+                            self.updateSectionItems(similars, at: index)
+                        case .failure(let error):
+                            Log.d(error)
+                        }
+                    }
+                }
+            default:
+                return
+            }
+        }
+    }
+    
+    /*
     func getMovies() {
         var params: [String: Any] = [:]
         
         // 영화 상세 정보
-        APIManager.request(AppConstants.API.Movie.getDetails(id), method: .get, params: params, responseType: Movie.self .self) { (result) in
+        APIManager.request(AppConstants.API.Movie.getDetails(contents.id), method: .get, params: params, responseType: Movie.self .self) { (result) in
             switch result {
             case .success(let response):
                 self.contents = response
@@ -231,7 +375,7 @@ class ContentsDetailViewController: BaseViewController {
         }
         
         // 관련 이미지(배경,포스터)
-        APIManager.request(AppConstants.API.Movie.getImages(id), method: .get, params: nil, Localization: false, responseType: ListResponse.self) { (result) in
+        APIManager.request(AppConstants.API.Movie.getImages(contents.id), method: .get, params: nil, Localization: false, responseType: ListResponse.self) { (result) in
             switch result {
             case .success(let response):
                 self.backdropInfos = response.backdrops ?? []
@@ -252,7 +396,7 @@ class ContentsDetailViewController: BaseViewController {
         }
         
         // 관련 비디오(유튜브)
-        APIManager.request(AppConstants.API.Movie.getVideos(id), method: .get, params: nil, responseType: Response<VideoInfo>.self) { (result) in
+        APIManager.request(AppConstants.API.Movie.getVideos(contents.id), method: .get, params: nil, responseType: Response<VideoInfo>.self) { (result) in
             switch result {
             case .success(let response):
                 self.videoInfos = response.results ?? []
@@ -263,7 +407,7 @@ class ContentsDetailViewController: BaseViewController {
         }
         
         // 출연, 감독
-        APIManager.request(AppConstants.API.Movie.getCredits(id), method: .get, params: nil, responseType: ListResponse.self) { (result) in
+        APIManager.request(AppConstants.API.Movie.getCredits(contents.id), method: .get, params: nil, responseType: ListResponse.self) { (result) in
             switch result {
             case .success(let response):
                 self.credits = response.cast ?? []
@@ -279,7 +423,7 @@ class ContentsDetailViewController: BaseViewController {
         }
         
         // 추천목록
-        APIManager.request(AppConstants.API.Movie.getRecommendations(id), method: .get, params: nil, responseType: PageResponse<Movie>.self) { (result) in
+        APIManager.request(AppConstants.API.Movie.getRecommendations(contents.id), method: .get, params: nil, responseType: PageResponse<Movie>.self) { (result) in
             switch result {
             case .success(let response):
                 self.recommendations = response.results ?? []
@@ -290,7 +434,7 @@ class ContentsDetailViewController: BaseViewController {
         }
         
         // 비슷한목록
-        APIManager.request(AppConstants.API.Movie.getSimilar(id), method: .get, params: nil, responseType: PageResponse<Movie>.self) { (result) in
+        APIManager.request(AppConstants.API.Movie.getSimilar(contents.id), method: .get, params: nil, responseType: PageResponse<Movie>.self) { (result) in
             switch result {
             case .success(let response):
                 self.similars = response.results ?? []
@@ -301,7 +445,7 @@ class ContentsDetailViewController: BaseViewController {
         }
         
         // 리뷰목록
-        APIManager.request(AppConstants.API.Movie.getReviews(id), method: .get, params: nil, Localization: false, responseType: PageResponse<Review>.self) { (result) in
+        APIManager.request(AppConstants.API.Movie.getReviews(contents.id), method: .get, params: nil, Localization: false, responseType: PageResponse<Review>.self) { (result) in
             switch result {
             case .success(let response):
                 self.reviews = response.results ?? []
@@ -311,6 +455,7 @@ class ContentsDetailViewController: BaseViewController {
             }
         }
     }
+ */
 }
 
 extension ContentsDetailViewController: ListAdapterDataSource {
@@ -341,16 +486,5 @@ extension ContentsDetailViewController: FloatingPanelControllerDelegate {
         default:
             break
         }
-    }
-}
-
-class FloatingLayout: FloatingPanelLayout {
-    var position: FloatingPanelPosition = .bottom
-    var initialState: FloatingPanelState = .half
-    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
-        return [
-            .full: FloatingPanelLayoutAnchor(absoluteInset: 10.0, edge: .top, referenceGuide: .safeArea),
-            .half: FloatingPanelLayoutAnchor(fractionalInset: 0.3, edge: .bottom, referenceGuide: .safeArea),
-        ]
     }
 }

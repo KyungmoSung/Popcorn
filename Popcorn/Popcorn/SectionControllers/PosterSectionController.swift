@@ -128,8 +128,7 @@ class PosterSectionController: ListSectionController {
             return
         }
         
-        let vc = ContentsDetailViewController(id: item.id)
-        vc.contents = item
+        let vc = ContentsDetailViewController(contents: item)
         vc.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(item.id)"
         
         viewController?.navigationController?.hero.navigationAnimationType = .fade

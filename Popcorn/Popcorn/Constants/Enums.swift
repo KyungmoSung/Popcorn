@@ -63,18 +63,34 @@ struct Section {
         }
     }
 
-    enum Detail: RawRepresentable, SectionType {
+    enum Detail: RawRepresentable, SectionType, CaseIterable {
+        static var allCases: [Detail] {
+            return [
+                //                .title,
+                .synopsis,
+                .credit,
+                .detail,
+                //                    .image,
+                .video,
+                .review,
+                .recommendation,
+                .similar
+            ]
+        }
+        
+        typealias AllCases = [Detail]
+        
         typealias RawValue = Int
         
         case title(title: String, subTitle: String, voteAverage: Double, genres: [Genre])
-        case detail
         case synopsis
+        case credit
+        case detail
         case image(tabs: [String])
         case video
-        case credit
+        case review
         case recommendation
         case similar
-        case review
         
         var rawValue: Int {
             switch self {

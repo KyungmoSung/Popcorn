@@ -100,6 +100,7 @@
 		CDBD141F256E388A003F625F /* ContentsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD141D256E388A003F625F /* ContentsDetailViewController.swift */; };
 		CDBD1420256E388A003F625F /* ContentsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDBD141E256E388A003F625F /* ContentsDetailViewController.xib */; };
 		CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD109B625B91AFC00225C4E /* Loadingable.swift */; };
+		CDD711A125CBE00200D025CB /* FloatingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD711A025CBE00200D025CB /* FloatingLayout.swift */; };
 		CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9F66925C153AF00B83536 /* AnyValue.swift */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
@@ -230,6 +231,7 @@
 		CDBD141D256E388A003F625F /* ContentsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsDetailViewController.swift; sourceTree = "<group>"; };
 		CDBD141E256E388A003F625F /* ContentsDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentsDetailViewController.xib; sourceTree = "<group>"; };
 		CDD109B625B91AFC00225C4E /* Loadingable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadingable.swift; sourceTree = "<group>"; };
+		CDD711A025CBE00200D025CB /* FloatingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLayout.swift; sourceTree = "<group>"; };
 		CDD9F66925C153AF00B83536 /* AnyValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -352,6 +354,7 @@
 				CDB6D3C5254A9568001B0AEB /* APIManager.swift */,
 				CDB6D3D9254A9CC0001B0AEB /* Log.swift */,
 				CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */,
+				CDD711A025CBE00200D025CB /* FloatingLayout.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -843,6 +846,7 @@
 				CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */,
 				CD39C67625BE8F7500408D05 /* DetailInfo.swift in Sources */,
 				24ED629D25836A8100FC98B3 /* TextTabCell.swift in Sources */,
+				CDD711A125CBE00200D025CB /* FloatingLayout.swift in Sources */,
 				CDB6D45E254BE003001B0AEB /* SectionHeaderView.swift in Sources */,
 				CDB6D51F254FCB37001B0AEB /* StringExtension.swift in Sources */,
 				24C95D5D25987F1E0020C15C /* Review.swift in Sources */,
