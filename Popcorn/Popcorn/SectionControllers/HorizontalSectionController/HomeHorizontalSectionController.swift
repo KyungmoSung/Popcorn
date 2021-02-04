@@ -9,7 +9,7 @@ import UIKit
 
 class HomeHorizontalSectionController: ListSectionController {
 
-    private var sectionItem: HomeSectionItem?
+    private var sectionItem: SectionItem?
     
     lazy var adapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self.viewController)
@@ -30,17 +30,29 @@ class HomeHorizontalSectionController: ListSectionController {
         var size = context.containerSize
         
         switch sectionItem.sectionType {
-        case .popular:
-            size.height = context.containerSize.width * 9 / 16 // 16:9 비율
+        case let sectionType as Section.Home.Movie:
+            switch sectionType {
+            case .popular:
+                size.height = context.containerSize.width * 9 / 16 // 16:9 비율
+            default:
+                size.height = sectionItem.sectionType.height
+            }
+        case let sectionType as Section.Home.TVShow:
+            switch sectionType {
+            case .popular:
+                size.height = context.containerSize.width * 9 / 16 // 16:9 비율
+            default:
+                size.height = 220
+            }
         default:
-            size.height = 220
+            break
         }
         
         return size
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let sectionItem = sectionItem else {
+        guard let context = collectionContext else {
             return UICollectionViewCell()
         }
         
@@ -56,7 +68,7 @@ class HomeHorizontalSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        sectionItem = object as? HomeSectionItem
+        sectionItem = object as? SectionItem
     }
 }
 
@@ -74,13 +86,15 @@ extension HomeHorizontalSectionController: ListSupplementaryViewSource {
     }
     
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
-        guard let context = collectionContext else { return UICollectionReusableView() }
+        guard let context = collectionContext, let sectionItem = sectionItem else {
+            return UICollectionReusableView()
+        }
         
         let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
+        headerView.tabCollectionView.isHidden = true
         headerView.expandable = true
         headerView.delegate = self
-        headerView.title = sectionItem?.sectionType.title
-        headerView.tabCollectionView.isHidden = true
+        headerView.title = sectionItem.sectionType.title
         
         return headerView
     }
@@ -101,11 +115,25 @@ extension HomeHorizontalSectionController: ListAdapterDataSource {
         }
 
         switch sectionItem.sectionType {
-        case .popular:
-            return PosterSectionController(type: .backdrop, direction: .horizontal)
+        case let sectionType as Section.Home.Movie:
+            switch sectionType {
+            case .popular:
+                return PosterSectionController(type: .backdrop, direction: .horizontal)
+            default:
+                return PosterSectionController(type: .poster, direction: .horizontal)
+            }
+        case let sectionType as Section.Home.TVShow:
+            switch sectionType {
+            case .popular:
+                return PosterSectionController(type: .backdrop, direction: .horizontal)
+            default:
+                return PosterSectionController(type: .poster, direction: .horizontal)
+            }
         default:
-            return PosterSectionController(type: .poster, direction: .horizontal)
+            break
         }
+        
+        return ListSectionController()
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {

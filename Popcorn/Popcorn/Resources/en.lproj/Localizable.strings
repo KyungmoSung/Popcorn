@@ -13,6 +13,9 @@ popular = "Popular";
 topRated = "Top Rated";
 upcoming = "Upcoming";
 
+tvAiringToday = "Airing Today";
+tvOnTheAir = "On The Air";
+
 detail = "Details";
 synopsis = "Synopsis";
 image = "Images";

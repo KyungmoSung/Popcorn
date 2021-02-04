@@ -8,7 +8,7 @@
 import Foundation
 
 class InfoCardSectionController: ListSectionController {
-    var sectionItem: DetailSectionItem?
+    var sectionItem: SectionItem?
     
     override init() {
         super.init()
@@ -37,6 +37,6 @@ class InfoCardSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        sectionItem = object as? DetailSectionItem
+        sectionItem = object as? SectionItem
     }
 }

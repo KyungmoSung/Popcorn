@@ -53,7 +53,19 @@ extension Contents: Equatable, ListDiffable {
         guard let object = object as? Contents else {
             return false
         }
-
-        return self.id == object.id
+        
+        guard self.posterPath == object.posterPath else {
+            return false
+        }
+        
+        guard self.backdropPath == object.backdropPath else {
+            return false
+        }
+        
+        guard self.id == object.id else {
+            return false
+        }
+        
+        return true
     }
 }

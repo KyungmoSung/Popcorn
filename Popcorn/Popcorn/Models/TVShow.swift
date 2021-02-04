@@ -29,7 +29,10 @@ class TVShow: Contents {
         self.firstAirDate = try container.decode(AnyValue.self, forKey: .firstAirDate)
         self.originCountry = try container.decode([ISO_3166_1].self, forKey: .originCountry)
         
-        let superDecoder = try container.superDecoder()
-        try super.init(from: superDecoder)
+        try super.init(from: decoder)
+    }
+    
+    override init(id: Int, isLoading: Bool) {
+        super.init(id: id, isLoading: isLoading)
     }
 }

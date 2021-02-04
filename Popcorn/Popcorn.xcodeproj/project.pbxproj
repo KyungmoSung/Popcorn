@@ -460,6 +460,7 @@
 				24B3BE1925A71AFC00AFBF1C /* ContentsHeaderVIew.swift */,
 				2457E33C25864BBE005CE9FB /* CreditCell.swift */,
 				CDB6D429254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift */,
+				CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */,
 				CDB6D53A2550DA40001B0AEB /* HomeBackdropCell.swift */,
 				CDB6D450254BCC10001B0AEB /* HomePosterCell.swift */,
 				242D62E92593782D00450120 /* InfoCardCell.swift */,
@@ -470,8 +471,6 @@
 				24A4292F25AAE41500845C94 /* SynopsisCell.swift */,
 				24ED629B25836A8100FC98B3 /* TextTabCell.swift */,
 				CD06B5EC258853FE00E15540 /* TextTagCell.swift */,
-				CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */,
-				CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */,
 				CDD9F66825C152C400B83536 /* Xibs */,
 			);
 			path = Views;
@@ -494,6 +493,7 @@
 			children = (
 				24B3BE1A25A71AFC00AFBF1C /* ContentsHeaderVIew.xib */,
 				2457E33D25864BBE005CE9FB /* CreditCell.xib */,
+				CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */,
 				CDB6D53B2550DA40001B0AEB /* HomeBackdropCell.xib */,
 				CDB6D451254BCC10001B0AEB /* HomePosterCell.xib */,
 				242D62EA2593782D00450120 /* InfoCardCell.xib */,

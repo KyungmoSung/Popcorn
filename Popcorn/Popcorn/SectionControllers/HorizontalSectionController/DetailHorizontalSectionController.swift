@@ -9,7 +9,7 @@ import UIKit
 
 class DetailHorizontalSectionController: ListSectionController {
     
-    private var sectionItem: DetailSectionItem?
+    private var sectionItem: SectionItem?
     var isExpand: Bool = false
     
     lazy var cellAdapter: ListAdapter = {
@@ -39,7 +39,7 @@ class DetailHorizontalSectionController: ListSectionController {
         }
         
         switch sectionItem.sectionType {
-        case .synopsis:
+        case Section.Detail.synopsis:
             if let items = sectionItem.items as? [String], items.count > 0 {
                 // 텍스트 높이 계산
                 let totalHeight: CGFloat = items
@@ -64,7 +64,7 @@ class DetailHorizontalSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let sectionItem = sectionItem else {
+        guard let context = collectionContext, let sectionType = sectionItem?.sectionType as? Section.Detail else {
             return UICollectionViewCell()
         }
         
@@ -72,7 +72,7 @@ class DetailHorizontalSectionController: ListSectionController {
         cellAdapter.collectionView = cell.collectionView
         
         if let layout = cell.collectionView.collectionViewLayout as? PagingCollectionViewLayout {
-            switch sectionItem.sectionType {
+            switch sectionType {
             case .detail: // 가로 스크롤 & 자동 넓이
                 layout.scrollDirection = .horizontal
                 cell.collectionView.isScrollEnabled = true
@@ -93,7 +93,7 @@ class DetailHorizontalSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        sectionItem = object as? DetailSectionItem
+        sectionItem = object as? SectionItem
     }
 }
 
@@ -103,11 +103,11 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
     }
     
     func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
-        guard let context = collectionContext, let sectionItem = sectionItem else {
+        guard let context = collectionContext, let sectionType = sectionItem?.sectionType as? Section.Detail else {
             return .zero
         }
         
-        switch sectionItem.sectionType {
+        switch sectionType {
         case .title(let title, _, _, _):
             let titleHeight = title.height(for: .NanumSquare(size: 30, family: .ExtraBold), lineSpacing: 0, numberOfLines: 0, width: context.containerSize.width - 132)
             return CGSize(width: context.containerSize.width, height: 223 + ceil(titleHeight))
@@ -119,11 +119,11 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
     }
     
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
-        guard let context = collectionContext, let sectionItem = sectionItem else {
+        guard let context = collectionContext, let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail else {
             return UICollectionReusableView()
         }
         
-        switch sectionItem.sectionType {
+        switch sectionType {
         case .title(let title, let subTitle, let voteAverage, _):
             let headerView: ContentsHeaderVIew = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
@@ -136,7 +136,7 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
         case .image(_):
             let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
-            headerView.index = sectionItem.sectionType.rawValue
+            headerView.index = sectionType.rawValue
             headerView.title = sectionItem.sectionType.title
             headerView.expandable = true
             headerView.delegate = self
@@ -148,9 +148,9 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
         default:
             let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
-            headerView.index = sectionItem.sectionType.rawValue
+            headerView.index = sectionType.rawValue
             headerView.title = sectionItem.sectionType.title
-            if sectionItem.sectionType == .synopsis || sectionItem.sectionType == .detail {
+            if sectionType == .synopsis || sectionType == .detail {
                 headerView.expandable = false
                 headerView.delegate = nil
             } else {
@@ -169,22 +169,22 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
 
 extension DetailHorizontalSectionController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        guard let sectionItem = sectionItem, let vc = viewController as? ContentsDetailViewController else {
+        guard let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail, let vc = viewController as? ContentsDetailViewController else {
             return []
         }
         
         if listAdapter == cellAdapter {
-            switch sectionItem.sectionType {
+            switch sectionType {
             case .image: // 선택된 이미지타입만 필터링 (포스터/배경)
                 if let items = sectionItem.items as? [ImageInfo] {
                     let filterItem = items.filter{ return $0.type == vc.selectedImageType }
-                    return [DetailSectionItem(sectionItem.sectionType, items: filterItem)]
+                    return [SectionItem(sectionItem.sectionType, items: filterItem)]
                 }
             default:
                 return [sectionItem]
             }
         } else {
-            switch sectionItem.sectionType {
+            switch sectionType {
             case .title(_, _ , _, let genres):
                 let tags = genres.map { Tag(id: $0.id, name: $0.name, isLoading: $0.isLoading) }
                 return tags as [ListDiffable]
@@ -199,12 +199,12 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        guard let sectionItem = sectionItem else {
+        guard let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail else {
             return ListSectionController()
         }
         
         if listAdapter == cellAdapter {
-            switch sectionItem.sectionType {
+            switch sectionType {
             case .detail:
                 return InfoCardSectionController()
             case .synopsis:
@@ -221,7 +221,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
                 break
             }
         } else {
-            switch sectionItem.sectionType {
+            switch sectionType {
             case .title:
                 return TextTagSectionController(delegate: self)
             case .image:

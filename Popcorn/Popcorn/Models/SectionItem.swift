@@ -7,21 +7,11 @@
 
 import Foundation
 
-protocol ListDiffableItems: ListDiffable {
-    var items: [ListDiffable] { get set }
-}
-
-protocol ListDiffableSectionItem: ListDiffableItems {
-    associatedtype SectionType
-
-    var sectionType: SectionType { get set }
-}
-
-class SectionItem<T: SectionType>: NSObject, ListDiffableSectionItem {
-    var sectionType: T
+class SectionItem: NSObject, ListDiffable {
+    var sectionType: SectionType
     var items: [ListDiffable]
     
-    init(_ sectionType: T, items: [ListDiffable] = []) {
+    init(_ sectionType: SectionType, items: [ListDiffable] = []) {
         self.sectionType = sectionType
         self.items = items
     }
@@ -34,7 +24,3 @@ class SectionItem<T: SectionType>: NSObject, ListDiffableSectionItem {
         return self === object
     }
 }
-
-typealias HomeSectionItem = SectionItem<Section.Home>
-typealias DetailSectionItem =  SectionItem<Section.Detail>
-

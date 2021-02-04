@@ -7,25 +7,58 @@
 
 import Foundation
 
-protocol SectionType {}
+protocol SectionType {
+    var title: String { get }
+    var height: CGFloat { get }
+}
 
 struct Section {
-    enum Home: Int, SectionType, CaseIterable {
-        case popular
-        case nowPlaying
-        case topRated
-        case upcoming
+    struct Home {
+        enum Movie: Int, SectionType, CaseIterable {
+            case popular
+            case nowPlaying
+            case topRated
+            case upcoming
 
-        var title: String {
-            switch self {
-            case .popular:
-                return "popular".localized
-            case .nowPlaying:
-                return "nowPlaying".localized
-            case .topRated:
-                return "topRated".localized
-            case .upcoming:
-                return "upcoming".localized
+            var title: String {
+                switch self {
+                case .popular:
+                    return "popular".localized
+                case .nowPlaying:
+                    return "nowPlaying".localized
+                case .topRated:
+                    return "topRated".localized
+                case .upcoming:
+                    return "upcoming".localized
+                }
+            }
+            
+            var height: CGFloat {
+                return 220
+            }
+        }
+        
+        enum TVShow: Int, SectionType, CaseIterable {
+            case popular
+            case topRated
+            case tvAiringToday
+            case tvOnTheAir
+            
+            var title: String {
+                switch self {
+                case .popular:
+                    return "popular".localized
+                case .tvAiringToday:
+                    return "tvAiringToday".localized
+                case .topRated:
+                    return "topRated".localized
+                case .tvOnTheAir:
+                    return "tvOnTheAir".localized
+                }
+            }
+            
+            var height: CGFloat {
+                return 220
             }
         }
     }

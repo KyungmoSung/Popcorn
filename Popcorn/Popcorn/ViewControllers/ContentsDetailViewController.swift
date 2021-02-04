@@ -33,8 +33,8 @@ class ContentsDetailViewController: BaseViewController {
     var infoItems: [DetailInfo] = []
     var reviews: [Review] = []
     
-    var sectionItems: [DetailSectionItem] {
-        var sections: [DetailSectionItem] = []
+    var sectionItems: [SectionItem] {
+        var sections: [SectionItem] = []
         
         var subtitle: String = ""
         
@@ -53,7 +53,7 @@ class ContentsDetailViewController: BaseViewController {
         }
         
         let genreNames = (contents?.genres ?? [Genre(id: 0, isLoading: true), Genre(id: 1, isLoading: true), Genre(id: 2, isLoading: true)]).compactMap { $0 }
-        let titleSection = DetailSectionItem(.title(title: contents.title, subTitle: subtitle, voteAverage: self.contents?.voteAverage ?? 0, genres: genreNames), items: [])
+        let titleSection = SectionItem(Section.Detail.title(title: contents.title, subTitle: subtitle, voteAverage: self.contents?.voteAverage ?? 0, genres: genreNames), items: [])
         sections.append(titleSection)
         
         // 시놉시스 (tagline + overview)
@@ -67,49 +67,49 @@ class ContentsDetailViewController: BaseViewController {
         }
         
         if synopsisInfo.count > 0 {
-            let section = DetailSectionItem(.synopsis, items: synopsisInfo)
+            let section = SectionItem(Section.Detail.synopsis, items: synopsisInfo)
             sections.append(section)
         }
         
         // 출연 & 제작
         if credits.count > 0 {
-            let section = DetailSectionItem(.credit, items: credits)
+            let section = SectionItem(Section.Detail.credit, items: credits)
             sections.append(section)
         }
         
         // 상세정보
         if infoItems.count > 0 {
-            let detailSection = DetailSectionItem(.detail, items: infoItems)
+            let detailSection = SectionItem(Section.Detail.detail, items: infoItems)
             sections.append(detailSection)
         }
         
         // 이미지 ( poster + backdrop )
         if imageInfos.count > 0 {
-            let section = DetailSectionItem(.image(tabs: ImageType.allCases.map { $0.title }), items: imageInfos)
+            let section = SectionItem(Section.Detail.image(tabs: ImageType.allCases.map { $0.title }), items: imageInfos)
             sections.append(section)
         }
         
         // 비디오
         if videoInfos.count > 0 {
-            let section = DetailSectionItem(.video, items: videoInfos)
+            let section = SectionItem(Section.Detail.video, items: videoInfos)
             sections.append(section)
         }
         
         // 리뷰
         if reviews.count > 0 {
-            let section = DetailSectionItem(.review, items: reviews)
+            let section = SectionItem(Section.Detail.review, items: reviews)
             sections.append(section)
         }
         
         // 추천 작품
         if recommendations.count > 0 {
-            let section = DetailSectionItem(.recommendation, items: recommendations)
+            let section = SectionItem(Section.Detail.recommendation, items: recommendations)
             sections.append(section)
         }
         
         // 비슷한 작품
         if similars.count > 0 {
-            let section = DetailSectionItem(.similar, items: similars)
+            let section = SectionItem(Section.Detail.similar, items: similars)
             sections.append(section)
         }
         

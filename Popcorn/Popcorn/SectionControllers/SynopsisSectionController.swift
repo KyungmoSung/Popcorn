@@ -12,7 +12,7 @@ protocol SynopsisSectionControllerDelegate: class {
 }
 
 class SynopsisSectionController: ListSectionController {
-    var sectionItem: DetailSectionItem?
+    var sectionItem: SectionItem?
     var isExpand: Bool = false
 
     weak var delegate: SynopsisSectionControllerDelegate?
@@ -63,7 +63,7 @@ class SynopsisSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        sectionItem = object as? DetailSectionItem
+        sectionItem = object as? SectionItem
     }
     
     override func didSelectItem(at index: Int) {

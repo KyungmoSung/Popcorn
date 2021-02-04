@@ -8,7 +8,7 @@
 import Foundation
 
 class ReviewSectionController: ListSectionController {
-    var sectionItem: DetailSectionItem?
+    var sectionItem: SectionItem?
     var direction: UICollectionView.ScrollDirection = .horizontal
     
     override private init() {
@@ -73,6 +73,6 @@ class ReviewSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        sectionItem = object as? DetailSectionItem
+        sectionItem = object as? SectionItem
     }
 }

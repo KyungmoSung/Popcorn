@@ -14,9 +14,9 @@ class ContentsListViewController: BaseViewController, ListAdapterDataSource {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
-    var sectionItem: ListDiffableItems!
+    var sectionItem: SectionItem!
     
-    convenience init(title: String, sectionItem: ListDiffableItems) {
+    convenience init(title: String, sectionItem: SectionItem) {
         self.init()
 
         self.title = title
@@ -38,7 +38,7 @@ class ContentsListViewController: BaseViewController, ListAdapterDataSource {
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        guard let object = object as? ListDiffableItems else {
+        guard let object = object as? SectionItem else {
             return ListSectionController()
         }
         

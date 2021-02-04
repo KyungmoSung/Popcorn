@@ -8,7 +8,7 @@
 import UIKit
 
 class CreditSectionController: ListSectionController {
-    var sectionItem: DetailSectionItem?
+    var sectionItem: SectionItem?
     var direction: UICollectionView.ScrollDirection = .horizontal
     var uuid: String = UUID().uuidString
 
@@ -74,7 +74,7 @@ class CreditSectionController: ListSectionController {
     }
     
     override func didUpdate(to object: Any) {
-        sectionItem = object as? DetailSectionItem
+        sectionItem = object as? SectionItem
     }
     
     override func didSelectItem(at index: Int) {
