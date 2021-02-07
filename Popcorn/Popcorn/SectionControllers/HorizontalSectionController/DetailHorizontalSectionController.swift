@@ -34,12 +34,12 @@ class DetailHorizontalSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let context = collectionContext, let sectionItem = sectionItem else {
+        guard let context = collectionContext, let sectionItem = sectionItem, sectionItem.items.count > 0 else {
             return .zero
         }
         
         switch sectionItem.sectionType {
-        case Section.Detail.synopsis:
+        case Section.Detail.Movie.synopsis:
             if let items = sectionItem.items as? [String], items.count > 0 {
                 // 텍스트 높이 계산
                 let totalHeight: CGFloat = items
@@ -64,7 +64,7 @@ class DetailHorizontalSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let sectionType = sectionItem?.sectionType as? Section.Detail else {
+        guard let context = collectionContext, let sectionType = sectionItem?.sectionType as? Section.Detail.Movie else {
             return UICollectionViewCell()
         }
         
@@ -103,37 +103,63 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
     }
     
     func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
-        guard let context = collectionContext, let sectionType = sectionItem?.sectionType as? Section.Detail else {
+        guard let context = collectionContext, let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail.Movie, sectionItem.items.count > 0 else {
             return .zero
         }
         
+        var size: CGSize = context.containerSize
+        
         switch sectionType {
-        case .title(let title, _, _, _):
+        case .title:
+            var title: String = ""
+            switch sectionItem.items[section] {
+            case let movie as Movie:
+                title = movie.title
+            case let tvShow as TVShow:
+                title = tvShow.name
+            default:
+                break
+            }
+            
             let titleHeight = title.height(for: .NanumSquare(size: 30, family: .ExtraBold), lineSpacing: 0, numberOfLines: 0, width: context.containerSize.width - 132)
-            return CGSize(width: context.containerSize.width, height: 223 + ceil(titleHeight))
-        case .image(_):
-            return CGSize(width: context.containerSize.width, height: 121)
+            size.height = 223 + ceil(titleHeight)
+        case .image:
+            size.height = 121
         default:
-            return CGSize(width: context.containerSize.width, height: 85)
+            size.height = 85
         }
+        
+        return size
     }
     
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
-        guard let context = collectionContext, let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail else {
+        guard let context = collectionContext, let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail.Movie else {
             return UICollectionReusableView()
         }
         
         switch sectionType {
-        case .title(let title, let subTitle, let voteAverage, _):
+        case .title:
             let headerView: ContentsHeaderVIew = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
-            headerView.title = title
-            headerView.subTitle = subTitle
-            headerView.voteAverage = voteAverage
+            switch sectionItem.items[section] {
+            case let movie as Movie:
+                headerView.title = movie.title
+                headerView.originalTitle = movie.originalTitle
+                headerView.year = movie.releaseDate?.dateValue()?.toString("yyyy")
+                headerView.voteAverage = movie.voteAverage
+            case let tvShow as TVShow:
+                headerView.title = tvShow.name
+                headerView.originalTitle = tvShow.originalName
+                headerView.year = tvShow.firstAirDate?.dateValue()?.toString("yyyy")
+                headerView.voteAverage = tvShow.voteAverage
+            default:
+                break
+            }
+            
             headerAdapter.collectionView = headerView.genreCollectionView
 
             return headerView
-        case .image(_):
+        case .image:
             let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
             headerView.index = sectionType.rawValue
@@ -169,7 +195,7 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
 
 extension DetailHorizontalSectionController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        guard let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail, let vc = viewController as? ContentsDetailViewController else {
+        guard let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail.Movie, let vc = viewController as? ContentsDetailViewController else {
             return []
         }
         
@@ -185,11 +211,13 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
             }
         } else {
             switch sectionType {
-            case .title(_, _ , _, let genres):
-                let tags = genres.map { Tag(id: $0.id, name: $0.name, isLoading: $0.isLoading) }
-                return tags as [ListDiffable]
-            case .image(let tabs):
-                return tabs as [ListDiffable]
+            case .title:
+//                let tags = sectionItem.items[section].map { Tag(id: $0.id, name: $0.name, isLoading: $0.isLoading) }
+//                return tags as [ListDiffable]
+            break
+            case .image:
+                let titles = ImageType.allCases.map{ $0.title }
+                return titles as [ListDiffable]
             default:
                 break
             }
@@ -199,7 +227,7 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        guard let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail else {
+        guard let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail.Movie else {
             return ListSectionController()
         }
         
@@ -277,7 +305,7 @@ extension DetailHorizontalSectionController: TextTagDelegate {
 
 extension DetailHorizontalSectionController: SectionHeaderViewDelegate {
     func didTapExpandBtn(index: Int) {
-        guard let sectionItem = sectionItem, let type = Section.Detail(rawValue: index) else {
+        guard let sectionItem = sectionItem, let type = Section.Detail.Movie(rawValue: index) else {
             return
         }
         let vc = ContentsListViewController()

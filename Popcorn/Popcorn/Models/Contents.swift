@@ -18,6 +18,7 @@ class Contents: Loadingable, Codable {
     var popularity: Double?
     var posterPath: String?
     var backdropPath: String?
+    var homepage: String?
     var voteAverage: Double?
     var voteCount: Int?
     var originalLanguage: ISO_639_1?
@@ -36,6 +37,7 @@ class Contents: Loadingable, Codable {
         case popularity
         case posterPath = "poster_path"
         case backdropPath = "backdrop_path"
+        case homepage
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
         case originalLanguage = "original_language"

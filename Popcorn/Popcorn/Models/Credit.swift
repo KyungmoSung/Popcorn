@@ -8,20 +8,20 @@
 import Foundation
 
 class Person: Codable, ListDiffable {
+    let id: Int!
     let birthday: String?
     let deathday: String?
-    let id: Int!
     let name: String!
     let gender: Int?
-    let biography: String!
-    let popularity: Double!
-    let adult: Bool!
+    let biography: String?
+    let popularity: Double?
+    let adult: Bool?
     let homepage: String?
-    let knownForDepartment: String!
-    let alsoKnownAs: [String]!
+    let knownForDepartment: String?
+    let alsoKnownAs: [String]?
     let placeOfBirth: String?
     let profilePath: String?
-    let imdbId: String!
+    let imdbId: String?
     let creditId: String!
     
     private enum CodingKeys : String, CodingKey{

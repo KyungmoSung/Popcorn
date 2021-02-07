@@ -124,12 +124,12 @@ class PosterSectionController: ListSectionController {
     }
     
     override func didSelectItem(at index: Int) {
-        guard let sectionItem = sectionItem, let item = sectionItem.items[index] as? Movie else {
+        guard let sectionItem = sectionItem, let contents = sectionItem.items[index] as? Contents else {
             return
         }
         
-        let vc = ContentsDetailViewController(contents: item)
-        vc.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(item.id)"
+        let vc = ContentsDetailViewController(contents: contents)
+        vc.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(contents.id)"
         
         viewController?.navigationController?.hero.navigationAnimationType = .fade
         viewController?.navigationController?.pushViewController(vc, animated: true)

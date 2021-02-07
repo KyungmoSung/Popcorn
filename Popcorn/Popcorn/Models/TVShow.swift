@@ -16,7 +16,6 @@ class TVShow: Contents {
     var originCountry: [ISO_3166_1]?
     var createdBy: [Person]?
     var episodeRunTime: [Int]?
-    var homepage: String?
     var inProduction: Bool?
     var languages: [String]?
     var lastAirDate: String?
@@ -36,7 +35,6 @@ class TVShow: Contents {
         case originCountry = "origin_country"
         case createdBy = "created_by"
         case episodeRunTime = "episode_run_time"
-        case homepage
         case inProduction = "in_production"
         case languages
         case lastAirDate = "last_air_date"
@@ -52,24 +50,23 @@ class TVShow: Contents {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.originalName = try container.decode(String.self, forKey: .originalName)
-        self.firstAirDate = try container.decode(AnyValue.self, forKey: .firstAirDate)
-        self.originCountry = try container.decode([ISO_3166_1].self, forKey: .originCountry)
-        self.createdBy = try container.decode([Person].self, forKey: .createdBy)
-        self.episodeRunTime = try container.decode([Int].self, forKey: .episodeRunTime)
-        self.homepage = try container.decode(String.self, forKey: .homepage)
-        self.inProduction = try container.decode(Bool.self, forKey: .inProduction)
-        self.languages = try container.decode([String].self, forKey: .languages)
-        self.lastAirDate = try container.decode(String.self, forKey: .lastAirDate)
-        self.lastEpisodeToAir = try container.decode(Episode.self, forKey: .lastEpisodeToAir)
-        self.nextEpisodeToAir = try container.decode(Episode.self, forKey: .nextEpisodeToAir)
-        self.networks = try container.decode([Company].self, forKey: .networks)
-        self.numberOfEpisodes = try container.decode(Int.self, forKey: .numberOfEpisodes)
-        self.numberOfSeasons = try container.decode(Int.self, forKey: .numberOfSeasons)
-        self.seasons = try container.decode([Season].self, forKey: .seasons)
-        self.status = try container.decode(String.self, forKey: .status)
-        self.type = try container.decode(String.self, forKey: .type)
+        self.name = try container.decodeIfPresent(String.self, forKey: .name)
+        self.originalName = try container.decodeIfPresent(String.self, forKey: .originalName)
+        self.firstAirDate = try container.decodeIfPresent(AnyValue.self, forKey: .firstAirDate)
+        self.originCountry = try container.decodeIfPresent([ISO_3166_1].self, forKey: .originCountry)
+        self.createdBy = try container.decodeIfPresent([Person].self, forKey: .createdBy)
+        self.episodeRunTime = try container.decodeIfPresent([Int].self, forKey: .episodeRunTime)
+        self.inProduction = try container.decodeIfPresent(Bool.self, forKey: .inProduction)
+        self.languages = try container.decodeIfPresent([String].self, forKey: .languages)
+        self.lastAirDate = try container.decodeIfPresent(String.self, forKey: .lastAirDate)
+        self.lastEpisodeToAir = try container.decodeIfPresent(Episode.self, forKey: .lastEpisodeToAir)
+        self.nextEpisodeToAir = try container.decodeIfPresent(Episode.self, forKey: .nextEpisodeToAir)
+        self.networks = try container.decodeIfPresent([Company].self, forKey: .networks)
+        self.numberOfEpisodes = try container.decodeIfPresent(Int.self, forKey: .numberOfEpisodes)
+        self.numberOfSeasons = try container.decodeIfPresent(Int.self, forKey: .numberOfSeasons)
+        self.seasons = try container.decodeIfPresent([Season].self, forKey: .seasons)
+        self.status = try container.decodeIfPresent(String.self, forKey: .status)
+        self.type = try container.decodeIfPresent(String.self, forKey: .type)
         
         try super.init(from: decoder)
     }

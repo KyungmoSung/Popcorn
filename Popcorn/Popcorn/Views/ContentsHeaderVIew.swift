@@ -20,15 +20,35 @@ class ContentsHeaderVIew: UICollectionViewCell {
         }
     }
     
-    var subTitle: String? {
+    var originalTitle: String? {
         didSet {
-            subTitleLb.text = subTitle
+            setSubTitle()
         }
     }
     
-    var voteAverage: Double = 0 {
+    var year: String? {
         didSet {
-            voteAverageLb.text = voteAverage > 0 ? "\(voteAverage)" : "-"
+            setSubTitle()
+        }
+    }
+    
+    var voteAverage: Double? = 0 {
+        didSet {
+            if let voteAverage = voteAverage, voteAverage > 0 {
+                voteAverageLb.text = "\(voteAverage)"
+            } else {
+                voteAverageLb.text = "-"
+            }
+        }
+    }
+    
+    func setSubTitle() {
+        if let year = year, let originalTitle = originalTitle {
+            subTitleLb.text = year + " · " + originalTitle
+        } else if let year = year {
+            subTitleLb.text = year
+        } else if let originalTitle = originalTitle {
+            subTitleLb.text = originalTitle
         }
     }
 }

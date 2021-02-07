@@ -50,6 +50,13 @@ enum AppConstants {
             static let getTvOnTheAir                   = "/tv/on_the_air"
             
             static func getDetails(_ id: Int)          -> String { return "/tv/\(id)" }
+            static func getCredits(_ id: Int)          -> String { return "/tv/\(id)/credits" }
+            static func getRecommendations(_ id: Int)  -> String { return "/tv/\(id)/recommendations" }
+            static func getSimilar(_ id: Int)          -> String { return "/tv/\(id)/similar" }
+            static func getVideos(_ id: Int)           -> String { return "/tv/\(id)/videos" }
+            static func getImages(_ id: Int)           -> String { return "/tv/\(id)/images" }
+            static func getReviews(_ id: Int)          -> String { return "/tv/\(id)/reviews" }
+            static func getEpisodeGroups(_ id: Int)    -> String { return "/tv/\(id)/episode_groups" }
         }
     }
 }

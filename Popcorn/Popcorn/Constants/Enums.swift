@@ -14,7 +14,7 @@ protocol SectionType {
 
 struct Section {
     struct Home {
-        enum Movie: Int, SectionType, CaseIterable {
+        enum Movie: Int, CaseIterable, SectionType {
             case popular
             case nowPlaying
             case topRated
@@ -38,7 +38,7 @@ struct Section {
             }
         }
         
-        enum TVShow: Int, SectionType, CaseIterable {
+        enum TVShow: Int, CaseIterable, SectionType {
             case popular
             case topRated
             case tvAiringToday
@@ -63,126 +63,130 @@ struct Section {
         }
     }
 
-    enum Detail: RawRepresentable, SectionType, CaseIterable {
-        static var allCases: [Detail] {
-            return [
-                //                .title,
-                .synopsis,
-                .credit,
-                .detail,
-                //                    .image,
-                .video,
-                .review,
-                .recommendation,
-                .similar
-            ]
-        }
-        
-        typealias AllCases = [Detail]
-        
-        typealias RawValue = Int
-        
-        case title(title: String, subTitle: String, voteAverage: Double, genres: [Genre])
-        case synopsis
-        case credit
-        case detail
-        case image(tabs: [String])
-        case video
-        case review
-        case recommendation
-        case similar
-        
-        var rawValue: Int {
-            switch self {
-            case .title:
-                return 0
-            case .detail:
-                return 1
-            case .synopsis:
-                return 2
-            case .image:
-                return 3
-            case .video:
-                return 4
-            case .credit:
-                return 5
-            case .recommendation:
-                return 6
-            case .similar:
-                return 7
-            case .review:
-                return 8
+    struct Detail {
+        enum Movie: Int, CaseIterable, SectionType {
+            case title
+            case synopsis
+            case credit
+            case detail
+            case image
+            case video
+            case review
+            case recommendation
+            case similar
+            
+            var title: String {
+                switch self {
+                case .title:
+                    return "title".localized
+                case .synopsis:
+                    return "synopsis".localized
+                case .credit:
+                    return "credit".localized
+                case .detail:
+                    return "detail".localized
+                case .image:
+                    return "image".localized
+                case .video:
+                    return "video".localized
+                case .review:
+                    return "review".localized
+                case .recommendation:
+                    return "recommendation".localized
+                case .similar:
+                    return "similar".localized
+                }
+            }
+            
+            var height: CGFloat {
+                switch self {
+                case .title:
+                    return 0
+                case .synopsis:
+                    return 100
+                case .credit:
+                    return 160
+                case .detail:
+                    return 80
+                case .image:
+                    return 160
+                case .video:
+                    return 160
+                case .review:
+                    return 250
+                case .recommendation:
+                    return 200
+                case .similar:
+                    return 200
+                }
             }
         }
         
-        init?(rawValue: Int) {
-            switch rawValue {
-            case 0:
-                self = .title(title: "", subTitle: "", voteAverage: 0, genres: [])
-            case 1:
-                self = .detail
-            case 2:
-                self = .synopsis
-            case 3:
-                self = .image(tabs: [])
-            case 4:
-                self = .video
-            case 5:
-                self = .credit
-            case 6:
-                self = .recommendation
-            case 7:
-                self = .similar
-            case 8:
-                self = .review
-            default:
-                return nil
+        enum TVShow: Int, CaseIterable, SectionType {
+            case title
+            case synopsis
+            case credit
+            case detail
+            case season
+            case episodeGroup
+            case image
+            case video
+            case review
+            case recommendation
+            case similar
+            
+            var title: String {
+                switch self {
+                case .title:
+                    return "title".localized
+                case .synopsis:
+                    return "synopsis".localized
+                case .credit:
+                    return "credit".localized
+                case .detail:
+                    return "detail".localized
+                case .season:
+                    return "season".localized
+                case .episodeGroup:
+                    return "episodeGroup".localized
+                case .image:
+                    return "image".localized
+                case .video:
+                    return "video".localized
+                case .review:
+                    return "review".localized
+                case .recommendation:
+                    return "recommendation".localized
+                case .similar:
+                    return "similar".localized
+                }
             }
-        }
-        
-        var title: String {
-            switch self {
-            case .title:
-                return "title".localized
-            case .detail:
-                return "detail".localized
-            case .synopsis:
-                return "synopsis".localized
-            case .image:
-                return "image".localized
-            case .video:
-                return "video".localized
-            case .credit:
-                return "credit".localized
-            case .recommendation:
-                return "recommendation".localized
-            case .similar:
-                return "similar".localized
-            case .review:
-                return "review".localized
-            }
-        }
-        
-        var height: CGFloat {
-            switch self {
-            case .title:
-                return 0
-            case .detail:
-                return 80
-            case .synopsis:
-                return 100
-            case .image:
-                return 160
-            case .video:
-                return 160
-            case .credit:
-                return 160
-            case .recommendation:
-                return 200
-            case .similar:
-                return 200
-            case .review:
-                return 250
+            
+            var height: CGFloat {
+                switch self {
+                case .title:
+                    return 0
+                case .synopsis:
+                    return 100
+                case .credit:
+                    return 160
+                case .detail:
+                    return 80
+                case .season:
+                    return 200
+                case .episodeGroup:
+                    return 200
+                case .image:
+                    return 160
+                case .video:
+                    return 160
+                case .review:
+                    return 250
+                case .recommendation:
+                    return 200
+                case .similar:
+                    return 200
+                }
             }
         }
     }
