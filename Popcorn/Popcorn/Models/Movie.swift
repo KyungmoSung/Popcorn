@@ -11,31 +11,21 @@ class Movie: Contents {
     var title: String!
     var originalTitle: String!
     var adult: Bool?
-    var tagline: String?
     var releaseDate: AnyValue?
     var video: Bool?
-    var genres: [Genre]?
     var runtime: Int?
     var revenue: Int?
     var budget: Int?
-    var spokenLanguages: [Language]?
-    var productionCountries: [Country]?
-    //    let productionCompanies: [ProductionCompany]
-    
+        
     enum CodingKeys : String, CodingKey{
         case title
         case originalTitle = "original_title"
         case adult
-        case tagline
         case releaseDate = "release_date"
         case video
-        case genres
         case runtime
         case revenue
         case budget
-        case spokenLanguages = "spoken_languages"
-        case productionCountries = "production_countries"
-//        case productionCompanies = "production_companies"
     }
     
     required init(from decoder: Decoder) throws {
@@ -43,16 +33,12 @@ class Movie: Contents {
         self.title = try container.decodeIfPresent(String.self, forKey: .title)
         self.originalTitle = try container.decodeIfPresent(String.self, forKey: .originalTitle)
         self.adult = try container.decodeIfPresent(Bool.self, forKey: .adult)
-        self.tagline = try container.decodeIfPresent(String.self, forKey: .tagline)
         self.releaseDate = try container.decodeIfPresent(AnyValue.self, forKey: .releaseDate)
         self.video = try container.decodeIfPresent(Bool.self, forKey: .video)
-        self.genres = try container.decodeIfPresent([Genre].self, forKey: .genres)
         self.runtime = try container.decodeIfPresent(Int.self, forKey: .runtime)
         self.revenue = try container.decodeIfPresent(Int.self, forKey: .revenue)
         self.budget = try container.decodeIfPresent(Int.self, forKey: .budget)
-        self.spokenLanguages = try container.decodeIfPresent([Language].self, forKey: .spokenLanguages)
-        self.productionCountries = try container.decodeIfPresent([Country].self, forKey: .productionCountries)
-        
+
         try super.init(from: decoder)
     }
     

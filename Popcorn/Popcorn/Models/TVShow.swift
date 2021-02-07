@@ -14,12 +14,40 @@ class TVShow: Contents {
     var originalName: String!
     var firstAirDate: AnyValue?
     var originCountry: [ISO_3166_1]?
+    var createdBy: [Person]?
+    var episodeRunTime: [Int]?
+    var homepage: String?
+    var inProduction: Bool?
+    var languages: [String]?
+    var lastAirDate: String?
+    var lastEpisodeToAir: Episode?
+    var nextEpisodeToAir: Episode?
+    var networks: [Company]?
+    var numberOfEpisodes: Int?
+    var numberOfSeasons: Int?
+    var seasons: [Season]?
+    var status: String?
+    var type: String?
     
     enum CodingKeys: String, CodingKey {
         case name
         case originalName = "original_name"
         case firstAirDate = "first_air_date"
         case originCountry = "origin_country"
+        case createdBy = "created_by"
+        case episodeRunTime = "episode_run_time"
+        case homepage
+        case inProduction = "in_production"
+        case languages
+        case lastAirDate = "last_air_date"
+        case lastEpisodeToAir = "last_episode_to_air"
+        case nextEpisodeToAir = "next_episode_to_air"
+        case networks
+        case numberOfEpisodes = "number_of_episodes"
+        case numberOfSeasons = "number_of_seasons"
+        case seasons
+        case status
+        case type
     }
     
     required init(from decoder: Decoder) throws {
@@ -28,11 +56,72 @@ class TVShow: Contents {
         self.originalName = try container.decode(String.self, forKey: .originalName)
         self.firstAirDate = try container.decode(AnyValue.self, forKey: .firstAirDate)
         self.originCountry = try container.decode([ISO_3166_1].self, forKey: .originCountry)
+        self.createdBy = try container.decode([Person].self, forKey: .createdBy)
+        self.episodeRunTime = try container.decode([Int].self, forKey: .episodeRunTime)
+        self.homepage = try container.decode(String.self, forKey: .homepage)
+        self.inProduction = try container.decode(Bool.self, forKey: .inProduction)
+        self.languages = try container.decode([String].self, forKey: .languages)
+        self.lastAirDate = try container.decode(String.self, forKey: .lastAirDate)
+        self.lastEpisodeToAir = try container.decode(Episode.self, forKey: .lastEpisodeToAir)
+        self.nextEpisodeToAir = try container.decode(Episode.self, forKey: .nextEpisodeToAir)
+        self.networks = try container.decode([Company].self, forKey: .networks)
+        self.numberOfEpisodes = try container.decode(Int.self, forKey: .numberOfEpisodes)
+        self.numberOfSeasons = try container.decode(Int.self, forKey: .numberOfSeasons)
+        self.seasons = try container.decode([Season].self, forKey: .seasons)
+        self.status = try container.decode(String.self, forKey: .status)
+        self.type = try container.decode(String.self, forKey: .type)
         
         try super.init(from: decoder)
     }
     
     override init(id: Int, isLoading: Bool) {
         super.init(id: id, isLoading: isLoading)
+    }
+}
+// MARK: - Episode
+struct Episode: Codable {
+    var airDate: String?
+    var episodeNumber: Int?
+    var id: Int?
+    var name: String?
+    var overview: String?
+    var productionCode: String?
+    var seasonNumber: Int?
+    var stillPath: String?
+    var voteAverage: Double?
+    var voteCount: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case airDate = "air_date"
+        case episodeNumber = "episode_number"
+        case id = "id"
+        case name = "name"
+        case overview = "overview"
+        case productionCode = "production_code"
+        case seasonNumber = "season_number"
+        case stillPath = "still_path"
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+    }
+}
+
+// MARK: - Season
+struct Season: Codable {
+    var airDate: String?
+    var episodeCount: Int?
+    var id: Int?
+    var name: String?
+    var overview: String?
+    var posterPath: String?
+    var seasonNumber: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case airDate = "air_date"
+        case episodeCount = "episode_count"
+        case id = "id"
+        case name = "name"
+        case overview = "overview"
+        case posterPath = "poster_path"
+        case seasonNumber = "season_number"
     }
 }
