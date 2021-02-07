@@ -10,6 +10,7 @@ import Foundation
 protocol SectionType {
     var title: String { get }
     var height: CGFloat { get }
+    var rawValue: Int { get }
 }
 
 struct Section {

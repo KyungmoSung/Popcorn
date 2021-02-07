@@ -39,7 +39,7 @@ class DetailHorizontalSectionController: ListSectionController {
         }
         
         switch sectionItem.sectionType {
-        case Section.Detail.Movie.synopsis:
+        case Section.Detail.Movie.synopsis, Section.Detail.TVShow.synopsis:
             if let items = sectionItem.items as? [String], items.count > 0 {
                 // 텍스트 높이 계산
                 let totalHeight: CGFloat = items
@@ -64,7 +64,7 @@ class DetailHorizontalSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let sectionType = sectionItem?.sectionType as? Section.Detail.Movie else {
+        guard let context = collectionContext, let sectionType = sectionItem?.sectionType else {
             return UICollectionViewCell()
         }
         
@@ -73,11 +73,11 @@ class DetailHorizontalSectionController: ListSectionController {
         
         if let layout = cell.collectionView.collectionViewLayout as? PagingCollectionViewLayout {
             switch sectionType {
-            case .detail: // 가로 스크롤 & 자동 넓이
+            case Section.Detail.Movie.detail, Section.Detail.TVShow.detail: // 가로 스크롤 & 자동 넓이
                 layout.scrollDirection = .horizontal
                 cell.collectionView.isScrollEnabled = true
                 layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-            case .synopsis: // 세로 스크롤 & 자동 높이
+            case Section.Detail.Movie.synopsis, Section.Detail.TVShow.synopsis: // 세로 스크롤 & 자동 높이
                 layout.scrollDirection = .vertical
                 cell.collectionView.isScrollEnabled = false
                 layout.estimatedItemSize = .zero
@@ -103,14 +103,14 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
     }
     
     func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
-        guard let context = collectionContext, let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail.Movie, sectionItem.items.count > 0 else {
+        guard let context = collectionContext, let sectionItem = sectionItem, sectionItem.items.count > 0 else {
             return .zero
         }
         
         var size: CGSize = context.containerSize
         
-        switch sectionType {
-        case .title:
+        switch sectionItem.sectionType {
+        case Section.Detail.Movie.title, Section.Detail.TVShow.title:
             var title: String = ""
             switch sectionItem.items[section] {
             case let movie as Movie:
@@ -123,7 +123,7 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
             
             let titleHeight = title.height(for: .NanumSquare(size: 30, family: .ExtraBold), lineSpacing: 0, numberOfLines: 0, width: context.containerSize.width - 132)
             size.height = 223 + ceil(titleHeight)
-        case .image:
+        case Section.Detail.Movie.image, Section.Detail.TVShow.image:
             size.height = 121
         default:
             size.height = 85
@@ -133,12 +133,12 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
     }
     
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
-        guard let context = collectionContext, let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail.Movie else {
+        guard let context = collectionContext, let sectionItem = sectionItem else {
             return UICollectionReusableView()
         }
         
-        switch sectionType {
-        case .title:
+        switch sectionItem.sectionType {
+        case Section.Detail.Movie.title, Section.Detail.TVShow.title:
             let headerView: ContentsHeaderVIew = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
             switch sectionItem.items[section] {
@@ -159,10 +159,10 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
             headerAdapter.collectionView = headerView.genreCollectionView
 
             return headerView
-        case .image:
+        case Section.Detail.Movie.image, Section.Detail.TVShow.image:
             let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
-            headerView.index = sectionType.rawValue
+            headerView.index = sectionItem.sectionType.rawValue
             headerView.title = sectionItem.sectionType.title
             headerView.expandable = true
             headerView.delegate = self
@@ -174,9 +174,12 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
         default:
             let headerView: SectionHeaderView = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
             
-            headerView.index = sectionType.rawValue
+            headerView.index = sectionItem.sectionType.rawValue
             headerView.title = sectionItem.sectionType.title
-            if sectionType == .synopsis || sectionType == .detail {
+            if let type = sectionItem.sectionType as? Section.Detail.Movie, type == .synopsis || type == .detail {
+                headerView.expandable = false
+                headerView.delegate = nil
+            } else if let type = sectionItem.sectionType as? Section.Detail.TVShow, type == .synopsis || type == .detail {
                 headerView.expandable = false
                 headerView.delegate = nil
             } else {
@@ -195,13 +198,13 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
 
 extension DetailHorizontalSectionController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        guard let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail.Movie, let vc = viewController as? ContentsDetailViewController else {
+        guard let sectionItem = sectionItem, let vc = viewController as? ContentsDetailViewController else {
             return []
         }
         
         if listAdapter == cellAdapter {
-            switch sectionType {
-            case .image: // 선택된 이미지타입만 필터링 (포스터/배경)
+            switch sectionItem.sectionType {
+            case Section.Detail.Movie.image, Section.Detail.TVShow.image: // 선택된 이미지타입만 필터링 (포스터/배경)
                 if let items = sectionItem.items as? [ImageInfo] {
                     let filterItem = items.filter{ return $0.type == vc.selectedImageType }
                     return [SectionItem(sectionItem.sectionType, items: filterItem)]
@@ -210,12 +213,12 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
                 return [sectionItem]
             }
         } else {
-            switch sectionType {
-            case .title:
+            switch sectionItem.sectionType {
+            case Section.Detail.Movie.title, Section.Detail.TVShow.title:
 //                let tags = sectionItem.items[section].map { Tag(id: $0.id, name: $0.name, isLoading: $0.isLoading) }
 //                return tags as [ListDiffable]
             break
-            case .image:
+            case Section.Detail.Movie.image, Section.Detail.TVShow.image:
                 let titles = ImageType.allCases.map{ $0.title }
                 return titles as [ListDiffable]
             default:
@@ -227,32 +230,32 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        guard let sectionItem = sectionItem, let sectionType = sectionItem.sectionType as? Section.Detail.Movie else {
+        guard let sectionItem = sectionItem else {
             return ListSectionController()
         }
         
         if listAdapter == cellAdapter {
-            switch sectionType {
-            case .detail:
+            switch sectionItem.sectionType {
+            case Section.Detail.Movie.detail, Section.Detail.TVShow.detail:
                 return InfoCardSectionController()
-            case .synopsis:
+            case Section.Detail.Movie.synopsis, Section.Detail.TVShow.synopsis:
                 return SynopsisSectionController(delegate: self)
-            case .image, .video:
+            case Section.Detail.Movie.image, Section.Detail.Movie.video, Section.Detail.TVShow.image, Section.Detail.TVShow.video:
                 return MediaSectionController(direction: .horizontal)
-            case .credit:
+            case Section.Detail.Movie.credit, Section.Detail.TVShow.credit:
                 return CreditSectionController(direction: .horizontal)
-            case .recommendation, .similar:
+            case Section.Detail.Movie.recommendation, Section.Detail.Movie.similar, Section.Detail.TVShow.recommendation, Section.Detail.TVShow.similar:
                 return PosterSectionController(type: .poster, direction: .horizontal)
-            case .review:
+            case Section.Detail.Movie.review, Section.Detail.TVShow.review:
                 return ReviewSectionController(direction: .horizontal)
             default:
                 break
             }
         } else {
-            switch sectionType {
-            case .title:
+            switch sectionItem.sectionType {
+            case Section.Detail.Movie.title, Section.Detail.TVShow.title:
                 return TextTagSectionController(delegate: self)
-            case .image:
+            case Section.Detail.Movie.image, Section.Detail.TVShow.image:
                 return TextTabSectionController(delegate: self)
             default:
                 break
@@ -305,7 +308,7 @@ extension DetailHorizontalSectionController: TextTagDelegate {
 
 extension DetailHorizontalSectionController: SectionHeaderViewDelegate {
     func didTapExpandBtn(index: Int) {
-        guard let sectionItem = sectionItem, let type = Section.Detail.Movie(rawValue: index) else {
+        guard let sectionItem = sectionItem else {
             return
         }
         let vc = ContentsListViewController()

@@ -53,8 +53,8 @@ class Person: Codable, ListDiffable {
 
 class Cast: Person {
     let castId: Int?
-    let character: String!
-    let order: Int!
+    let character: String?
+    let order: Int?
 
     private enum CodingKeys : String, CodingKey{
         case castId = "cast_id"
@@ -64,17 +64,17 @@ class Cast: Person {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        castId = try container.decode(Int.self, forKey: .castId)
-        character = try container.decode(String.self, forKey: .character)
-        order = try container.decode(Int.self, forKey: .order)
+        castId = try container.decodeIfPresent(Int.self, forKey: .castId)
+        character = try container.decodeIfPresent(String.self, forKey: .character)
+        order = try container.decodeIfPresent(Int.self, forKey: .order)
         
         try super.init(from: decoder)
     }
 }
 
 class Crew: Person {
-    var department: String!
-    var job: String!
+    var department: String?
+    var job: String?
 
     private enum CodingKeys : String, CodingKey{
         case department
@@ -83,8 +83,8 @@ class Crew: Person {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        department = try container.decode(String.self, forKey: .department)
-        job = try container.decode(String.self, forKey: .job)
+        department = try container.decodeIfPresent(String.self, forKey: .department)
+        job = try container.decodeIfPresent(String.self, forKey: .job)
         
         try super.init(from: decoder)
     }
