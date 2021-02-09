@@ -12,7 +12,6 @@ nowPlaying = "현재 상영 중";
 popular = "인기";
 topRated = "높은 평점";
 upcoming = "개봉 예정";
-
 tvAiringToday = "Airing Today";
 tvOnTheAir = "On The Air";
 
@@ -33,6 +32,12 @@ releaseDate = "개봉일";
 revenue = "수익";
 runtime = "상영시간";
 budget = "제작비";
+seasons = "시즌";
+episodes = "에피소드";
+numberOfSeasons = "전체 시즌";
+numberOfEpisodes = "전체 에피소드";
+firstAirDate = "첫 방송";
+lastAirDate = "마지막 방송";
 
 hour = "시간";
 minute = "분";

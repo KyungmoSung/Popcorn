@@ -6,13 +6,12 @@
   
 */
 movies = "Movies";
-tvShows = "TV shows";
+tvShows = "TV Shows";
 
 nowPlaying = "Now Playing";
 popular = "Popular";
 topRated = "Top Rated";
 upcoming = "Upcoming";
-
 tvAiringToday = "Airing Today";
 tvOnTheAir = "On The Air";
 
@@ -33,6 +32,12 @@ releaseDate = "Release Date";
 revenue = "Revenue";
 runtime = "Runtime";
 budget = "Budget";
+seasons = "Seasons";
+episodes = "Episodes";
+numberOfSeasons = "Number of Seasons";
+numberOfEpisodes = "Number of Episodes";
+firstAirDate = "First Air Date";
+lastAirDate = "Last Air Date";
 
 hour = "h";
 minute = "m";

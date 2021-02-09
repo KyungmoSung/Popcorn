@@ -46,7 +46,7 @@ class Movie: Contents {
         super.init(id: id, isLoading: isLoading)
     }
     
-    func filteredInfo() -> [DetailInfo] {
+    var detailInfos: [DetailInfo] {
         var infoItems: [DetailInfo] = []
         
         if let runtime = runtime {
@@ -74,9 +74,7 @@ class Movie: Contents {
         if let budget = budget, budget > 0 {
             infoItems.append(DetailInfo(title: "budget".localized, desc: budget.asCurrencyFormat()))
         }
-        
-//        productionCountries
-        
+                
         return infoItems
     }
 }

@@ -215,8 +215,10 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
         } else {
             switch sectionItem.sectionType {
             case Section.Detail.Movie.title, Section.Detail.TVShow.title:
-//                let tags = sectionItem.items[section].map { Tag(id: $0.id, name: $0.name, isLoading: $0.isLoading) }
-//                return tags as [ListDiffable]
+                if let item = sectionItem.items.first as? Contents, let genres = item.genres {
+                    let tags = genres.map{ Tag(id: $0.id, name: $0.name, isLoading: $0.isLoading) }
+                    return tags as [ListDiffable]
+                }
             break
             case Section.Detail.Movie.image, Section.Detail.TVShow.image:
                 let titles = ImageType.allCases.map{ $0.title }

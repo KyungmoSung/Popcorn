@@ -12,6 +12,7 @@
 		242D62EC2593782D00450120 /* InfoCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 242D62EA2593782D00450120 /* InfoCardCell.xib */; };
 		242D62FE25939D5100450120 /* NumberExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D62FD25939D5100450120 /* NumberExtension.swift */; };
 		244AA2B125875B1800754687 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244AA2B025875B1800754687 /* UIViewExtension.swift */; };
+		244BF51C25D2726100100C66 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244BF51B25D2726100100C66 /* OptionalExtension.swift */; };
 		2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E33425864B20005CE9FB /* CreditSectionController.swift */; };
 		2457E33E25864BBE005CE9FB /* CreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E33C25864BBE005CE9FB /* CreditCell.swift */; };
 		2457E33F25864BBE005CE9FB /* CreditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2457E33D25864BBE005CE9FB /* CreditCell.xib */; };
@@ -130,6 +131,7 @@
 		242D62EA2593782D00450120 /* InfoCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoCardCell.xib; sourceTree = "<group>"; };
 		242D62FD25939D5100450120 /* NumberExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberExtension.swift; sourceTree = "<group>"; };
 		244AA2B025875B1800754687 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		244BF51B25D2726100100C66 /* OptionalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
 		2457E33425864B20005CE9FB /* CreditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditSectionController.swift; sourceTree = "<group>"; };
 		2457E33C25864BBE005CE9FB /* CreditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCell.swift; sourceTree = "<group>"; };
 		2457E33D25864BBE005CE9FB /* CreditCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditCell.xib; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				CD936FE8258884840006441C /* UINavigationControllerExtension.swift */,
 				244AA2B025875B1800754687 /* UIViewExtension.swift */,
 				2480521B25CFE98400C9F5B2 /* DateExtension.swift */,
+				244BF51B25D2726100100C66 /* OptionalExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -826,6 +829,7 @@
 				CDB6D47E254BF35B001B0AEB /* SectionItem.swift in Sources */,
 				CD8F018425C7C40300BD8FFD /* HeaderTitleSectionController.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
+				244BF51C25D2726100100C66 /* OptionalExtension.swift in Sources */,
 				24987E9F25C981FB00CD4CDF /* TVShow.swift in Sources */,
 				24E02D9125860B3800591234 /* Credit.swift in Sources */,
 				CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */,

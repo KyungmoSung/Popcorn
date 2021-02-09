@@ -14,7 +14,7 @@ protocol TextTagDelegate: class {
 class TextTagSectionController: ListSectionController {
     var tag: Tag?
     weak var delegate: TextTagDelegate?
-    
+
     override private init() {
         super.init()
         
