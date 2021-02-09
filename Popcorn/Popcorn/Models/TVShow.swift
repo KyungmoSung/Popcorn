@@ -105,6 +105,7 @@ class TVShow: Contents {
         return infoItems
     }
 }
+
 // MARK: - Episode
 struct Episode: Codable {
     var airDate: String?

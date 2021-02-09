@@ -41,6 +41,14 @@ extension String {
         return label.frame.height
     }
     
+    func maxNumberOfLines(for font: UIFont, width: CGFloat) -> Int {
+        let maxSize = CGSize(width: width, height: CGFloat(MAXFLOAT))
+        let text = self as NSString
+        let textHeight = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).height
+        let lineHeight = font.lineHeight
+        return Int(ceil(textHeight / lineHeight))
+    }
+    
     func attributedString(font: UIFont, lineSpacing: CGFloat = 6) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: self)
         let paragraphStyle = NSMutableParagraphStyle()

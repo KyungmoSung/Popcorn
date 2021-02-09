@@ -13,15 +13,16 @@ class SynopsisCell: UICollectionViewCell {
     
     var gradient: CAGradientLayer?
     
-    var isTagline: Bool = false {
+    var isTagline: Bool = false
+    var isExpandable: Bool = false {
         didSet {
-            expandView.isHidden = isTagline
+            expandView.isHidden = !isExpandable
         }
     }
     
     var isExpand: Bool = false {
         didSet {
-            guard !isTagline else {
+            guard isExpandable else {
                 return
             }
             
