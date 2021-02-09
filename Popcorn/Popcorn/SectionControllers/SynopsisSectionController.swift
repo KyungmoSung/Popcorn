@@ -45,7 +45,6 @@ class SynopsisSectionController: ListSectionController {
         let maxNumberOfLines = originText.maxNumberOfLines(for: font, width: containerWidth)
         
         if isTagline {
-            isExpandable = false
             height = originText.height(for: font, numberOfLines: 0, width: containerWidth)
         } else {
             if maxNumberOfLines > 5 {

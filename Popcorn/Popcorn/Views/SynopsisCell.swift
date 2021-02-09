@@ -14,15 +14,10 @@ class SynopsisCell: UICollectionViewCell {
     var gradient: CAGradientLayer?
     
     var isTagline: Bool = false
-    var isExpandable: Bool = false {
-        didSet {
-            expandView.isHidden = !isExpandable
-        }
-    }
-    
+    var isExpandable: Bool = false
     var isExpand: Bool = false {
         didSet {
-            guard isExpandable else {
+            guard !isTagline && isExpandable else {
                 return
             }
             
@@ -60,6 +55,8 @@ class SynopsisCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        expandView.isHidden = isTagline || !isExpandable
         
         if gradient == nil {
             gradient = CAGradientLayer()
