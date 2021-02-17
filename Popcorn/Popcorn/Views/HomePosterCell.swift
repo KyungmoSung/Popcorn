@@ -36,6 +36,10 @@ class HomePosterCell: UICollectionViewCell {
         }
     }
     
+    var posterImage: UIImage? {
+        return posterIv.image
+    }
+    
     var voteAverage: Double? {
         didSet {
             if let voteAverage = voteAverage {

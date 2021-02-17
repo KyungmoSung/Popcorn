@@ -124,13 +124,17 @@ class PosterSectionController: ListSectionController {
     }
     
     override func didSelectItem(at index: Int) {
-        guard let sectionItem = sectionItem, let contents = sectionItem.items[index] as? Contents else {
+        guard let contents = sectionItem?.items[index] as? Contents else {
             return
         }
         
         let vc = ContentsDetailViewController(contents: contents)
-        vc.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(contents.id)"
         
+        if let cell = collectionContext?.cellForItem(at: index, sectionController: self) as? HomePosterCell {
+            vc.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(contents.id)"
+            vc.posterHeroImage = cell.posterImage
+        }
+            
         viewController?.navigationController?.hero.navigationAnimationType = .fade
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }

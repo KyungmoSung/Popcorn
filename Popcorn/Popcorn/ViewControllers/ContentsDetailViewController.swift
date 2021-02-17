@@ -30,6 +30,8 @@ class ContentsDetailViewController: BaseViewController {
     }
     
     var posterHeroId: String?
+    var posterHeroImage: UIImage?
+    
     var selectedImageType: ImageType = .backdrop
     var sectionItems: [SectionItem] = []
     
@@ -41,8 +43,10 @@ class ContentsDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        posterIv.image = posterHeroImage
+        blurPosterIv.image = posterHeroImage
+        
         posterIv.hero.id = posterHeroId
-        posterIv.heroModifiers = [.spring(stiffness: 90, damping: 15)]
         
         setupUI()
     }
@@ -53,14 +57,6 @@ class ContentsDetailViewController: BaseViewController {
         navigationController?.setTransparent(true)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.clear]
 
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        if let index = sectionItems.firstIndex(where: { $0.items is [ImageInfo] }), let sectionController = adapter.sectionController(forSection: index) as? DetailHorizontalSectionController {
-            sectionController.headerAdapter.collectionView?.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
