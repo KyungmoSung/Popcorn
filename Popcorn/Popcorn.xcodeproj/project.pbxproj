@@ -70,6 +70,7 @@
 		CD936FC625887E170006441C /* UICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FC525887E170006441C /* UICollectionViewExtension.swift */; };
 		CD936FCB25887E8D0006441C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FCA25887E8D0006441C /* BaseViewController.swift */; };
 		CD936FE9258884840006441C /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FE8258884840006441C /* UINavigationControllerExtension.swift */; };
+		CD97164225DB911C009074E5 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD97164125DB911C009074E5 /* Config.swift */; };
 		CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */; };
 		CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */; };
 		CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D367254A5CEA001B0AEB /* Assets.xcassets */; };
@@ -196,6 +197,7 @@
 		CD936FC525887E170006441C /* UICollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtension.swift; sourceTree = "<group>"; };
 		CD936FCA25887E8D0006441C /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		CD936FE8258884840006441C /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
+		CD97164125DB911C009074E5 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		CDB6D35B254A5CE9001B0AEB /* Popcorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popcorn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				CDB6D3D9254A9CC0001B0AEB /* Log.swift */,
 				CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */,
 				CDD711A025CBE00200D025CB /* FloatingLayout.swift */,
+				CD97164125DB911C009074E5 /* Config.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -863,6 +866,7 @@
 				24C95D5D25987F1E0020C15C /* Review.swift in Sources */,
 				24E02D722585FE0A00591234 /* MediaVideoCell.swift in Sources */,
 				CDB6D3F6254AA4FE001B0AEB /* HomeViewController.swift in Sources */,
+				CD97164225DB911C009074E5 /* Config.swift in Sources */,
 				CD936FE9258884840006441C /* UINavigationControllerExtension.swift in Sources */,
 				CDB6D42A254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift in Sources */,
 				CDB6D525254FD329001B0AEB /* SplashViewController.swift in Sources */,

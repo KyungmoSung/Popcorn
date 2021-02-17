@@ -9,10 +9,15 @@ import Foundation
 
 class Country: Codable {
     let iso_3166_1: ISO_3166_1
-    let name: String
+    let name: String?
+    
+    init(iso_3166_1: ISO_3166_1) {
+        self.iso_3166_1 = iso_3166_1
+        self.name = iso_3166_1.name
+    }
 }
 
-enum ISO_3166_1: String, Codable {
+enum ISO_3166_1: String, CaseIterable, Codable {
     case AD
     case AE
     case AF
@@ -260,6 +265,11 @@ enum ISO_3166_1: String, Codable {
     case XG
     case SU
     case SS
+    case unknown
+    
+    public init(from decoder: Decoder) throws {
+      self = try ISO_3166_1(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
+    }
     
     var name: String {
         switch self {
@@ -510,6 +520,7 @@ enum ISO_3166_1: String, Codable {
         case .XG: return "East Germany"
         case .SU: return "Soviet Union"
         case .SS: return "South Sudan"
+        case .unknown: return ""
         }
     }
 }

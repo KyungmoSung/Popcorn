@@ -26,7 +26,7 @@ struct PageResponse<T: Codable>: Codable {
 }
 
 struct ListResponse: Codable {
-    let id: Int
+    let id: Int?
     let backdrops: [ImageInfo]?
     let posters: [ImageInfo]?
     let genres: [Genre]?

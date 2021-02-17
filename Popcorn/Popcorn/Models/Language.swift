@@ -9,10 +9,15 @@ import Foundation
 
 class Language: Codable {
     let iso_639_1: ISO_639_1
-    let name: String
+    let name: String?
+    
+    init(iso_639_1: ISO_639_1) {
+        self.iso_639_1 = iso_639_1
+        self.name = iso_639_1.name
+    }
 }
 
-enum ISO_639_1: String, Codable {
+enum ISO_639_1: String, CaseIterable ,Codable {
     case xx
     case aa
     case af
@@ -199,6 +204,12 @@ enum ISO_639_1: String, Codable {
     case bs
     case ch
     case be
+    case yo
+    case unknown
+    
+    public init(from decoder: Decoder) throws {
+      self = try ISO_639_1(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
+    }
     
     var name: String {
         switch self {
@@ -388,6 +399,8 @@ enum ISO_639_1: String, Codable {
         case .bs: return "Bosnian"
         case .ch: return "Chamorro"
         case .be: return "Belarusian"
+        case .yo: return "Yoruba"
+        case .unknown: return ""
         }
     }
 }

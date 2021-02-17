@@ -26,13 +26,23 @@ enum AppConstants {
             static let createSession                   = "/authentication/session/new"
         }
         
+        enum Genre {
+            static let getMovieList                    = "/genre/movie/list"
+            static let getTvList                       = "/genre/tv/list"
+        }
+        
+        enum Configuration {
+            static let getLanguages                    = "/configuration/languages"
+            static let getCountries                    = "/configuration/countries"
+            static let getJobs                         = "/configuration/jobs"
+        }
+        
         enum Movie {
             static let getPopular                      = "/movie/popular"
             static let getTopRated                     = "/movie/top_rated"
             static let getNowPlaying                   = "/movie/now_playing"
             static let getUpcoming                     = "/movie/upcoming"
             static let searchMovies                    = "/search/movie"
-            static let getGenreList                    = "/genre/movie/list"
             
             static func getDetails(_ id: Int)          -> String { return "/movie/\(id)" }
             static func getCredits(_ id: Int)          -> String { return "/movie/\(id)/credits" }
