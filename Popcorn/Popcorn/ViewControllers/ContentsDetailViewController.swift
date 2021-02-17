@@ -71,8 +71,18 @@ class ContentsDetailViewController: BaseViewController {
     }
     
     func setupUI() {
-        if contents.genres.isNilOrEmpty {
-            contents.genres = [Genre(id: -1, isLoading: true)] // 로딩뷰 더미 데이터
+        // 장르 ID값으로 Config에서 해당 장르 세팅
+        if let genreIDS = contents.genreIDS, !genreIDS.isEmpty {
+            var genres: [Genre] = []
+            let allGenres = Config.shared.allGenres(for: contentsType)
+            
+            for genreID in genreIDS {
+                if let genre = allGenres?.first(where: { $0.id == genreID }) {
+                    genres.append(genre)
+                }
+            }
+            
+            contents.genres = genres
         }
         
         switch contents {
