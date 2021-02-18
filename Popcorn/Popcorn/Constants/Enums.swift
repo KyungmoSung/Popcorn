@@ -190,6 +190,51 @@ struct Section {
                 }
             }
         }
+        
+        enum Person: Int, CaseIterable, SectionType {
+            case title
+            case biography
+            case detail
+            case movies
+            case tvShows
+            case image
+            
+            var title: String {
+                switch self {
+                case .title:
+                    return "title".localized
+                case .biography:
+                    return "biography".localized
+                case .detail:
+                    return "detail".localized
+                case .movies:
+                    return "movies".localized
+                case .tvShows:
+                    return "tvShows".localized
+                case .image:
+                    return "image".localized
+                
+                
+                }
+            }
+            
+            var height: CGFloat {
+                switch self {
+                case .title:
+                    return 0
+                case .biography:
+                    return 100
+                case .detail:
+                    return 80
+                case .movies:
+                    return 200
+                case .tvShows:
+                    return 200
+                case .image:
+                    return 160
+                }
+            }
+        }
     }
 }
 

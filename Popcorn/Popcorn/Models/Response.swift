@@ -29,7 +29,14 @@ struct ListResponse: Codable {
     let id: Int?
     let backdrops: [ImageInfo]?
     let posters: [ImageInfo]?
+    let profiles: [ImageInfo]?
     let genres: [Genre]?
     let cast: [Cast]?
     let crew: [Crew]?
+}
+
+struct CreditsResponse<T: Codable>: Codable {
+    let id: Int?
+    let cast: [T]?
+    let crew: [T]?
 }

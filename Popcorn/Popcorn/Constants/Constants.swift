@@ -68,5 +68,12 @@ enum AppConstants {
             static func getReviews(_ id: Int)          -> String { return "/tv/\(id)/reviews" }
             static func getEpisodeGroups(_ id: Int)    -> String { return "/tv/\(id)/episode_groups" }
         }
+        
+        enum Person {
+            static func getDetails(_ id: Int)          -> String { return "/person/\(id)" }
+            static func getMovieCredits(_ id: Int)     -> String { return "/person/\(id)/movie_credits" }
+            static func getTvCredits(_ id: Int)        -> String { return "/person/\(id)/tv_credits" }
+            static func getImages(_ id: Int)           -> String { return "/person/\(id)/images" }
+        }
     }
 }

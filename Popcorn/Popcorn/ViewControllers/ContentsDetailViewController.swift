@@ -10,9 +10,7 @@ import UIKit
 class ContentsDetailViewController: BaseViewController {
     @IBOutlet private weak var blurPosterIv: UIImageView!
     @IBOutlet private weak var posterIv: UIImageView!
-    
-    var collectionView: UICollectionView?
-    
+        
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
@@ -43,30 +41,6 @@ class ContentsDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        posterIv.image = posterHeroImage
-        blurPosterIv.image = posterHeroImage
-        
-        posterIv.hero.id = posterHeroId
-        
-        setupUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.setTransparent(true)
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.clear]
-
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        navigationController?.setTransparent(false)
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.label]
-    }
-    
-    func setupUI() {
         // 장르 ID값으로 Config에서 해당 장르 세팅
         if let genreIDS = contents.genreIDS, !genreIDS.isEmpty {
             var genres: [Genre] = []
@@ -81,6 +55,7 @@ class ContentsDetailViewController: BaseViewController {
             contents.genres = genres
         }
         
+        // 각 타입별 섹션 아이템 세팅
         switch contents {
         case let movie as Movie:
             setNavigation(title: movie.title)
@@ -110,11 +85,33 @@ class ContentsDetailViewController: BaseViewController {
             break
         }
         
-        setupFloatingPanel()
+        setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setTransparent(true)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.clear]
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.setTransparent(false)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.label]
+    }
+    
+    func setupUI() {
+        posterIv.hero.id = posterHeroId
         
         DispatchQueue.main.async {
-            self.blurPosterIv.applyBlur(style: .regular)
+            self.posterIv.image = self.posterHeroImage
             self.posterIv.applyShadow()
+            
+            self.blurPosterIv.image = self.posterHeroImage
+            self.blurPosterIv.applyBlur(style: .regular)
             
             // poster 이미지
             if let path = self.contents?.posterPath, let url = URL(string: AppConstants.Domain.tmdbImage + path), self.posterIv.image == nil {
@@ -128,6 +125,8 @@ class ContentsDetailViewController: BaseViewController {
                 })
             }
         }
+        
+        setupFloatingPanel()
     }
     
     func setupFloatingPanel() {
@@ -137,7 +136,6 @@ class ContentsDetailViewController: BaseViewController {
         let contentVC = UICollectionViewController(collectionViewLayout: layout)
         contentVC.collectionView.backgroundColor = .secondarySystemGroupedBackground
 
-        collectionView = contentVC.collectionView
         adapter.collectionView = contentVC.collectionView
         adapter.dataSource = self
 

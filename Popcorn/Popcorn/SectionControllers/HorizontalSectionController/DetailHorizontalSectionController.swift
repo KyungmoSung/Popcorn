@@ -327,10 +327,10 @@ extension DetailHorizontalSectionController: SynopsisSectionControllerDelegate {
         self.isExpand = isExpand
         
         if let vc = viewController as? ContentsDetailViewController {
-            vc.collectionView?.collectionViewLayout.invalidateLayout()
+            vc.adapter.collectionView?.collectionViewLayout.invalidateLayout()
 
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
-                vc.collectionView?.layoutIfNeeded()
+                vc.adapter.collectionView?.layoutIfNeeded()
             } completion: { (_) in
                 self.cellAdapter.collectionView?.collectionViewLayout.invalidateLayout()
                 self.cellAdapter.collectionView?.layoutIfNeeded()

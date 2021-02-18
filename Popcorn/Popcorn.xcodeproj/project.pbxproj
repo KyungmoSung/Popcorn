@@ -49,7 +49,7 @@
 		24E02D712585FE0A00591234 /* MediaVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24E02D6F2585FE0A00591234 /* MediaVideoCell.xib */; };
 		24E02D722585FE0A00591234 /* MediaVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E02D702585FE0A00591234 /* MediaVideoCell.swift */; };
 		24E02D8925860AFD00591234 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E02D8825860AFD00591234 /* Media.swift */; };
-		24E02D9125860B3800591234 /* Credit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E02D9025860B3800591234 /* Credit.swift */; };
+		24E02D9125860B3800591234 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E02D9025860B3800591234 /* Person.swift */; };
 		24ED6290258355A200FC98B3 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED628F258355A200FC98B3 /* Genre.swift */; };
 		24ED629D25836A8100FC98B3 /* TextTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED629B25836A8100FC98B3 /* TextTabCell.swift */; };
 		24ED629E25836A8100FC98B3 /* TextTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24ED629C25836A8100FC98B3 /* TextTabCell.xib */; };
@@ -71,6 +71,7 @@
 		CD936FCB25887E8D0006441C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FCA25887E8D0006441C /* BaseViewController.swift */; };
 		CD936FE9258884840006441C /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FE8258884840006441C /* UINavigationControllerExtension.swift */; };
 		CD97164225DB911C009074E5 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD97164125DB911C009074E5 /* Config.swift */; };
+		CD9A69EA25DE29AE006CAD6A /* Credit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9A69E925DE29AE006CAD6A /* Credit.swift */; };
 		CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */; };
 		CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */; };
 		CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D367254A5CEA001B0AEB /* Assets.xcassets */; };
@@ -169,7 +170,7 @@
 		24E02D6F2585FE0A00591234 /* MediaVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaVideoCell.xib; sourceTree = "<group>"; };
 		24E02D702585FE0A00591234 /* MediaVideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaVideoCell.swift; sourceTree = "<group>"; };
 		24E02D8825860AFD00591234 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
-		24E02D9025860B3800591234 /* Credit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credit.swift; sourceTree = "<group>"; };
+		24E02D9025860B3800591234 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		24ED628F258355A200FC98B3 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		24ED629B25836A8100FC98B3 /* TextTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTabCell.swift; sourceTree = "<group>"; };
 		24ED629C25836A8100FC98B3 /* TextTabCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTabCell.xib; sourceTree = "<group>"; };
@@ -198,6 +199,7 @@
 		CD936FCA25887E8D0006441C /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		CD936FE8258884840006441C /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		CD97164125DB911C009074E5 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		CD9A69E925DE29AE006CAD6A /* Credit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credit.swift; sourceTree = "<group>"; };
 		CDB6D35B254A5CE9001B0AEB /* Popcorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popcorn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -419,7 +421,7 @@
 		CDB6D3FB254AA926001B0AEB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				24E02D9025860B3800591234 /* Credit.swift */,
+				24E02D9025860B3800591234 /* Person.swift */,
 				CD39C67525BE8F7500408D05 /* DetailInfo.swift */,
 				24ED628F258355A200FC98B3 /* Genre.swift */,
 				CDD109B625B91AFC00225C4E /* Loadingable.swift */,
@@ -434,6 +436,7 @@
 				246CAD2325C984CE00288F4B /* Language.swift */,
 				24C98B3125C990AD00792D8A /* Country.swift */,
 				2480522325D000FE00C9F5B2 /* Company.swift */,
+				CD9A69E925DE29AE006CAD6A /* Credit.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -824,6 +827,7 @@
 				CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */,
 				CD06B5EE258853FE00E15540 /* TextTagCell.swift in Sources */,
 				2480521C25CFE98400C9F5B2 /* DateExtension.swift in Sources */,
+				CD9A69EA25DE29AE006CAD6A /* Credit.swift in Sources */,
 				247FF85625BD56AA00BC73D2 /* Tag.swift in Sources */,
 				24C98B3225C990AD00792D8A /* Country.swift in Sources */,
 				244AA2B125875B1800754687 /* UIViewExtension.swift in Sources */,
@@ -834,7 +838,7 @@
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
 				244BF51C25D2726100100C66 /* OptionalExtension.swift in Sources */,
 				24987E9F25C981FB00CD4CDF /* TVShow.swift in Sources */,
-				24E02D9125860B3800591234 /* Credit.swift in Sources */,
+				24E02D9125860B3800591234 /* Person.swift in Sources */,
 				CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */,
 				CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */,
 				2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */,
