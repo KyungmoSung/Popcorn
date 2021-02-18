@@ -14,6 +14,10 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
 
         setupTabBarController()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         Config.shared.fetch {
             self.present(self.groundTabBarController, animated: true, completion: nil)
