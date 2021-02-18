@@ -180,16 +180,17 @@ class ContentsDetailViewController: BaseViewController {
     }
     
     func requestInfo(for sections: [SectionType]) {
-        if let movieSections = sections as? [Section.Detail.Movie] {
-            for (index, section) in movieSections.enumerated() {
-                switch section {
+        for (index, section) in sections.enumerated() {
+            switch section {
+            case let movieSection as Section.Detail.Movie:
+                switch movieSection {
                 case .title:
                     // 영화 상세 정보
                     APIManager.request(AppConstants.API.Movie.getDetails(contents.id), method: .get, params: nil, responseType: Movie.self) { (result) in
                         switch result {
                         case .success(let contents):
                             self.contents = contents
-                            self.updateSectionItems([contents], at: index)                            
+                            self.updateSectionItems([contents], at: index)
                             self.updateSectionItems(contents.detailInfos, at: Section.Detail.Movie.detail.rawValue)
                             
                             // 시놉시스 (tagline + overview)
@@ -289,10 +290,8 @@ class ContentsDetailViewController: BaseViewController {
                         }
                     }
                 }
-            }
-        } else if let tvShowSections = sections as? [Section.Detail.TVShow] {
-            for (index, section) in tvShowSections.enumerated() {
-                switch section {
+            case let tvShowSection as Section.Detail.TVShow:
+                switch tvShowSection {
                 case .title:
                     // 영화 상세 정보
                     APIManager.request(AppConstants.API.TVShow.getDetails(contents.id), method: .get, params: nil, responseType: TVShow.self) { (result) in
@@ -405,6 +404,8 @@ class ContentsDetailViewController: BaseViewController {
                         }
                     }
                 }
+            default:
+                return
             }
         }
     }

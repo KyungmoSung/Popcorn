@@ -39,17 +39,21 @@ class SplashViewController: UIViewController {
         groundTabBarController.viewControllers = viewControllers.map {
             let navi = UINavigationController(rootViewController: $0)
             navi.hero.isEnabled = true
+            navi.hidesBottomBarWhenPushed = true
             return navi
         }
         
         groundTabBarController.modalPresentationStyle = .fullScreen
-        groundTabBarController.tabBar.tintColor = .label
-        groundTabBarController.tabBar.barTintColor = .secondarySystemBackground
-        groundTabBarController.tabBar.layer.masksToBounds = true
-        groundTabBarController.tabBar.isTranslucent = true
-        groundTabBarController.tabBar.barStyle = .default
-        groundTabBarController.tabBar.layer.cornerRadius = 25
-        groundTabBarController.tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
+        groundTabBarController.tabBar.layer.shadowColor = UIColor.black.cgColor
+        groundTabBarController.tabBar.layer.shadowOpacity = 0.1
+        groundTabBarController.tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+        groundTabBarController.tabBar.layer.shadowRadius = 12 / 2.0
+        
+        UITabBar.appearance().shadowImage = UIImage()
+        UITabBar.appearance().backgroundImage = UIImage()
+        UITabBar.appearance().backgroundColor = .systemBackground
+        UITabBar.appearance().tintColor = .label
+        UITabBar.appearance().isTranslucent = true
     }
 }
