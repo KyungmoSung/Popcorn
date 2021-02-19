@@ -41,3 +41,11 @@ lastAirDate = "마지막 방송";
 
 hour = "시간";
 minute = "분";
+
+birthday = "출생일";
+placeOfBirth = "출생지";
+gender = "성별";
+female = "여성";
+male = "남성";
+knownForDepartment = "분야";
+biography = "바이오그래피";

@@ -18,10 +18,12 @@ class APIManager {
         
         var requestParams = params ?? [:]
         requestParams["api_key"] = AppConstants.Key.tmdb
+        
         if Localization {
-            requestParams["language"] = "ko"
-            requestParams["region"] = "KR"
+            requestParams["language"] = Config.shared.language.iso_639_1
+            requestParams["region"] = Config.shared.region.iso_3166_1
         }
+        
         var hTTPHeaders = HTTPHeaders.init()
         hTTPHeaders["Accept"] = "application/json"
         let manager = Alamofire.Session.default

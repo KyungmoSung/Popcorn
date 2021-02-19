@@ -17,10 +17,14 @@ class DetailInfo: NSObject, ListDiffable {
     }
     
     func diffIdentifier() -> NSObjectProtocol {
-        return self
+        return title as NSObjectProtocol
     }
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        return true
+        if let object = object as? DetailInfo {
+            return desc == object.desc
+        }
+        
+        return false
     }
 }

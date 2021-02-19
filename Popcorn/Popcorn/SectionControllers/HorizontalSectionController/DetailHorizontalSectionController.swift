@@ -8,7 +8,6 @@
 import UIKit
 
 class DetailHorizontalSectionController: ListSectionController {
-    
     private var sectionItem: SectionItem?
     var isExpand: Bool = false
     
@@ -39,7 +38,7 @@ class DetailHorizontalSectionController: ListSectionController {
         }
         
         switch sectionItem.sectionType {
-        case Section.Detail.Movie.synopsis, Section.Detail.TVShow.synopsis:
+        case Section.Detail.Movie.synopsis, Section.Detail.TVShow.synopsis, Section.Detail.Person.biography:
             if let items = sectionItem.items as? [String], items.count > 0 {
                 // 텍스트 높이 계산
                 let totalHeight: CGFloat = items
@@ -73,11 +72,11 @@ class DetailHorizontalSectionController: ListSectionController {
         
         if let layout = cell.collectionView.collectionViewLayout as? PagingCollectionViewLayout {
             switch sectionType {
-            case Section.Detail.Movie.detail, Section.Detail.TVShow.detail: // 가로 스크롤 & 자동 넓이
+            case Section.Detail.Movie.detail, Section.Detail.TVShow.detail, Section.Detail.Person.detail: // 가로 스크롤 & 자동 넓이
                 layout.scrollDirection = .horizontal
                 cell.collectionView.isScrollEnabled = true
                 layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-            case Section.Detail.Movie.synopsis, Section.Detail.TVShow.synopsis: // 세로 스크롤 & 자동 높이
+            case Section.Detail.Movie.synopsis, Section.Detail.TVShow.synopsis, Section.Detail.Person.biography: // 세로 스크롤 & 자동 높이
                 layout.scrollDirection = .vertical
                 cell.collectionView.isScrollEnabled = false
                 layout.estimatedItemSize = .zero
@@ -110,13 +109,15 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
         var size: CGSize = context.containerSize
         
         switch sectionItem.sectionType {
-        case Section.Detail.Movie.title, Section.Detail.TVShow.title:
+        case Section.Detail.Movie.title, Section.Detail.TVShow.title, Section.Detail.Person.title:
             var title: String = ""
             switch sectionItem.items[section] {
             case let movie as Movie:
                 title = movie.title
             case let tvShow as TVShow:
                 title = tvShow.name
+            case let person as Person:
+                title = person.name
             default:
                 break
             }
@@ -138,8 +139,9 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
         }
         
         switch sectionItem.sectionType {
-        case Section.Detail.Movie.title, Section.Detail.TVShow.title:
+        case Section.Detail.Movie.title, Section.Detail.TVShow.title, Section.Detail.Person.title:
             let headerView: ContentsHeaderVIew = context.dequeueReusableSupplementaryXibView(ofKind: UICollectionView.elementKindSectionHeader, for: self, at: index)
+            headerView.sectionType = sectionItem.sectionType
             
             switch sectionItem.items[section] {
             case let movie as Movie:
@@ -147,16 +149,22 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
                 headerView.originalTitle = movie.originalTitle
                 headerView.year = movie.releaseDate?.dateValue()?.toString("yyyy")
                 headerView.voteAverage = movie.voteAverage
+                headerAdapter.collectionView = headerView.genreCollectionView
             case let tvShow as TVShow:
                 headerView.title = tvShow.name
                 headerView.originalTitle = tvShow.originalName
                 headerView.year = tvShow.firstAirDate?.dateValue()?.toString("yyyy")
                 headerView.voteAverage = tvShow.voteAverage
+                headerAdapter.collectionView = headerView.genreCollectionView
+            case let person as Person:
+                headerView.title = person.name
+//                headerView.originalTitle = tvShow.originalName
+                let birthday = person.birthday?.stringValue ?? ""
+                let deathday = person.deathday?.stringValue ?? ""
+                headerView.year = birthday + " ~ " + deathday
             default:
                 break
             }
-            
-            headerAdapter.collectionView = headerView.genreCollectionView
 
             return headerView
         case Section.Detail.Movie.image, Section.Detail.TVShow.image:
@@ -198,14 +206,14 @@ extension DetailHorizontalSectionController: ListSupplementaryViewSource {
 
 extension DetailHorizontalSectionController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        guard let sectionItem = sectionItem, let vc = viewController as? ContentsDetailViewController else {
+        guard let sectionItem = sectionItem else {
             return []
         }
         
         if listAdapter == cellAdapter {
             switch sectionItem.sectionType {
             case Section.Detail.Movie.image, Section.Detail.TVShow.image: // 선택된 이미지타입만 필터링 (포스터/배경)
-                if let items = sectionItem.items as? [ImageInfo] {
+                if let items = sectionItem.items as? [ImageInfo], let vc = viewController as? ContentsDetailViewController {
                     let filterItem = items.filter{ return $0.type == vc.selectedImageType }
                     return [SectionItem(sectionItem.sectionType, items: filterItem)]
                 }
@@ -238,15 +246,15 @@ extension DetailHorizontalSectionController: ListAdapterDataSource {
         
         if listAdapter == cellAdapter {
             switch sectionItem.sectionType {
-            case Section.Detail.Movie.detail, Section.Detail.TVShow.detail:
+            case Section.Detail.Movie.detail, Section.Detail.TVShow.detail, Section.Detail.Person.detail:
                 return InfoCardSectionController()
-            case Section.Detail.Movie.synopsis, Section.Detail.TVShow.synopsis:
+            case Section.Detail.Movie.synopsis, Section.Detail.TVShow.synopsis, Section.Detail.Person.biography:
                 return SynopsisSectionController(delegate: self)
-            case Section.Detail.Movie.image, Section.Detail.Movie.video, Section.Detail.TVShow.image, Section.Detail.TVShow.video:
+            case Section.Detail.Movie.image, Section.Detail.Movie.video, Section.Detail.TVShow.image, Section.Detail.TVShow.video, Section.Detail.Person.image:
                 return MediaSectionController(direction: .horizontal)
             case Section.Detail.Movie.credit, Section.Detail.TVShow.credit:
                 return CreditSectionController(direction: .horizontal)
-            case Section.Detail.Movie.recommendation, Section.Detail.Movie.similar, Section.Detail.TVShow.recommendation, Section.Detail.TVShow.similar:
+            case Section.Detail.Movie.recommendation, Section.Detail.Movie.similar, Section.Detail.TVShow.recommendation, Section.Detail.TVShow.similar, Section.Detail.Person.movies, Section.Detail.Person.tvShows:
                 return PosterSectionController(type: .poster, direction: .horizontal)
             case Section.Detail.Movie.review, Section.Detail.TVShow.review:
                 return ReviewSectionController(direction: .horizontal)
@@ -323,18 +331,27 @@ extension DetailHorizontalSectionController: SectionHeaderViewDelegate {
 
 extension DetailHorizontalSectionController: SynopsisSectionControllerDelegate {
     /// 시놉시스 탭 시 글 전체가 보이도록 확장/축소
-    func didTapSynopsisItem(at index: Int, isExpand: Bool) {
-        self.isExpand = isExpand
+    func didTapSynopsisItem(at index: Int, isExpand: Bool, sectionController: SynopsisSectionController) {
+        var adapter: ListAdapter?
         
-        if let vc = viewController as? ContentsDetailViewController {
-            vc.adapter.collectionView?.collectionViewLayout.invalidateLayout()
+        switch viewController {
+        case let vc as ContentsDetailViewController:
+            adapter = vc.adapter
+        case let vc as PersonDetailViewController:
+            adapter = vc.adapter
+        default:
+            return
+        }
 
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
-                vc.adapter.collectionView?.layoutIfNeeded()
-            } completion: { (_) in
-                self.cellAdapter.collectionView?.collectionViewLayout.invalidateLayout()
-                self.cellAdapter.collectionView?.layoutIfNeeded()
-            }
+        self.isExpand = isExpand
+
+        adapter?.collectionView?.collectionViewLayout.invalidateLayout()
+
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+            adapter?.collectionView?.layoutIfNeeded()
+        } completion: { (_) in
+            self.cellAdapter.collectionView?.collectionViewLayout.invalidateLayout()
+            self.cellAdapter.collectionView?.layoutIfNeeded()
         }
     }
 }

@@ -41,3 +41,12 @@ lastAirDate = "Last Air Date";
 
 hour = "h";
 minute = "m";
+
+birthday = "Birthday";
+placeOfBirth = "Place Of Birth";
+gender = "Gender";
+female = "Female";
+male = "Male";
+knownForDepartment = "Known For Department";
+biography = "Biography";
+

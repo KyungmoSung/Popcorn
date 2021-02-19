@@ -42,6 +42,22 @@ class ContentsHeaderVIew: UICollectionViewCell {
         }
     }
     
+    var sectionType: SectionType? {
+        didSet {
+            switch sectionType {
+            case Section.Detail.Movie.title?, Section.Detail.TVShow.title?:
+                starIv.isHidden = false
+                voteAverageLb.isHidden = false
+                genreCollectionView.isHidden = false
+            case Section.Detail.Person.title?:
+                starIv.isHidden = true
+                voteAverageLb.isHidden = true
+                genreCollectionView.isHidden = true
+            default:
+                return
+            }
+        }
+    }
     func setSubTitle() {
         if let year = year, let originalTitle = originalTitle {
             subTitleLb.text = year + " · " + originalTitle

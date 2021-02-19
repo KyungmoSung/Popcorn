@@ -8,7 +8,7 @@
 import Foundation
         
 protocol SynopsisSectionControllerDelegate: class {
-    func didTapSynopsisItem(at index: Int, isExpand: Bool)
+    func didTapSynopsisItem(at index: Int, isExpand: Bool, sectionController: SynopsisSectionController)
 }
 
 class SynopsisSectionController: ListSectionController {
@@ -83,18 +83,18 @@ class SynopsisSectionController: ListSectionController {
     }
     
     override func didSelectItem(at index: Int) {
-        guard isExpandable, let cells = collectionContext?.visibleCells(for: self) else {
+        guard isExpandable, let context = collectionContext else {
             return
         }
         
         isExpanded.toggle()
-        
-        cells.forEach {
+
+        context.visibleCells(for: self).forEach {
             if let cell = $0 as? SynopsisCell {
                 cell.isExpand = isExpanded
             }
         }
         
-        delegate?.didTapSynopsisItem(at: index, isExpand: isExpanded)
+        delegate?.didTapSynopsisItem(at: index, isExpand: isExpanded, sectionController: self)
     }
 }

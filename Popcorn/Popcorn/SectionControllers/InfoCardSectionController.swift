@@ -27,8 +27,10 @@ class InfoCardSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let info = sectionItem?.items[index] as? DetailInfo else { return UICollectionViewCell() }
-        
+        guard let context = collectionContext, let info = sectionItem?.items[index] as? DetailInfo else {
+            return UICollectionViewCell()
+        }
+
         let cell: InfoCardCell = context.dequeueReusableXibCell(for: self, at: index)
         cell.title = info.title
         cell.desc = info.desc
