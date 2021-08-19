@@ -107,6 +107,13 @@
 		CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD109B625B91AFC00225C4E /* Loadingable.swift */; };
 		CDD711A125CBE00200D025CB /* FloatingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD711A025CBE00200D025CB /* FloatingLayout.swift */; };
 		CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9F66925C153AF00B83536 /* AnyValue.swift */; };
+		CDFF2FA426BA6769001ABD89 /* _HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */; };
+		CDFF2FA526BA6769001ABD89 /* _HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */; };
+		CDFF2FF026CCF5F8001ABD89 /* _Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FEF26CCF5F8001ABD89 /* _Section.swift */; };
+		CDFF2FF226CCF603001ABD89 /* _SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FF126CCF603001ABD89 /* _SectionType.swift */; };
+		CDFF2FF826CDE82C001ABD89 /* _Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FF726CDE82C001ABD89 /* _Contents.swift */; };
+		CDFF2FFA26CDE8A7001ABD89 /* _Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FF926CDE8A7001ABD89 /* _Movie.swift */; };
+		CDFF2FFC26CDE8A9001ABD89 /* _TVShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FFB26CDE8A9001ABD89 /* _TVShow.swift */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -243,6 +250,13 @@
 		CDD109B625B91AFC00225C4E /* Loadingable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadingable.swift; sourceTree = "<group>"; };
 		CDD711A025CBE00200D025CB /* FloatingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLayout.swift; sourceTree = "<group>"; };
 		CDD9F66925C153AF00B83536 /* AnyValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
+		CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _HomeViewController.swift; sourceTree = "<group>"; };
+		CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _HomeViewController.xib; sourceTree = "<group>"; };
+		CDFF2FEF26CCF5F8001ABD89 /* _Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Section.swift; sourceTree = "<group>"; };
+		CDFF2FF126CCF603001ABD89 /* _SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _SectionType.swift; sourceTree = "<group>"; };
+		CDFF2FF726CDE82C001ABD89 /* _Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Contents.swift; sourceTree = "<group>"; };
+		CDFF2FF926CDE8A7001ABD89 /* _Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Movie.swift; sourceTree = "<group>"; };
+		CDFF2FFB26CDE8A9001ABD89 /* _TVShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _TVShow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -437,6 +451,11 @@
 				24C98B3125C990AD00792D8A /* Country.swift */,
 				2480522325D000FE00C9F5B2 /* Company.swift */,
 				CD9A69E925DE29AE006CAD6A /* Credit.swift */,
+				CDFF2FEF26CCF5F8001ABD89 /* _Section.swift */,
+				CDFF2FF126CCF603001ABD89 /* _SectionType.swift */,
+				CDFF2FF726CDE82C001ABD89 /* _Contents.swift */,
+				CDFF2FF926CDE8A7001ABD89 /* _Movie.swift */,
+				CDFF2FFB26CDE8A9001ABD89 /* _TVShow.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -448,6 +467,8 @@
 				CDBD141D256E388A003F625F /* ContentsDetailViewController.swift */,
 				247FF85A25BD604F00BC73D2 /* ContentsListViewController.swift */,
 				CDB6D3F4254AA4FE001B0AEB /* HomeViewController.swift */,
+				CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */,
+				CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */,
 				246A3A2225C692AF002CEFF7 /* PersonDetailViewController.swift */,
 				CDB6D523254FD328001B0AEB /* SplashViewController.swift */,
 				CDD9F66725C152AB00B83536 /* Xibs */,
@@ -680,6 +701,7 @@
 				24661374259867E4008B982B /* NanumBarunGothicBold.ttf in Resources */,
 				24661378259867E4008B982B /* NanumSquareRegular.ttf in Resources */,
 				246A3A2525C692AF002CEFF7 /* PersonDetailViewController.xib in Resources */,
+				CDFF2FA526BA6769001ABD89 /* _HomeViewController.xib in Resources */,
 				CDB6D3F7254AA4FE001B0AEB /* HomeViewController.xib in Resources */,
 				CDB6D45F254BE003001B0AEB /* SectionHeaderView.xib in Resources */,
 				24661373259867E4008B982B /* NanumBarunGothicUltraLight.ttf in Resources */,
@@ -814,8 +836,10 @@
 				24ED62BF2585EBB000FC98B3 /* MediaSectionController.swift in Sources */,
 				24B3BE1B25A71AFC00AFBF1C /* ContentsHeaderVIew.swift in Sources */,
 				246A3A2425C692AF002CEFF7 /* PersonDetailViewController.swift in Sources */,
+				CDFF2FA426BA6769001ABD89 /* _HomeViewController.swift in Sources */,
 				CD06B5E8258853E100E15540 /* TextTagSectionController.swift in Sources */,
 				CDB6D452254BCC10001B0AEB /* HomePosterCell.swift in Sources */,
+				CDFF2FF826CDE82C001ABD89 /* _Contents.swift in Sources */,
 				CDB6D458254BD611001B0AEB /* NSObjectExtension.swift in Sources */,
 				247FF85C25BD604F00BC73D2 /* ContentsListViewController.swift in Sources */,
 				CD936FC625887E170006441C /* UICollectionViewExtension.swift in Sources */,
@@ -838,8 +862,10 @@
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
 				244BF51C25D2726100100C66 /* OptionalExtension.swift in Sources */,
 				24987E9F25C981FB00CD4CDF /* TVShow.swift in Sources */,
+				CDFF2FFA26CDE8A7001ABD89 /* _Movie.swift in Sources */,
 				24E02D9125860B3800591234 /* Person.swift in Sources */,
 				CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */,
+				CDFF2FF026CCF5F8001ABD89 /* _Section.swift in Sources */,
 				CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */,
 				2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */,
 				242D62EB2593782D00450120 /* InfoCardCell.swift in Sources */,
@@ -851,6 +877,7 @@
 				CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */,
 				CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */,
 				24A4292B25AAE3AF00845C94 /* SynopsisSectionController.swift in Sources */,
+				CDFF2FF226CCF603001ABD89 /* _SectionType.swift in Sources */,
 				CDB6D422254BAB70001B0AEB /* HomeHorizontalSectionController.swift in Sources */,
 				242D62FE25939D5100450120 /* NumberExtension.swift in Sources */,
 				242D62E5259377D100450120 /* InfoCardSectionController.swift in Sources */,
@@ -876,6 +903,7 @@
 				CDB6D525254FD329001B0AEB /* SplashViewController.swift in Sources */,
 				24C95D62259880840020C15C /* ReviewSectionController.swift in Sources */,
 				24C95D8B2599C4B20020C15C /* DetailHorizontalSectionController.swift in Sources */,
+				CDFF2FFC26CDE8A9001ABD89 /* _TVShow.swift in Sources */,
 				2480522425D000FE00C9F5B2 /* Company.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

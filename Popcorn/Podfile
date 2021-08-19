@@ -12,6 +12,9 @@ target 'Popcorn' do
   pod 'Hero'
   pod 'FloatingPanel'
   pod 'SkeletonView'
+  pod 'RxSwift', '6.2.0'
+  pod 'RxCocoa', '6.2.0'
+  pod 'RxDataSources'
 
   target 'PopcornTests' do
     inherit! :search_paths
