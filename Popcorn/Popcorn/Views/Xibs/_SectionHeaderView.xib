@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NanumSquareExtraBold.ttf">
+            <string>NanumSquareEB</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="_SectionHeaderView" customModule="Popcorn" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lVY-Zu-ZC2">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="otw-ZI-qHo">
+                            <rect key="frame" x="0.0" y="20" width="320" height="25"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sbl-Qs-MTp">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="25"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9lL-ef-OfB">
+                                            <rect key="frame" x="0.0" y="0.0" width="295" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="MGu-1d-KwR"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="NanumSquareEB" family="NanumSquare" pointSize="22"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPR-co-oGf">
+                                            <rect key="frame" x="295" y="0.0" width="25" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="rPR-co-oGf" secondAttribute="height" multiplier="1:1" id="uUk-k9-rbl"/>
+                                            </constraints>
+                                            <color key="tintColor" systemColor="labelColor"/>
+                                            <state key="normal" image="icMore"/>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="otw-ZI-qHo" secondAttribute="bottom" constant="10" id="Bec-5Y-5Dc"/>
+                        <constraint firstItem="otw-ZI-qHo" firstAttribute="top" secondItem="lVY-Zu-ZC2" secondAttribute="top" constant="20" id="Ge3-hm-7EX"/>
+                        <constraint firstAttribute="trailing" secondItem="otw-ZI-qHo" secondAttribute="trailing" id="m5o-hK-coI"/>
+                        <constraint firstItem="otw-ZI-qHo" firstAttribute="leading" secondItem="lVY-Zu-ZC2" secondAttribute="leading" id="qse-iW-C7C"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <constraints>
+                <constraint firstItem="lVY-Zu-ZC2" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="4ke-TJ-qMJ"/>
+                <constraint firstItem="lVY-Zu-ZC2" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="SHE-pd-SOO"/>
+                <constraint firstAttribute="bottom" secondItem="lVY-Zu-ZC2" secondAttribute="bottom" priority="999" id="SJK-8F-z74"/>
+                <constraint firstAttribute="trailing" secondItem="lVY-Zu-ZC2" secondAttribute="trailing" id="U1F-Hl-pFH"/>
+            </constraints>
+            <connections>
+                <outlet property="expandBtn" destination="rPR-co-oGf" id="s49-uB-lxg"/>
+                <outlet property="titleLb" destination="9lL-ef-OfB" id="MNb-eO-wfL"/>
+            </connections>
+            <point key="canvasLocation" x="-267" y="6"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="icMore" width="48" height="48"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

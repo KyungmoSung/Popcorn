@@ -114,6 +114,8 @@
 		CDFF2FF826CDE82C001ABD89 /* _Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FF726CDE82C001ABD89 /* _Contents.swift */; };
 		CDFF2FFA26CDE8A7001ABD89 /* _Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FF926CDE8A7001ABD89 /* _Movie.swift */; };
 		CDFF2FFC26CDE8A9001ABD89 /* _TVShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FFB26CDE8A9001ABD89 /* _TVShow.swift */; };
+		CDFF2FFE26CE3367001ABD89 /* _SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FFD26CE3367001ABD89 /* _SectionHeaderView.swift */; };
+		CDFF300426CE36CB001ABD89 /* _SectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -257,6 +259,8 @@
 		CDFF2FF726CDE82C001ABD89 /* _Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Contents.swift; sourceTree = "<group>"; };
 		CDFF2FF926CDE8A7001ABD89 /* _Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Movie.swift; sourceTree = "<group>"; };
 		CDFF2FFB26CDE8A9001ABD89 /* _TVShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _TVShow.swift; sourceTree = "<group>"; };
+		CDFF2FFD26CE3367001ABD89 /* _SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _SectionHeaderView.swift; sourceTree = "<group>"; };
+		CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _SectionHeaderView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,6 +514,7 @@
 				24A4292F25AAE41500845C94 /* SynopsisCell.swift */,
 				24ED629B25836A8100FC98B3 /* TextTabCell.swift */,
 				CD06B5EC258853FE00E15540 /* TextTagCell.swift */,
+				CDFF2FFD26CE3367001ABD89 /* _SectionHeaderView.swift */,
 				CDD9F66825C152C400B83536 /* Xibs */,
 			);
 			path = Views;
@@ -543,6 +548,7 @@
 				24A4293025AAE41500845C94 /* SynopsisCell.xib */,
 				24ED629C25836A8100FC98B3 /* TextTabCell.xib */,
 				CD06B5ED258853FE00E15540 /* TextTagCell.xib */,
+				CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -699,6 +705,7 @@
 				CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */,
 				24B3BE1C25A71AFC00AFBF1C /* ContentsHeaderVIew.xib in Resources */,
 				24661374259867E4008B982B /* NanumBarunGothicBold.ttf in Resources */,
+				CDFF300426CE36CB001ABD89 /* _SectionHeaderView.xib in Resources */,
 				24661378259867E4008B982B /* NanumSquareRegular.ttf in Resources */,
 				246A3A2525C692AF002CEFF7 /* PersonDetailViewController.xib in Resources */,
 				CDFF2FA526BA6769001ABD89 /* _HomeViewController.xib in Resources */,
@@ -865,6 +872,7 @@
 				CDFF2FFA26CDE8A7001ABD89 /* _Movie.swift in Sources */,
 				24E02D9125860B3800591234 /* Person.swift in Sources */,
 				CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */,
+				CDFF2FFE26CE3367001ABD89 /* _SectionHeaderView.swift in Sources */,
 				CDFF2FF026CCF5F8001ABD89 /* _Section.swift in Sources */,
 				CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */,
 				2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */,

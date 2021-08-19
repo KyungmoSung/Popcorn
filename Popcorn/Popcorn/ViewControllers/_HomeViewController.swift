@@ -71,10 +71,19 @@ class _HomeViewController: UIViewController {
     
     func setupUI() {
         collectionView.collectionViewLayout = createCompositionalLayout()
-        collectionView.register(UINib(nibName: "HomePosterCell", bundle: nil), forCellWithReuseIdentifier: "HomePosterCell")
+        
+        collectionView.register(cellType: HomePosterCell.self)
+        collectionView.register(reusableViewType: _SectionHeaderView.self)
+        
+        collectionView.rx
+            .modelSelected(_Content.self)
+            .subscribe(onNext: { content in
+                print(content.title)
+            })
+            .disposed(by: disposeBag)
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<HomeSection> { dataSource, collectionView, indexPath, item in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomePosterCell", for: indexPath) as? HomePosterCell else {
+            guard let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath) else {
                 return UICollectionViewCell()
             }
             
@@ -83,6 +92,13 @@ class _HomeViewController: UIViewController {
             cell.voteAverage = item.voteAverage
             
             return cell
+        } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
+            guard let headerView = collectionView.dequeueReusableView(with: _SectionHeaderView.self, for: indexPath) else {
+                return UICollectionReusableView()
+            }
+            
+            headerView.title = self.sections[indexPath.section].sectionType.title
+            return headerView
         }
         
         relay
@@ -99,11 +115,20 @@ class _HomeViewController: UIViewController {
         let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(160),
                                                heightDimension: .absolute(240+30))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 2)
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 2)
         
         // 섹션
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
+        
+        // 헤더
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                heightDimension: .absolute(55))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
+                                                                        elementKind: UICollectionView.elementKindSectionHeader,
+                                                                        alignment: .top)
+        sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
+        section.boundarySupplementaryItems = [sectionHeader]
         
         return UICollectionViewCompositionalLayout(section: section)
     }

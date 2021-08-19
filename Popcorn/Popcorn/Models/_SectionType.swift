@@ -12,9 +12,27 @@ struct _SectionType {
         case movie(Movie)
         case tvShow(TVShow)
         
+        var title: String {
+            switch self {
+            case .movie(let type):
+                return type.title
+            case .tvShow(let type):
+                return type.title
+            }
+        }
+        
         enum TVShow: Int, CaseIterable {
             case tvAiringToday
             case tvOnTheAir
+            
+            var title: String {
+                switch self {
+                case .tvAiringToday:
+                    return "tvAiringToday".localized
+                case .tvOnTheAir:
+                    return "tvOnTheAir".localized
+                }
+            }
         }
         
         enum Movie: Int, CaseIterable {
@@ -43,5 +61,4 @@ struct _SectionType {
             }
         }
     }
-    
 }
