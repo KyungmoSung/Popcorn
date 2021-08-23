@@ -9,8 +9,8 @@ import UIKit
 
 class _SectionHeaderView: UICollectionReusableView {
     @IBOutlet private weak var titleLb: UILabel!
-    @IBOutlet private weak var expandBtn: UIButton!
-        
+    @IBOutlet weak var detailBtn: UIButton!
+    
     var title: String? {
         get {
             return titleLb.text
@@ -18,5 +18,8 @@ class _SectionHeaderView: UICollectionReusableView {
         set {
             titleLb.text = newValue
         }
+    }
+    
+    @IBAction func tapDetailBtn(_ sender: Any) {
     }
 }

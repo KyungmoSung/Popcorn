@@ -26,6 +26,7 @@ class SplashViewController: UIViewController {
     
     func setupTabBarController() {
         let homeVC = _HomeViewController()
+        homeVC.viewModel = HomeViewModel()
         homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
         
         let rankingVC = UIViewController()

@@ -11,99 +11,78 @@ import RxCocoa
 import RxDataSources
 
 class _HomeViewController: UIViewController {
-    typealias HomeSection = _Section<_SectionType.Home, _Content>
-    
+    private var disposeBag = DisposeBag()
+
+    var viewModel: HomeViewModel!
+
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var sections: [HomeSection] = []
-    var relay = BehaviorRelay<[HomeSection]>(value: [])
-    
-    var disposeBag = DisposeBag()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchContents()
+        bindViewModel()
         setupUI()
     }
     
-    func fetchContents() {
-        let params: [String: Any] = [
-            "page": 1
-        ]
+    private func bindViewModel() {
+        let ready = rx.viewWillAppear
+        let selectedIndex = collectionView.rx.itemSelected
+        let selectedSection = PublishRelay<Int>()
         
-        APIManager.request(AppConstants.API.Movie.getPopular, method: .get, params: params, responseType: PageResponse<_Movie>.self) { (result) in
-            switch result {
-            case .success(let response):
-                guard let items = response.results else {
-                    return
-                }
-                
-                self.updateSection(.movie(.popular), items: items)
-            case .failure(let error):
-                Log.d(error)
-            }
-        }
+        let input = HomeViewModel.Input(ready: ready.asDriver(),
+                                        selectedIndex: selectedIndex.asDriver(),
+                                        selectedSection: selectedSection.asDriver(onErrorJustReturn: 0))
         
-        APIManager.request(AppConstants.API.Movie.getTopRated, method: .get, params: params, responseType: PageResponse<_Movie>.self) { (result) in
-            switch result {
-            case .success(let response):
-                guard let items = response.results else {
-                    return
-                }
-                
-                self.updateSection(.movie(.topRated), items: items)
-            case .failure(let error):
-                Log.d(error)
-            }
-        }
-    }
-    
-    func updateSection(_ sectionType: _SectionType.Home, items: [_Content]) {
-        if let index = sections.firstIndex(where: { $0.sectionType == sectionType }) {
-            sections[index].items.append(contentsOf: items)
-        } else {
-            sections.append(HomeSection(sectionType: sectionType, items: items))
-        }
-        
-        relay.accept(sections)
-    }
-    
-    func setupUI() {
-        collectionView.collectionViewLayout = createCompositionalLayout()
-        
-        collectionView.register(cellType: HomePosterCell.self)
-        collectionView.register(reusableViewType: _SectionHeaderView.self)
-        
-        collectionView.rx
-            .modelSelected(_Content.self)
-            .subscribe(onNext: { content in
-                print(content.title)
-            })
-            .disposed(by: disposeBag)
-        
-        let dataSource = RxCollectionViewSectionedReloadDataSource<HomeSection> { dataSource, collectionView, indexPath, item in
+        let dataSource = RxCollectionViewSectionedReloadDataSource<HomeViewModel.HomeSection> { dataSource, collectionView, indexPath, viewModel in
             guard let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath) else {
                 return UICollectionViewCell()
             }
-            
-            cell.title = item.title
-            cell.posterImgPath = item.posterPath
-            cell.voteAverage = item.voteAverage
+        
+            cell.title = viewModel.title
+            cell.posterImgPath = viewModel.posterImgPath
+            cell.voteAverage = viewModel.voteAverage
             
             return cell
         } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
             guard let headerView = collectionView.dequeueReusableView(with: _SectionHeaderView.self, for: indexPath) else {
                 return UICollectionReusableView()
             }
+            let section = dataSource[indexPath.section]
             
-            headerView.title = self.sections[indexPath.section].sectionType.title
+            headerView.title = section.sectionType.title
+            headerView.detailBtn.rx.tap
+                .map{ indexPath.section }
+                .bind(to: selectedSection)
+                .disposed(by: self.disposeBag)
+            
             return headerView
         }
         
-        relay
-            .bind(to: collectionView.rx.items(dataSource: dataSource))
+        let output = viewModel.transform(input: input)
+        
+        output.contents
+            .drive(collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+        
+        
+        output.selectedContentID
+            .drive(onNext: { id in
+                print(id)
+            })
+            .disposed(by: disposeBag)
+            
+        output.selectedSection
+            .drive(onNext: { section in
+                print(section)
+            })
+            .disposed(by: disposeBag)
+    }
+        
+    func setupUI() {
+        collectionView.collectionViewLayout = createCompositionalLayout()
+        
+        collectionView.register(cellType: HomePosterCell.self)
+        collectionView.register(reusableViewType: _SectionHeaderView.self)
     }
 
     func createCompositionalLayout() -> UICollectionViewCompositionalLayout {

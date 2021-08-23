@@ -45,6 +45,9 @@
                                             </constraints>
                                             <color key="tintColor" systemColor="labelColor"/>
                                             <state key="normal" image="icMore"/>
+                                            <connections>
+                                                <action selector="tapDetailBtn:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="a2n-eH-UNg"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </stackView>
@@ -67,7 +70,7 @@
                 <constraint firstAttribute="trailing" secondItem="lVY-Zu-ZC2" secondAttribute="trailing" id="U1F-Hl-pFH"/>
             </constraints>
             <connections>
-                <outlet property="expandBtn" destination="rPR-co-oGf" id="s49-uB-lxg"/>
+                <outlet property="detailBtn" destination="rPR-co-oGf" id="s49-uB-lxg"/>
                 <outlet property="titleLb" destination="9lL-ef-OfB" id="MNb-eO-wfL"/>
             </connections>
             <point key="canvasLocation" x="-267" y="6"/>

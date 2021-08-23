@@ -63,6 +63,7 @@
 		CD06B5EE258853FE00E15540 /* TextTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD06B5EC258853FE00E15540 /* TextTagCell.swift */; };
 		CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD06B5ED258853FE00E15540 /* TextTagCell.xib */; };
 		CD39C67625BE8F7500408D05 /* DetailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD39C67525BE8F7500408D05 /* DetailInfo.swift */; };
+		CD67044426D38BDB00FA622E /* _RxExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD67044326D38BDB00FA622E /* _RxExtension.swift */; };
 		CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */; };
 		CD8F017E25C7C21700BD8FFD /* HeaderTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */; };
 		CD8F017F25C7C21700BD8FFD /* HeaderTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */; };
@@ -116,6 +117,9 @@
 		CDFF2FFC26CDE8A9001ABD89 /* _TVShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FFB26CDE8A9001ABD89 /* _TVShow.swift */; };
 		CDFF2FFE26CE3367001ABD89 /* _SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FFD26CE3367001ABD89 /* _SectionHeaderView.swift */; };
 		CDFF300426CE36CB001ABD89 /* _SectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */; };
+		CDFF300726CE430D001ABD89 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF300626CE430D001ABD89 /* HomeViewModel.swift */; };
+		CDFF300926CE4602001ABD89 /* VIewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF300826CE4602001ABD89 /* VIewModelType.swift */; };
+		CDFF300B26CF8183001ABD89 /* PosterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF300A26CF8183001ABD89 /* PosterViewModel.swift */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -200,6 +204,7 @@
 		CD06B5EC258853FE00E15540 /* TextTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTagCell.swift; sourceTree = "<group>"; };
 		CD06B5ED258853FE00E15540 /* TextTagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTagCell.xib; sourceTree = "<group>"; };
 		CD39C67525BE8F7500408D05 /* DetailInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfo.swift; sourceTree = "<group>"; };
+		CD67044326D38BDB00FA622E /* _RxExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _RxExtension.swift; sourceTree = "<group>"; };
 		CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NukeExtension.swift; sourceTree = "<group>"; };
 		CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleCell.swift; sourceTree = "<group>"; };
 		CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTitleCell.xib; sourceTree = "<group>"; };
@@ -261,6 +266,9 @@
 		CDFF2FFB26CDE8A9001ABD89 /* _TVShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _TVShow.swift; sourceTree = "<group>"; };
 		CDFF2FFD26CE3367001ABD89 /* _SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _SectionHeaderView.swift; sourceTree = "<group>"; };
 		CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _SectionHeaderView.xib; sourceTree = "<group>"; };
+		CDFF300626CE430D001ABD89 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		CDFF300826CE4602001ABD89 /* VIewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIewModelType.swift; sourceTree = "<group>"; };
+		CDFF300A26CF8183001ABD89 /* PosterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -384,6 +392,7 @@
 				CDB6D46F254BEB0F001B0AEB /* PagingCollectionViewLayout.swift */,
 				CDD711A025CBE00200D025CB /* FloatingLayout.swift */,
 				CD97164125DB911C009074E5 /* Config.swift */,
+				CDFF300826CE4602001ABD89 /* VIewModelType.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -401,6 +410,7 @@
 				244AA2B025875B1800754687 /* UIViewExtension.swift */,
 				2480521B25CFE98400C9F5B2 /* DateExtension.swift */,
 				244BF51B25D2726100100C66 /* OptionalExtension.swift */,
+				CD67044326D38BDB00FA622E /* _RxExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -516,6 +526,7 @@
 				CD06B5EC258853FE00E15540 /* TextTagCell.swift */,
 				CDFF2FFD26CE3367001ABD89 /* _SectionHeaderView.swift */,
 				CDD9F66825C152C400B83536 /* Xibs */,
+				CDFF300526CE42F2001ABD89 /* ViewModels */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -560,6 +571,15 @@
 				CDB6D421254BAB70001B0AEB /* HomeHorizontalSectionController.swift */,
 			);
 			path = HorizontalSectionController;
+			sourceTree = "<group>";
+		};
+		CDFF300526CE42F2001ABD89 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CDFF300626CE430D001ABD89 /* HomeViewModel.swift */,
+				CDFF300A26CF8183001ABD89 /* PosterViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		F2CE6D418E3B6F02793648D5 /* Frameworks */ = {
@@ -867,11 +887,14 @@
 				CDB6D47E254BF35B001B0AEB /* SectionItem.swift in Sources */,
 				CD8F018425C7C40300BD8FFD /* HeaderTitleSectionController.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
+				CDFF300726CE430D001ABD89 /* HomeViewModel.swift in Sources */,
 				244BF51C25D2726100100C66 /* OptionalExtension.swift in Sources */,
 				24987E9F25C981FB00CD4CDF /* TVShow.swift in Sources */,
 				CDFF2FFA26CDE8A7001ABD89 /* _Movie.swift in Sources */,
 				24E02D9125860B3800591234 /* Person.swift in Sources */,
 				CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */,
+				CDFF300B26CF8183001ABD89 /* PosterViewModel.swift in Sources */,
+				CD67044426D38BDB00FA622E /* _RxExtension.swift in Sources */,
 				CDFF2FFE26CE3367001ABD89 /* _SectionHeaderView.swift in Sources */,
 				CDFF2FF026CCF5F8001ABD89 /* _Section.swift in Sources */,
 				CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */,
@@ -910,6 +933,7 @@
 				CDB6D42A254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift in Sources */,
 				CDB6D525254FD329001B0AEB /* SplashViewController.swift in Sources */,
 				24C95D62259880840020C15C /* ReviewSectionController.swift in Sources */,
+				CDFF300926CE4602001ABD89 /* VIewModelType.swift in Sources */,
 				24C95D8B2599C4B20020C15C /* DetailHorizontalSectionController.swift in Sources */,
 				CDFF2FFC26CDE8A9001ABD89 /* _TVShow.swift in Sources */,
 				2480522425D000FE00C9F5B2 /* Company.swift in Sources */,
