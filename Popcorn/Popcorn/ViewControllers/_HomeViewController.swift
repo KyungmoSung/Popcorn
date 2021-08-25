@@ -64,7 +64,6 @@ class _HomeViewController: UIViewController {
             .drive(collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
         
-        
         output.selectedContentID
             .drive(onNext: { id in
                 print(id)
@@ -78,14 +77,14 @@ class _HomeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
         
-    func setupUI() {
+    private func setupUI() {
         collectionView.collectionViewLayout = createCompositionalLayout()
         
         collectionView.register(cellType: HomePosterCell.self)
         collectionView.register(reusableViewType: _SectionHeaderView.self)
     }
 
-    func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                               heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)

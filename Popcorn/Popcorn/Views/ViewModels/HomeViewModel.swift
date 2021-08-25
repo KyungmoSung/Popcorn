@@ -70,7 +70,7 @@ class HomeViewModel: ViewModelType {
                     single(.success(section))
                 case .failure(let error):
                     Log.d(error)
-                    single(.failure(error))
+                    single(.error(error))
                 }
             }
             return Disposables.create()
@@ -99,7 +99,7 @@ class HomeViewModel: ViewModelType {
                     single(.success(section))
                 case .failure(let error):
                     Log.d(error)
-                    single(.failure(error))
+                    single(.error(error))
                 }
             }
             return Disposables.create()
