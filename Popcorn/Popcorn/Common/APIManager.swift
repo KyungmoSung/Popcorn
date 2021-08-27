@@ -20,8 +20,8 @@ class APIManager {
         requestParams["api_key"] = AppConstants.Key.tmdb
         
         if Localization {
-            requestParams["language"] = Config.shared.language.iso_639_1
-            requestParams["region"] = Config.shared.region.iso_3166_1
+            requestParams["language"] = Config.shared.language.code
+            requestParams["region"] = Config.shared.region.code
         }
         
         var hTTPHeaders = HTTPHeaders.init()

@@ -8,12 +8,17 @@
 import Foundation
 
 class Country: Codable {
-    let iso_3166_1: ISO_3166_1
+    let code: ISO_3166_1
     let name: String?
     
-    init(iso_3166_1: ISO_3166_1) {
-        self.iso_3166_1 = iso_3166_1
-        self.name = iso_3166_1.name
+    private enum CodingKeys : String, CodingKey{
+        case code = "iso_3166_1"
+        case name
+    }
+    
+    init(code: ISO_3166_1) {
+        self.code = code
+        self.name = code.name
     }
 }
 

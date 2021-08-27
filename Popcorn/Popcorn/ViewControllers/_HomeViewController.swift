@@ -10,9 +10,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class _HomeViewController: UIViewController {
-    private var disposeBag = DisposeBag()
-
+class _HomeViewController: _BaseViewController {
     var viewModel: HomeViewModel!
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -20,16 +18,19 @@ class _HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bindViewModel()
         setupUI()
+        bindViewModel()
     }
     
     private func bindViewModel() {
-        let ready = rx.viewWillAppear
+        let viewWillAppear = rx.viewWillAppear.asObservable()
+        let localizeChanged = Observable.merge(languageChanged.asObservable(),
+                                               regionChanged.asObservable())
+        let ready = Observable.merge(viewWillAppear, localizeChanged)
         let selectedIndex = collectionView.rx.itemSelected
         let selectedSection = PublishRelay<Int>()
         
-        let input = HomeViewModel.Input(ready: ready.asDriver(),
+        let input = HomeViewModel.Input(ready: ready.asDriver(onErrorJustReturn: ()),
                                         selectedIndex: selectedIndex.asDriver(),
                                         selectedSection: selectedSection.asDriver(onErrorJustReturn: 0))
         
@@ -61,17 +62,19 @@ class _HomeViewController: UIViewController {
         let output = viewModel.transform(input: input)
         
         output.contents
+            .debug()
             .drive(collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
         
         output.selectedContentID
             .drive(onNext: { id in
-                print(id)
+                Localize.currentLanguage = Language(code: .ko)
             })
             .disposed(by: disposeBag)
             
         output.selectedSection
             .drive(onNext: { section in
+                Localize.currentLanguage = Language(code: .en)
                 print(section)
             })
             .disposed(by: disposeBag)

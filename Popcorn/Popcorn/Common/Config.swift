@@ -10,8 +10,8 @@ import Foundation
 class Config {
     static let shared = Config()
     
-    var language: Language = Language(iso_639_1: .en)
-    var region: Country = Country(iso_3166_1: .US)
+    var language: Language = Language(code: .en)
+    var region: Country = Country(code: .US)
     
     var allLanguages: [Language]?
     var allCountries: [Country]?
@@ -24,15 +24,16 @@ class Config {
     var group = DispatchGroup()
     
     func fetch(completion: @escaping () -> Void) {
-        fetchConfiguration()
-        fetchGenres()
-        
-        // 모든 설정 요청들이 완료되면 completion 호출
-        group.notify(queue: DispatchQueue.global()) {
-            DispatchQueue.main.async {
-                completion()
-            }
-        }
+        completion()
+//        fetchConfiguration()
+//        fetchGenres()
+//
+//        // 모든 설정 요청들이 완료되면 completion 호출
+//        group.notify(queue: DispatchQueue.global()) {
+//            DispatchQueue.main.async {
+//                completion()
+//            }
+//        }
     }
     
     func fetchConfiguration() {

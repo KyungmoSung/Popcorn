@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Moya
 
 class HomeViewModel: ViewModelType {
     typealias HomeSection = _Section<_SectionType.Home, PosterViewModel>
@@ -25,18 +26,35 @@ class HomeViewModel: ViewModelType {
         let selectedSection: Driver<_SectionType.Home>
     }
     
+    private let networkService: TmdbService
+    
+    init(networkService: TmdbService = TmdbAPI()) {
+        self.networkService = networkService
+    }
+    
     func transform(input: Input) -> Output {
         let result = input.ready
             .asObservable()
-            .flatMap {
-                Observable.zip(self.fetchPopular().asObservable(),
-                               self.fetchTopRated().asObservable())
+            .flatMapLatest {
+                Observable.combineLatest(
+                    self.networkService.nowPlayingMovies(page: 1),
+                    self.networkService.popularMovies(page: 1)
+                )
             }
-            .map { popular, topRated in
-                return [popular, topRated]
+            .map { nowPlaying, popular -> [HomeSection] in
+                let nowPlayingViewModels = nowPlaying.map { PosterViewModel(with: $0) }
+                let popularViewModels = popular.map { PosterViewModel(with: $0) }
+                
+                let sections: [HomeSection] = [
+                    HomeSection(sectionType: .movie(.nowPlaying),
+                                items: nowPlayingViewModels),
+                    HomeSection(sectionType: .movie(.popular),
+                                items: popularViewModels)
+                ]
+                return sections
             }
             .asDriver(onErrorJustReturn: [])
-        
+
         let selectedContentsID = input.selectedIndex
             .withLatestFrom(result) { indexPath, result in
                 return result[indexPath.section].items[indexPath.row].id
@@ -48,61 +66,5 @@ class HomeViewModel: ViewModelType {
             }
         
         return Output(contents: result, selectedContentID: selectedContentsID, selectedSection: selectedSection)
-    }
-    
-    func fetchPopular() -> Single<HomeSection> {
-        return Single.create { single in
-            let params: [String: Any] = [
-                "page": 1
-            ]
-            
-            APIManager.request(AppConstants.API.Movie.getPopular, method: .get, params: params, responseType: PageResponse<_Movie>.self) { (result) in
-                switch result {
-                case .success(let response):
-                    guard let items = response.results else {
-                        return
-                    }
-                    
-                    let viewModels = items.map {
-                        PosterViewModel(with: $0)
-                    }
-                    let section = HomeSection(sectionType: .movie(.popular), items: viewModels)
-                    single(.success(section))
-                case .failure(let error):
-                    Log.d(error)
-                    single(.error(error))
-                }
-            }
-            return Disposables.create()
-        }
-    }
-    
-    
-    func fetchTopRated() -> Single<HomeSection> {
-        return Single.create { single in
-            let params: [String: Any] = [
-                "page": 1
-            ]
-            
-            APIManager.request(AppConstants.API.Movie.getTopRated, method: .get, params: params, responseType: PageResponse<_Movie>.self) { (result) in
-                switch result {
-                case .success(let response):
-                    guard let items = response.results else {
-                        return
-                    }
-                    
-                    let viewModels = items.map {
-                        PosterViewModel(with: $0)
-                    }
-                    let section = HomeSection(sectionType: .movie(.topRated), items: viewModels)
-
-                    single(.success(section))
-                case .failure(let error):
-                    Log.d(error)
-                    single(.error(error))
-                }
-            }
-            return Disposables.create()
-        }
     }
 }
