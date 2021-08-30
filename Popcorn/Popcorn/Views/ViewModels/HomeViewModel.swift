@@ -34,20 +34,22 @@ class HomeViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        let trigger = Observable.combineLatest(input.ready.asObservable(),
-                                               input.localizeChanged.asObservable(),
+        let refreshTrigger = Observable.merge(input.ready.asObservable(),
+                                             input.localizeChanged.asObservable())
+        
+        let updateTrigger = Observable.combineLatest(refreshTrigger,
                                                input.contentsTypeSelection.asObservable()
                                                 .startWith(ContentsType.movies)
                                                 .distinctUntilChanged())
 
-        let result = trigger
-            .flatMap { _, _, contentsType -> Observable<[HomeSection]> in
+        let result = updateTrigger
+            .flatMap { _, contentsType -> Observable<[HomeSection]> in
                 switch contentsType {
                 case .movies:
                     return Observable.combineLatest(
                         MovieChart.allCases.map { chart in
                             self.networkService.movies(chart: chart, page: 1)
-                                .map { $0.map { PosterViewModel(with: $0) } }
+                                .map { $0.map { PosterViewModel(with: $0, heroID: chart.title + "\($0.id)") }}
                                 .map { HomeSection(section: .movie(chart), items: $0) }
                         }
                     )
@@ -55,7 +57,7 @@ class HomeViewModel: ViewModelType {
                     return Observable.combineLatest(
                         TVShowChart.allCases.map { chart in
                             self.networkService.tvShows(chart: chart, page: 1)
-                                .map { $0.map { PosterViewModel(with: $0) } }
+                                .map { $0.map { PosterViewModel(with: $0, heroID: chart.title + "\($0.id)") }}
                                 .map { HomeSection(section: .tvShow(chart), items: $0) }
                         }
                     )

@@ -44,9 +44,7 @@ class _HomeViewController: _BaseViewController {
                 return UICollectionViewCell()
             }
             
-            cell.title = viewModel.title
-            cell.posterImgPath = viewModel.posterImgPath
-            cell.voteAverage = viewModel.voteAverage
+            cell.bind(viewModel)
             
             return cell
         } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in

@@ -102,18 +102,18 @@ class PosterSectionController: ListSectionController {
             } else {
                 cell.hideSkeleton(transition: .crossDissolve(0.3))
                 
-                cell.posterImgPath = item.posterPath
-                cell.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(item.id)"
-                cell.voteAverage = item.voteAverage
-                
-                switch item {
-                case let movie as Movie:
-                    cell.title = movie.title
-                case let tvShow as TVShow:
-                    cell.title = tvShow.name
-                default:
-                    break
-                }
+//                cell.posterImgPath = item.posterPath
+//                cell.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(item.id)"
+//                cell.voteAverage = item.voteAverage
+//
+//                switch item {
+//                case let movie as Movie:
+//                    cell.title = movie.title
+//                case let tvShow as TVShow:
+//                    cell.title = tvShow.name
+//                default:
+//                    break
+//                }
             }
             return cell
         }
@@ -132,7 +132,7 @@ class PosterSectionController: ListSectionController {
         
         if let cell = collectionContext?.cellForItem(at: index, sectionController: self) as? HomePosterCell {
             vc.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(contents.id)"
-            vc.posterHeroImage = cell.posterImage
+//            vc.posterHeroImage = cell.posterImage
         }
             
         viewController?.navigationController?.hero.navigationAnimationType = .fade
