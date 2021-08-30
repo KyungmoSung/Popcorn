@@ -68,6 +68,7 @@
 		CD5D612A26D7685300FE3FB4 /* _BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */; };
 		CD5D612C26D772F000FE3FB4 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612B26D772F000FE3FB4 /* Localize.swift */; };
 		CD5D612E26D777B700FE3FB4 /* NSNotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612D26D777B700FE3FB4 /* NSNotificationExtension.swift */; };
+		CD5D613026D8B13200FE3FB4 /* _Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612F26D8B13200FE3FB4 /* _Chart.swift */; };
 		CD67044426D38BDB00FA622E /* _RxExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD67044326D38BDB00FA622E /* _RxExtension.swift */; };
 		CD67044826D5CA6D00FA622E /* TmdbTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD67044726D5CA6D00FA622E /* TmdbTarget.swift */; };
 		CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */; };
@@ -116,8 +117,8 @@
 		CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9F66925C153AF00B83536 /* AnyValue.swift */; };
 		CDFF2FA426BA6769001ABD89 /* _HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */; };
 		CDFF2FA526BA6769001ABD89 /* _HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */; };
-		CDFF2FF026CCF5F8001ABD89 /* _Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FEF26CCF5F8001ABD89 /* _Section.swift */; };
-		CDFF2FF226CCF603001ABD89 /* _SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FF126CCF603001ABD89 /* _SectionType.swift */; };
+		CDFF2FF026CCF5F8001ABD89 /* _SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FEF26CCF5F8001ABD89 /* _SectionItem.swift */; };
+		CDFF2FF226CCF603001ABD89 /* _Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FF126CCF603001ABD89 /* _Section.swift */; };
 		CDFF2FF826CDE82C001ABD89 /* _Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FF726CDE82C001ABD89 /* _Contents.swift */; };
 		CDFF2FFA26CDE8A7001ABD89 /* _Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FF926CDE8A7001ABD89 /* _Movie.swift */; };
 		CDFF2FFC26CDE8A9001ABD89 /* _TVShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FFB26CDE8A9001ABD89 /* _TVShow.swift */; };
@@ -215,6 +216,7 @@
 		CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _BaseViewController.swift; sourceTree = "<group>"; };
 		CD5D612B26D772F000FE3FB4 /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
 		CD5D612D26D777B700FE3FB4 /* NSNotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotificationExtension.swift; sourceTree = "<group>"; };
+		CD5D612F26D8B13200FE3FB4 /* _Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Chart.swift; sourceTree = "<group>"; };
 		CD67044326D38BDB00FA622E /* _RxExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _RxExtension.swift; sourceTree = "<group>"; };
 		CD67044726D5CA6D00FA622E /* TmdbTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbTarget.swift; sourceTree = "<group>"; };
 		CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NukeExtension.swift; sourceTree = "<group>"; };
@@ -271,8 +273,8 @@
 		CDD9F66925C153AF00B83536 /* AnyValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
 		CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _HomeViewController.swift; sourceTree = "<group>"; };
 		CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _HomeViewController.xib; sourceTree = "<group>"; };
-		CDFF2FEF26CCF5F8001ABD89 /* _Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Section.swift; sourceTree = "<group>"; };
-		CDFF2FF126CCF603001ABD89 /* _SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _SectionType.swift; sourceTree = "<group>"; };
+		CDFF2FEF26CCF5F8001ABD89 /* _SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _SectionItem.swift; sourceTree = "<group>"; };
+		CDFF2FF126CCF603001ABD89 /* _Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Section.swift; sourceTree = "<group>"; };
 		CDFF2FF726CDE82C001ABD89 /* _Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Contents.swift; sourceTree = "<group>"; };
 		CDFF2FF926CDE8A7001ABD89 /* _Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Movie.swift; sourceTree = "<group>"; };
 		CDFF2FFB26CDE8A9001ABD89 /* _TVShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _TVShow.swift; sourceTree = "<group>"; };
@@ -490,8 +492,9 @@
 				24C98B3125C990AD00792D8A /* Country.swift */,
 				2480522325D000FE00C9F5B2 /* Company.swift */,
 				CD9A69E925DE29AE006CAD6A /* Credit.swift */,
-				CDFF2FEF26CCF5F8001ABD89 /* _Section.swift */,
-				CDFF2FF126CCF603001ABD89 /* _SectionType.swift */,
+				CDFF2FEF26CCF5F8001ABD89 /* _SectionItem.swift */,
+				CDFF2FF126CCF603001ABD89 /* _Section.swift */,
+				CD5D612F26D8B13200FE3FB4 /* _Chart.swift */,
 				CDFF2FF726CDE82C001ABD89 /* _Contents.swift */,
 				CDFF2FF926CDE8A7001ABD89 /* _Movie.swift */,
 				CDFF2FFB26CDE8A9001ABD89 /* _TVShow.swift */,
@@ -915,6 +918,7 @@
 				CDB6D432254BB132001B0AEB /* IGListKitExtension.swift in Sources */,
 				CDB6D47E254BF35B001B0AEB /* SectionItem.swift in Sources */,
 				CD8F018425C7C40300BD8FFD /* HeaderTitleSectionController.swift in Sources */,
+				CD5D613026D8B13200FE3FB4 /* _Chart.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
 				CDFF300726CE430D001ABD89 /* HomeViewModel.swift in Sources */,
 				244BF51C25D2726100100C66 /* OptionalExtension.swift in Sources */,
@@ -926,7 +930,7 @@
 				CD5D612C26D772F000FE3FB4 /* Localize.swift in Sources */,
 				CD67044426D38BDB00FA622E /* _RxExtension.swift in Sources */,
 				CDFF2FFE26CE3367001ABD89 /* _SectionHeaderView.swift in Sources */,
-				CDFF2FF026CCF5F8001ABD89 /* _Section.swift in Sources */,
+				CDFF2FF026CCF5F8001ABD89 /* _SectionItem.swift in Sources */,
 				CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */,
 				2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */,
 				242D62EB2593782D00450120 /* InfoCardCell.swift in Sources */,
@@ -939,7 +943,7 @@
 				CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */,
 				CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */,
 				24A4292B25AAE3AF00845C94 /* SynopsisSectionController.swift in Sources */,
-				CDFF2FF226CCF603001ABD89 /* _SectionType.swift in Sources */,
+				CDFF2FF226CCF603001ABD89 /* _Section.swift in Sources */,
 				CDB6D422254BAB70001B0AEB /* HomeHorizontalSectionController.swift in Sources */,
 				242D62FE25939D5100450120 /* NumberExtension.swift in Sources */,
 				242D62E5259377D100450120 /* InfoCardSectionController.swift in Sources */,

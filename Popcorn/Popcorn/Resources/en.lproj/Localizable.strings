@@ -12,8 +12,8 @@ nowPlaying = "Now Playing";
 popular = "Popular";
 topRated = "Top Rated";
 upcoming = "Upcoming";
-tvAiringToday = "Airing Today";
-tvOnTheAir = "On The Air";
+airingToday = "Airing Today";
+onTheAir = "On The Air";
 
 detail = "Details";
 synopsis = "Synopsis";

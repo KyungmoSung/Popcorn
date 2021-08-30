@@ -14,6 +14,8 @@ class _HomeViewController: _BaseViewController {
     var viewModel: HomeViewModel!
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var moviesBtn: UIButton!
+    @IBOutlet weak var showsBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +29,16 @@ class _HomeViewController: _BaseViewController {
         let localizeChanged = Observable.merge(languageChanged.asObservable(),
                                                regionChanged.asObservable())
         let ready = Observable.merge(viewWillAppear, localizeChanged)
+        
+        let tapContentsType = Observable.merge(moviesBtn.rx.tap.map { ContentsType.movies },
+                                               showsBtn.rx.tap.map { ContentsType.tvShows })
+            .startWith(ContentsType.movies)
+        
         let selectedIndex = collectionView.rx.itemSelected
         let selectedSection = PublishRelay<Int>()
         
         let input = HomeViewModel.Input(ready: ready.asDriver(onErrorJustReturn: ()),
+                                        changeContentsType: tapContentsType.asDriver(onErrorJustReturn: .movies),
                                         selectedIndex: selectedIndex.asDriver(),
                                         selectedSection: selectedSection.asDriver(onErrorJustReturn: 0))
         
@@ -50,9 +58,10 @@ class _HomeViewController: _BaseViewController {
             }
             let section = dataSource[indexPath.section]
             
-            headerView.title = section.sectionType.title
+            headerView.title = section.section.title
+            headerView.detailBtn.tag = indexPath.section
             headerView.detailBtn.rx.tap
-                .map{ indexPath.section }
+                .map{ headerView.detailBtn.tag }
                 .bind(to: selectedSection)
                 .disposed(by: self.disposeBag)
             
@@ -68,13 +77,12 @@ class _HomeViewController: _BaseViewController {
         
         output.selectedContentID
             .drive(onNext: { id in
-                Localize.currentLanguage = Language(code: .ko)
+                print(id)
             })
             .disposed(by: disposeBag)
             
         output.selectedSection
             .drive(onNext: { section in
-                Localize.currentLanguage = Language(code: .en)
                 print(section)
             })
             .disposed(by: disposeBag)

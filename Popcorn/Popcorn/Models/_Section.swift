@@ -6,18 +6,19 @@
 //
 
 import Foundation
-import RxDataSources
 
-struct _Section<T, E> {
-    var sectionType: T
-    var items: [Item]
-}
-
-extension _Section: SectionModelType {
-    typealias Item = E
-    
-    init(original: _Section, items: [E]) {
-        self = original
-        self.items = items
+struct _Section {
+    enum Home: Equatable {
+        case movie(MovieChart)
+        case tvShow(TVShowChart)
+        
+        var title: String {
+            switch self {
+            case .movie(let chart):
+                return chart.title
+            case .tvShow(let chart):
+                return chart.title
+            }
+        }
     }
 }

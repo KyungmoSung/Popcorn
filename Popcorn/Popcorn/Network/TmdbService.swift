@@ -11,14 +11,11 @@ import RxSwift
 typealias TmdbService = TmdbMoviesService & TmdbTVShowsService & TmdbPeopleService & TmdbAuthService
 
 protocol TmdbMoviesService {
-    func popularMovies(page: Int) -> Observable<[_Movie]>
-    func topRatedMovies(page: Int) -> Observable<[_Movie]>
-    func nowPlayingMovies(page: Int) -> Observable<[_Movie]>
-    func upcomingMovies(page: Int) -> Observable<[_Movie]>
+    func movies(chart: MovieChart, page: Int) -> Observable<[_Movie]>
 }
 
 protocol TmdbTVShowsService {
-    
+    func tvShows(chart: TVShowChart, page: Int) -> Observable<[_TVShow]>
 }
 
 protocol TmdbPeopleService {

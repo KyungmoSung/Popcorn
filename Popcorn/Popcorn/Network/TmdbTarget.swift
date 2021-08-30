@@ -15,6 +15,11 @@ enum TmdbTarget {
     case topRatedMovies(page: Int, language: Language, region: Country)
     case nowPlayingMovies(page: Int, language: Language, region: Country)
     case upcomingMovies(page: Int, language: Language, region: Country)
+    
+    case airingTodayTvShows(page: Int, language: Language, region: Country)
+    case onTheAirTvShows(page: Int, language: Language, region: Country)
+    case popularTvShows(page: Int, language: Language, region: Country)
+    case topRatedTvShows(page: Int, language: Language, region: Country)
 }
 
 extension TmdbTarget: TargetType {
@@ -24,19 +29,30 @@ extension TmdbTarget: TargetType {
     
     var path: String {
         switch self {
-        case .popularMovies: return "/movie/popular"
-        case .topRatedMovies: return "/movie/top_rated"
-        case .nowPlayingMovies: return "/movie/now_playing"
-        case .upcomingMovies: return "/movie/upcoming"
+        case .popularMovies:        return "/movie/popular"
+        case .topRatedMovies:       return "/movie/top_rated"
+        case .nowPlayingMovies:     return "/movie/now_playing"
+        case .upcomingMovies:       return "/movie/upcoming"
+            
+        case .airingTodayTvShows:   return "/tv/airing_today"
+        case .onTheAirTvShows:      return "/tv/on_the_air"
+        case .popularTvShows:       return "/tv/popular"
+        case .topRatedTvShows:      return "/tv/top_rated"
+            
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .popularMovies: return .get
-        case .topRatedMovies: return .get
-        case .nowPlayingMovies: return .get
-        case .upcomingMovies: return .get
+        case .popularMovies:        return .get
+        case .topRatedMovies:       return .get
+        case .nowPlayingMovies:     return .get
+        case .upcomingMovies:       return .get
+
+        case .airingTodayTvShows:   return .get
+        case .onTheAirTvShows:      return .get
+        case .popularTvShows:       return .get
+        case .topRatedTvShows:      return .get
         }
     }
     
@@ -49,7 +65,11 @@ extension TmdbTarget: TargetType {
         case let .popularMovies(page, language, region),
              let .topRatedMovies(page, language, region),
              let .nowPlayingMovies(page, language, region),
-             let .upcomingMovies(page, language, region):
+             let .upcomingMovies(page, language, region),
+             let .airingTodayTvShows(page, language, region),
+             let .onTheAirTvShows(page, language, region),
+             let .popularTvShows(page, language, region),
+             let .topRatedTvShows(page, language, region):
             let params: [String: Any] = [
                 "api_key": TmdbTarget.key,
                 "language": language.code.rawValue,

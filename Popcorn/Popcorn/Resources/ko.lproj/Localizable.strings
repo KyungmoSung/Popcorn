@@ -12,8 +12,8 @@ nowPlaying = "현재 상영 중";
 popular = "인기";
 topRated = "높은 평점";
 upcoming = "개봉 예정";
-tvAiringToday = "Airing Today";
-tvOnTheAir = "On The Air";
+airingToday = "Airing Today";
+onTheAir = "On The Air";
 
 detail = "상세 정보";
 synopsis = "시놉시스";
