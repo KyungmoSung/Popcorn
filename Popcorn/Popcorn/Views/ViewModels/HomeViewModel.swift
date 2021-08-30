@@ -15,9 +15,10 @@ class HomeViewModel: ViewModelType {
     
     struct Input {
         let ready: Driver<Void>
-        let changeContentsType: Driver<ContentsType>
-        let selectedIndex: Driver<IndexPath>
-        let selectedSection: Driver<Int>
+        let localizeChanged: Driver<Void>
+        let contentsTypeSelection: Driver<ContentsType>
+        let headerSelection: Driver<Int>
+        let selection: Driver<IndexPath>
     }
     
     struct Output {
@@ -33,14 +34,14 @@ class HomeViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        let trigger = Observable.combineLatest(input.ready
-                                                .asObservable(),
-                                               input.changeContentsType
-                                                .distinctUntilChanged()
-                                                .asObservable())
+        let trigger = Observable.combineLatest(input.ready.asObservable(),
+                                               input.localizeChanged.asObservable(),
+                                               input.contentsTypeSelection.asObservable()
+                                                .startWith(ContentsType.movies)
+                                                .distinctUntilChanged())
 
         let result = trigger
-            .flatMap { _, contentsType -> Observable<[HomeSection]> in
+            .flatMap { _, _, contentsType -> Observable<[HomeSection]> in
                 switch contentsType {
                 case .movies:
                     return Observable.combineLatest(
@@ -62,12 +63,12 @@ class HomeViewModel: ViewModelType {
             }
             .asDriver(onErrorJustReturn: [])
         
-        let selectedContentsID = input.selectedIndex
+        let selectedContentsID = input.selection
             .withLatestFrom(result) { indexPath, result in
                 return result[indexPath.section].items[indexPath.row].id
             }
         
-        let selectedSection = input.selectedSection
+        let selectedSection = input.headerSelection
             .withLatestFrom(result) { section, result in
                 return result[section].section
             }

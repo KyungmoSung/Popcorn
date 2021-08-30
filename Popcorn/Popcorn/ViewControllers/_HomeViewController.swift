@@ -25,28 +25,25 @@ class _HomeViewController: _BaseViewController {
     }
     
     private func bindViewModel() {
-        let viewWillAppear = rx.viewWillAppear.asObservable()
         let localizeChanged = Observable.merge(languageChanged.asObservable(),
                                                regionChanged.asObservable())
-        let ready = Observable.merge(viewWillAppear, localizeChanged)
         
         let tapContentsType = Observable.merge(moviesBtn.rx.tap.map { ContentsType.movies },
                                                showsBtn.rx.tap.map { ContentsType.tvShows })
-            .startWith(ContentsType.movies)
         
-        let selectedIndex = collectionView.rx.itemSelected
         let selectedSection = PublishRelay<Int>()
         
-        let input = HomeViewModel.Input(ready: ready.asDriver(onErrorJustReturn: ()),
-                                        changeContentsType: tapContentsType.asDriver(onErrorJustReturn: .movies),
-                                        selectedIndex: selectedIndex.asDriver(),
-                                        selectedSection: selectedSection.asDriver(onErrorJustReturn: 0))
+        let input = HomeViewModel.Input(ready: rx.viewWillAppear.asDriver(),
+                                        localizeChanged: localizeChanged.asDriver(onErrorJustReturn: ()),
+                                        contentsTypeSelection: tapContentsType.asDriver(onErrorJustReturn: .movies),
+                                        headerSelection: selectedSection.asDriver(onErrorJustReturn: 0),
+                                        selection: collectionView.rx.itemSelected.asDriver())
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<HomeViewModel.HomeSection> { dataSource, collectionView, indexPath, viewModel in
             guard let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath) else {
                 return UICollectionViewCell()
             }
-        
+            
             cell.title = viewModel.title
             cell.posterImgPath = viewModel.posterImgPath
             cell.voteAverage = viewModel.voteAverage
