@@ -39,7 +39,7 @@ class _HomeViewController: _BaseViewController {
                                         headerSelection: selectedSection.asDriver(onErrorJustReturn: 0),
                                         selection: collectionView.rx.itemSelected.asDriver())
         
-        let dataSource = RxCollectionViewSectionedReloadDataSource<HomeViewModel.HomeSection> { dataSource, collectionView, indexPath, viewModel in
+        let dataSource = RxCollectionViewSectionedReloadDataSource<HomeViewModel.HomeSectionItem> { dataSource, collectionView, indexPath, viewModel in
             guard let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath) else {
                 return UICollectionViewCell()
             }

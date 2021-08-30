@@ -20,6 +20,10 @@ class _SectionHeaderView: UICollectionReusableView {
         }
     }
     
+    func bind(_ viewModel: SectionHeaderViewModel) {
+        titleLb.text = viewModel.section.title
+    }
+    
     @IBAction func tapDetailBtn(_ sender: Any) {
     }
 }

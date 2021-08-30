@@ -11,7 +11,7 @@ import RxCocoa
 import Moya
 
 class HomeViewModel: ViewModelType {
-    typealias HomeSection = _SectionItem<_Section.Home, PosterViewModel>
+    typealias HomeSectionItem = _SectionItem<HomeSection, PosterItemViewModel>
     
     struct Input {
         let ready: Driver<Void>
@@ -22,9 +22,9 @@ class HomeViewModel: ViewModelType {
     }
     
     struct Output {
-        let contents: Driver<[HomeSection]>
+        let contents: Driver<[HomeSectionItem]>
         let selectedContentID: Driver<Int>
-        let selectedSection: Driver<_Section.Home>
+        let selectedSection: Driver<HomeSection>
     }
     
     private let networkService: TmdbService
@@ -43,22 +43,22 @@ class HomeViewModel: ViewModelType {
                                                 .distinctUntilChanged())
 
         let result = updateTrigger
-            .flatMap { _, contentsType -> Observable<[HomeSection]> in
+            .flatMap { _, contentsType -> Observable<[HomeSectionItem]> in
                 switch contentsType {
                 case .movies:
                     return Observable.combineLatest(
                         MovieChart.allCases.map { chart in
                             self.networkService.movies(chart: chart, page: 1)
-                                .map { $0.map { PosterViewModel(with: $0, heroID: chart.title + "\($0.id)") }}
-                                .map { HomeSection(section: .movie(chart), items: $0) }
+                                .map { $0.map { PosterItemViewModel(with: $0, heroID: chart.title + "\($0.id)") }}
+                                .map { HomeSectionItem(section: .movie(chart), items: $0) }
                         }
                     )
                 case .tvShows:
                     return Observable.combineLatest(
                         TVShowChart.allCases.map { chart in
                             self.networkService.tvShows(chart: chart, page: 1)
-                                .map { $0.map { PosterViewModel(with: $0, heroID: chart.title + "\($0.id)") }}
-                                .map { HomeSection(section: .tvShow(chart), items: $0) }
+                                .map { $0.map { PosterItemViewModel(with: $0, heroID: chart.title + "\($0.id)") }}
+                                .map { HomeSectionItem(section: .tvShow(chart), items: $0) }
                         }
                     )
                 }

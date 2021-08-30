@@ -8,7 +8,7 @@
 import Foundation
 import RxDataSources
 
-struct _SectionItem<T: Equatable, E> {
+struct _SectionItem<T: _SectionType, E> {
     var section: T
     var items: [Item]
 }

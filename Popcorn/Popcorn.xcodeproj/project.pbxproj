@@ -63,6 +63,7 @@
 		CD06B5EE258853FE00E15540 /* TextTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD06B5EC258853FE00E15540 /* TextTagCell.swift */; };
 		CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD06B5ED258853FE00E15540 /* TextTagCell.xib */; };
 		CD39C67625BE8F7500408D05 /* DetailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD39C67525BE8F7500408D05 /* DetailInfo.swift */; };
+		CD54010D26DC798D00EA9900 /* SectionHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD54010C26DC798D00EA9900 /* SectionHeaderViewModel.swift */; };
 		CD5D612626D7251800FE3FB4 /* TmdbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612526D7251800FE3FB4 /* TmdbService.swift */; };
 		CD5D612826D725F100FE3FB4 /* TmdbAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612726D725F100FE3FB4 /* TmdbAPI.swift */; };
 		CD5D612A26D7685300FE3FB4 /* _BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */; };
@@ -126,7 +127,7 @@
 		CDFF300426CE36CB001ABD89 /* _SectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */; };
 		CDFF300726CE430D001ABD89 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF300626CE430D001ABD89 /* HomeViewModel.swift */; };
 		CDFF300926CE4602001ABD89 /* VIewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF300826CE4602001ABD89 /* VIewModelType.swift */; };
-		CDFF300B26CF8183001ABD89 /* PosterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF300A26CF8183001ABD89 /* PosterViewModel.swift */; };
+		CDFF300B26CF8183001ABD89 /* PosterItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF300A26CF8183001ABD89 /* PosterItemViewModel.swift */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -211,6 +212,7 @@
 		CD06B5EC258853FE00E15540 /* TextTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTagCell.swift; sourceTree = "<group>"; };
 		CD06B5ED258853FE00E15540 /* TextTagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTagCell.xib; sourceTree = "<group>"; };
 		CD39C67525BE8F7500408D05 /* DetailInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfo.swift; sourceTree = "<group>"; };
+		CD54010C26DC798D00EA9900 /* SectionHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderViewModel.swift; sourceTree = "<group>"; };
 		CD5D612526D7251800FE3FB4 /* TmdbService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbService.swift; sourceTree = "<group>"; };
 		CD5D612726D725F100FE3FB4 /* TmdbAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbAPI.swift; sourceTree = "<group>"; };
 		CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _BaseViewController.swift; sourceTree = "<group>"; };
@@ -282,7 +284,7 @@
 		CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _SectionHeaderView.xib; sourceTree = "<group>"; };
 		CDFF300626CE430D001ABD89 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		CDFF300826CE4602001ABD89 /* VIewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIewModelType.swift; sourceTree = "<group>"; };
-		CDFF300A26CF8183001ABD89 /* PosterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterViewModel.swift; sourceTree = "<group>"; };
+		CDFF300A26CF8183001ABD89 /* PosterItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterItemViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,6 +343,38 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CD54010E26DC946800EA9900 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				CD54010F26DC949400EA9900 /* Home */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		CD54010F26DC949400EA9900 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */,
+				CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */,
+				CDFF300626CE430D001ABD89 /* HomeViewModel.swift */,
+				CDFF300A26CF8183001ABD89 /* PosterItemViewModel.swift */,
+				CD54010C26DC798D00EA9900 /* SectionHeaderViewModel.swift */,
+				CD54011026DC94AD00EA9900 /* Views */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		CD54011026DC94AD00EA9900 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CDB6D450254BCC10001B0AEB /* HomePosterCell.swift */,
+				CDB6D451254BCC10001B0AEB /* HomePosterCell.xib */,
+				CDFF2FFD26CE3367001ABD89 /* _SectionHeaderView.swift */,
+				CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		CD67044626D5CA3800FA622E /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,6 +420,7 @@
 				CDD9F66225C14CF900B83536 /* SectionControllers */,
 				CDD9F66125C14CE800B83536 /* ViewControllers */,
 				CDD9F66325C14D0700B83536 /* Views */,
+				CD54010E26DC946800EA9900 /* Scenes */,
 			);
 			path = Popcorn;
 			sourceTree = "<group>";
@@ -509,8 +544,6 @@
 				CDBD141D256E388A003F625F /* ContentsDetailViewController.swift */,
 				247FF85A25BD604F00BC73D2 /* ContentsListViewController.swift */,
 				CDB6D3F4254AA4FE001B0AEB /* HomeViewController.swift */,
-				CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */,
-				CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */,
 				246A3A2225C692AF002CEFF7 /* PersonDetailViewController.swift */,
 				CDB6D523254FD328001B0AEB /* SplashViewController.swift */,
 				CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */,
@@ -544,7 +577,6 @@
 				CDB6D429254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift */,
 				CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */,
 				CDB6D53A2550DA40001B0AEB /* HomeBackdropCell.swift */,
-				CDB6D450254BCC10001B0AEB /* HomePosterCell.swift */,
 				242D62E92593782D00450120 /* InfoCardCell.swift */,
 				24ED62C32585EBF200FC98B3 /* MediaImageCell.swift */,
 				24E02D702585FE0A00591234 /* MediaVideoCell.swift */,
@@ -553,7 +585,6 @@
 				24A4292F25AAE41500845C94 /* SynopsisCell.swift */,
 				24ED629B25836A8100FC98B3 /* TextTabCell.swift */,
 				CD06B5EC258853FE00E15540 /* TextTagCell.swift */,
-				CDFF2FFD26CE3367001ABD89 /* _SectionHeaderView.swift */,
 				CDD9F66825C152C400B83536 /* Xibs */,
 				CDFF300526CE42F2001ABD89 /* ViewModels */,
 			);
@@ -579,7 +610,6 @@
 				2457E33D25864BBE005CE9FB /* CreditCell.xib */,
 				CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */,
 				CDB6D53B2550DA40001B0AEB /* HomeBackdropCell.xib */,
-				CDB6D451254BCC10001B0AEB /* HomePosterCell.xib */,
 				242D62EA2593782D00450120 /* InfoCardCell.xib */,
 				24ED62C42585EBF200FC98B3 /* MediaImageCell.xib */,
 				24E02D6F2585FE0A00591234 /* MediaVideoCell.xib */,
@@ -588,7 +618,6 @@
 				24A4293025AAE41500845C94 /* SynopsisCell.xib */,
 				24ED629C25836A8100FC98B3 /* TextTabCell.xib */,
 				CD06B5ED258853FE00E15540 /* TextTagCell.xib */,
-				CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -605,8 +634,6 @@
 		CDFF300526CE42F2001ABD89 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				CDFF300626CE430D001ABD89 /* HomeViewModel.swift */,
-				CDFF300A26CF8183001ABD89 /* PosterViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -926,7 +953,7 @@
 				CDFF2FFA26CDE8A7001ABD89 /* _Movie.swift in Sources */,
 				24E02D9125860B3800591234 /* Person.swift in Sources */,
 				CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */,
-				CDFF300B26CF8183001ABD89 /* PosterViewModel.swift in Sources */,
+				CDFF300B26CF8183001ABD89 /* PosterItemViewModel.swift in Sources */,
 				CD5D612C26D772F000FE3FB4 /* Localize.swift in Sources */,
 				CD67044426D38BDB00FA622E /* _RxExtension.swift in Sources */,
 				CDFF2FFE26CE3367001ABD89 /* _SectionHeaderView.swift in Sources */,
@@ -959,6 +986,7 @@
 				CD39C67625BE8F7500408D05 /* DetailInfo.swift in Sources */,
 				24ED629D25836A8100FC98B3 /* TextTabCell.swift in Sources */,
 				CDD711A125CBE00200D025CB /* FloatingLayout.swift in Sources */,
+				CD54010D26DC798D00EA9900 /* SectionHeaderViewModel.swift in Sources */,
 				CDB6D45E254BE003001B0AEB /* SectionHeaderView.swift in Sources */,
 				CDB6D51F254FCB37001B0AEB /* StringExtension.swift in Sources */,
 				24C95D5D25987F1E0020C15C /* Review.swift in Sources */,

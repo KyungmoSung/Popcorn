@@ -24,7 +24,7 @@ class HomePosterCell: UICollectionViewCell {
         posterIv.superview?.applyShadow()
     }
     
-    func bind(_ viewModel: PosterViewModel) {
+    func bind(_ viewModel: PosterItemViewModel) {
         titleLb.text = viewModel.title
         titleLb.numberOfLines = 2 // 스켈레톤뷰 적용시 셀 밖으로 벗어나는 현상 방지
         

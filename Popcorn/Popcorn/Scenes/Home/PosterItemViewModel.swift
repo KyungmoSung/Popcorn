@@ -1,5 +1,5 @@
 //
-//  PosterViewModel.swift
+//  PosterItemViewModel.swift
 //  Popcorn
 //
 //  Created by Front-Artist on 2021/08/20.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class PosterViewModel {
+final class PosterItemViewModel {
     let id: Int
     let title:String
     let posterImgPath : String?
