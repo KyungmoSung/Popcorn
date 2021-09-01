@@ -66,7 +66,6 @@ class _HomeViewController: _BaseViewController {
         let output = viewModel.transform(input: input)
         
         output.contents
-            .debug()
             .drive(collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
         

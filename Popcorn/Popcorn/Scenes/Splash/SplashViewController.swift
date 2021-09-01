@@ -18,20 +18,12 @@ class SplashViewController: _BaseViewController {
         bindViewModel()
     }
     
-    func bindViewModel() {
-        let output = viewModel.transform(input: SplashViewModel.Input(ready: rx.viewWillAppear.asDriver()))
+    private func bindViewModel() {
+        let input = SplashViewModel.Input(ready: rx.viewWillAppear.asDriver())
+        let output = viewModel.transform(input: input)
         
         output.settingConfig
             .drive()
             .disposed(by: rx.disposeBag)
     }
-//
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//
-//        Config.shared.fetch {
-//            self.present(self.groundTabBarController, animated: true, completion: nil)
-//        }
-//    }
-    
 }

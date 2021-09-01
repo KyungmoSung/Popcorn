@@ -8,6 +8,8 @@
 import Foundation
 
 class Language: Codable {
+    static var allCases: [Language] = []
+    
     let code: ISO_639_1
     let name: String?
     

@@ -20,16 +20,28 @@ class SplashViewModel: ViewModelType {
     
     private let networkService: TmdbService
     private let coordinator: SplashCoodinator
-
+    
     init(networkService: TmdbService = TmdbAPI(), coordinator: SplashCoodinator) {
         self.networkService = networkService
         self.coordinator = coordinator
     }
 
     func transform(input: Input) -> Output {
-        let config = input.ready
-            .delay(5)
-            .asDriver()
+        let config = input.ready.asObservable()
+            .debug()
+            .flatMap {
+                Observable.zip(self.networkService.languages(),
+                               self.networkService.countries(),
+                               self.networkService.movieGenres(),
+                               self.networkService.tvGenres())
+            }
+            .map { languages, countries, movieGenres, tvGenres in
+                Language.allCases = languages
+                Country.allCases = countries
+                Genre.allCases[.movies] = movieGenres
+                Genre.allCases[.tvShows] = tvGenres
+            }
+            .asDriver(onErrorJustReturn: ())
             .do(onNext: coordinator.showTabBar)
             
         return Output(settingConfig: config)

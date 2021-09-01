@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-typealias TmdbService = TmdbMoviesService & TmdbTVShowsService & TmdbPeopleService & TmdbAuthService
+typealias TmdbService = TmdbMoviesService & TmdbTVShowsService & TmdbPeopleService & TmdbAuthService & TmdbConfigService
 
 protocol TmdbMoviesService {
     func movies(chart: MovieChart, page: Int) -> Observable<[_Movie]>
@@ -24,4 +24,11 @@ protocol TmdbPeopleService {
 
 protocol TmdbAuthService {
     
+}
+
+protocol TmdbConfigService {
+    func languages() -> Observable<[Language]>
+    func countries() -> Observable<[Country]>
+    func movieGenres() -> Observable<[Genre]>
+    func tvGenres() -> Observable<[Genre]>
 }

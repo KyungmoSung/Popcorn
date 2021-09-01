@@ -8,6 +8,8 @@
 import Foundation
 
 class Country: Codable {
+    static var allCases: [Country] = []
+
     let code: ISO_3166_1
     let name: String?
     

@@ -8,6 +8,8 @@
 import Foundation
 
 class Genre: Loadingable, Codable {
+    static var allCases: [ContentsType: [Genre]] = [:]
+    
     var id: Int!
     var name: String!
     
