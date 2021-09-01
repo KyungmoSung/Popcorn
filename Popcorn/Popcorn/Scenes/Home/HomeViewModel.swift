@@ -28,9 +28,11 @@ class HomeViewModel: ViewModelType {
     }
     
     private let networkService: TmdbService
+    private let coordinator: HomeCoordinator
     
-    init(networkService: TmdbService = TmdbAPI()) {
+    init(networkService: TmdbService = TmdbAPI(), coordinator: HomeCoordinator) {
         self.networkService = networkService
+        self.coordinator = coordinator
     }
     
     func transform(input: Input) -> Output {
@@ -69,11 +71,13 @@ class HomeViewModel: ViewModelType {
             .withLatestFrom(result) { indexPath, result in
                 return result[indexPath.section].items[indexPath.row].id
             }
+            .do(onNext: coordinator.showDetail(id:))
         
         let selectedSection = input.headerSelection
             .withLatestFrom(result) { section, result in
                 return result[section].section
             }
+            .do(onNext: coordinator.showChart(section:))
         
         return Output(contents: result, selectedContentID: selectedContentsID, selectedSection: selectedSection)
     }

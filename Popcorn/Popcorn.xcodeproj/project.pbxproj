@@ -63,7 +63,13 @@
 		CD06B5EE258853FE00E15540 /* TextTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD06B5EC258853FE00E15540 /* TextTagCell.swift */; };
 		CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD06B5ED258853FE00E15540 /* TextTagCell.xib */; };
 		CD39C67625BE8F7500408D05 /* DetailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD39C67525BE8F7500408D05 /* DetailInfo.swift */; };
+		CD4D289626DF0D77008716BB /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D289526DF0D77008716BB /* Coordinator.swift */; };
+		CD4D289A26DF11E1008716BB /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D289926DF11E1008716BB /* HomeCoordinator.swift */; };
+		CD4D28A026DF1A57008716BB /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D289F26DF1A57008716BB /* TabBarCoordinator.swift */; };
+		CD4D28A326DF1E82008716BB /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D28A226DF1E82008716BB /* SplashViewModel.swift */; };
+		CD4D28A526DF333F008716BB /* SplashCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D28A426DF333F008716BB /* SplashCoordinator.swift */; };
 		CD54010D26DC798D00EA9900 /* SectionHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD54010C26DC798D00EA9900 /* SectionHeaderViewModel.swift */; };
+		CD54011726DCA79800EA9900 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD54011626DCA79800EA9900 /* AppCoordinator.swift */; };
 		CD5D612626D7251800FE3FB4 /* TmdbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612526D7251800FE3FB4 /* TmdbService.swift */; };
 		CD5D612826D725F100FE3FB4 /* TmdbAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612726D725F100FE3FB4 /* TmdbAPI.swift */; };
 		CD5D612A26D7685300FE3FB4 /* _BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */; };
@@ -212,7 +218,13 @@
 		CD06B5EC258853FE00E15540 /* TextTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTagCell.swift; sourceTree = "<group>"; };
 		CD06B5ED258853FE00E15540 /* TextTagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTagCell.xib; sourceTree = "<group>"; };
 		CD39C67525BE8F7500408D05 /* DetailInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfo.swift; sourceTree = "<group>"; };
+		CD4D289526DF0D77008716BB /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		CD4D289926DF11E1008716BB /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		CD4D289F26DF1A57008716BB /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		CD4D28A226DF1E82008716BB /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
+		CD4D28A426DF333F008716BB /* SplashCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashCoordinator.swift; sourceTree = "<group>"; };
 		CD54010C26DC798D00EA9900 /* SectionHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderViewModel.swift; sourceTree = "<group>"; };
+		CD54011626DCA79800EA9900 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		CD5D612526D7251800FE3FB4 /* TmdbService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbService.swift; sourceTree = "<group>"; };
 		CD5D612726D725F100FE3FB4 /* TmdbAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbAPI.swift; sourceTree = "<group>"; };
 		CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _BaseViewController.swift; sourceTree = "<group>"; };
@@ -343,9 +355,20 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CD4D28A126DF1E3E008716BB /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				CDB6D523254FD328001B0AEB /* SplashViewController.swift */,
+				CD4D28A226DF1E82008716BB /* SplashViewModel.swift */,
+				CD4D28A426DF333F008716BB /* SplashCoordinator.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
 		CD54010E26DC946800EA9900 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				CD4D28A126DF1E3E008716BB /* Splash */,
 				CD54010F26DC949400EA9900 /* Home */,
 			);
 			path = Scenes;
@@ -359,6 +382,7 @@
 				CDFF300626CE430D001ABD89 /* HomeViewModel.swift */,
 				CDFF300A26CF8183001ABD89 /* PosterItemViewModel.swift */,
 				CD54010C26DC798D00EA9900 /* SectionHeaderViewModel.swift */,
+				CD4D289926DF11E1008716BB /* HomeCoordinator.swift */,
 				CD54011026DC94AD00EA9900 /* Views */,
 			);
 			path = Home;
@@ -373,6 +397,17 @@
 				CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CD54011526DCA77300EA9900 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */,
+				CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */,
+				CD54011626DCA79800EA9900 /* AppCoordinator.swift */,
+				CD4D289F26DF1A57008716BB /* TabBarCoordinator.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 		CD67044626D5CA3800FA622E /* Network */ = {
@@ -410,6 +445,7 @@
 		CDB6D35D254A5CE9001B0AEB /* Popcorn */ = {
 			isa = PBXGroup;
 			children = (
+				CD54011526DCA77300EA9900 /* Application */,
 				CD67044626D5CA3800FA622E /* Network */,
 				CDB6D3ED254AA3DC001B0AEB /* SupportFiles */,
 				CDB6D3D3254A97F9001B0AEB /* Constants */,
@@ -454,6 +490,7 @@
 				CD97164125DB911C009074E5 /* Config.swift */,
 				CDFF300826CE4602001ABD89 /* VIewModelType.swift */,
 				CD5D612B26D772F000FE3FB4 /* Localize.swift */,
+				CD4D289526DF0D77008716BB /* Coordinator.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -500,8 +537,6 @@
 		CDB6D3ED254AA3DC001B0AEB /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
-				CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */,
-				CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */,
 				CDB6D36C254A5CEA001B0AEB /* Info.plist */,
 				CDB6D414254B9C7B001B0AEB /* BridgingHeader.h */,
 			);
@@ -545,7 +580,6 @@
 				247FF85A25BD604F00BC73D2 /* ContentsListViewController.swift */,
 				CDB6D3F4254AA4FE001B0AEB /* HomeViewController.swift */,
 				246A3A2225C692AF002CEFF7 /* PersonDetailViewController.swift */,
-				CDB6D523254FD328001B0AEB /* SplashViewController.swift */,
 				CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */,
 				CDD9F66725C152AB00B83536 /* Xibs */,
 			);
@@ -939,6 +973,7 @@
 				2480521C25CFE98400C9F5B2 /* DateExtension.swift in Sources */,
 				CD9A69EA25DE29AE006CAD6A /* Credit.swift in Sources */,
 				247FF85625BD56AA00BC73D2 /* Tag.swift in Sources */,
+				CD54011726DCA79800EA9900 /* AppCoordinator.swift in Sources */,
 				24C98B3225C990AD00792D8A /* Country.swift in Sources */,
 				244AA2B125875B1800754687 /* UIViewExtension.swift in Sources */,
 				CD936FCB25887E8D0006441C /* BaseViewController.swift in Sources */,
@@ -961,8 +996,10 @@
 				CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */,
 				2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */,
 				242D62EB2593782D00450120 /* InfoCardCell.swift in Sources */,
+				CD4D289A26DF11E1008716BB /* HomeCoordinator.swift in Sources */,
 				CD67044826D5CA6D00FA622E /* TmdbTarget.swift in Sources */,
 				2457E33E25864BBE005CE9FB /* CreditCell.swift in Sources */,
+				CD4D28A026DF1A57008716BB /* TabBarCoordinator.swift in Sources */,
 				CDB6D3D5254A9927001B0AEB /* Constants.swift in Sources */,
 				CDB6D3C6254A9568001B0AEB /* APIManager.swift in Sources */,
 				CDB6D437254BB1B5001B0AEB /* PosterSectionController.swift in Sources */,
@@ -979,16 +1016,19 @@
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
 				CD5D612E26D777B700FE3FB4 /* NSNotificationExtension.swift in Sources */,
 				246CAD2425C984CF00288F4B /* Language.swift in Sources */,
+				CD4D28A326DF1E82008716BB /* SplashViewModel.swift in Sources */,
 				24C95D68259880BA0020C15C /* ReviewCell.swift in Sources */,
 				24C95D802599B0290020C15C /* Enums.swift in Sources */,
 				CDBD141F256E388A003F625F /* ContentsDetailViewController.swift in Sources */,
 				CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */,
 				CD39C67625BE8F7500408D05 /* DetailInfo.swift in Sources */,
 				24ED629D25836A8100FC98B3 /* TextTabCell.swift in Sources */,
+				CD4D28A526DF333F008716BB /* SplashCoordinator.swift in Sources */,
 				CDD711A125CBE00200D025CB /* FloatingLayout.swift in Sources */,
 				CD54010D26DC798D00EA9900 /* SectionHeaderViewModel.swift in Sources */,
 				CDB6D45E254BE003001B0AEB /* SectionHeaderView.swift in Sources */,
 				CDB6D51F254FCB37001B0AEB /* StringExtension.swift in Sources */,
+				CD4D289626DF0D77008716BB /* Coordinator.swift in Sources */,
 				24C95D5D25987F1E0020C15C /* Review.swift in Sources */,
 				24E02D722585FE0A00591234 /* MediaVideoCell.swift in Sources */,
 				CDB6D3F6254AA4FE001B0AEB /* HomeViewController.swift in Sources */,

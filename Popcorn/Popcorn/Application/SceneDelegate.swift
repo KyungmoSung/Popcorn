@@ -16,8 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = SplashViewController()
-        window?.makeKeyAndVisible()
+        
+        let coodinator = AppCoordinator(in: window!, service: TmdbAPI())
+        coodinator.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

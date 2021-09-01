@@ -71,15 +71,11 @@ class _HomeViewController: _BaseViewController {
             .disposed(by: disposeBag)
         
         output.selectedContentID
-            .drive(onNext: { id in
-                print(id)
-            })
+            .drive()
             .disposed(by: disposeBag)
             
         output.selectedSection
-            .drive(onNext: { section in
-                print(section)
-            })
+            .drive()
             .disposed(by: disposeBag)
     }
         
