@@ -25,6 +25,19 @@ enum TVShowChart: Int, CaseIterable {
             return "nowPlaying".localized
         }
     }
+    
+    var path: String {
+        switch self {
+        case .airingToday:
+            return "/airing_today"
+        case .onTheAir:
+            return "/on_the_air"
+        case .popular:
+            return "/popular"
+        case .topRated:
+            return "/top_rated"
+        }
+    }
 }
 
 enum MovieChart: Int, CaseIterable {
@@ -43,6 +56,19 @@ enum MovieChart: Int, CaseIterable {
             return "popular".localized
         case .topRated:
             return "topRated".localized
+        }
+    }
+    
+    var path: String {
+        switch self {
+        case .nowPlaying:
+            return "/now_playing"
+        case .upcoming:
+            return "/upcoming"
+        case .popular:
+            return "/popular"
+        case .topRated:
+            return "/top_rated"
         }
     }
 }

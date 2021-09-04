@@ -15,20 +15,23 @@ enum TmdbTarget {
     case languages
     case countries
     case jobs
-    case movieGenres
-    case tvGenres
+    case genres(type: ContentsType)
     
-    // 영화 차트
-    case popularMovies(page: Int, language: Language, region: Country)
-    case topRatedMovies(page: Int, language: Language, region: Country)
-    case nowPlayingMovies(page: Int, language: Language, region: Country)
-    case upcomingMovies(page: Int, language: Language, region: Country)
+    // Movie
+    case movies(chart: MovieChart, page: Int, language: Language, region: Country)
     
-    // TV 차트
-    case airingTodayTvShows(page: Int, language: Language, region: Country)
-    case onTheAirTvShows(page: Int, language: Language, region: Country)
-    case popularTvShows(page: Int, language: Language, region: Country)
-    case topRatedTvShows(page: Int, language: Language, region: Country)
+    // TVShows
+    case tvShows(chart: TVShowChart, page: Int, language: Language, region: Country)
+    case episodeGroups(id: Int)
+    
+    // Detail
+    case details(type: ContentsType, id: Int, language: Language)
+    case credits(type: ContentsType, id: Int, language: Language)
+    case videos(type: ContentsType, id: Int, language: Language)
+    case images(type: ContentsType, id: Int, language: Language)
+    case recommendations(type: ContentsType, id: Int, page: Int, language: Language)
+    case similar(type: ContentsType, id: Int, page: Int, language: Language)
+    case reviews(type: ContentsType, id: Int, page: Int, language: Language)
 }
 
 extension TmdbTarget: TargetType {
@@ -38,21 +41,25 @@ extension TmdbTarget: TargetType {
     
     var path: String {
         switch self {
-        case .languages:            return "/configuration/languages"
-        case .countries:            return "/configuration/countries"
-        case .jobs:                 return "/configuration/jobs"
-        case .movieGenres:          return "/genre/movie/list"
-        case .tvGenres:             return "/genre/tv/list"
+        case .languages:                            return "/configuration/languages"
+        case .countries:                            return "/configuration/countries"
+        case .jobs:                                 return "/configuration/jobs"
+        case let .genres(type):                     return "/genre\(type.path)/list"
         
-        case .popularMovies:        return "/movie/popular"
-        case .topRatedMovies:       return "/movie/top_rated"
-        case .nowPlayingMovies:     return "/movie/now_playing"
-        case .upcomingMovies:       return "/movie/upcoming"
+        case let .movies(chart, _, _, _):           return "/movie\(chart.path)"
             
-        case .airingTodayTvShows:   return "/tv/airing_today"
-        case .onTheAirTvShows:      return "/tv/on_the_air"
-        case .popularTvShows:       return "/tv/popular"
-        case .topRatedTvShows:      return "/tv/top_rated"
+        case let .tvShows(chart, _, _, _):          return "/tv\(chart.path)"
+        case let .episodeGroups(id):                return "/tv/\(id)/episode_groups"
+        
+        case let .details(type, id, _):             return "\(type.path)/\(id)"
+        case let .credits(type, id, _):             return "\(type.path)/\(id)/credits"
+        case let .videos(type, id, _):              return "\(type.path)/\(id)/videos"
+        case let .images(type, id, _):              return "\(type.path)/\(id)/images"
+        case let .recommendations(type, id, _, _):  return "\(type.path)/\(id)/recommendations"
+        case let .similar(type, id, _, _):          return "\(type.path)/\(id)/similar"
+        case let .reviews(type, id, _, _):          return "\(type.path)/\(id)/reviews"
+            
+
         }
     }
     
@@ -68,18 +75,24 @@ extension TmdbTarget: TargetType {
         var params: [String: Any] = ["api_key": TmdbTarget.key]
         
         switch self {
-        case let .popularMovies(page, language, region),
-             let .topRatedMovies(page, language, region),
-             let .nowPlayingMovies(page, language, region),
-             let .upcomingMovies(page, language, region),
-             let .airingTodayTvShows(page, language, region),
-             let .onTheAirTvShows(page, language, region),
-             let .popularTvShows(page, language, region),
-             let .topRatedTvShows(page, language, region):
-            
+        case let .movies(_, page, language, region),
+             let .tvShows(_, page, language, region):
             params["language"] = language.code.rawValue
             params["page"] = page
             params["region"] = region.code.rawValue
+            
+        case let .details(_, _, language),
+             let .credits(_, _, language),
+             let .videos(_, _, language),
+             let .images(_, _, language):
+            params["language"] = language.code.rawValue
+            
+        case let .recommendations(_, _, page, language),
+             let .similar(_, _, page, language),
+             let .reviews(_, _, page, language):
+            params["language"] = language.code.rawValue
+            params["page"] = page
+            
         default:
             break
         }

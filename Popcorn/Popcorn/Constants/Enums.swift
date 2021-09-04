@@ -269,4 +269,13 @@ enum ContentsType: Int, CaseIterable {
             return "tvShows".localized
         }
     }
+    
+    var path: String {
+        switch self {
+        case .movies:
+            return "/movie"
+        case .tvShows:
+            return "/tv"
+        }
+    }
 }

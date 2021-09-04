@@ -34,6 +34,7 @@ class Log {
         return "[\(fileName)] \(funcName)(\(line)):"
     }
     
+    /// Print Information log
     class func i(_ msg: Any, file: String = #file, function: String = #function, line: Int = #line) {
         #if DEBUG
         let info = logInfo(file: file, function: function, line: line)
@@ -41,6 +42,7 @@ class Log {
         #endif
     }
     
+    /// Print debug log
     class func d(_ msg: Any, file: String = #file, function: String = #function, line: Int = #line) {
         #if DEBUG
         let info = logInfo(file: file, function: function, line: line)
@@ -48,6 +50,7 @@ class Log {
         #endif
     }
     
+    /// Print warning log
     class func w(_ msg: Any, file: String = #file, function: String = #function, line: Int = #line) {
         #if DEBUG
         let info = logInfo(file: file, function: function, line: line)
@@ -55,6 +58,7 @@ class Log {
         #endif
     }
     
+    /// Print error log
     class func e(_ msg: Any, file: String = #file, function: String = #function, line: Int = #line) {
         #if DEBUG
         let info = logInfo(file: file, function: function, line: line)

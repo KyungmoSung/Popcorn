@@ -17,6 +17,11 @@ class _HomeViewController: _BaseViewController {
     @IBOutlet weak var moviesBtn: UIButton!
     @IBOutlet weak var showsBtn: UIButton!
     
+    convenience init(viewModel: HomeViewModel) {
+        self.init()
+        self.viewModel = viewModel
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,11 +70,11 @@ class _HomeViewController: _BaseViewController {
         
         let output = viewModel.transform(input: input)
         
-        output.contents
+        output.sectionItems
             .drive(collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
         
-        output.selectedContentID
+        output.selectedContent
             .drive()
             .disposed(by: disposeBag)
             
@@ -84,7 +89,9 @@ class _HomeViewController: _BaseViewController {
         collectionView.register(cellType: HomePosterCell.self)
         collectionView.register(reusableViewType: _SectionHeaderView.self)
     }
+}
 
+extension _HomeViewController {
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                               heightDimension: .fractionalHeight(1))

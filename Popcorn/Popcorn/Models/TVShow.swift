@@ -49,6 +49,7 @@ class TVShow: Contents {
     }
     
     required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
         self.originalName = try container.decodeIfPresent(String.self, forKey: .originalName)
@@ -68,7 +69,6 @@ class TVShow: Contents {
         self.status = try container.decodeIfPresent(String.self, forKey: .status)
         self.type = try container.decodeIfPresent(String.self, forKey: .type)
         
-        try super.init(from: decoder)
     }
     
     override init(id: Int, isLoading: Bool) {

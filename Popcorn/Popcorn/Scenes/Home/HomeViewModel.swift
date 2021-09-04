@@ -22,8 +22,8 @@ class HomeViewModel: ViewModelType {
     }
     
     struct Output {
-        let contents: Driver<[HomeSectionItem]>
-        let selectedContentID: Driver<Int>
+        let sectionItems: Driver<[HomeSectionItem]>
+        let selectedContent: Driver<_Content>
         let selectedSection: Driver<HomeSection>
     }
     
@@ -44,7 +44,8 @@ class HomeViewModel: ViewModelType {
                                                 .startWith(ContentsType.movies)
                                                 .distinctUntilChanged())
 
-        let result = updateTrigger
+        // Update - 현재 타입에 해당하는 Charts API 호출
+        let sectionItems = updateTrigger
             .flatMap { _, contentsType -> Observable<[HomeSectionItem]> in
                 switch contentsType {
                 case .movies:
@@ -67,18 +68,20 @@ class HomeViewModel: ViewModelType {
             }
             .asDriver(onErrorJustReturn: [])
         
-        let selectedContentsID = input.selection
-            .withLatestFrom(result) { indexPath, result in
-                return result[indexPath.section].items[indexPath.row].id
+        // 셀 선택 - 디테일 화면 이동
+        let selectedContent = input.selection
+            .withLatestFrom(sectionItems) { indexPath, result in
+                return result[indexPath.section].items[indexPath.row].content
             }
-            .do(onNext: coordinator.showDetail(id:))
+            .do(onNext: coordinator.showDetail(content:))
         
+        // 헤더 선택 - 차트 리스트 화면 이동
         let selectedSection = input.headerSelection
-            .withLatestFrom(result) { section, result in
+            .withLatestFrom(sectionItems) { section, result in
                 return result[section].section
             }
             .do(onNext: coordinator.showChart(section:))
         
-        return Output(contents: result, selectedContentID: selectedContentsID, selectedSection: selectedSection)
+        return Output(sectionItems: sectionItems, selectedContent: selectedContent, selectedSection: selectedSection)
     }
 }

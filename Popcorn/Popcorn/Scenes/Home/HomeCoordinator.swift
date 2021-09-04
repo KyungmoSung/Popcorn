@@ -19,15 +19,15 @@ class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = _HomeViewController()
-        vc.viewModel = HomeViewModel(networkService: service, coordinator: self)
+        let viewModel = HomeViewModel(networkService: service, coordinator: self)
+        let viewController = _HomeViewController(viewModel: viewModel)
         
-        navigationController.pushViewController(vc, animated: true)
+        navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showDetail(id: Int) {
-        print("pushToDetail",id)
-        let coordinator = HomeCoordinator(navigationController: navigationController, service: service)
+    func showDetail(content: _Content) {
+        print("pushToDetail",content)
+        let coordinator = ContentDetailCoordinator(content: content, navigationController: navigationController, service: service)
         coordinator.start()
     }
     

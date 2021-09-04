@@ -6,8 +6,10 @@
 //
 
 import Foundation
+protocol RowViewModel {}
 
-final class PosterItemViewModel {
+final class PosterItemViewModel: RowViewModel {
+    let content: _Content
     let id: Int
     let title:String
     let posterImgPath : String?
@@ -15,6 +17,7 @@ final class PosterItemViewModel {
     let voteAverage: Double?
     
     init(with content: _Content, heroID: String?) {
+        self.content = content
         self.id = content.id
         self.title = content.title
         self.posterImgPath = content.posterPath

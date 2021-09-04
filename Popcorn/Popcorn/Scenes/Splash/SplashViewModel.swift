@@ -27,13 +27,14 @@ class SplashViewModel: ViewModelType {
     }
 
     func transform(input: Input) -> Output {
+        // Config API - 탭바 화면 이동
         let config = input.ready.asObservable()
             .debug()
             .flatMap {
                 Observable.zip(self.networkService.languages(),
                                self.networkService.countries(),
-                               self.networkService.movieGenres(),
-                               self.networkService.tvGenres())
+                               self.networkService.genres(type: .movies),
+                               self.networkService.genres(type: .tvShows))
             }
             .map { languages, countries, movieGenres, tvGenres in
                 Language.allCases = languages
