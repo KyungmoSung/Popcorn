@@ -1,13 +1,15 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2015-2020 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2015-2021 Alexander Grebenyuk (github.com/kean).
 
 import Foundation
 
+/// A unit of work that can be cancelled.
 public protocol Cancellable: AnyObject {
     func cancel()
 }
 
+/// Fetches original image data.
 public protocol DataLoading {
     /// - parameter didReceiveData: Can be called multiple times if streaming
     /// is supported.
@@ -29,6 +31,10 @@ public final class DataLoader: DataLoading, _DataLoaderObserving {
 
     deinit {
         session.invalidateAndCancel()
+
+        #if TRACK_ALLOCATIONS
+        Allocations.decrement("DataLoader")
+        #endif
     }
 
     /// Initializes `DataLoader` with the given configuration.
@@ -41,6 +47,10 @@ public final class DataLoader: DataLoading, _DataLoaderObserving {
         self.session = URLSession(configuration: configuration, delegate: impl, delegateQueue: queue)
         self.impl.validate = validate
         self.impl.observer = self
+
+        #if TRACK_ALLOCATIONS
+        Allocations.increment("DataLoader")
+        #endif
     }
 
     /// Returns a default configuration which has a `sharedUrlCache` set
@@ -87,15 +97,15 @@ public final class DataLoader: DataLoading, _DataLoaderObserving {
     public func loadData(with request: URLRequest,
                          didReceiveData: @escaping (Data, URLResponse) -> Void,
                          completion: @escaping (Swift.Error?) -> Void) -> Cancellable {
-        return impl.loadData(with: request, session: session, didReceiveData: didReceiveData, completion: completion)
+        impl.loadData(with: request, session: session, didReceiveData: didReceiveData, completion: completion)
     }
 
     /// Errors produced by `DataLoader`.
-    public enum Error: Swift.Error, CustomDebugStringConvertible {
+    public enum Error: Swift.Error, CustomStringConvertible {
         /// Validation failed.
         case statusCodeUnacceptable(Int)
 
-        public var debugDescription: String {
+        public var description: String {
             switch self {
             case let .statusCodeUnacceptable(code):
                 return "Response status code was unacceptable: \(code.description)"
@@ -197,6 +207,7 @@ private final class _DataLoader: NSObject, URLSessionDataDelegate {
 
 // MARK: - DataLoaderObserving
 
+/// An event send by the data loader.
 public enum DataTaskEvent {
     case resumed
     case receivedResponse(response: URLResponse)
@@ -210,6 +221,6 @@ public protocol DataLoaderObserving {
     func dataLoader(_ loader: DataLoader, urlSession: URLSession, dataTask: URLSessionDataTask, didReceiveEvent event: DataTaskEvent)
 }
 
-protocol _DataLoaderObserving: class {
+protocol _DataLoaderObserving: AnyObject {
     func dataTask(_ dataTask: URLSessionDataTask, didReceiveEvent event: DataTaskEvent)
 }

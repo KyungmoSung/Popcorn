@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2015-2020 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2015-2021 Alexander Grebenyuk (github.com/kean).
 
 #if !os(macOS)
 import UIKit
@@ -16,6 +16,7 @@ import ImageIO
 
 // MARK: - ImageEncoding
 
+/// An image encoder.
 public protocol ImageEncoding {
     /// Encodes the given image.
     func encode(_ image: PlatformImage) -> Data?
@@ -32,8 +33,6 @@ public extension ImageEncoding {
 
 // MARK: - ImageEncoder
 
-public typealias ImageEncoder = ImageEncoders.Default
-
 /// Image encoding context used when selecting which encoder to use.
 public struct ImageEncodingContext {
     public let request: ImageRequest
@@ -43,21 +42,22 @@ public struct ImageEncodingContext {
 
 // MARK: - ImageEncoders
 
+/// A namespace with all available encoders.
 public enum ImageEncoders {}
 
 // MARK: - ImageEncoders.Default
 
-public extension ImageEncoders {
+extension ImageEncoders {
     /// A default adaptive encoder which uses best encoder available depending
     /// on the input image and its configuration.
-    struct Default: ImageEncoding {
-        public var compressionQuality: CGFloat
+    public struct Default: ImageEncoding {
+        public var compressionQuality: Float
 
         /// Set to `true` to switch to HEIF when it is available on the current hardware.
         /// `false` by default.
         public var isHEIFPreferred = false
 
-        public init(compressionQuality: CGFloat = 0.8) {
+        public init(compressionQuality: Float = 0.8) {
             self.compressionQuality = compressionQuality
         }
 
@@ -75,7 +75,7 @@ public extension ImageEncoders {
             } else {
                 type = .png
             }
-            let encoder = ImageEncoders.ImageIO(type: type, compressionRatio: Float(compressionQuality))
+            let encoder = ImageEncoders.ImageIO(type: type, compressionRatio: compressionQuality)
             return encoder.encode(image)
         }
     }
@@ -83,13 +83,13 @@ public extension ImageEncoders {
 
 // MARK: - ImageEncoders.ImageIO
 
-public extension ImageEncoders {
+extension ImageEncoders {
     /// An Image I/O based encoder.
     ///
     /// Image I/O is a system framework that allows applications to read and
     /// write most image file formats. This framework offers high efficiency,
     /// color management, and access to image metadata.
-    struct ImageIO: ImageEncoding {
+    public struct ImageIO: ImageEncoding {
         public let type: ImageType
         public let compressionRatio: Float
 
