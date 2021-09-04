@@ -23,6 +23,14 @@ public extension Reactive where Base: ImagePipeline {
     func loadImage(with url: URL) -> Single<ImageResponse> {
         return self.loadImage(with: ImageRequest(url: url))
     }
+    
+    func loadImage(with urlStr: String?) -> Single<ImageResponse> {
+        if let urlStr = urlStr, let url = URL(string: urlStr) {
+            return self.loadImage(with: ImageRequest(url: url))
+        } else {
+            return .error(ImagePipeline.Error.decodingFailed)
+        }
+    }
 
     /// Loads an image with a given request. Emits the value synchronously if the
     /// image was found in memory cache.

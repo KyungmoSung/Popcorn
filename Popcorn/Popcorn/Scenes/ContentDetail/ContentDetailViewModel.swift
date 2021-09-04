@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Nuke
 
 class ContentDetailViewModel: ViewModelType {
     typealias DetailSectionItem = _SectionItem<DetailSection, RowViewModel>
@@ -17,6 +18,7 @@ class ContentDetailViewModel: ViewModelType {
     }
     
     struct Output {
+        let posterImage: Driver<UIImage>
         let sectionItems: Driver<[DetailSectionItem]>
     }
     
@@ -31,15 +33,24 @@ class ContentDetailViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
+        let posterImage = input.ready.asObservable()
+            .debug()
+            .map { self.content.posterPath }
+            .compactMap { $0 }
+            .flatMap {
+                ImagePipeline.shared.rx.loadImage(with: AppConstants.Domain.tmdbImage + $0)
+            }
+            .map { $0.image }
+            .asDriver(onErrorJustReturn: UIImage())
+        
         let sectionItems: Driver<[DetailSectionItem]>
         
         switch content {
         case let movie as _Movie:
             sectionItems = input.ready.asObservable()
-                .debug()
                 .map{ movie.id }
                 .flatMap {
-                    return Observable.zip(
+                    Observable.zip(
                         self.networkService.movieDetails(id: $0),
                         self.networkService.movieCredits(id: $0),
                         self.networkService.movieVideos(id: $0),
@@ -49,23 +60,25 @@ class ContentDetailViewModel: ViewModelType {
                         self.networkService.movieReviews(id: $0, page: 1))
                 }
                 .map { (movie, credits, videos, imageSet, recommendations, similar, reviews) -> [DetailSectionItem] in
-                    return [
-                        DetailSectionItem(section: .movie(.title), items: [TitleCellViewModel(with: movie)]),
+                    [
+                        DetailSectionItem(section: .movie(.title),
+                                          items: [TitleCellViewModel(with: movie)]),
 //                        DetailSectionItem(section: .movie(.credit), items: [TitleCellViewModel(with: movie)]),
 //                        DetailSectionItem(section: .movie(.video), items: [TitleCellViewModel(with: movie)]),
 //                        DetailSectionItem(section: .movie(.image), items: [TitleCellViewModel(with: movie)]),
-//                        DetailSectionItem(section: .movie(.recommendation), items: [TitleCellViewModel(with: movie)]),
-//                        DetailSectionItem(section: .movie(.similar), items: [TitleCellViewModel(with: movie)]),
+                        DetailSectionItem(section: .movie(.recommendation),
+                                          items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations") }),
+                        DetailSectionItem(section: .movie(.similar),
+                                          items: similar.map { PosterItemViewModel(with: $0, heroID: "similar") }),
 //                        DetailSectionItem(section: .movie(.review), items: [TitleCellViewModel(with: movie)])
                     ]
                 }
                 .asDriver(onErrorJustReturn: [])
         case let tvShow as _TVShow:
             sectionItems = input.ready.asObservable()
-                .debug()
                 .map{ tvShow.id }
                 .flatMap {
-                    return Observable.zip(
+                    Observable.zip(
                         self.networkService.tvShowDetails(id: $0),
                         self.networkService.tvShowCredits(id: $0),
                         self.networkService.tvShowVideos(id: $0),
@@ -75,14 +88,14 @@ class ContentDetailViewModel: ViewModelType {
                         self.networkService.tvShowReviews(id: $0, page: 1))
                 }
                 .map { (tvShow, credits, videos, imageSet, recommendations, similar, reviews) -> [DetailSectionItem] in
-                    return [DetailSectionItem(section: .tvShow(.title), items: [TitleCellViewModel(with: tvShow)]) ]
+                    [DetailSectionItem(section: .tvShow(.title), items: [TitleCellViewModel(with: tvShow)]) ]
                 }
                 .asDriver(onErrorJustReturn: [])
         default:
             sectionItems = Driver.empty()
         }
                     
-        return Output(sectionItems: sectionItems)
+        return Output(posterImage: posterImage, sectionItems: sectionItems)
     }
     
 //    func requestInfo(for sections: [SectionType]) {
