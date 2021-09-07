@@ -15,6 +15,7 @@ class ContentDetailViewModel: ViewModelType {
     
     struct Input {
         let ready: Driver<Void>
+        let headerSelection: Driver<Int>
     }
     
     struct Output {
@@ -44,7 +45,7 @@ class ContentDetailViewModel: ViewModelType {
             .asDriver(onErrorJustReturn: UIImage())
         
         let sectionItems: Driver<[DetailSectionItem]>
-        
+    
         switch content {
         case let movie as _Movie:
             sectionItems = input.ready.asObservable()
@@ -59,13 +60,16 @@ class ContentDetailViewModel: ViewModelType {
                         self.networkService.movieSimilar(id: $0, page: 1),
                         self.networkService.movieReviews(id: $0, page: 1))
                 }
-                .map { (movie, credits, videos, imageSet, recommendations, similar, reviews) -> [DetailSectionItem] in
-                    [
+                .map { (movie, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
+                    return [
                         DetailSectionItem(section: .movie(.title),
                                           items: [TitleCellViewModel(with: movie)]),
-//                        DetailSectionItem(section: .movie(.credit), items: [TitleCellViewModel(with: movie)]),
-//                        DetailSectionItem(section: .movie(.video), items: [TitleCellViewModel(with: movie)]),
-//                        DetailSectionItem(section: .movie(.image), items: [TitleCellViewModel(with: movie)]),
+                        DetailSectionItem(section: .movie(.credit),
+                                          items: credits.map { CreditCellViewModel(with: $0) }),
+                        DetailSectionItem(section: .movie(.video),
+                                          items: videos.map { VideoCellViewModel(with: $0) }),
+                        DetailSectionItem(section: .movie(.image),
+                                          items: imageInfos.map { ImageCellViewModel(with: $0) }),
                         DetailSectionItem(section: .movie(.recommendation),
                                           items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations") }),
                         DetailSectionItem(section: .movie(.similar),
@@ -87,14 +91,14 @@ class ContentDetailViewModel: ViewModelType {
                         self.networkService.tvShowSimilar(id: $0, page: 1),
                         self.networkService.tvShowReviews(id: $0, page: 1))
                 }
-                .map { (tvShow, credits, videos, imageSet, recommendations, similar, reviews) -> [DetailSectionItem] in
+                .map { (tvShow, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
                     [DetailSectionItem(section: .tvShow(.title), items: [TitleCellViewModel(with: tvShow)]) ]
                 }
                 .asDriver(onErrorJustReturn: [])
         default:
             sectionItems = Driver.empty()
         }
-                    
+        
         return Output(posterImage: posterImage, sectionItems: sectionItems)
     }
     

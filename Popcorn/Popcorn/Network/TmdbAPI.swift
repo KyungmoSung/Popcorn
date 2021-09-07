@@ -10,7 +10,7 @@ import RxSwift
 import Moya
 
 final class TmdbAPI {
-    lazy var provider = MoyaProvider<TmdbTarget>(plugins: [NetworkLoggerPlugin()])
+    lazy var provider = MoyaProvider<TmdbTarget>(plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
     
     private var language: Language
     private var region: Country
@@ -59,7 +59,7 @@ extension TmdbAPI: TmdbMovieService {
     
     func movieVideos(id: Int) -> Observable<[VideoInfo]> {
         return provider.rx
-            .request(.videos(type: .movies, id: id, language: language))
+            .request(.videos(type: .movies, id: id, language: .init(code: .en)))
             .retry(3)
             .map(Response<VideoInfo>.self)
             .map{ $0.results ?? [] }
@@ -67,12 +67,12 @@ extension TmdbAPI: TmdbMovieService {
     }
 
     
-    func movieImages(id: Int) -> Observable<ImageSet> {
+    func movieImages(id: Int) -> Observable<[ImageInfo]> {
         return provider.rx
-            .request(.images(type: .movies, id: id, language: language))
+            .request(.images(type: .movies, id: id, language: .init(code: .en)))
             .retry(3)
             .map(ListResponse.self)
-            .map{ ImageSet($0.backdrops ?? [], $0.posters ?? []) }
+            .map{ ($0.backdrops ?? []) + ($0.posters ?? []) }
             .asObservable()
     }
     
@@ -150,12 +150,12 @@ extension TmdbAPI: TmdbTVShowService {
     }
 
     
-    func tvShowImages(id: Int) -> Observable<ImageSet> {
+    func tvShowImages(id: Int) -> Observable<[ImageInfo]> {
         return provider.rx
             .request(.images(type: .tvShows, id: id, language: language))
             .retry(3)
             .map(ListResponse.self)
-            .map{ ImageSet($0.backdrops ?? [], $0.posters ?? []) }
+            .map{ ($0.backdrops ?? []) + ($0.posters ?? []) }
             .asObservable()
     }
     

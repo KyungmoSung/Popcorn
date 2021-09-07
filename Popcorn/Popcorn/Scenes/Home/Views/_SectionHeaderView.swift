@@ -6,24 +6,31 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class _SectionHeaderView: UICollectionReusableView {
+    var disposeBag = DisposeBag()
+    
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet weak var detailBtn: UIButton!
     
-    var title: String? {
-        get {
-            return titleLb.text
-        }
-        set {
-            titleLb.text = newValue
-        }
+    var selection: Observable<Int>?
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
     
     func bind(_ viewModel: SectionHeaderViewModel) {
         titleLb.text = viewModel.section.title
+        
+        selection = detailBtn.rx.tap
+            .map{ viewModel.index }
+            .asObservable()
     }
     
-    @IBAction func tapDetailBtn(_ sender: Any) {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
 }

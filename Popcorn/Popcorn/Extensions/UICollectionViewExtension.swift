@@ -46,19 +46,6 @@ extension UICollectionView {
         reusableViewTypes.forEach { register(reusableViewType: $0, ofKind: kind, bundle: bundle) }
     }
     
-    @available(*, deprecated)
-    func dequeueReusableCell<T: UICollectionViewCell>(with type: T.Type,
-                                                      for indexPath: IndexPath) -> T? {
-        return dequeueReusableCell(withReuseIdentifier: type.className, for: indexPath) as? T
-    }
-    
-    @available(*, deprecated)
-    func dequeueReusableView<T: UICollectionReusableView>(with type: T.Type,
-                                                          for indexPath: IndexPath,
-                                                          ofKind kind: String = UICollectionView.elementKindSectionHeader) -> T? {
-        return dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: type.className, for: indexPath) as? T
-    }
-    
     func dequeueReusableCell<T: UICollectionViewCell>(with type: T.Type,
                                                       for indexPath: IndexPath) -> T {
         guard let cell = dequeueReusableCell(withReuseIdentifier: type.className, for: indexPath) as? T else {

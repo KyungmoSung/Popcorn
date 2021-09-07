@@ -45,25 +45,19 @@ class _HomeViewController: _BaseViewController {
                                         selection: collectionView.rx.itemSelected.asDriver())
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<HomeViewModel.HomeSectionItem> { dataSource, collectionView, indexPath, viewModel in
-            guard let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath) else {
-                return UICollectionViewCell()
-            }
-            
+            let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath)
             cell.bind(viewModel)
             
             return cell
         } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
-            guard let headerView = collectionView.dequeueReusableView(with: _SectionHeaderView.self, for: indexPath) else {
-                return UICollectionReusableView()
-            }
-            let section = dataSource[indexPath.section]
-            
-            headerView.title = section.section.title
-            headerView.detailBtn.tag = indexPath.section
-            headerView.detailBtn.rx.tap
-                .map{ headerView.detailBtn.tag }
+            let headerView = collectionView.dequeueReusableView(with: _SectionHeaderView.self, for: indexPath)
+            let section = dataSource[indexPath.section].section
+            let viewModel = SectionHeaderViewModel(with: section, index: indexPath.section)
+
+            headerView.bind(viewModel)
+            headerView.selection?
                 .bind(to: selectedSection)
-                .disposed(by: self.disposeBag)
+                .disposed(by: headerView.disposeBag)
             
             return headerView
         }

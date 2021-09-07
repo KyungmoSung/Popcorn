@@ -9,8 +9,6 @@ import Foundation
 
 protocol Media {}
 
-typealias ImageSet = (backdrops: [ImageInfo], posters: [ImageInfo])
-
 // MARK: - ImageInfo
 class ImageInfo: Media, Codable {
     var type: ImageType!

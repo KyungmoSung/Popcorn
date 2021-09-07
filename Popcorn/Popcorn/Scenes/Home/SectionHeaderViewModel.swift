@@ -9,22 +9,12 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class SectionHeaderViewModel: ViewModelType {
-    struct Input {
-        let selection: Driver<Int>
-    }
-    
-    struct Output {
-        let selectedIndex: Driver<Int>
-    }
-    
+final class SectionHeaderViewModel {
     let section: _SectionType
+    let index: Int
     
-    init(with section: _SectionType) {
+    init(with section: _SectionType, index: Int) {
         self.section = section
-    }
-    
-    func transform(input: Input) -> Output {
-        return Output(selectedIndex: Driver<Int>.empty())
+        self.index = index
     }
 }

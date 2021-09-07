@@ -15,7 +15,7 @@ protocol TmdbMovieService {
     func movieDetails(id: Int) -> Observable<_Movie>
     func movieCredits(id: Int) -> Observable<[Person]>
     func movieVideos(id: Int) -> Observable<[VideoInfo]>
-    func movieImages(id: Int) -> Observable<ImageSet>
+    func movieImages(id: Int) -> Observable<[ImageInfo]>
     func movieRecommendations(id: Int, page: Int) -> Observable<[_Movie]>
     func movieSimilar(id: Int, page: Int) -> Observable<[_Movie]>
     func movieReviews(id: Int, page: Int) -> Observable<[Review]>
@@ -27,7 +27,7 @@ protocol TmdbTVShowService {
     func tvShowDetails(id: Int) -> Observable<_TVShow>
     func tvShowCredits(id: Int) -> Observable<[Person]>
     func tvShowVideos(id: Int) -> Observable<[VideoInfo]>
-    func tvShowImages(id: Int) -> Observable<ImageSet>
+    func tvShowImages(id: Int) -> Observable<[ImageInfo]>
     func tvShowRecommendations(id: Int, page: Int) -> Observable<[_TVShow]>
     func tvShowSimilar(id: Int, page: Int) -> Observable<[_TVShow]>
     func tvShowReviews(id: Int, page: Int) -> Observable<[Review]>

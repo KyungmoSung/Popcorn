@@ -16,6 +16,7 @@
 		2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E33425864B20005CE9FB /* CreditSectionController.swift */; };
 		2457E33E25864BBE005CE9FB /* CreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E33C25864BBE005CE9FB /* CreditCell.swift */; };
 		2457E33F25864BBE005CE9FB /* CreditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2457E33D25864BBE005CE9FB /* CreditCell.xib */; };
+		245B25FF26E73D980070FE4F /* VideoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B25FE26E73D970070FE4F /* VideoCellViewModel.swift */; };
 		24661373259867E4008B982B /* NanumBarunGothicUltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466136A259867AF008B982B /* NanumBarunGothicUltraLight.ttf */; };
 		24661374259867E4008B982B /* NanumBarunGothicBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24661369259867AE008B982B /* NanumBarunGothicBold.ttf */; };
 		24661375259867E4008B982B /* NanumSquareBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466135E2598679D008B982B /* NanumSquareBold.ttf */; };
@@ -86,6 +87,18 @@
 		CD67044826D5CA6D00FA622E /* TmdbTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD67044726D5CA6D00FA622E /* TmdbTarget.swift */; };
 		CD71C1B926E1EAE9006E40C2 /* ContentDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4D28A826DF6E05008716BB /* ContentDetailViewController.xib */; };
 		CD71C1BA26E1EB10006E40C2 /* TitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4D28B526E0A8E7008716BB /* TitleCell.xib */; };
+		CD71C1BE26E5919B006E40C2 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C1BD26E5919B006E40C2 /* CollectionExtension.swift */; };
+		CD71C1C126E5A024006E40C2 /* _CreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C1C026E5A024006E40C2 /* _CreditCell.swift */; };
+		CD71C1C326E5A049006E40C2 /* CreditCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C1C226E5A049006E40C2 /* CreditCellViewModel.swift */; };
+		CD71C1C426E5AE0A006E40C2 /* _CreditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71C1BF26E5A01E006E40C2 /* _CreditCell.xib */; };
+		CD71C1C926E5CF33006E40C2 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C1C726E5CF33006E40C2 /* VideoCell.swift */; };
+		CD71C1CA26E5CF33006E40C2 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C1C826E5CF33006E40C2 /* ImageCell.swift */; };
+		CD71C1CB26E5CF55006E40C2 /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71C1C526E5CF2D006E40C2 /* ImageCell.xib */; };
+		CD71C1CC26E5CF7C006E40C2 /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71C1C626E5CF2D006E40C2 /* VideoCell.xib */; };
+		CD71C1D226E5D024006E40C2 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C1D126E5D024006E40C2 /* ImageCellViewModel.swift */; };
+		CD71C1D526E5DCDA006E40C2 /* TabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C1D326E5DCDA006E40C2 /* TabCell.swift */; };
+		CD71C1D626E5DD2D006E40C2 /* TabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71C1D426E5DCDA006E40C2 /* TabCell.xib */; };
+		CD71C1D826E5DD69006E40C2 /* TabCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C1D726E5DD69006E40C2 /* TabCellViewModel.swift */; };
 		CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */; };
 		CD8F017E25C7C21700BD8FFD /* HeaderTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */; };
 		CD8F017F25C7C21700BD8FFD /* HeaderTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */; };
@@ -172,6 +185,7 @@
 		2457E33425864B20005CE9FB /* CreditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditSectionController.swift; sourceTree = "<group>"; };
 		2457E33C25864BBE005CE9FB /* CreditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCell.swift; sourceTree = "<group>"; };
 		2457E33D25864BBE005CE9FB /* CreditCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditCell.xib; sourceTree = "<group>"; };
+		245B25FE26E73D970070FE4F /* VideoCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCellViewModel.swift; sourceTree = "<group>"; };
 		2466135D2598679D008B982B /* NanumSquareExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareExtraBold.ttf; sourceTree = "<group>"; };
 		2466135E2598679D008B982B /* NanumSquareBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareBold.ttf; sourceTree = "<group>"; };
 		2466135F2598679D008B982B /* NanumSquareRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRegular.ttf; sourceTree = "<group>"; };
@@ -249,6 +263,18 @@
 		CD5D612F26D8B13200FE3FB4 /* _Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Chart.swift; sourceTree = "<group>"; };
 		CD67044326D38BDB00FA622E /* _RxExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _RxExtension.swift; sourceTree = "<group>"; };
 		CD67044726D5CA6D00FA622E /* TmdbTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbTarget.swift; sourceTree = "<group>"; };
+		CD71C1BD26E5919B006E40C2 /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
+		CD71C1BF26E5A01E006E40C2 /* _CreditCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _CreditCell.xib; sourceTree = "<group>"; };
+		CD71C1C026E5A024006E40C2 /* _CreditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _CreditCell.swift; sourceTree = "<group>"; };
+		CD71C1C226E5A049006E40C2 /* CreditCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCellViewModel.swift; sourceTree = "<group>"; };
+		CD71C1C526E5CF2D006E40C2 /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
+		CD71C1C626E5CF2D006E40C2 /* VideoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCell.xib; sourceTree = "<group>"; };
+		CD71C1C726E5CF33006E40C2 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		CD71C1C826E5CF33006E40C2 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		CD71C1D126E5D024006E40C2 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
+		CD71C1D326E5DCDA006E40C2 /* TabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCell.swift; sourceTree = "<group>"; };
+		CD71C1D426E5DCDA006E40C2 /* TabCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabCell.xib; sourceTree = "<group>"; };
+		CD71C1D726E5DD69006E40C2 /* TabCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCellViewModel.swift; sourceTree = "<group>"; };
 		CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NukeExtension.swift; sourceTree = "<group>"; };
 		CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleCell.swift; sourceTree = "<group>"; };
 		CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTitleCell.xib; sourceTree = "<group>"; };
@@ -397,7 +423,11 @@
 				CD4D28A826DF6E05008716BB /* ContentDetailViewController.xib */,
 				CD4D28A926DF6F98008716BB /* ContentDetailViewModel.swift */,
 				CD4D28AB26DF7144008716BB /* ContentDetailCoordinator.swift */,
+				CD71C1C226E5A049006E40C2 /* CreditCellViewModel.swift */,
 				CD4D28B326E0A2D9008716BB /* TitleCellViewModel.swift */,
+				CD71C1D126E5D024006E40C2 /* ImageCellViewModel.swift */,
+				245B25FE26E73D970070FE4F /* VideoCellViewModel.swift */,
+				CD71C1D726E5DD69006E40C2 /* TabCellViewModel.swift */,
 			);
 			path = ContentDetail;
 			sourceTree = "<group>";
@@ -405,8 +435,16 @@
 		CD4D28AE26E0A227008716BB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CD71C1C026E5A024006E40C2 /* _CreditCell.swift */,
+				CD71C1BF26E5A01E006E40C2 /* _CreditCell.xib */,
 				CD4D28AF26E0A2A3008716BB /* TitleCell.swift */,
 				CD4D28B526E0A8E7008716BB /* TitleCell.xib */,
+				CD71C1C826E5CF33006E40C2 /* ImageCell.swift */,
+				CD71C1C526E5CF2D006E40C2 /* ImageCell.xib */,
+				CD71C1C726E5CF33006E40C2 /* VideoCell.swift */,
+				CD71C1C626E5CF2D006E40C2 /* VideoCell.xib */,
+				CD71C1D326E5DCDA006E40C2 /* TabCell.swift */,
+				CD71C1D426E5DCDA006E40C2 /* TabCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -571,6 +609,7 @@
 				244BF51B25D2726100100C66 /* OptionalExtension.swift */,
 				CD67044326D38BDB00FA622E /* _RxExtension.swift */,
 				CD5D612D26D777B700FE3FB4 /* NSNotificationExtension.swift */,
+				CD71C1BD26E5919B006E40C2 /* CollectionExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -855,20 +894,24 @@
 				24661376259867E4008B982B /* NanumSquareLight.ttf in Resources */,
 				CD8F017F25C7C21700BD8FFD /* HeaderTitleCell.xib in Resources */,
 				24A4293225AAE41500845C94 /* SynopsisCell.xib in Resources */,
+				CD71C1D626E5DD2D006E40C2 /* TabCell.xib in Resources */,
 				24661377259867E4008B982B /* NanumSquareExtraBold.ttf in Resources */,
 				CDB6D453254BCC10001B0AEB /* HomePosterCell.xib in Resources */,
 				CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */,
 				242D62EC2593782D00450120 /* InfoCardCell.xib in Resources */,
 				CDBD1420256E388A003F625F /* ContentsDetailViewController.xib in Resources */,
 				2466137A259867E4008B982B /* NanumBarunGothicLight.ttf in Resources */,
+				CD71C1CC26E5CF7C006E40C2 /* VideoCell.xib in Resources */,
 				CDB6D510254FC7DF001B0AEB /* Localizable.strings in Resources */,
 				CDB6D36B254A5CEA001B0AEB /* LaunchScreen.storyboard in Resources */,
 				24661375259867E4008B982B /* NanumSquareBold.ttf in Resources */,
 				CDB6D526254FD329001B0AEB /* SplashViewController.xib in Resources */,
+				CD71C1C426E5AE0A006E40C2 /* _CreditCell.xib in Resources */,
 				247FF85D25BD604F00BC73D2 /* ContentsListViewController.xib in Resources */,
 				CDB6D53D2550DA40001B0AEB /* HomeBackdropCell.xib in Resources */,
 				24C95D69259880BA0020C15C /* ReviewCell.xib in Resources */,
 				CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */,
+				CD71C1CB26E5CF55006E40C2 /* ImageCell.xib in Resources */,
 				24B3BE1C25A71AFC00AFBF1C /* ContentsHeaderVIew.xib in Resources */,
 				24661374259867E4008B982B /* NanumBarunGothicBold.ttf in Resources */,
 				CDFF300426CE36CB001ABD89 /* _SectionHeaderView.xib in Resources */,
@@ -1011,6 +1054,7 @@
 				CD5D612A26D7685300FE3FB4 /* _BaseViewController.swift in Sources */,
 				CD5D612826D725F100FE3FB4 /* TmdbAPI.swift in Sources */,
 				24ED62BF2585EBB000FC98B3 /* MediaSectionController.swift in Sources */,
+				CD71C1D526E5DCDA006E40C2 /* TabCell.swift in Sources */,
 				24B3BE1B25A71AFC00AFBF1C /* ContentsHeaderVIew.swift in Sources */,
 				246A3A2425C692AF002CEFF7 /* PersonDetailViewController.swift in Sources */,
 				CD5D612626D7251800FE3FB4 /* TmdbService.swift in Sources */,
@@ -1022,6 +1066,7 @@
 				CD4D28B126E0A2A3008716BB /* TitleCell.swift in Sources */,
 				247FF85C25BD604F00BC73D2 /* ContentsListViewController.swift in Sources */,
 				CD936FC625887E170006441C /* UICollectionViewExtension.swift in Sources */,
+				CD71C1CA26E5CF33006E40C2 /* ImageCell.swift in Sources */,
 				24ED6290258355A200FC98B3 /* Genre.swift in Sources */,
 				CDB6D40B254AB115001B0AEB /* Response.swift in Sources */,
 				CD8F017E25C7C21700BD8FFD /* HeaderTitleCell.swift in Sources */,
@@ -1041,6 +1086,7 @@
 				CDB6D47E254BF35B001B0AEB /* SectionItem.swift in Sources */,
 				CD8F018425C7C40300BD8FFD /* HeaderTitleSectionController.swift in Sources */,
 				CD5D613026D8B13200FE3FB4 /* _Chart.swift in Sources */,
+				CD71C1D826E5DD69006E40C2 /* TabCellViewModel.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
 				CDFF300726CE430D001ABD89 /* HomeViewModel.swift in Sources */,
 				244BF51C25D2726100100C66 /* OptionalExtension.swift in Sources */,
@@ -1069,10 +1115,12 @@
 				24ED62AE258371C700FC98B3 /* TextTabSectionController.swift in Sources */,
 				CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */,
 				CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */,
+				CD71C1C926E5CF33006E40C2 /* VideoCell.swift in Sources */,
 				24A4292B25AAE3AF00845C94 /* SynopsisSectionController.swift in Sources */,
 				CDFF2FF226CCF603001ABD89 /* _Section.swift in Sources */,
 				CDB6D422254BAB70001B0AEB /* HomeHorizontalSectionController.swift in Sources */,
 				242D62FE25939D5100450120 /* NumberExtension.swift in Sources */,
+				245B25FF26E73D980070FE4F /* VideoCellViewModel.swift in Sources */,
 				242D62E5259377D100450120 /* InfoCardSectionController.swift in Sources */,
 				CDB6D53C2550DA40001B0AEB /* HomeBackdropCell.swift in Sources */,
 				24ED62C52585EBF200FC98B3 /* MediaImageCell.swift in Sources */,
@@ -1084,6 +1132,8 @@
 				24C95D68259880BA0020C15C /* ReviewCell.swift in Sources */,
 				24C95D802599B0290020C15C /* Enums.swift in Sources */,
 				CDBD141F256E388A003F625F /* ContentsDetailViewController.swift in Sources */,
+				CD71C1D226E5D024006E40C2 /* ImageCellViewModel.swift in Sources */,
+				CD71C1BE26E5919B006E40C2 /* CollectionExtension.swift in Sources */,
 				CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */,
 				CD39C67625BE8F7500408D05 /* DetailInfo.swift in Sources */,
 				24ED629D25836A8100FC98B3 /* TextTabCell.swift in Sources */,
@@ -1093,9 +1143,11 @@
 				CDB6D45E254BE003001B0AEB /* SectionHeaderView.swift in Sources */,
 				CDB6D51F254FCB37001B0AEB /* StringExtension.swift in Sources */,
 				CD4D289626DF0D77008716BB /* Coordinator.swift in Sources */,
+				CD71C1C326E5A049006E40C2 /* CreditCellViewModel.swift in Sources */,
 				24C95D5D25987F1E0020C15C /* Review.swift in Sources */,
 				24E02D722585FE0A00591234 /* MediaVideoCell.swift in Sources */,
 				CDB6D3F6254AA4FE001B0AEB /* HomeViewController.swift in Sources */,
+				CD71C1C126E5A024006E40C2 /* _CreditCell.swift in Sources */,
 				CD97164225DB911C009074E5 /* Config.swift in Sources */,
 				CD936FE9258884840006441C /* UINavigationControllerExtension.swift in Sources */,
 				CDB6D42A254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift in Sources */,
