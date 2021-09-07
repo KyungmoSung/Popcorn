@@ -6,6 +6,7 @@ PODS:
   - IGListDiffKit (4.0.0)
   - IGListKit (4.0.0):
     - IGListDiffKit (= 4.0.0)
+  - Kingfisher (6.3.1)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (14.0.0):
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - FloatingPanel
   - Hero
   - IGListKit (~> 4.0.0)
+  - Kingfisher
   - Moya/RxSwift (~> 14.0)
   - "NSObject+Rx"
   - Nuke (~> 10.0)
@@ -47,6 +49,7 @@ SPEC REPOS:
     - Hero
     - IGListDiffKit
     - IGListKit
+    - Kingfisher
     - Moya
     - "NSObject+Rx"
     - Nuke
@@ -63,6 +66,7 @@ SPEC CHECKSUMS:
   Hero: b7385b75e7259da62f4f85462f59a5082d66b058
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
+  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
   Nuke: fa2d83b3ee99bb88eccc62ab6c7590e207b50096
@@ -72,6 +76,6 @@ SPEC CHECKSUMS:
   RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
   SkeletonView: cc84ce90a804dd0dd7198dd802833411c8a64eaf
 
-PODFILE CHECKSUM: 6b8626204abc0056d3539e91a6d536bd265d3a23
+PODFILE CHECKSUM: 88c9c1c8db28ef2ea80c1ec70cc643a56854098d
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.11.0

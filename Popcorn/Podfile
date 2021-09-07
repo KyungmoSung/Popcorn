@@ -18,7 +18,8 @@ target 'Popcorn' do
   pod 'RxDataSources', '~> 4.0'
   pod 'Moya/RxSwift', '~> 14.0'
   pod 'NSObject+Rx'
-
+  pod 'Kingfisher'
+  
   target 'PopcornTests' do
     inherit! :search_paths
     # Pods for testing
