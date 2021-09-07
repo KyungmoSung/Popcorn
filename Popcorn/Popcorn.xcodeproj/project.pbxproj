@@ -17,6 +17,9 @@
 		2457E33E25864BBE005CE9FB /* CreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E33C25864BBE005CE9FB /* CreditCell.swift */; };
 		2457E33F25864BBE005CE9FB /* CreditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2457E33D25864BBE005CE9FB /* CreditCell.xib */; };
 		245B25FF26E73D980070FE4F /* VideoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B25FE26E73D970070FE4F /* VideoCellViewModel.swift */; };
+		245B260126E772DA0070FE4F /* _ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B260026E772DA0070FE4F /* _ReviewCell.swift */; };
+		245B260426E772F20070FE4F /* ReviewCellViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B260326E772F20070FE4F /* ReviewCellViewModel.swift.swift */; };
+		245B260526E7758F0070FE4F /* _ReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 245B260226E772DF0070FE4F /* _ReviewCell.xib */; };
 		24661373259867E4008B982B /* NanumBarunGothicUltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466136A259867AF008B982B /* NanumBarunGothicUltraLight.ttf */; };
 		24661374259867E4008B982B /* NanumBarunGothicBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24661369259867AE008B982B /* NanumBarunGothicBold.ttf */; };
 		24661375259867E4008B982B /* NanumSquareBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2466135E2598679D008B982B /* NanumSquareBold.ttf */; };
@@ -186,6 +189,9 @@
 		2457E33C25864BBE005CE9FB /* CreditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCell.swift; sourceTree = "<group>"; };
 		2457E33D25864BBE005CE9FB /* CreditCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditCell.xib; sourceTree = "<group>"; };
 		245B25FE26E73D970070FE4F /* VideoCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCellViewModel.swift; sourceTree = "<group>"; };
+		245B260026E772DA0070FE4F /* _ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _ReviewCell.swift; sourceTree = "<group>"; };
+		245B260226E772DF0070FE4F /* _ReviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _ReviewCell.xib; sourceTree = "<group>"; };
+		245B260326E772F20070FE4F /* ReviewCellViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCellViewModel.swift.swift; sourceTree = "<group>"; };
 		2466135D2598679D008B982B /* NanumSquareExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareExtraBold.ttf; sourceTree = "<group>"; };
 		2466135E2598679D008B982B /* NanumSquareBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareBold.ttf; sourceTree = "<group>"; };
 		2466135F2598679D008B982B /* NanumSquareRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRegular.ttf; sourceTree = "<group>"; };
@@ -428,6 +434,7 @@
 				CD71C1D126E5D024006E40C2 /* ImageCellViewModel.swift */,
 				245B25FE26E73D970070FE4F /* VideoCellViewModel.swift */,
 				CD71C1D726E5DD69006E40C2 /* TabCellViewModel.swift */,
+				245B260326E772F20070FE4F /* ReviewCellViewModel.swift.swift */,
 			);
 			path = ContentDetail;
 			sourceTree = "<group>";
@@ -445,6 +452,8 @@
 				CD71C1C626E5CF2D006E40C2 /* VideoCell.xib */,
 				CD71C1D326E5DCDA006E40C2 /* TabCell.swift */,
 				CD71C1D426E5DCDA006E40C2 /* TabCell.xib */,
+				245B260026E772DA0070FE4F /* _ReviewCell.swift */,
+				245B260226E772DF0070FE4F /* _ReviewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -903,6 +912,7 @@
 				2466137A259867E4008B982B /* NanumBarunGothicLight.ttf in Resources */,
 				CD71C1CC26E5CF7C006E40C2 /* VideoCell.xib in Resources */,
 				CDB6D510254FC7DF001B0AEB /* Localizable.strings in Resources */,
+				245B260526E7758F0070FE4F /* _ReviewCell.xib in Resources */,
 				CDB6D36B254A5CEA001B0AEB /* LaunchScreen.storyboard in Resources */,
 				24661375259867E4008B982B /* NanumSquareBold.ttf in Resources */,
 				CDB6D526254FD329001B0AEB /* SplashViewController.xib in Resources */,
@@ -1079,6 +1089,7 @@
 				CD4D28AC26DF7144008716BB /* ContentDetailCoordinator.swift in Sources */,
 				247FF85625BD56AA00BC73D2 /* Tag.swift in Sources */,
 				CD54011726DCA79800EA9900 /* AppCoordinator.swift in Sources */,
+				245B260426E772F20070FE4F /* ReviewCellViewModel.swift.swift in Sources */,
 				24C98B3225C990AD00792D8A /* Country.swift in Sources */,
 				244AA2B125875B1800754687 /* UIViewExtension.swift in Sources */,
 				CD936FCB25887E8D0006441C /* BaseViewController.swift in Sources */,
@@ -1135,6 +1146,7 @@
 				CD71C1D226E5D024006E40C2 /* ImageCellViewModel.swift in Sources */,
 				CD71C1BE26E5919B006E40C2 /* CollectionExtension.swift in Sources */,
 				CDB6D47A254BF351001B0AEB /* PagingCollectionViewLayout.swift in Sources */,
+				245B260126E772DA0070FE4F /* _ReviewCell.swift in Sources */,
 				CD39C67625BE8F7500408D05 /* DetailInfo.swift in Sources */,
 				24ED629D25836A8100FC98B3 /* TextTabCell.swift in Sources */,
 				CD4D28A526DF333F008716BB /* SplashCoordinator.swift in Sources */,

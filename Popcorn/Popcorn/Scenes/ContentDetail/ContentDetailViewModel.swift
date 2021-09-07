@@ -74,7 +74,8 @@ class ContentDetailViewModel: ViewModelType {
                                           items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations") }),
                         DetailSectionItem(section: .movie(.similar),
                                           items: similar.map { PosterItemViewModel(with: $0, heroID: "similar") }),
-//                        DetailSectionItem(section: .movie(.review), items: [TitleCellViewModel(with: movie)])
+                        DetailSectionItem(section: .movie(.review),
+                                          items: reviews.map { ReviewCellViewModel(with: $0) })
                     ]
                 }
                 .asDriver(onErrorJustReturn: [])

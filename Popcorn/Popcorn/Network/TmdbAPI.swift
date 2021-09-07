@@ -96,7 +96,7 @@ extension TmdbAPI: TmdbMovieService {
     
     func movieReviews(id: Int, page: Int) -> Observable<[Review]> {
         return provider.rx
-            .request(.reviews(type: .movies, id: id, page: page, language: language))
+            .request(.reviews(type: .movies, id: id, page: page, language: .init(code: .en)))
             .retry(3)
             .map(PageResponse<Review>.self)
             .map{ $0.results ?? [] }

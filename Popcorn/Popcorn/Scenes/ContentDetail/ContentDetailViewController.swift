@@ -71,8 +71,15 @@ class ContentDetailViewController: _BaseViewController {
                 cell.bind(viewModel)
                 return cell
             case let (.movie(.recommendation), viewModel as PosterItemViewModel),
-                 let (.movie(.similar), viewModel as PosterItemViewModel):
+                let (.movie(.similar), viewModel as PosterItemViewModel),
+                let (.tvShow(.recommendation), viewModel as PosterItemViewModel),
+                let (.tvShow(.similar), viewModel as PosterItemViewModel):
                 let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
+            case let (.movie(.review), viewModel as ReviewCellViewModel),
+                 let (.tvShow(.review), viewModel as ReviewCellViewModel):
+                let cell = collectionView.dequeueReusableCell(with: _ReviewCell.self, for: indexPath)
                 cell.bind(viewModel)
                 return cell
             default:
@@ -144,6 +151,7 @@ class ContentDetailViewController: _BaseViewController {
         collectionView.register(cellType: _CreditCell.self)
         collectionView.register(cellType: ImageCell.self)
         collectionView.register(cellType: VideoCell.self)
+        collectionView.register(cellType: _ReviewCell.self)
         collectionView.register(reusableViewType: _SectionHeaderView.self)
         collectionView.delegate = nil
         collectionView.dataSource = nil
