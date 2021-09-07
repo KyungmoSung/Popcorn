@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/front-artist/Desktop/Data/Git/Sung/Popcorn/Popcorn/Popcorn/Scenes/ContentDetail/VideoCellViewModel.swift">
-   </FileRef>
-   <FileRef
       location = "group:Popcorn.xcodeproj">
    </FileRef>
    <FileRef
