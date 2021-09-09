@@ -23,6 +23,36 @@ class _TVShow: _Content {
     var status: String?
     var type: String?
     
+    var reports: [Report] {
+        var reports: [Report] = []
+
+        if let numberOfSeasons = numberOfSeasons {
+            reports.append(Report(title: "numberOfSeasons".localized, content: "\(numberOfSeasons) \("seasons".localized)"))
+        }
+
+        if let numberOfEpisodes = numberOfEpisodes {
+            reports.append(Report(title: "numberOfEpisodes".localized, content: "\(numberOfEpisodes) \("episodes".localized)"))
+        }
+
+        if let firstAirDate = releaseDate?.stringValue {
+            reports.append(Report(title: "firstAirDate".localized, content: firstAirDate))
+        }
+
+        if let lastAirDate = lastAirDate?.stringValue {
+            reports.append(Report(title: "lastAirDate".localized, content: lastAirDate))
+        }
+
+        if let originalLanguage = originalLanguage {
+            reports.append(Report(title: "originalLanguage".localized, content: originalLanguage.rawValue))
+        }
+
+        if let popularity = popularity {
+            reports.append(Report(title: "popularity".localized, content: "\(Int(popularity)) 점"))
+        }
+
+        return reports
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id
         case title = "name"
@@ -81,34 +111,4 @@ class _TVShow: _Content {
         self.status = try container.decodeIfPresent(String.self, forKey: .status)
         self.type = try container.decodeIfPresent(String.self, forKey: .type)
     }
-//
-//    var detailInfos: [DetailInfo] {
-//        var infoItems: [DetailInfo] = []
-//
-//        if let numberOfSeasons = numberOfSeasons {
-//            infoItems.append(DetailInfo(title: "numberOfSeasons".localized, desc: "\(numberOfSeasons) \("seasons".localized)"))
-//        }
-//
-//        if let numberOfEpisodes = numberOfEpisodes {
-//            infoItems.append(DetailInfo(title: "numberOfEpisodes".localized, desc: "\(numberOfEpisodes) \("episodes".localized)"))
-//        }
-//
-//        if let firstAirDate = releaseDate?.stringValue {
-//            infoItems.append(DetailInfo(title: "firstAirDate".localized, desc: firstAirDate))
-//        }
-//
-//        if let lastAirDate = lastAirDate?.stringValue {
-//            infoItems.append(DetailInfo(title: "lastAirDate".localized, desc: lastAirDate))
-//        }
-//
-//        if let originalLanguage = originalLanguage {
-//            infoItems.append(DetailInfo(title: "originalLanguage".localized, desc: originalLanguage.rawValue))
-//        }
-//
-//        if let popularity = popularity {
-//            infoItems.append(DetailInfo(title: "popularity".localized, desc: "\(Int(popularity)) 점"))
-//        }
-//
-//        return infoItems
-//    }
 }

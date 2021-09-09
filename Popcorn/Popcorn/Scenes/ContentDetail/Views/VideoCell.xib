@@ -18,18 +18,21 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ENj-hl-zbi">
-                        <rect key="frame" x="0.0" y="0.0" width="271" height="180"/>
+                        <rect key="frame" x="0.0" y="0.0" width="271" height="152.5"/>
                         <subviews>
                             <wkWebView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6yN-rw-S4P">
-                                <rect key="frame" x="0.0" y="0.0" width="271" height="180"/>
+                                <rect key="frame" x="0.0" y="0.0" width="271" height="152.5"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="6yN-rw-S4P" secondAttribute="height" multiplier="16:9" id="vql-z9-cg2"/>
+                                </constraints>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="LYn-JQ-N8a">
-                                <rect key="frame" x="125.5" y="80" width="20" height="20"/>
+                                <rect key="frame" x="125.5" y="66" width="20" height="20"/>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
@@ -54,7 +57,7 @@
                 <constraint firstItem="ENj-hl-zbi" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="KOr-hT-wr9"/>
                 <constraint firstAttribute="trailing" secondItem="ENj-hl-zbi" secondAttribute="trailing" id="OGy-8Q-ZMO"/>
                 <constraint firstItem="ENj-hl-zbi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Rw9-ri-Sgs"/>
-                <constraint firstAttribute="bottom" secondItem="ENj-hl-zbi" secondAttribute="bottom" id="z7p-iJ-b8T"/>
+                <constraint firstAttribute="bottom" secondItem="ENj-hl-zbi" secondAttribute="bottom" priority="999" id="z7p-iJ-b8T"/>
             </constraints>
             <size key="customSize" width="271" height="180"/>
             <connections>

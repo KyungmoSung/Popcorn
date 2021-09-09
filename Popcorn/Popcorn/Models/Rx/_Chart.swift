@@ -13,7 +13,7 @@ enum TVShowChart: Int, CaseIterable {
     case popular
     case topRated
     
-    var title: String {
+    var title: String? {
         switch self {
         case .airingToday:
             return "airingToday".localized
@@ -46,7 +46,7 @@ enum MovieChart: Int, CaseIterable {
     case popular
     case topRated
     
-    var title: String {
+    var title: String? {
         switch self {
         case .nowPlaying:
             return "nowPlaying".localized

@@ -14,6 +14,38 @@ class _Movie: _Content {
     var revenue: Int?
     var budget: Int?
 
+    var reports: [Report] {
+        var reports: [Report] = []
+
+        if let runtime = runtime {
+            let hour = "\(runtime / 60)" + "hour".localized
+            let minute = "\(runtime % 60)" + "minute".localized
+            reports.append(Report(title: "runtime".localized, content: "\(hour) \(minute)"))
+        }
+
+        if let releaseDate = releaseDate?.stringValue {
+            reports.append(Report(title: "releaseDate".localized, content: releaseDate))
+        }
+
+        if let originalLanguage = originalLanguage {
+            reports.append(Report(title: "originalLanguage".localized, content: originalLanguage.rawValue))
+        }
+
+        if let popularity = popularity {
+            reports.append(Report(title: "popularity".localized, content: "\(Int(popularity)) 점"))
+        }
+
+        if let revenue = revenue, revenue > 0 {
+            reports.append(Report(title: "revenue".localized, content: revenue.asCurrencyFormat()))
+        }
+
+        if let budget = budget, budget > 0 {
+            reports.append(Report(title: "budget".localized, content: budget.asCurrencyFormat()))
+        }
+
+        return reports
+    }
+    
     enum CodingKeys : String, CodingKey{
         case title
         case originalTitle = "original_title"
@@ -38,36 +70,4 @@ class _Movie: _Content {
         self.revenue = try container.decodeIfPresent(Int.self, forKey: .revenue)
         self.budget = try container.decodeIfPresent(Int.self, forKey: .budget)
     }
-    
-//    var detailInfos: [DetailInfo] {
-//        var infoItems: [DetailInfo] = []
-//
-//        if let runtime = runtime {
-//            let hour = "\(runtime / 60)" + "hour".localized
-//            let minute = "\(runtime % 60)" + "minute".localized
-//            infoItems.append(DetailInfo(title: "runtime".localized, desc: "\(hour) \(minute)"))
-//        }
-//
-//        if let releaseDate = releaseDate?.stringValue {
-//            infoItems.append(DetailInfo(title: "releaseDate".localized, desc: releaseDate))
-//        }
-//
-//        if let originalLanguage = originalLanguage {
-//            infoItems.append(DetailInfo(title: "originalLanguage".localized, desc: originalLanguage.rawValue))
-//        }
-//
-//        if let popularity = popularity {
-//            infoItems.append(DetailInfo(title: "popularity".localized, desc: "\(Int(popularity)) 점"))
-//        }
-//
-//        if let revenue = revenue, revenue > 0 {
-//            infoItems.append(DetailInfo(title: "revenue".localized, desc: revenue.asCurrencyFormat()))
-//        }
-//
-//        if let budget = budget, budget > 0 {
-//            infoItems.append(DetailInfo(title: "budget".localized, desc: budget.asCurrencyFormat()))
-//        }
-//
-//        return infoItems
-//    }
 }

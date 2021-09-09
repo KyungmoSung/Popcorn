@@ -66,6 +66,8 @@ class ContentDetailViewModel: ViewModelType {
                                           items: [TitleCellViewModel(with: movie)]),
                         DetailSectionItem(section: .movie(.credit),
                                           items: credits.map { CreditCellViewModel(with: $0) }),
+                        DetailSectionItem(section: .movie(.report),
+                                          items: movie.reports.map { ReportCellViewModel(with: $0) }),
                         DetailSectionItem(section: .movie(.video),
                                           items: videos.map { VideoCellViewModel(with: $0) }),
                         DetailSectionItem(section: .movie(.image),

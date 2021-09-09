@@ -10,8 +10,9 @@ import RxSwift
 import Moya
 
 final class TmdbAPI {
-    lazy var provider = MoyaProvider<TmdbTarget>(plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
-    
+//    lazy var provider = MoyaProvider<TmdbTarget>(plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
+    lazy var provider = MoyaProvider<TmdbTarget>()
+
     private var language: Language
     private var region: Country
     

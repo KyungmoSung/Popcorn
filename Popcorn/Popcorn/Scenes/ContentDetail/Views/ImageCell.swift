@@ -24,7 +24,7 @@ class ImageCell: UICollectionViewCell {
                                          relatedBy: .equal,
                                          toItem: backdropIv,
                                          attribute: .height,
-                                         multiplier: viewModel.aspectRatio,
+                                         multiplier: CGFloat(viewModel.aspectRatio),
                                          constant: 0)
         backdropIv.addConstraint(aspectRatio!)
     }

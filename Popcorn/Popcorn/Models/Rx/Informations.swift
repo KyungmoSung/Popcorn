@@ -12,22 +12,22 @@ struct Informations {
         case title
         case synopsis
         case credit
-        case detail
+        case report
         case image
         case video
         case review
         case recommendation
         case similar
         
-        var title: String {
+        var title: String? {
             switch self {
             case .title:
-                return "title".localized
+                return nil
             case .synopsis:
                 return "synopsis".localized
             case .credit:
                 return "credit".localized
-            case .detail:
+            case .report:
                 return "detail".localized
             case .image:
                 return "image".localized
@@ -50,7 +50,7 @@ struct Informations {
                 return 100
             case .credit:
                 return 160
-            case .detail:
+            case .report:
                 return 80
             case .image:
                 return 160
@@ -59,9 +59,9 @@ struct Informations {
             case .review:
                 return 250
             case .recommendation:
-                return 200
+                return 250
             case .similar:
-                return 200
+                return 250
             }
         }
         
@@ -74,7 +74,7 @@ struct Informations {
         case title
         case synopsis
         case credit
-        case detail
+        case report
         case season
         case episodeGroup
         case image
@@ -83,15 +83,15 @@ struct Informations {
         case recommendation
         case similar
         
-        var title: String {
+        var title: String? {
             switch self {
             case .title:
-                return "title".localized
+                return nil
             case .synopsis:
                 return "synopsis".localized
             case .credit:
                 return "credit".localized
-            case .detail:
+            case .report:
                 return "detail".localized
             case .season:
                 return "season".localized
@@ -118,7 +118,7 @@ struct Informations {
                 return 100
             case .credit:
                 return 160
-            case .detail:
+            case .report:
                 return 80
             case .season:
                 return 200
@@ -131,9 +131,9 @@ struct Informations {
             case .review:
                 return 250
             case .recommendation:
-                return 200
+                return 250
             case .similar:
-                return 200
+                return 250
             }
         }
         
@@ -150,10 +150,10 @@ struct Informations {
         case tvShows
         case image
         
-        var title: String {
+        var title: String? {
             switch self {
             case .title:
-                return "title".localized
+                return nil
             case .biography:
                 return "biography".localized
             case .detail:

@@ -55,6 +55,11 @@ class ContentDetailViewController: _BaseViewController {
                 let cell = collectionView.dequeueReusableCell(with: TitleCell.self, for: indexPath)
                 cell.bind(viewModel)
                 return cell
+            case let (.movie(.report), viewModel  as ReportCellViewModel),
+                 let (.tvShow(.report), viewModel  as ReportCellViewModel):
+                let cell = collectionView.dequeueReusableCell(with: ReportCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
             case let (.movie(.credit), viewModel as CreditCellViewModel),
                  let (.tvShow(.credit), viewModel as CreditCellViewModel):
                 let cell = collectionView.dequeueReusableCell(with: _CreditCell.self, for: indexPath)
@@ -113,7 +118,7 @@ class ContentDetailViewController: _BaseViewController {
             .map{ $0.map { $0.section } }
             .drive { [weak self] sections in
                 guard let self = self else { return }
-                self.collectionView.setCollectionViewLayout(self.createCompositionalLayout(with: sections), animated: false)
+                self.collectionView.collectionViewLayout = self.createCompositionalLayout(with: sections)
             }
             .disposed(by: disposeBag)
         
@@ -152,6 +157,7 @@ class ContentDetailViewController: _BaseViewController {
         collectionView.register(cellType: ImageCell.self)
         collectionView.register(cellType: VideoCell.self)
         collectionView.register(cellType: _ReviewCell.self)
+        collectionView.register(cellType: ReportCell.self)
         collectionView.register(reusableViewType: _SectionHeaderView.self)
         collectionView.delegate = nil
         collectionView.dataSource = nil
@@ -202,162 +208,91 @@ extension ContentDetailViewController: FloatingPanelControllerDelegate {
 }
 
 extension ContentDetailViewController {
-    private func createCompositionalLayout(with sections: [DetailSection]) -> UICollectionViewCompositionalLayout {
+    private func createCompositionalLayout(with detailSections: [DetailSection]) -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { sectionIndex, _ in
-            guard let section = sections[safe: sectionIndex] else {
-                let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(0),
-                                                       heightDimension: .absolute(0))
+            var itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                  heightDimension: .fractionalHeight(1))
+            var groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                   heightDimension: .fractionalHeight(1))
+            var behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior = .continuous
+            
+            guard let detailSection = detailSections[safe: sectionIndex] else {
                 return NSCollectionLayoutSection(group: NSCollectionLayoutGroup(layoutSize:groupSize))
             }
-            
-            switch section {
+
+            switch detailSection {
             case .movie(.title), .tvShow(.title):
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                      heightDimension: .fractionalHeight(1))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                  heightDimension: .estimated(100))
                 
-                // 그룹
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                       heightDimension: .absolute(500))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                
-                // 섹션
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .continuous
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
-                
-                return section
-                
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
+                                                   heightDimension: .estimated(100))
+                behavior = .groupPaging
+
             case .movie(.credit), .tvShow(.credit):
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                      heightDimension: .fractionalHeight(1))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                  heightDimension: .estimated(detailSection.height))
                 
-                // 그룹
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3),
-                                                       heightDimension: .absolute(section.height))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2),
+                                                   heightDimension: .estimated(detailSection.height))
                 
-                // 섹션
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .continuous
-                section.interGroupSpacing = 15
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
+            case .movie(.report), .tvShow(.report):
+                itemSize = NSCollectionLayoutSize(widthDimension: .estimated(detailSection.height),
+                                                  heightDimension: .fractionalHeight(1))
                 
-                // 헤더
-                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                        heightDimension: .absolute(55))
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                                elementKind: UICollectionView.elementKindSectionHeader,
-                                                                                alignment: .top)
-                section.boundarySupplementaryItems = [sectionHeader]
-                
-                return section
-                
+                groupSize = NSCollectionLayoutSize(widthDimension: .estimated(detailSection.height),
+                                                   heightDimension: .absolute(detailSection.height))
             case .movie(.video), .tvShow(.video):
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                      heightDimension: .fractionalHeight(1))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                itemSize = NSCollectionLayoutSize(widthDimension: .estimated(detailSection.height),
+                                                  heightDimension: .fractionalHeight(1))
                 
-                // 그룹
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3),
-                                                       heightDimension: .absolute(section.height))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                
-                // 섹션
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .continuous
-                section.interGroupSpacing = 15
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
-                
-                // 헤더
-                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                        heightDimension: .absolute(55))
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                                elementKind: UICollectionView.elementKindSectionHeader,
-                                                                                alignment: .top)
-                section.boundarySupplementaryItems = [sectionHeader]
-                
-                return section
+                groupSize = NSCollectionLayoutSize(widthDimension: .estimated(detailSection.height),
+                                                   heightDimension: .absolute(detailSection.height))
                 
             case .movie(.image), .tvShow(.image):
-                let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(500),
-                                                      heightDimension: .fractionalHeight(1))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                itemSize = NSCollectionLayoutSize(widthDimension: .estimated(100),
+                                                  heightDimension: .fractionalHeight(1))
                 
-                // 그룹
-                let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(500),
-                                                       heightDimension: .absolute(section.height))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                groupSize = NSCollectionLayoutSize(widthDimension: .estimated(100),
+                                                   heightDimension: .absolute(detailSection.height))
                 
-                // 섹션
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .continuous
-                section.interGroupSpacing = 15
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 2)
+            case .movie(.similar), .tvShow(.similar),
+                 .movie(.recommendation), .tvShow(.recommendation):
+                itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                  heightDimension: .estimated(detailSection.height))
                 
-                // 헤더
-                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                        heightDimension: .estimated(50))
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                                elementKind: UICollectionView.elementKindSectionHeader,
-                                                                                alignment: .top)
-                section.boundarySupplementaryItems = [sectionHeader]
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3),
+                                                   heightDimension: .estimated(detailSection.height))
+            case .movie(.review), .tvShow(.review):
+                itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                  heightDimension: .fractionalHeight(1))
                 
-                return section
-            case .movie(.similar), .movie(.recommendation), .tvShow(.similar), .tvShow(.recommendation):
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                      heightDimension: .fractionalHeight(1))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                
-                // 그룹
-                let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(160),
-                                                       heightDimension: .absolute(240+30))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                
-                // 섹션
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .continuous
-                section.interGroupSpacing = 15
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
-                
-                // 헤더
-                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                        heightDimension: .absolute(55))
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                                elementKind: UICollectionView.elementKindSectionHeader,
-                                                                                alignment: .top)
-                section.boundarySupplementaryItems = [sectionHeader]
-                
-                return section
-                
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
+                                                   heightDimension: .absolute(detailSection.height))
+                behavior = .groupPaging
             default:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                      heightDimension: .fractionalHeight(1))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                
-                // 그룹
-                let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(160),
-                                                       heightDimension: .absolute(240+30))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                
-                // 섹션
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .continuous
-                section.interGroupSpacing = 15
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
-                
-                // 헤더
+                break
+            }
+            
+            
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = behavior
+            section.interGroupSpacing = 15
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 20, trailing: 20)
+            
+            if let _ = detailSection.title { // 헤더
                 let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                         heightDimension: .absolute(55))
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                                 elementKind: UICollectionView.elementKindSectionHeader,
                                                                                 alignment: .top)
                 section.boundarySupplementaryItems = [sectionHeader]
-                
-                return section
-                
             }
+            
+            return section
         }
     }
 }

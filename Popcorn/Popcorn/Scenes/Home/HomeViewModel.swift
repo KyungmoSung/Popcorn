@@ -52,7 +52,7 @@ class HomeViewModel: ViewModelType {
                     return Observable.combineLatest(
                         MovieChart.allCases.map { chart in
                             self.networkService.movies(chart: chart, page: 1)
-                                .map { $0.map { PosterItemViewModel(with: $0, heroID: chart.title + "\($0.id)") }}
+                                .map { $0.map { PosterItemViewModel(with: $0, heroID: (chart.title ?? "") + "\($0.id)") }}
                                 .map { HomeSectionItem(section: .movie(chart), items: $0) }
                         }
                     )
@@ -60,7 +60,7 @@ class HomeViewModel: ViewModelType {
                     return Observable.combineLatest(
                         TVShowChart.allCases.map { chart in
                             self.networkService.tvShows(chart: chart, page: 1)
-                                .map { $0.map { PosterItemViewModel(with: $0, heroID: chart.title + "\($0.id)") }}
+                                .map { $0.map { PosterItemViewModel(with: $0, heroID: (chart.title ?? "") + "\($0.id)") }}
                                 .map { HomeSectionItem(section: .tvShow(chart), items: $0) }
                         }
                     )
