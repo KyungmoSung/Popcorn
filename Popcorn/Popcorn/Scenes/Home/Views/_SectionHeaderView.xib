@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,10 +21,10 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lVY-Zu-ZC2">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="25"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="otw-ZI-qHo">
-                            <rect key="frame" x="0.0" y="20" width="320" height="25"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="25"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sbl-Qs-MTp">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="25"/>
@@ -52,8 +52,8 @@
                         </stackView>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="otw-ZI-qHo" secondAttribute="bottom" constant="10" id="Bec-5Y-5Dc"/>
-                        <constraint firstItem="otw-ZI-qHo" firstAttribute="top" secondItem="lVY-Zu-ZC2" secondAttribute="top" constant="20" id="Ge3-hm-7EX"/>
+                        <constraint firstAttribute="bottom" secondItem="otw-ZI-qHo" secondAttribute="bottom" id="Bec-5Y-5Dc"/>
+                        <constraint firstItem="otw-ZI-qHo" firstAttribute="top" secondItem="lVY-Zu-ZC2" secondAttribute="top" id="EN2-Kj-0Vc"/>
                         <constraint firstAttribute="trailing" secondItem="otw-ZI-qHo" secondAttribute="trailing" id="m5o-hK-coI"/>
                         <constraint firstItem="otw-ZI-qHo" firstAttribute="leading" secondItem="lVY-Zu-ZC2" secondAttribute="leading" id="qse-iW-C7C"/>
                     </constraints>

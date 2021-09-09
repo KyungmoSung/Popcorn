@@ -280,15 +280,15 @@ extension ContentDetailViewController {
             
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-
+            
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = behavior
             section.interGroupSpacing = 15
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 20, trailing: 20)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 40, trailing: 20)
             
             if let _ = detailSection.title { // 헤더
                 let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                        heightDimension: .absolute(55))
+                                                        heightDimension: .estimated(100))
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                                 elementKind: UICollectionView.elementKindSectionHeader,
                                                                                 alignment: .top)
