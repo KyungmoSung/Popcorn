@@ -12,8 +12,7 @@ import RxCocoa
 class _BaseViewController: UIViewController {
     var disposeBag = DisposeBag()
     
-    var languageChanged = PublishRelay<Void>()
-    var regionChanged = PublishRelay<Void>()
+    var localizeChanged = PublishRelay<Void>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,13 +23,13 @@ class _BaseViewController: UIViewController {
     private func setupNotification() {
         NotificationCenter.default.rx.notification(.languageChanged)
             .subscribe(onNext: { _ in
-                self.languageChanged.accept(())
+                self.localizeChanged.accept(())
             })
             .disposed(by: disposeBag)
         
         NotificationCenter.default.rx.notification(.regionChanged)
             .subscribe(onNext: { _ in
-                self.regionChanged.accept(())
+                self.localizeChanged.accept(())
             })
             .disposed(by: disposeBag)
     }

@@ -7,24 +7,22 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
-import Moya
 
 class HomeViewModel: ViewModelType {
     typealias HomeSectionItem = _SectionItem<HomeSection, PosterItemViewModel>
     
     struct Input {
-        let ready: Driver<Void>
-        let localizeChanged: Driver<Void>
-        let contentsTypeSelection: Driver<ContentsType>
-        let headerSelection: Driver<Int>
-        let selection: Driver<IndexPath>
+        let ready: Observable<Void>
+        let localizeChanged: Observable<Void>
+        let contentsTypeSelection: Observable<ContentsType>
+        let headerSelection: Observable<Int>
+        let selection: Observable<IndexPath>
     }
     
     struct Output {
-        let sectionItems: Driver<[HomeSectionItem]>
-        let selectedContent: Driver<_Content>
-        let selectedSection: Driver<HomeSection>
+        let sectionItems: Observable<[HomeSectionItem]>
+        let selectedContent: Observable<_Content>
+        let selectedSection: Observable<HomeSection>
     }
     
     private let networkService: TmdbService
@@ -36,13 +34,12 @@ class HomeViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        let refreshTrigger = Observable.merge(input.ready.asObservable(),
-                                             input.localizeChanged.asObservable())
+        let refreshTrigger = Observable.merge(input.ready, input.localizeChanged)
         
         let updateTrigger = Observable.combineLatest(refreshTrigger,
-                                               input.contentsTypeSelection.asObservable()
-                                                .startWith(ContentsType.movies)
-                                                .distinctUntilChanged())
+                                                     input.contentsTypeSelection
+                                                        .startWith(ContentsType.movies)
+                                                        .distinctUntilChanged())
 
         // Update - 현재 타입에 해당하는 Charts API 호출
         let sectionItems = updateTrigger
@@ -66,7 +63,6 @@ class HomeViewModel: ViewModelType {
                     )
                 }
             }
-            .asDriver(onErrorJustReturn: [])
         
         // 셀 선택 - 디테일 화면 이동
         let selectedContent = input.selection

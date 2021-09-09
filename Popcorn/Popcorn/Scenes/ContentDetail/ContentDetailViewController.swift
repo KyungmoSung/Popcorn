@@ -37,13 +37,11 @@ class ContentDetailViewController: _BaseViewController {
     }
     
     private func bindViewModel() {
-        let localizeChanged = Observable.merge(languageChanged.asObservable(),
-                                               regionChanged.asObservable())
-        
         let selectedSection = PublishRelay<Int>()
 
-        let input = ContentDetailViewModel.Input(ready: rx.viewWillAppear.asDriver(),
-                                                 headerSelection: selectedSection.asDriver(onErrorDriveWith: .empty()))
+        let input = ContentDetailViewModel.Input(ready: rx.viewWillAppear.asObservable(),
+                                                 localizeChanged: localizeChanged.asObservable(),
+                                                 headerSelection: selectedSection.asObservable())
 
         let dataSource = RxCollectionViewSectionedReloadDataSource<ContentDetailViewModel.DetailSectionItem> { dataSource, collectionView, indexPath, viewModel in
             
@@ -107,14 +105,17 @@ class ContentDetailViewController: _BaseViewController {
         let output = viewModel.transform(input: input)
         
         output.posterImage
+            .asDriverOnErrorJustComplete()
             .drive(blurPosterIv.rx.image)
             .disposed(by: disposeBag)
         
         output.posterImage
+            .asDriverOnErrorJustComplete()
             .drive(posterIv.rx.image)
             .disposed(by: disposeBag)
         
         output.sectionItems
+            .asDriverOnErrorJustComplete()
             .map{ $0.map { $0.section } }
             .drive { [weak self] sections in
                 guard let self = self else { return }
@@ -123,6 +124,7 @@ class ContentDetailViewController: _BaseViewController {
             .disposed(by: disposeBag)
         
         output.sectionItems
+            .asDriverOnErrorJustComplete()
             .drive(collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
     }
@@ -214,6 +216,7 @@ extension ContentDetailViewController {
                                                   heightDimension: .fractionalHeight(1))
             var groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                    heightDimension: .fractionalHeight(1))
+            
             var behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior = .continuous
             
             guard let detailSection = detailSections[safe: sectionIndex] else {

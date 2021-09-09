@@ -30,19 +30,16 @@ class _HomeViewController: _BaseViewController {
     }
     
     private func bindViewModel() {
-        let localizeChanged = Observable.merge(languageChanged.asObservable(),
-                                               regionChanged.asObservable())
-        
         let tapContentsType = Observable.merge(moviesBtn.rx.tap.map { ContentsType.movies },
                                                showsBtn.rx.tap.map { ContentsType.tvShows })
         
         let selectedSection = PublishRelay<Int>()
         
-        let input = HomeViewModel.Input(ready: rx.viewWillAppear.asDriver(),
-                                        localizeChanged: localizeChanged.asDriver(onErrorJustReturn: ()),
-                                        contentsTypeSelection: tapContentsType.asDriver(onErrorJustReturn: .movies),
-                                        headerSelection: selectedSection.asDriver(onErrorJustReturn: 0),
-                                        selection: collectionView.rx.itemSelected.asDriver())
+        let input = HomeViewModel.Input(ready: rx.viewWillAppear.asObservable(),
+                                        localizeChanged: localizeChanged.asObservable(),
+                                        contentsTypeSelection: tapContentsType,
+                                        headerSelection: selectedSection.asObservable(),
+                                        selection: collectionView.rx.itemSelected.asObservable())
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<HomeViewModel.HomeSectionItem> { dataSource, collectionView, indexPath, viewModel in
             let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath)
@@ -65,14 +62,17 @@ class _HomeViewController: _BaseViewController {
         let output = viewModel.transform(input: input)
         
         output.sectionItems
+            .asDriverOnErrorJustComplete()
             .drive(collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
         
         output.selectedContent
+            .asDriverOnErrorJustComplete()
             .drive()
             .disposed(by: disposeBag)
             
         output.selectedSection
+            .asDriverOnErrorJustComplete()
             .drive()
             .disposed(by: disposeBag)
     }

@@ -7,20 +7,19 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
-import Nuke
 
 class ContentDetailViewModel: ViewModelType {
     typealias DetailSectionItem = _SectionItem<DetailSection, RowViewModel>
     
     struct Input {
-        let ready: Driver<Void>
-        let headerSelection: Driver<Int>
+        let ready: Observable<Void>
+        let localizeChanged: Observable<Void>
+        let headerSelection: Observable<Int>
     }
     
     struct Output {
-        let posterImage: Driver<UIImage>
-        let sectionItems: Driver<[DetailSectionItem]>
+        let posterImage: Observable<UIImage>
+        let sectionItems: Observable<[DetailSectionItem]>
     }
     
     var content: _Content
@@ -34,21 +33,20 @@ class ContentDetailViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        let posterImage = input.ready.asObservable()
-            .debug()
+        let posterImage = input.ready
             .map { self.content.posterPath }
             .compactMap { $0 }
             .flatMap {
                 ImagePipeline.shared.rx.loadImage(with: AppConstants.Domain.tmdbImage + $0)
             }
             .map { $0.image }
-            .asDriver(onErrorJustReturn: UIImage())
         
-        let sectionItems: Driver<[DetailSectionItem]>
-    
+        let sectionItems: Observable<[DetailSectionItem]>
+        let updateTrigger = Observable.merge(input.ready, input.localizeChanged)
+
         switch content {
         case let movie as _Movie:
-            sectionItems = input.ready.asObservable()
+            sectionItems = updateTrigger
                 .map{ movie.id }
                 .flatMap {
                     Observable.zip(
@@ -80,9 +78,9 @@ class ContentDetailViewModel: ViewModelType {
                                           items: reviews.map { ReviewCellViewModel(with: $0) })
                     ]
                 }
-                .asDriver(onErrorJustReturn: [])
+
         case let tvShow as _TVShow:
-            sectionItems = input.ready.asObservable()
+            sectionItems = updateTrigger
                 .map{ tvShow.id }
                 .flatMap {
                     Observable.zip(
@@ -97,9 +95,9 @@ class ContentDetailViewModel: ViewModelType {
                 .map { (tvShow, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
                     [DetailSectionItem(section: .tvShow(.title), items: [TitleCellViewModel(with: tvShow)]) ]
                 }
-                .asDriver(onErrorJustReturn: [])
+
         default:
-            sectionItems = Driver.empty()
+            sectionItems = Observable.empty()
         }
         
         return Output(posterImage: posterImage, sectionItems: sectionItems)
