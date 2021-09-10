@@ -53,6 +53,11 @@ class ContentDetailViewController: _BaseViewController {
                 let cell = collectionView.dequeueReusableCell(with: TitleCell.self, for: indexPath)
                 cell.bind(viewModel)
                 return cell
+            case let (.movie(.synopsis), viewModel as SynopsisViewModel),
+                 let (.tvShow(.synopsis), viewModel as SynopsisViewModel):
+                let cell = collectionView.dequeueReusableCell(with: _SynopsisCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
             case let (.movie(.report), viewModel  as ReportCellViewModel),
                  let (.tvShow(.report), viewModel  as ReportCellViewModel):
                 let cell = collectionView.dequeueReusableCell(with: ReportCell.self, for: indexPath)
@@ -160,6 +165,7 @@ class ContentDetailViewController: _BaseViewController {
         collectionView.register(cellType: VideoCell.self)
         collectionView.register(cellType: _ReviewCell.self)
         collectionView.register(cellType: ReportCell.self)
+        collectionView.register(cellType: _SynopsisCell.self)
         collectionView.register(reusableViewType: _SectionHeaderView.self)
         collectionView.delegate = nil
         collectionView.dataSource = nil
@@ -231,7 +237,15 @@ extension ContentDetailViewController {
                 groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
                                                    heightDimension: .estimated(100))
                 behavior = .groupPaging
-
+                
+            case .movie(.synopsis), .tvShow(.synopsis):
+                itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                  heightDimension: .estimated(100))
+                
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                   heightDimension: .estimated(100))
+                behavior = .none
+                
             case .movie(.credit), .tvShow(.credit):
                 itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                   heightDimension: .estimated(detailSection.height))

@@ -59,24 +59,67 @@ class ContentDetailViewModel: ViewModelType {
                         self.networkService.movieReviews(id: $0, page: 1))
                 }
                 .map { (movie, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
-                    return [
+                    var sectionItems: [DetailSectionItem] = [
                         DetailSectionItem(section: .movie(.title),
-                                          items: [TitleCellViewModel(with: movie)]),
-                        DetailSectionItem(section: .movie(.credit),
-                                          items: credits.map { CreditCellViewModel(with: $0) }),
-                        DetailSectionItem(section: .movie(.report),
-                                          items: movie.reports.map { ReportCellViewModel(with: $0) }),
-                        DetailSectionItem(section: .movie(.video),
-                                          items: videos.map { VideoCellViewModel(with: $0) }),
-                        DetailSectionItem(section: .movie(.image),
-                                          items: imageInfos.map { ImageCellViewModel(with: $0) }),
-                        DetailSectionItem(section: .movie(.recommendation),
-                                          items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations") }),
-                        DetailSectionItem(section: .movie(.similar),
-                                          items: similar.map { PosterItemViewModel(with: $0, heroID: "similar") }),
-                        DetailSectionItem(section: .movie(.review),
-                                          items: reviews.map { ReviewCellViewModel(with: $0) })
+                                          items: [TitleCellViewModel(with: movie)])
                     ]
+                    
+                    var synopsisViewModels: [SynopsisViewModel] = []
+                    if let tagline = movie.tagline, tagline.count > 0 {
+                        synopsisViewModels.append(SynopsisViewModel(with: tagline, isTagline: true))
+                    }
+                    if let overview = movie.overview, overview.count > 0 {
+                        synopsisViewModels.append(SynopsisViewModel(with: overview, isTagline: false))
+                    }
+                    if !synopsisViewModels.isEmpty {
+                        let sectionItem = DetailSectionItem(section: .movie(.synopsis),
+                                                            items: synopsisViewModels)
+                        sectionItems.append(sectionItem)
+                    }
+                    
+                    if credits.count > 0 {
+                        let sectionItem = DetailSectionItem(section: .movie(.credit),
+                                                            items: credits.map { CreditCellViewModel(with: $0) })
+                        sectionItems.append(sectionItem)
+                    }
+
+                    if movie.reports.count > 0 {
+                        let sectionItem = DetailSectionItem(section: .movie(.report),
+                                                            items: movie.reports.map { ReportCellViewModel(with: $0) })
+                        sectionItems.append(sectionItem)
+                    }
+                    
+                    if videos.count > 0 {
+                        let sectionItem = DetailSectionItem(section: .movie(.video),
+                                                            items: videos.map { VideoCellViewModel(with: $0) })
+                        sectionItems.append(sectionItem)
+                    }
+                    
+                    if imageInfos.count > 0 {
+                        let sectionItem = DetailSectionItem(section: .movie(.image),
+                                                            items: imageInfos.map { ImageCellViewModel(with: $0) })
+                        sectionItems.append(sectionItem)
+                    }
+                    
+                    if recommendations.count > 0 {
+                        let sectionItem = DetailSectionItem(section: .movie(.recommendation),
+                                                            items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations") })
+                        sectionItems.append(sectionItem)
+                    }
+                    
+                    if similar.count > 0 {
+                        let sectionItem = DetailSectionItem(section: .movie(.similar),
+                                                            items: similar.map { PosterItemViewModel(with: $0, heroID: "similar") })
+                        sectionItems.append(sectionItem)
+                    }
+                    
+                    if reviews.count > 0 {
+                        let sectionItem = DetailSectionItem(section: .movie(.review),
+                                                            items: reviews.map { ReviewCellViewModel(with: $0) })
+                        sectionItems.append(sectionItem)
+                    }
+                    
+                    return sectionItems
                 }
 
         case let tvShow as _TVShow:
