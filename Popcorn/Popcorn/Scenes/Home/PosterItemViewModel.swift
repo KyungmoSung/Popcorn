@@ -22,11 +22,6 @@ final class PosterItemViewModel: RowViewModel {
         self.title = content.title
         self.posterImgPath = content.posterPath
         self.voteAverage = content.voteAverage
-        
-        if let heroID = heroID {
-            self.posterHeroId = heroID + "\(content.id)"
-        } else {
-            self.posterHeroId = nil
-        }
+        self.posterHeroId = heroID
     }
 }

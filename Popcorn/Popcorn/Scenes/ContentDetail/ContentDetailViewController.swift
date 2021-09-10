@@ -41,7 +41,8 @@ class ContentDetailViewController: _BaseViewController {
 
         let input = ContentDetailViewModel.Input(ready: rx.viewWillAppear.asObservable(),
                                                  localizeChanged: localizeChanged.asObservable(),
-                                                 headerSelection: selectedSection.asObservable())
+                                                 headerSelection: selectedSection.asObservable(),
+                                                 selection: collectionView.rx.modelSelected(RowViewModel.self).asObservable())
 
         let dataSource = RxCollectionViewSectionedReloadDataSource<ContentDetailViewModel.DetailSectionItem> { dataSource, collectionView, indexPath, viewModel in
             
@@ -132,6 +133,13 @@ class ContentDetailViewController: _BaseViewController {
             .asDriverOnErrorJustComplete()
             .drive(collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+        
+        output.selectedContent
+            .asDriverOnErrorJustComplete()
+            .drive()
+            .disposed(by: disposeBag)
+        
+        posterIv.hero.id = viewModel.heroID
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -150,10 +158,8 @@ class ContentDetailViewController: _BaseViewController {
     }
     
     func setupUI() {
-//        posterIv.hero.id = posterHeroId
-        
-        self.posterIv.applyShadow()
-        self.blurPosterIv.applyBlur(style: .regular)
+        posterIv.applyShadow()
+        blurPosterIv.applyBlur(style: .regular)
     }
     
     func setupFloatingPanel() {

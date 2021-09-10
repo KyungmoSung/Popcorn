@@ -67,9 +67,12 @@ class HomeViewModel: ViewModelType {
         // 셀 선택 - 디테일 화면 이동
         let selectedContent = input.selection
             .withLatestFrom(sectionItems) { indexPath, result in
-                return result[indexPath.section].items[indexPath.row].content
+                return (result[indexPath.section].items[indexPath.row].content, result[indexPath.section].items[indexPath.row].posterHeroId)
             }
-            .do(onNext: coordinator.showDetail(content:))
+            .do(onNext: { content, heroID in
+                self.coordinator.showDetail(content: content, heroID: heroID)
+            })
+            .map { $0.0 }
         
         // 헤더 선택 - 차트 리스트 화면 이동
         let selectedSection = input.headerSelection

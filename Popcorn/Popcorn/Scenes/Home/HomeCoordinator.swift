@@ -21,13 +21,15 @@ class HomeCoordinator: Coordinator {
     func start() {
         let viewModel = HomeViewModel(networkService: service, coordinator: self)
         let viewController = _HomeViewController(viewModel: viewModel)
-        
-        navigationController.pushViewController(viewController, animated: true)
+        viewController.hidesNavigationBar = true
+        viewController.hidesTabBar = false
+
+        navigationController.viewControllers = [viewController]
     }
     
-    func showDetail(content: _Content) {
+    func showDetail(content: _Content, heroID: String?) {
         print("pushToDetail",content)
-        let coordinator = ContentDetailCoordinator(content: content, navigationController: navigationController, service: service)
+        let coordinator = ContentDetailCoordinator(content: content, heroID: heroID, navigationController: navigationController, service: service)
         coordinator.start()
     }
     

@@ -15,19 +15,23 @@ class ContentDetailViewModel: ViewModelType {
         let ready: Observable<Void>
         let localizeChanged: Observable<Void>
         let headerSelection: Observable<Int>
+        let selection: Observable<RowViewModel>
     }
     
     struct Output {
         let posterImage: Observable<UIImage>
         let sectionItems: Observable<[DetailSectionItem]>
+        let selectedContent: Observable<_Content>
     }
     
     var content: _Content
+    var heroID: String?
     let networkService: TmdbService
     let coordinator: ContentDetailCoordinator
     
-    init(with content: _Content, networkService: TmdbService = TmdbAPI(), coordinator: ContentDetailCoordinator) {
+    init(with content: _Content, heroID: String?, networkService: TmdbService = TmdbAPI(), coordinator: ContentDetailCoordinator) {
         self.content = content
+        self.heroID = heroID
         self.networkService = networkService
         self.coordinator = coordinator
     }
@@ -143,7 +147,17 @@ class ContentDetailViewModel: ViewModelType {
             sectionItems = Observable.empty()
         }
         
-        return Output(posterImage: posterImage, sectionItems: sectionItems)
+        
+        // 셀 선택 - 디테일 화면 이동
+        let selectedContent = input.selection
+            .compactMap { $0 as? PosterItemViewModel }
+            .map { ($0.content, $0.posterHeroId) }
+            .do(onNext: { content, heroID in
+                self.coordinator.showDetail(content: content, heroID: heroID)
+            })
+            .map{ $0.0 }
+        
+        return Output(posterImage: posterImage, sectionItems: sectionItems, selectedContent: selectedContent)
     }
     
 //    func requestInfo(for sections: [SectionType]) {

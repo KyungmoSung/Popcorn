@@ -13,32 +13,26 @@ class ContentDetailCoordinator: Coordinator {
     let service: TmdbService
     
     let content: _Content
+    let heroID: String?
     
-    init(content: _Content, navigationController: UINavigationController, service: TmdbService) {
+    init(content: _Content, heroID: String?, navigationController: UINavigationController, service: TmdbService) {
         self.content = content
+        self.heroID = heroID
         self.navigationController = navigationController
         self.service = service
     }
     
     func start() {
-        var viewController: UIViewController?
+        let viewModel = ContentDetailViewModel(with: content, heroID: heroID, coordinator: self)
+        let viewController = ContentDetailViewController(viewModel: viewModel)
         
-        switch content {
-        case let movie as _Movie:
-            let viewModel = ContentDetailViewModel(with: movie, coordinator: self)
-            viewController = ContentDetailViewController(viewModel: viewModel)
-            
-        case let tvShow as _TVShow:
-            let viewModel = ContentDetailViewModel(with: tvShow, coordinator: self)
-            viewController = ContentDetailViewController(viewModel: viewModel)
-        default:
-            return
-        }
-        
-        if let viewController = viewController {
-            navigationController.pushViewController(viewController, animated: true)
-        } else {
-            Log.e("Type casting failed")
-        }
+        navigationController.hero.navigationAnimationType = .fade
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func showDetail(content: _Content, heroID: String?) {
+        print("pushToDetail",content)
+        let coordinator = ContentDetailCoordinator(content: content, heroID: heroID, navigationController: navigationController, service: service)
+        coordinator.start()
     }
 }

@@ -20,6 +20,7 @@ class SplashCoodinator: Coordinator {
     
     func start() {
         let vc = SplashViewController()
+        vc.hidesNavigationBar = true
         vc.viewModel = SplashViewModel(networkService: service, coordinator: self)
         
         navigationController.pushViewController(vc, animated: true)

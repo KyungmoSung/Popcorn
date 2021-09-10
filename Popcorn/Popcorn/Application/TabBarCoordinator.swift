@@ -34,6 +34,7 @@ class TabBarCoordinator: Coordinator {
         UITabBar.appearance().isTranslucent = true
         
         let homeNC = UINavigationController()
+        homeNC.hero.isEnabled = true
         homeNC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
         let homeCoordinator = HomeCoordinator(navigationController: homeNC,
                                               service: service)
