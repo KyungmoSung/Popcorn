@@ -39,7 +39,7 @@ class ContentDetailViewController: _BaseViewController {
     private func bindViewModel() {
         let selectedSection = PublishRelay<Int>()
 
-        let input = ContentDetailViewModel.Input(ready: rx.viewWillAppear.asObservable(),
+        let input = ContentDetailViewModel.Input(ready: rx.viewWillAppear.take(1).asObservable(),
                                                  localizeChanged: localizeChanged.asObservable(),
                                                  headerSelection: selectedSection.asObservable(),
                                                  selection: collectionView.rx.modelSelected(RowViewModel.self).asObservable())

@@ -35,7 +35,7 @@ class _HomeViewController: _BaseViewController {
         
         let selectedSection = PublishRelay<Int>()
         
-        let input = HomeViewModel.Input(ready: rx.viewWillAppear.asObservable(),
+        let input = HomeViewModel.Input(ready: rx.viewWillAppear.take(1).asObservable(),
                                         localizeChanged: localizeChanged.asObservable(),
                                         contentsTypeSelection: tapContentsType,
                                         headerSelection: selectedSection.asObservable(),
