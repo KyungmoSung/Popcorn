@@ -218,14 +218,15 @@ extension ContentDetailViewController: FloatingPanelControllerDelegate {
 extension ContentDetailViewController {
     private func createCompositionalLayout(with detailSections: [DetailSection]) -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { sectionIndex, _ in
-            var itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                  heightDimension: .fractionalHeight(1))
-            var groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                   heightDimension: .fractionalHeight(1))
-            
+            var itemSize = NSCollectionLayoutSize(widthDimension: .absolute(CGFloat.leastNonzeroMagnitude),
+                                                  heightDimension: .absolute(CGFloat.leastNonzeroMagnitude))
+            var groupSize = NSCollectionLayoutSize(widthDimension: .absolute(CGFloat.leastNonzeroMagnitude),
+                                                   heightDimension: .absolute(CGFloat.leastNonzeroMagnitude))
+
             var behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior = .continuous
             
             guard let detailSection = detailSections[safe: sectionIndex] else {
+                assertionFailure("section is nil")
                 return NSCollectionLayoutSection(group: NSCollectionLayoutGroup(layoutSize:groupSize))
             }
 
@@ -259,6 +260,7 @@ extension ContentDetailViewController {
                 
                 groupSize = NSCollectionLayoutSize(widthDimension: .estimated(detailSection.height),
                                                    heightDimension: .absolute(detailSection.height))
+                
             case .movie(.video), .tvShow(.video):
                 itemSize = NSCollectionLayoutSize(widthDimension: .estimated(detailSection.height),
                                                   heightDimension: .fractionalHeight(1))
@@ -280,6 +282,7 @@ extension ContentDetailViewController {
                 
                 groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3),
                                                    heightDimension: .estimated(detailSection.height))
+                
             case .movie(.review), .tvShow(.review):
                 itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                   heightDimension: .fractionalHeight(1))
@@ -287,6 +290,7 @@ extension ContentDetailViewController {
                 groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
                                                    heightDimension: .absolute(detailSection.height))
                 behavior = .groupPaging
+                
             default:
                 break
             }
