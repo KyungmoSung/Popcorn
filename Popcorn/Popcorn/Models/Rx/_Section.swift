@@ -63,3 +63,19 @@ enum DetailSection: _SectionType {
         }
     }
 }
+
+enum ListSection: _SectionType {
+    case contents
+    
+    var title: String? {
+        return nil
+    }
+    
+    var height: CGFloat {
+        return 100
+    }
+    
+    var expandable: Bool {
+        return false
+    }
+}

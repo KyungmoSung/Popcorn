@@ -110,6 +110,10 @@
 		CD71C1D826E5DD69006E40C2 /* TabCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C1D726E5DD69006E40C2 /* TabCellViewModel.swift */; };
 		CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */; };
 		CD87DE0E26E9C91C00C04FEB /* _SynopsisCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD87DE0D26E9C90900C04FEB /* _SynopsisCell.xib */; };
+		CD87DE1126EB3E6100C04FEB /* ContentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87DE0F26EB3E6100C04FEB /* ContentListViewController.swift */; };
+		CD87DE1226EB3E6100C04FEB /* ContentListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD87DE1026EB3E6100C04FEB /* ContentListViewController.xib */; };
+		CD87DE1526EB3E9B00C04FEB /* ContentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87DE1426EB3E9B00C04FEB /* ContentListViewModel.swift */; };
+		CD87DE1926EEE14900C04FEB /* ContentListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87DE1826EEE14900C04FEB /* ContentListCoordinator.swift */; };
 		CD8F017E25C7C21700BD8FFD /* HeaderTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */; };
 		CD8F017F25C7C21700BD8FFD /* HeaderTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */; };
 		CD8F018425C7C40300BD8FFD /* HeaderTitleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8F018325C7C40300BD8FFD /* HeaderTitleSectionController.swift */; };
@@ -296,6 +300,10 @@
 		CD71C1D726E5DD69006E40C2 /* TabCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCellViewModel.swift; sourceTree = "<group>"; };
 		CD7D412F257F3ADD00A73E31 /* NukeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NukeExtension.swift; sourceTree = "<group>"; };
 		CD87DE0D26E9C90900C04FEB /* _SynopsisCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _SynopsisCell.xib; sourceTree = "<group>"; };
+		CD87DE0F26EB3E6100C04FEB /* ContentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListViewController.swift; sourceTree = "<group>"; };
+		CD87DE1026EB3E6100C04FEB /* ContentListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentListViewController.xib; sourceTree = "<group>"; };
+		CD87DE1426EB3E9B00C04FEB /* ContentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListViewModel.swift; sourceTree = "<group>"; };
+		CD87DE1826EEE14900C04FEB /* ContentListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListCoordinator.swift; sourceTree = "<group>"; };
 		CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleCell.swift; sourceTree = "<group>"; };
 		CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTitleCell.xib; sourceTree = "<group>"; };
 		CD8F018325C7C40300BD8FFD /* HeaderTitleSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleSectionController.swift; sourceTree = "<group>"; };
@@ -389,13 +397,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		245F80F226E36641008BBFD1 /* Movie */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Movie;
-			sourceTree = "<group>";
-		};
 		2466135C2598678A008B982B /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,7 +438,6 @@
 		CD4D28A626DF6D26008716BB /* ContentDetail */ = {
 			isa = PBXGroup;
 			children = (
-				245F80F226E36641008BBFD1 /* Movie */,
 				CD4D28AE26E0A227008716BB /* Views */,
 				CD4D28A726DF6D85008716BB /* ContentDetailViewController.swift */,
 				CD4D28A826DF6E05008716BB /* ContentDetailViewController.xib */,
@@ -496,6 +496,7 @@
 		CD54010E26DC946800EA9900 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				CD87DE1326EB3E6900C04FEB /* List */,
 				CD4D28A626DF6D26008716BB /* ContentDetail */,
 				CD4D28A126DF1E3E008716BB /* Splash */,
 				CD54010F26DC949400EA9900 /* Home */,
@@ -547,6 +548,17 @@
 				CD5D612726D725F100FE3FB4 /* TmdbAPI.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		CD87DE1326EB3E6900C04FEB /* List */ = {
+			isa = PBXGroup;
+			children = (
+				CD87DE0F26EB3E6100C04FEB /* ContentListViewController.swift */,
+				CD87DE1826EEE14900C04FEB /* ContentListCoordinator.swift */,
+				CD87DE1026EB3E6100C04FEB /* ContentListViewController.xib */,
+				CD87DE1426EB3E9B00C04FEB /* ContentListViewModel.swift */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 		CDB6D352254A5CE9001B0AEB = {
@@ -954,6 +966,7 @@
 				CDB6D3F7254AA4FE001B0AEB /* HomeViewController.xib in Resources */,
 				CD71C1BA26E1EB10006E40C2 /* TitleCell.xib in Resources */,
 				CD71C1B926E1EAE9006E40C2 /* ContentDetailViewController.xib in Resources */,
+				CD87DE1226EB3E6100C04FEB /* ContentListViewController.xib in Resources */,
 				CDB6D45F254BE003001B0AEB /* SectionHeaderView.xib in Resources */,
 				24661373259867E4008B982B /* NanumBarunGothicUltraLight.ttf in Resources */,
 			);
@@ -1089,6 +1102,7 @@
 				CD0BA8E426E84AA70072C208 /* ReportCell.swift in Sources */,
 				24ED62BF2585EBB000FC98B3 /* MediaSectionController.swift in Sources */,
 				CD71C1D526E5DCDA006E40C2 /* TabCell.swift in Sources */,
+				CD87DE1526EB3E9B00C04FEB /* ContentListViewModel.swift in Sources */,
 				24B3BE1B25A71AFC00AFBF1C /* ContentsHeaderVIew.swift in Sources */,
 				246A3A2425C692AF002CEFF7 /* PersonDetailViewController.swift in Sources */,
 				CD5D612626D7251800FE3FB4 /* TmdbService.swift in Sources */,
@@ -1121,6 +1135,7 @@
 				CDB6D432254BB132001B0AEB /* IGListKitExtension.swift in Sources */,
 				CDB6D47E254BF35B001B0AEB /* SectionItem.swift in Sources */,
 				CD8F018425C7C40300BD8FFD /* HeaderTitleSectionController.swift in Sources */,
+				CD87DE1126EB3E6100C04FEB /* ContentListViewController.swift in Sources */,
 				CD5D613026D8B13200FE3FB4 /* _Chart.swift in Sources */,
 				CD71C1D826E5DD69006E40C2 /* TabCellViewModel.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
@@ -1132,6 +1147,7 @@
 				CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */,
 				CDFF300B26CF8183001ABD89 /* PosterItemViewModel.swift in Sources */,
 				CD4D28B926E0ADA2008716BB /* Informations.swift in Sources */,
+				CD87DE1926EEE14900C04FEB /* ContentListCoordinator.swift in Sources */,
 				CD5D612C26D772F000FE3FB4 /* Localize.swift in Sources */,
 				CD67044426D38BDB00FA622E /* _RxExtension.swift in Sources */,
 				CD4D28B426E0A2D9008716BB /* TitleCellViewModel.swift in Sources */,

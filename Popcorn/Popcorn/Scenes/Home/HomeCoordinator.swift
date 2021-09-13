@@ -29,13 +29,16 @@ class HomeCoordinator: Coordinator {
     
     func showDetail(content: _Content, heroID: String?) {
         print("pushToDetail",content)
-        let coordinator = ContentDetailCoordinator(content: content, heroID: heroID, navigationController: navigationController, service: service)
+        let coordinator = ContentDetailCoordinator(content: content,
+                                                   heroID: heroID,
+                                                   navigationController: navigationController,
+                                                   service: service)
         coordinator.start()
     }
     
-    func showChart(section: HomeSection) {
-        print("pushToChart",section.title)
-        let coordinator = HomeCoordinator(navigationController: navigationController, service: service)
+    func showChartList(contents: [_Content], section: HomeSection) {
+        print("pushToChart",section.title ?? "")
+        let coordinator = ContentListCoordinator(contents: contents, sourceSection: section, navigationController: navigationController, service: service)
         coordinator.start()
     }
 }

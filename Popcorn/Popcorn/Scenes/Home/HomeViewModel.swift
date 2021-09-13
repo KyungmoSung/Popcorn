@@ -22,7 +22,7 @@ class HomeViewModel: ViewModelType {
     struct Output {
         let sectionItems: Observable<[HomeSectionItem]>
         let selectedContent: Observable<_Content>
-        let selectedSection: Observable<HomeSection>
+        let selectedSection: Observable<([_Content], HomeSection)>
     }
     
     private let networkService: TmdbService
@@ -77,9 +77,11 @@ class HomeViewModel: ViewModelType {
         // 헤더 선택 - 차트 리스트 화면 이동
         let selectedSection = input.headerSelection
             .withLatestFrom(sectionItems) { section, result in
-                return result[section].section
+                return (result[section].items.map { $0.content }, result[section].section)
             }
-            .do(onNext: coordinator.showChart(section:))
+            .do(onNext: { items, section in
+                self.coordinator.showChartList(contents: items, section: section)
+            })
         
         return Output(sectionItems: sectionItems, selectedContent: selectedContent, selectedSection: selectedSection)
     }
