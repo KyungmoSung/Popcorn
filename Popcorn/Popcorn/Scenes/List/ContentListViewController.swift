@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
+import NSObject_Rx
 
 class ContentListViewController: _BaseViewController {
     var viewModel: ContentListViewModel!
@@ -28,15 +29,21 @@ class ContentListViewController: _BaseViewController {
     }
 
     private func bindViewModel(){
-        let input = ContentListViewModel.Input(ready: rx.viewWillAppear.take(1).asObservable())
+        let ready = rx.viewWillAppear.take(1).asObservable()
+        let scrollToBottom = collectionView.rx.contentOffset
+            .flatMap { offset -> Observable<Void> in
+                let scrollViewHeight = self.collectionView.bounds.size.height
+                let contentHeight = self.collectionView.contentSize.height
+                
+                if contentHeight > 0 && offset.y + scrollViewHeight > contentHeight {
+                    return Observable.just(())
+                } else {
+                    return Observable.empty()
+                }
+            }.throttle(.seconds(1), scheduler: MainScheduler.instance)
         
-        let dataSource = RxCollectionViewSectionedReloadDataSource<ContentListViewModel.ListSectionItem> { dataSource, collectionView, indexPath, viewModel in
-            let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath)
-            cell.bind(viewModel)
-            
-            return cell
-        }
         
+        let input = ContentListViewModel.Input(ready: ready, scrollToBottom: scrollToBottom)
         let output = viewModel.transform(input: input)
         
         output.title
@@ -46,7 +53,7 @@ class ContentListViewController: _BaseViewController {
         
         output.sectionItems
             .asDriverOnErrorJustComplete()
-            .drive(collectionView.rx.items(dataSource: dataSource))
+            .drive(collectionView.rx.items(dataSource: dataSource()))
             .disposed(by: disposeBag)
         
     }
@@ -58,6 +65,17 @@ class ContentListViewController: _BaseViewController {
 }
 
 extension ContentListViewController {
+    typealias DataSource = RxCollectionViewSectionedReloadDataSource<ContentListViewModel.ListSectionItem>
+    
+    private func dataSource() -> DataSource {
+        return DataSource { dataSource, collectionView, indexPath, viewModel in
+            let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath)
+            cell.bind(viewModel)
+            
+            return cell
+        }
+    }
+
     private func createCompositionalLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout {   sectionIndex, _ in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),

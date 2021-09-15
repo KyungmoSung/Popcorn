@@ -114,6 +114,7 @@
 		CD87DE1226EB3E6100C04FEB /* ContentListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD87DE1026EB3E6100C04FEB /* ContentListViewController.xib */; };
 		CD87DE1526EB3E9B00C04FEB /* ContentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87DE1426EB3E9B00C04FEB /* ContentListViewModel.swift */; };
 		CD87DE1926EEE14900C04FEB /* ContentListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87DE1826EEE14900C04FEB /* ContentListCoordinator.swift */; };
+		CD87DE1B26EF38E400C04FEB /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87DE1A26EF38E400C04FEB /* ActivityIndicator.swift */; };
 		CD8F017E25C7C21700BD8FFD /* HeaderTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */; };
 		CD8F017F25C7C21700BD8FFD /* HeaderTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */; };
 		CD8F018425C7C40300BD8FFD /* HeaderTitleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8F018325C7C40300BD8FFD /* HeaderTitleSectionController.swift */; };
@@ -304,6 +305,7 @@
 		CD87DE1026EB3E6100C04FEB /* ContentListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentListViewController.xib; sourceTree = "<group>"; };
 		CD87DE1426EB3E9B00C04FEB /* ContentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListViewModel.swift; sourceTree = "<group>"; };
 		CD87DE1826EEE14900C04FEB /* ContentListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListCoordinator.swift; sourceTree = "<group>"; };
+		CD87DE1A26EF38E400C04FEB /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleCell.swift; sourceTree = "<group>"; };
 		CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTitleCell.xib; sourceTree = "<group>"; };
 		CD8F018325C7C40300BD8FFD /* HeaderTitleSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleSectionController.swift; sourceTree = "<group>"; };
@@ -632,6 +634,7 @@
 				CDFF300826CE4602001ABD89 /* VIewModelType.swift */,
 				CD5D612B26D772F000FE3FB4 /* Localize.swift */,
 				CD4D289526DF0D77008716BB /* Coordinator.swift */,
+				CD87DE1A26EF38E400C04FEB /* ActivityIndicator.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1124,6 +1127,7 @@
 				CD06B5EE258853FE00E15540 /* TextTagCell.swift in Sources */,
 				CD0BA8DF26E848980072C208 /* ReportCellViewModel.swift in Sources */,
 				2480521C25CFE98400C9F5B2 /* DateExtension.swift in Sources */,
+				CD87DE1B26EF38E400C04FEB /* ActivityIndicator.swift in Sources */,
 				CD9A69EA25DE29AE006CAD6A /* Credit.swift in Sources */,
 				CD4D28AC26DF7144008716BB /* ContentDetailCoordinator.swift in Sources */,
 				247FF85625BD56AA00BC73D2 /* Tag.swift in Sources */,
