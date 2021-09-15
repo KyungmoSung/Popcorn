@@ -16,3 +16,15 @@ final class TabCellViewModel: RowViewModelType {
         self.isSelected = isSelected
     }
 }
+
+extension TabCellViewModel {
+    typealias Identity = String
+    
+    var identity: Identity {
+        return title
+    }
+    
+    static func == (lhs: TabCellViewModel, rhs: TabCellViewModel) -> Bool {
+        return lhs.title == rhs.title
+    }
+}

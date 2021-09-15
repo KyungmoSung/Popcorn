@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxDataSources
 
 typealias ViewModel = BaseViewModel & ViewModelType
 
@@ -17,7 +18,7 @@ protocol ViewModelType {
     func transform(input: Input) -> Output
 }
 
-protocol RowViewModelType {}
+protocol RowViewModelType: IdentifiableType, Equatable {}
 
 class BaseViewModel {
     var disposeBag = DisposeBag()

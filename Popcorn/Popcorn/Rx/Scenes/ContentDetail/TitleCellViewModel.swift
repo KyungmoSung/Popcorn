@@ -40,3 +40,16 @@ final class TitleCellViewModel: RowViewModelType {
         self.voteAverage = content.voteAverage
     }
 }
+
+extension TitleCellViewModel {
+    typealias Identity = String
+    
+    var identity: Identity {
+        return title
+    }
+    
+    static func == (lhs: TitleCellViewModel, rhs: TitleCellViewModel) -> Bool {
+        return lhs.title == rhs.title
+    }
+}
+

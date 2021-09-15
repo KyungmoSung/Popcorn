@@ -16,3 +16,15 @@ final class ReportCellViewModel: RowViewModelType {
         self.content = report.content
     }
 }
+
+extension ReportCellViewModel {
+    typealias Identity = String
+    
+    var identity: Identity {
+        return title
+    }
+    
+    static func == (lhs: ReportCellViewModel, rhs: ReportCellViewModel) -> Bool {
+        return lhs.title == rhs.title
+    }
+}

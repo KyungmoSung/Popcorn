@@ -65,7 +65,7 @@ class ContentListViewController: _BaseViewController {
 }
 
 extension ContentListViewController {
-    typealias DataSource = RxCollectionViewSectionedReloadDataSource<ContentListViewModel.ListSectionItem>
+    typealias DataSource = RxCollectionViewSectionedAnimatedDataSource<ContentListViewModel.ListSectionItem>
     
     private func dataSource() -> DataSource {
         return DataSource { dataSource, collectionView, indexPath, viewModel in
