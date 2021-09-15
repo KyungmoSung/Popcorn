@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ReportCellViewModel: RowViewModel {
+final class ReportCellViewModel: RowViewModelType {
     let title: String
     let content: String
     

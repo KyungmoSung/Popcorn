@@ -7,12 +7,9 @@
 
 import Foundation
 import RxSwift
-import NSObject_Rx
 
-class ContentListViewModel: ViewModelType {
+class ContentListViewModel: ViewModel {
     typealias ListSectionItem = _SectionItem<ListSection, PosterItemViewModel>
-    
-    var disposeBag = DisposeBag()
     
     struct Input {
         let ready: Observable<Void>
@@ -25,32 +22,28 @@ class ContentListViewModel: ViewModelType {
         let sectionItems: Observable<[ListSectionItem]>
     }
 
-    let activityIndicator = ActivityIndicator()
     private var page = 1
     private let id: Int?
     private var contents: [_Content]
     private let sourceSection: _SectionType
-    private let networkService: TmdbService
     private let coordinator: ContentListCoordinator
     
     init(with contents: [_Content], id: Int? = nil, sourceSection: _SectionType, networkService: TmdbService = TmdbAPI(), coordinator: ContentListCoordinator) {
         self.id = id
         self.contents = contents
         self.sourceSection = sourceSection
-        self.networkService = networkService
         self.coordinator = coordinator
+        
+        super.init(networkService: networkService)
     }
 
     func transform(input: Input) -> Output {
         let sectionItems = BehaviorSubject<[ListSectionItem]>(value: [])
         
-        activityIndicator.asObservable()
-            .debug()
-            .subscribe()
-            .disposed(by: disposeBag)
-        
         input.ready
-            .flatMap { _ -> Observable<[PosterItemViewModel]> in
+            .flatMap { [weak self] _ -> Observable<[PosterItemViewModel]> in
+                guard let self = self else { return Observable.just([]) }
+                
                 self.page = 1
                 return self.request()
             }
@@ -61,7 +54,9 @@ class ContentListViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         input.scrollToBottom.withLatestFrom(activityIndicator)
-            .flatMap { loading -> Observable<[PosterItemViewModel]> in
+            .flatMap { [weak self] loading -> Observable<[PosterItemViewModel]> in
+                guard let self = self else { return Observable.just([]) }
+                
                 if loading {
                     return Observable.empty()
                 } else {
@@ -83,26 +78,23 @@ class ContentListViewModel: ViewModelType {
     }
     
     func request() -> Observable<[PosterItemViewModel]> {
-        var contents: Observable<[_Content]> = Observable.just([])
+        var results: Observable<[_Content]> = Observable.just([])
         
         if page == 1 {
-            contents = Observable.just(self.contents)
+            results = Observable.just(contents)
         } else {
             switch (sourceSection, id) {
             case (let homeSection as HomeSection, _):
                 switch homeSection {
                 case let .movie(chart):
-                    contents = networkService.movies(chart: chart, page: page)
-                        .map { $0 as [_Content] }
+                    results = networkService.movies(chart: chart, page: page).mapToContents()
                 case let .tvShow(chart):
-                    contents = networkService.tvShows(chart: chart, page: page)
-                        .map { $0 as [_Content] }
+                    results = networkService.tvShows(chart: chart, page: page).mapToContents()
                 }
             case (let detailSection as DetailSection, .some(let id)):
                 switch detailSection {
                 case .movie(.recommendation):
-                    contents = networkService.movieRecommendations(id: id, page: page)
-                        .map { $0 as [_Content] }
+                    results = networkService.movieRecommendations(id: id, page: page).mapToContents()
                 default:
                     break
                 }
@@ -111,8 +103,9 @@ class ContentListViewModel: ViewModelType {
             }
         }
         
-        return contents
+        return results
             .trackActivity(activityIndicator)
+            .trackError(errorTracker)
             .map { contents -> [PosterItemViewModel] in
                 let viewModels = contents.map { PosterItemViewModel(with: $0, heroID: "\($0.id)") }
                 return viewModels

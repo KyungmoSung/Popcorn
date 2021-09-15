@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SplashViewModel: ViewModelType {
+class SplashViewModel: ViewModel {
     struct Input {
         let ready: Driver<Void>
     }
@@ -18,23 +18,33 @@ class SplashViewModel: ViewModelType {
         let settingConfig: Driver<Void>
     }
     
-    private let networkService: TmdbService
     private let coordinator: SplashCoodinator
     
     init(networkService: TmdbService = TmdbAPI(), coordinator: SplashCoodinator) {
-        self.networkService = networkService
         self.coordinator = coordinator
+        
+        super.init(networkService: networkService)
     }
 
     func transform(input: Input) -> Output {
         // Config API - 탭바 화면 이동
         let config = input.ready.asObservable()
             .debug()
-            .flatMap {
-                Observable.zip(self.networkService.languages(),
-                               self.networkService.countries(),
-                               self.networkService.genres(type: .movies),
-                               self.networkService.genres(type: .tvShows))
+            .flatMap { [weak self] _ -> Observable<([Language], [Country], [Genre], [Genre])> in
+                guard let self = self else { return Observable.empty() }
+                
+                return Observable.zip(self.networkService.languages()
+                                        .trackActivity(self.activityIndicator)
+                                        .trackError(self.errorTracker),
+                                      self.networkService.countries()
+                                        .trackActivity(self.activityIndicator)
+                                        .trackError(self.errorTracker),
+                                      self.networkService.genres(type: .movies)
+                                        .trackActivity(self.activityIndicator)
+                                        .trackError(self.errorTracker),
+                                      self.networkService.genres(type: .tvShows)
+                                        .trackActivity(self.activityIndicator)
+                                        .trackError(self.errorTracker))
             }
             .map { languages, countries, movieGenres, tvGenres in
                 Language.allCases = languages

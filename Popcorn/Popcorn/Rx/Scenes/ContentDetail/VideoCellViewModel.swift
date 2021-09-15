@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class VideoCellViewModel: RowViewModel {
+final class VideoCellViewModel: RowViewModelType {
     let videoURL: URL?
     
     init(with videoInfo: VideoInfo) {

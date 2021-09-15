@@ -8,14 +8,14 @@
 import Foundation
 import RxSwift
 
-class ContentDetailViewModel: ViewModelType {
-    typealias DetailSectionItem = _SectionItem<DetailSection, RowViewModel>
+class ContentDetailViewModel: ViewModel {
+    typealias DetailSectionItem = _SectionItem<DetailSection, RowViewModelType>
     
     struct Input {
         let ready: Observable<Void>
         let localizeChanged: Observable<Void>
         let headerSelection: Observable<Int>
-        let selection: Observable<RowViewModel>
+        let selection: Observable<RowViewModelType>
     }
     
     struct Output {
@@ -26,19 +26,22 @@ class ContentDetailViewModel: ViewModelType {
     
     var content: _Content
     var heroID: String?
-    let networkService: TmdbService
     let coordinator: ContentDetailCoordinator
     
     init(with content: _Content, heroID: String?, networkService: TmdbService = TmdbAPI(), coordinator: ContentDetailCoordinator) {
         self.content = content
         self.heroID = heroID
-        self.networkService = networkService
         self.coordinator = coordinator
+        
+        super.init(networkService: networkService)
     }
     
     func transform(input: Input) -> Output {
         let posterImage = input.ready
-            .map { self.content.posterPath }
+            .map { [weak self] in
+                guard let self = self else { return nil }
+                return self.content.posterPath
+            }
             .compactMap { $0 }
             .flatMap {
                 ImagePipeline.shared.rx.loadImage(with: AppConstants.Domain.tmdbImage + $0)
@@ -52,15 +55,31 @@ class ContentDetailViewModel: ViewModelType {
         case let movie as _Movie:
             sectionItems = updateTrigger
                 .map{ movie.id }
-                .flatMap {
-                    Observable.zip(
-                        self.networkService.movieDetails(id: $0),
-                        self.networkService.movieCredits(id: $0),
-                        self.networkService.movieVideos(id: $0),
-                        self.networkService.movieImages(id: $0),
-                        self.networkService.movieRecommendations(id: $0, page: 1),
-                        self.networkService.movieSimilar(id: $0, page: 1),
-                        self.networkService.movieReviews(id: $0, page: 1))
+                .flatMap { [weak self] id -> Observable<(_Movie, [Person], [VideoInfo], [ImageInfo], [_Movie], [_Movie], [Review])> in
+                    guard let self = self else { return Observable.empty() }
+                    
+                    return Observable.zip(
+                        self.networkService.movieDetails(id: id)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker),
+                        self.networkService.movieCredits(id: id)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker),
+                        self.networkService.movieVideos(id: id)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker),
+                        self.networkService.movieImages(id: id)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker),
+                        self.networkService.movieRecommendations(id: id, page: 1)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker),
+                        self.networkService.movieSimilar(id: id, page: 1)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker),
+                        self.networkService.movieReviews(id: id, page: 1)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker))
                 }
                 .map { (movie, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
                     var sectionItems: [DetailSectionItem] = [
@@ -76,51 +95,57 @@ class ContentDetailViewModel: ViewModelType {
                         synopsisViewModels.append(SynopsisViewModel(with: overview, isTagline: false))
                     }
                     if !synopsisViewModels.isEmpty {
-                        let sectionItem = DetailSectionItem(section: .movie(.synopsis),
-                                                            items: synopsisViewModels)
-                        sectionItems.append(sectionItem)
+                        sectionItems.append(DetailSectionItem(section: .movie(.synopsis),
+                                                              items: synopsisViewModels))
                     }
                     
                     if credits.count > 0 {
-                        let sectionItem = DetailSectionItem(section: .movie(.credit),
-                                                            items: credits.map { CreditCellViewModel(with: $0) })
-                        sectionItems.append(sectionItem)
+                        sectionItems.append(DetailSectionItem(section: .movie(.credit),
+                                                              items: credits.map {
+                                                                CreditCellViewModel(with: $0)
+                                                              }))
                     }
-
+                    
                     if movie.reports.count > 0 {
-                        let sectionItem = DetailSectionItem(section: .movie(.report),
-                                                            items: movie.reports.map { ReportCellViewModel(with: $0) })
-                        sectionItems.append(sectionItem)
+                        sectionItems.append(DetailSectionItem(section: .movie(.report),
+                                                              items: movie.reports.map {
+                                                                ReportCellViewModel(with: $0)
+                                                              }))
                     }
                     
                     if videos.count > 0 {
-                        let sectionItem = DetailSectionItem(section: .movie(.video),
-                                                            items: videos.map { VideoCellViewModel(with: $0) })
-                        sectionItems.append(sectionItem)
+                        sectionItems.append(DetailSectionItem(section: .movie(.video),
+                                                              items: videos.map {
+                                                                VideoCellViewModel(with: $0)
+                                                              }))
                     }
                     
                     if imageInfos.count > 0 {
-                        let sectionItem = DetailSectionItem(section: .movie(.image),
-                                                            items: imageInfos.map { ImageCellViewModel(with: $0) })
-                        sectionItems.append(sectionItem)
+                        sectionItems.append(DetailSectionItem(section: .movie(.image),
+                                                              items: imageInfos.map {
+                                                                ImageCellViewModel(with: $0)
+                                                              }))
                     }
                     
                     if recommendations.count > 0 {
-                        let sectionItem = DetailSectionItem(section: .movie(.recommendation),
-                                                            items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations") })
-                        sectionItems.append(sectionItem)
+                        sectionItems.append(DetailSectionItem(section: .movie(.recommendation),
+                                                              items: recommendations.map {
+                                                                PosterItemViewModel(with: $0, heroID: "recommendations")
+                                                              }))
                     }
                     
                     if similar.count > 0 {
-                        let sectionItem = DetailSectionItem(section: .movie(.similar),
-                                                            items: similar.map { PosterItemViewModel(with: $0, heroID: "similar") })
-                        sectionItems.append(sectionItem)
+                        sectionItems.append(DetailSectionItem(section: .movie(.similar),
+                                                              items: similar.map {
+                                                                PosterItemViewModel(with: $0, heroID: "similar")
+                                                              }))
                     }
                     
                     if reviews.count > 0 {
-                        let sectionItem = DetailSectionItem(section: .movie(.review),
-                                                            items: reviews.map { ReviewCellViewModel(with: $0) })
-                        sectionItems.append(sectionItem)
+                        sectionItems.append(DetailSectionItem(section: .movie(.review),
+                                                              items: reviews.map {
+                                                                ReviewCellViewModel(with: $0)
+                                                              }))
                     }
                     
                     return sectionItems
@@ -129,15 +154,31 @@ class ContentDetailViewModel: ViewModelType {
         case let tvShow as _TVShow:
             sectionItems = updateTrigger
                 .map{ tvShow.id }
-                .flatMap {
-                    Observable.zip(
-                        self.networkService.tvShowDetails(id: $0),
-                        self.networkService.tvShowCredits(id: $0),
-                        self.networkService.tvShowVideos(id: $0),
-                        self.networkService.tvShowImages(id: $0),
-                        self.networkService.tvShowRecommendations(id: $0, page: 1),
-                        self.networkService.tvShowSimilar(id: $0, page: 1),
-                        self.networkService.tvShowReviews(id: $0, page: 1))
+                .flatMap { [weak self] id -> Observable<(_TVShow, [Person], [VideoInfo], [ImageInfo], [_TVShow], [_TVShow], [Review])> in
+                    guard let self = self else { return Observable.empty() }
+                    
+                    return Observable.zip(
+                        self.networkService.tvShowDetails(id: id)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker),
+                        self.networkService.tvShowCredits(id: id)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker),
+                        self.networkService.tvShowVideos(id: id)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker),
+                        self.networkService.tvShowImages(id: id)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker),
+                        self.networkService.tvShowRecommendations(id: id, page: 1)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker),
+                        self.networkService.tvShowSimilar(id: id, page: 1)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker),
+                        self.networkService.tvShowReviews(id: id, page: 1)
+                            .trackActivity(self.activityIndicator)
+                            .trackError(self.errorTracker))
                 }
                 .map { (tvShow, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
                     [DetailSectionItem(section: .tvShow(.title), items: [TitleCellViewModel(with: tvShow)]) ]
@@ -147,14 +188,11 @@ class ContentDetailViewModel: ViewModelType {
             sectionItems = Observable.empty()
         }
         
-        
         // 셀 선택 - 디테일 화면 이동
         let selectedContent = input.selection
             .compactMap { $0 as? PosterItemViewModel }
             .map { ($0.content, $0.posterHeroId) }
-            .do(onNext: { content, heroID in
-                self.coordinator.showDetail(content: content, heroID: heroID)
-            })
+            .do(onNext: coordinator.showDetail)
             .map{ $0.0 }
         
         return Output(posterImage: posterImage, sectionItems: sectionItems, selectedContent: selectedContent)

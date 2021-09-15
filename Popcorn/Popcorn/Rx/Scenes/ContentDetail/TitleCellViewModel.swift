@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TitleCellViewModel: RowViewModel {
+final class TitleCellViewModel: RowViewModelType {
     let title: String
     private let releaseDate: Date?
     private let originalTitle: String?

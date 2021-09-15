@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ReviewCellViewModel: RowViewModel {
+final class ReviewCellViewModel: RowViewModelType {
     let profileURL: URL?
     let name: String
     var contents: String

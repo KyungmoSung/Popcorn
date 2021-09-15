@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class SynopsisViewModel: RowViewModel {
+final class SynopsisViewModel: RowViewModelType {
     let synopsis: String
     let isTagline: Bool
     

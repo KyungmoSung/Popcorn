@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TabCellViewModel: RowViewModel {
+final class TabCellViewModel: RowViewModelType {
     let title: String
     let isSelected: Bool
     

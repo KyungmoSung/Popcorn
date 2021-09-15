@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class CreditCellViewModel: RowViewModel {
+final class CreditCellViewModel: RowViewModelType {
     let name: String
     let job: String?
     let profileURL: URL?

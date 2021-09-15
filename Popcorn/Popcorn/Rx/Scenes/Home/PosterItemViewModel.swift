@@ -6,9 +6,8 @@
 //
 
 import Foundation
-protocol RowViewModel {}
 
-final class PosterItemViewModel: RowViewModel {
+final class PosterItemViewModel: RowViewModelType {
     let content: _Content
     let id: Int
     let title:String

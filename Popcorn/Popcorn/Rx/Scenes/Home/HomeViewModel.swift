@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class HomeViewModel: ViewModelType {
+class HomeViewModel: ViewModel {
     typealias HomeSectionItem = _SectionItem<HomeSection, PosterItemViewModel>
     
     struct Input {
@@ -25,12 +25,11 @@ class HomeViewModel: ViewModelType {
         let selectedSection: Observable<([_Content], HomeSection)>
     }
     
-    private let networkService: TmdbService
     private let coordinator: HomeCoordinator
     
     init(networkService: TmdbService = TmdbAPI(), coordinator: HomeCoordinator) {
-        self.networkService = networkService
         self.coordinator = coordinator
+        super.init(networkService: networkService)
     }
     
     func transform(input: Input) -> Output {
@@ -43,12 +42,16 @@ class HomeViewModel: ViewModelType {
 
         // Update - 현재 타입에 해당하는 Charts API 호출
         let sectionItems = updateTrigger
-            .flatMap { _, contentsType -> Observable<[HomeSectionItem]> in
+            .flatMap { [weak self] _, contentsType -> Observable<[HomeSectionItem]> in
+                guard let self = self else { return Observable.just([]) }
+                
                 switch contentsType {
                 case .movies:
                     return Observable.combineLatest(
                         MovieChart.allCases.map { chart in
                             self.networkService.movies(chart: chart, page: 1)
+                                .trackActivity(self.activityIndicator)
+                                .trackError(self.errorTracker)
                                 .map { $0.map { PosterItemViewModel(with: $0, heroID: (chart.title ?? "") + "\($0.id)") }}
                                 .map { HomeSectionItem(section: .movie(chart), items: $0) }
                         }
@@ -57,6 +60,8 @@ class HomeViewModel: ViewModelType {
                     return Observable.combineLatest(
                         TVShowChart.allCases.map { chart in
                             self.networkService.tvShows(chart: chart, page: 1)
+                                .trackActivity(self.activityIndicator)
+                                .trackError(self.errorTracker)
                                 .map { $0.map { PosterItemViewModel(with: $0, heroID: (chart.title ?? "") + "\($0.id)") }}
                                 .map { HomeSectionItem(section: .tvShow(chart), items: $0) }
                         }
@@ -69,9 +74,7 @@ class HomeViewModel: ViewModelType {
             .withLatestFrom(sectionItems) { indexPath, result in
                 return (result[indexPath.section].items[indexPath.row].content, result[indexPath.section].items[indexPath.row].posterHeroId)
             }
-            .do(onNext: { content, heroID in
-                self.coordinator.showDetail(content: content, heroID: heroID)
-            })
+            .do(onNext: coordinator.showDetail)
             .map { $0.0 }
         
         // 헤더 선택 - 차트 리스트 화면 이동
@@ -79,9 +82,7 @@ class HomeViewModel: ViewModelType {
             .withLatestFrom(sectionItems) { section, result in
                 return (result[section].items.map { $0.content }, result[section].section)
             }
-            .do(onNext: { items, section in
-                self.coordinator.showChartList(contents: items, section: section)
-            })
+            .do(onNext: coordinator.showChartList)
         
         return Output(sectionItems: sectionItems, selectedContent: selectedContent, selectedSection: selectedSection)
     }

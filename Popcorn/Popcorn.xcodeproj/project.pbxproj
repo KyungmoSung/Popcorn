@@ -170,7 +170,6 @@
 		CDFF2FFE26CE3367001ABD89 /* _SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FFD26CE3367001ABD89 /* _SectionHeaderView.swift */; };
 		CDFF300426CE36CB001ABD89 /* _SectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */; };
 		CDFF300726CE430D001ABD89 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF300626CE430D001ABD89 /* HomeViewModel.swift */; };
-		CDFF300926CE4602001ABD89 /* VIewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF300826CE4602001ABD89 /* VIewModelType.swift */; };
 		CDFF300B26CF8183001ABD89 /* PosterItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF300A26CF8183001ABD89 /* PosterItemViewModel.swift */; };
 		DB6EC5299D7428A159A007E9 /* Pods_PopcornTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFE0A9BBB2FAC4E0E999273 /* Pods_PopcornTests.framework */; };
 /* End PBXBuildFile section */
@@ -371,7 +370,6 @@
 		CDFF2FFD26CE3367001ABD89 /* _SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _SectionHeaderView.swift; sourceTree = "<group>"; };
 		CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _SectionHeaderView.xib; sourceTree = "<group>"; };
 		CDFF300626CE430D001ABD89 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		CDFF300826CE4602001ABD89 /* VIewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIewModelType.swift; sourceTree = "<group>"; };
 		CDFF300A26CF8183001ABD89 /* PosterItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterItemViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -571,11 +569,10 @@
 			children = (
 				CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */,
 				CD87DE1C26F1AECD00C04FEB /* BaseViewModel.swift */,
+				CD87DE1A26EF38E400C04FEB /* ActivityIndicator.swift */,
 				CD87DE2026F1B50000C04FEB /* ErrorTracker.swift */,
-				CDFF300826CE4602001ABD89 /* VIewModelType.swift */,
 				CD5D612B26D772F000FE3FB4 /* Localize.swift */,
 				CD4D289526DF0D77008716BB /* Coordinator.swift */,
-				CD87DE1A26EF38E400C04FEB /* ActivityIndicator.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1245,7 +1242,6 @@
 				CDB6D42A254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift in Sources */,
 				CDB6D525254FD329001B0AEB /* SplashViewController.swift in Sources */,
 				24C95D62259880840020C15C /* ReviewSectionController.swift in Sources */,
-				CDFF300926CE4602001ABD89 /* VIewModelType.swift in Sources */,
 				24C95D8B2599C4B20020C15C /* DetailHorizontalSectionController.swift in Sources */,
 				CDFF2FFC26CDE8A9001ABD89 /* _TVShow.swift in Sources */,
 				2480522425D000FE00C9F5B2 /* Company.swift in Sources */,
@@ -1430,7 +1426,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YV47R3P48P;
-				INFOPLIST_FILE = Popcorn/SupportFiles/Info.plist;
+				INFOPLIST_FILE = Popcorn/Rx/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1452,7 +1448,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YV47R3P48P;
-				INFOPLIST_FILE = Popcorn/SupportFiles/Info.plist;
+				INFOPLIST_FILE = Popcorn/Rx/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

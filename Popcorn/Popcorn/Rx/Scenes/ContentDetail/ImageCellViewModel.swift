@@ -5,7 +5,7 @@
 //  Created by Front-Artist on 2021/09/06.
 //
 
-final class ImageCellViewModel: RowViewModel {
+final class ImageCellViewModel: RowViewModelType {
     let imageURL: URL?
     let aspectRatio: Double
     

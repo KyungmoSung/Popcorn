@@ -45,3 +45,15 @@ extension ObservableType {
         return map { _ in }
     }
 }
+
+extension ObservableType where Element: _Content {
+    func mapToContent() -> Observable<_Content> {
+        return map { $0 as _Content}
+    }
+}
+
+extension ObservableType where Element: Collection, Element.Element: _Content {
+    func mapToContents() -> Observable<[_Content]> {
+        return map { $0.map { $0 as _Content }}
+    }
+}
