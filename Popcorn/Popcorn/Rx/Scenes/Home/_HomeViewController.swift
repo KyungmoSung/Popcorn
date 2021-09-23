@@ -12,6 +12,8 @@ import RxDataSources
 
 class _HomeViewController: _BaseViewController {
     var viewModel: HomeViewModel!
+    
+    let selectedSection = PublishRelay<Int>()
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var moviesBtn: UIButton!
@@ -33,31 +35,12 @@ class _HomeViewController: _BaseViewController {
         let tapContentsType = Observable.merge(moviesBtn.rx.tap.map { ContentsType.movies },
                                                showsBtn.rx.tap.map { ContentsType.tvShows })
         
-        let selectedSection = PublishRelay<Int>()
         
         let input = HomeViewModel.Input(ready: rx.viewWillAppear.take(1).asObservable(),
                                         localizeChanged: localizeChanged.asObservable(),
                                         contentsTypeSelection: tapContentsType,
                                         headerSelection: selectedSection.asObservable(),
                                         selection: collectionView.rx.itemSelected.asObservable())
-        
-        let dataSource = RxCollectionViewSectionedReloadDataSource<HomeViewModel.HomeSectionItem> { dataSource, collectionView, indexPath, viewModel in
-            let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath)
-            cell.bind(viewModel)
-            
-            return cell
-        } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
-            let headerView = collectionView.dequeueReusableView(with: _SectionHeaderView.self, for: indexPath)
-            let section = dataSource[indexPath.section].section
-            let viewModel = SectionHeaderViewModel(with: section, index: indexPath.section)
-
-            headerView.bind(viewModel)
-            headerView.selection?
-                .bind(to: selectedSection)
-                .disposed(by: headerView.disposeBag)
-            
-            return headerView
-        }
         
         let output = viewModel.transform(input: input)
         
@@ -72,7 +55,7 @@ class _HomeViewController: _BaseViewController {
             
         output.sectionItems
             .asDriverOnErrorJustComplete()
-            .drive(collectionView.rx.items(dataSource: dataSource))
+            .drive(collectionView.rx.items(dataSource: dataSource()))
             .disposed(by: disposeBag)
         
         output.selectedContent
@@ -93,6 +76,29 @@ class _HomeViewController: _BaseViewController {
 }
 
 extension _HomeViewController {
+    
+    typealias DataSource = RxCollectionViewSectionedAnimatedDataSource<HomeViewModel.HomeSectionItem>
+    
+    private func dataSource() -> DataSource {
+        return DataSource { dataSource, collectionView, indexPath, viewModel in
+            let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath)
+            cell.bind(viewModel)
+            
+            return cell
+        } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
+            let headerView = collectionView.dequeueReusableView(with: _SectionHeaderView.self, for: indexPath)
+            let section = dataSource[indexPath.section].section
+            let viewModel = SectionHeaderViewModel(with: section, index: indexPath.section)
+
+            headerView.bind(viewModel)
+            headerView.selection?
+                .bind(to: self.selectedSection)
+                .disposed(by: headerView.disposeBag)
+            
+            return headerView
+        }
+    }
+        
     private func createCompositionalLayout(with homeSections: [HomeSection]) -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout {   sectionIndex, _ in
             var itemSize = NSCollectionLayoutSize(widthDimension: .absolute(CGFloat.leastNonzeroMagnitude),

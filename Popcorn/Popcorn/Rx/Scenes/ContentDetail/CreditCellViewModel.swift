@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class CreditCellViewModel: RowViewModelType {
+final class CreditCellViewModel: RowViewModel {
     let name: String
     let job: String?
     let profileURL: URL?
@@ -28,5 +28,7 @@ final class CreditCellViewModel: RowViewModelType {
         } else {
             self.profileURL = nil
         }
+        
+        super.init(identity: name + (job ?? ""))
     }
 }

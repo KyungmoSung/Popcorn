@@ -9,13 +9,13 @@ import Foundation
 import RxSwift
 
 class ContentDetailViewModel: ViewModel {
-    typealias DetailSectionItem = _SectionItem<DetailSection, RowViewModelType>
+    typealias DetailSectionItem = _SectionItem<DetailSection, RowViewModel>
     
     struct Input {
         let ready: Observable<Void>
         let localizeChanged: Observable<Void>
         let headerSelection: Observable<Int>
-        let selection: Observable<RowViewModelType>
+        let selection: Observable<RowViewModel>
     }
     
     struct Output {

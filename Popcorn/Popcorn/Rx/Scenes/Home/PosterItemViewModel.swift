@@ -8,7 +8,7 @@
 import Foundation
 import RxDataSources
 
-final class PosterItemViewModel: RowViewModelType {
+final class PosterItemViewModel: RowViewModel {
     let content: _Content
     let id: Int
     let title:String
@@ -23,17 +23,7 @@ final class PosterItemViewModel: RowViewModelType {
         self.posterImgPath = content.posterPath
         self.voteAverage = content.voteAverage
         self.posterHeroId = heroID
-    }
-}
-
-extension PosterItemViewModel {
-    typealias Identity = Int
-    
-    var identity: Identity {
-        return id
-    }
-    
-    static func == (lhs: PosterItemViewModel, rhs: PosterItemViewModel) -> Bool {
-        return lhs.id == rhs.id
+        
+        super.init(identity: "\(id)")
     }
 }

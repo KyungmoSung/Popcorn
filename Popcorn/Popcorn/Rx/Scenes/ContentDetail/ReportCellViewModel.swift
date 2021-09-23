@@ -7,24 +7,14 @@
 
 import Foundation
 
-final class ReportCellViewModel: RowViewModelType {
+final class ReportCellViewModel: RowViewModel {
     let title: String
     let content: String
     
     init(with report: Report) {
         self.title = report.title
         self.content = report.content
-    }
-}
-
-extension ReportCellViewModel {
-    typealias Identity = String
-    
-    var identity: Identity {
-        return title
-    }
-    
-    static func == (lhs: ReportCellViewModel, rhs: ReportCellViewModel) -> Bool {
-        return lhs.title == rhs.title
+        
+        super.init(identity: title)
     }
 }

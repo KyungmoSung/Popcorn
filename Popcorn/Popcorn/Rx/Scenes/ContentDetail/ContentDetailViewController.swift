@@ -22,6 +22,7 @@ class ContentDetailViewController: _BaseViewController {
     var collectionView: UICollectionView {
         return collectionViewController.collectionView
     }
+    let selectedSection = PublishRelay<Int>()
         
     convenience init(viewModel: ContentDetailViewModel) {
         self.init()
@@ -37,77 +38,11 @@ class ContentDetailViewController: _BaseViewController {
     }
     
     private func bindViewModel() {
-        let selectedSection = PublishRelay<Int>()
-
         let input = ContentDetailViewModel.Input(ready: rx.viewWillAppear.take(1).asObservable(),
                                                  localizeChanged: localizeChanged.asObservable(),
                                                  headerSelection: selectedSection.asObservable(),
-                                                 selection: collectionView.rx.modelSelected(RowViewModelType.self).asObservable())
+                                                 selection: collectionView.rx.modelSelected(RowViewModel.self).asObservable())
 
-        let dataSource = RxCollectionViewSectionedReloadDataSource<ContentDetailViewModel.DetailSectionItem> { dataSource, collectionView, indexPath, viewModel in
-            
-            let section = dataSource[indexPath.section].section
-            
-            switch (section, viewModel) {
-            case let (.movie(.title), viewModel as TitleCellViewModel),
-                 let (.tvShow(.title), viewModel as TitleCellViewModel):
-                let cell = collectionView.dequeueReusableCell(with: TitleCell.self, for: indexPath)
-                cell.bind(viewModel)
-                return cell
-            case let (.movie(.synopsis), viewModel as SynopsisViewModel),
-                 let (.tvShow(.synopsis), viewModel as SynopsisViewModel):
-                let cell = collectionView.dequeueReusableCell(with: _SynopsisCell.self, for: indexPath)
-                cell.bind(viewModel)
-                return cell
-            case let (.movie(.report), viewModel  as ReportCellViewModel),
-                 let (.tvShow(.report), viewModel  as ReportCellViewModel):
-                let cell = collectionView.dequeueReusableCell(with: ReportCell.self, for: indexPath)
-                cell.bind(viewModel)
-                return cell
-            case let (.movie(.credit), viewModel as CreditCellViewModel),
-                 let (.tvShow(.credit), viewModel as CreditCellViewModel):
-                let cell = collectionView.dequeueReusableCell(with: _CreditCell.self, for: indexPath)
-                cell.bind(viewModel)
-                return cell
-            case let (.movie(.image), viewModel as ImageCellViewModel),
-                 let (.tvShow(.image), viewModel as ImageCellViewModel):
-                let cell = collectionView.dequeueReusableCell(with: ImageCell.self, for: indexPath)
-                cell.bind(viewModel)
-                return cell
-            case let (.movie(.video), viewModel as VideoCellViewModel),
-                 let (.tvShow(.video), viewModel as VideoCellViewModel):
-                let cell = collectionView.dequeueReusableCell(with: VideoCell.self, for: indexPath)
-                cell.bind(viewModel)
-                return cell
-            case let (.movie(.recommendation), viewModel as PosterItemViewModel),
-                let (.movie(.similar), viewModel as PosterItemViewModel),
-                let (.tvShow(.recommendation), viewModel as PosterItemViewModel),
-                let (.tvShow(.similar), viewModel as PosterItemViewModel):
-                let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath)
-                cell.bind(viewModel)
-                return cell
-            case let (.movie(.review), viewModel as ReviewCellViewModel),
-                 let (.tvShow(.review), viewModel as ReviewCellViewModel):
-                let cell = collectionView.dequeueReusableCell(with: _ReviewCell.self, for: indexPath)
-                cell.bind(viewModel)
-                return cell
-            default:
-                return UICollectionViewCell()
-            }
-        } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
-            let headerView = collectionView.dequeueReusableView(with: _SectionHeaderView.self, for: indexPath)
-            let section = dataSource[indexPath.section].section
-            let viewModel = SectionHeaderViewModel(with: section, index: indexPath.section)
-            
-            headerView.bind(viewModel)
-            
-            headerView.selection?
-                .bind(to: selectedSection)
-                .disposed(by: headerView.disposeBag)
-                 
-            return headerView
-        }
-        
         let output = viewModel.transform(input: input)
         
         output.posterImage
@@ -131,7 +66,7 @@ class ContentDetailViewController: _BaseViewController {
         
         output.sectionItems
             .asDriverOnErrorJustComplete()
-            .drive(collectionView.rx.items(dataSource: dataSource))
+            .drive(collectionView.rx.items(dataSource: dataSource()))
             .disposed(by: disposeBag)
         
         output.selectedContent
@@ -222,6 +157,73 @@ extension ContentDetailViewController: FloatingPanelControllerDelegate {
 }
 
 extension ContentDetailViewController {
+    typealias DataSource = RxCollectionViewSectionedAnimatedDataSource<ContentDetailViewModel.DetailSectionItem>
+    
+    private func dataSource() -> DataSource {
+        return DataSource { dataSource, collectionView, indexPath, viewModel in
+            let section = dataSource[indexPath.section].section
+            
+            switch (section, viewModel) {
+            case let (.movie(.title), viewModel as TitleCellViewModel),
+                 let (.tvShow(.title), viewModel as TitleCellViewModel):
+                let cell = collectionView.dequeueReusableCell(with: TitleCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
+            case let (.movie(.synopsis), viewModel as SynopsisViewModel),
+                 let (.tvShow(.synopsis), viewModel as SynopsisViewModel):
+                let cell = collectionView.dequeueReusableCell(with: _SynopsisCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
+            case let (.movie(.report), viewModel  as ReportCellViewModel),
+                 let (.tvShow(.report), viewModel  as ReportCellViewModel):
+                let cell = collectionView.dequeueReusableCell(with: ReportCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
+            case let (.movie(.credit), viewModel as CreditCellViewModel),
+                 let (.tvShow(.credit), viewModel as CreditCellViewModel):
+                let cell = collectionView.dequeueReusableCell(with: _CreditCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
+            case let (.movie(.image), viewModel as ImageCellViewModel),
+                 let (.tvShow(.image), viewModel as ImageCellViewModel):
+                let cell = collectionView.dequeueReusableCell(with: ImageCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
+            case let (.movie(.video), viewModel as VideoCellViewModel),
+                 let (.tvShow(.video), viewModel as VideoCellViewModel):
+                let cell = collectionView.dequeueReusableCell(with: VideoCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
+            case let (.movie(.recommendation), viewModel as PosterItemViewModel),
+                let (.movie(.similar), viewModel as PosterItemViewModel),
+                let (.tvShow(.recommendation), viewModel as PosterItemViewModel),
+                let (.tvShow(.similar), viewModel as PosterItemViewModel):
+                let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
+            case let (.movie(.review), viewModel as ReviewCellViewModel),
+                 let (.tvShow(.review), viewModel as ReviewCellViewModel):
+                let cell = collectionView.dequeueReusableCell(with: _ReviewCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
+            default:
+                return UICollectionViewCell()
+            }
+        } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
+            let headerView = collectionView.dequeueReusableView(with: _SectionHeaderView.self, for: indexPath)
+            let section = dataSource[indexPath.section].section
+            let viewModel = SectionHeaderViewModel(with: section, index: indexPath.section)
+            
+            headerView.bind(viewModel)
+            
+            headerView.selection?
+                .bind(to: self.selectedSection)
+                .disposed(by: headerView.disposeBag)
+                 
+            return headerView
+        }
+    }
+    
     private func createCompositionalLayout(with detailSections: [DetailSection]) -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { sectionIndex, _ in
             var itemSize = NSCollectionLayoutSize(widthDimension: .absolute(CGFloat.leastNonzeroMagnitude),

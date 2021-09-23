@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ReviewCellViewModel: RowViewModelType {
+final class ReviewCellViewModel: RowViewModel {
     let profileURL: URL?
     let name: String
     var contents: String
@@ -38,5 +38,7 @@ final class ReviewCellViewModel: RowViewModelType {
         } else {
             self.date = nil
         }
+        
+        super.init(identity: name)
     }
 }

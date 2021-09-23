@@ -50,6 +50,7 @@
 		24C95D802599B0290020C15C /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C95D7F2599B0290020C15C /* Enums.swift */; };
 		24C95D8B2599C4B20020C15C /* DetailHorizontalSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C95D8A2599C4B20020C15C /* DetailHorizontalSectionController.swift */; };
 		24C98B3225C990AD00792D8A /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C98B3125C990AD00792D8A /* Country.swift */; };
+		24D1B4C226FC67E900F8211A /* RowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1B4C126FC67E900F8211A /* RowViewModel.swift */; };
 		24E02D712585FE0A00591234 /* MediaVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24E02D6F2585FE0A00591234 /* MediaVideoCell.xib */; };
 		24E02D722585FE0A00591234 /* MediaVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E02D702585FE0A00591234 /* MediaVideoCell.swift */; };
 		24E02D8925860AFD00591234 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E02D8825860AFD00591234 /* Media.swift */; };
@@ -115,7 +116,7 @@
 		CD87DE1526EB3E9B00C04FEB /* ContentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87DE1426EB3E9B00C04FEB /* ContentListViewModel.swift */; };
 		CD87DE1926EEE14900C04FEB /* ContentListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87DE1826EEE14900C04FEB /* ContentListCoordinator.swift */; };
 		CD87DE1B26EF38E400C04FEB /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87DE1A26EF38E400C04FEB /* ActivityIndicator.swift */; };
-		CD87DE1D26F1AECD00C04FEB /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87DE1C26F1AECD00C04FEB /* BaseViewModel.swift */; };
+		CD87DE1D26F1AECD00C04FEB /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87DE1C26F1AECD00C04FEB /* ViewModel.swift */; };
 		CD87DE2126F1B50000C04FEB /* ErrorTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87DE2026F1B50000C04FEB /* ErrorTracker.swift */; };
 		CD8F017E25C7C21700BD8FFD /* HeaderTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */; };
 		CD8F017F25C7C21700BD8FFD /* HeaderTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */; };
@@ -235,6 +236,7 @@
 		24C95D7F2599B0290020C15C /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		24C95D8A2599C4B20020C15C /* DetailHorizontalSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHorizontalSectionController.swift; sourceTree = "<group>"; };
 		24C98B3125C990AD00792D8A /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		24D1B4C126FC67E900F8211A /* RowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowViewModel.swift; sourceTree = "<group>"; };
 		24E02D6F2585FE0A00591234 /* MediaVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaVideoCell.xib; sourceTree = "<group>"; };
 		24E02D702585FE0A00591234 /* MediaVideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaVideoCell.swift; sourceTree = "<group>"; };
 		24E02D8825860AFD00591234 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
@@ -307,7 +309,7 @@
 		CD87DE1426EB3E9B00C04FEB /* ContentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListViewModel.swift; sourceTree = "<group>"; };
 		CD87DE1826EEE14900C04FEB /* ContentListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListCoordinator.swift; sourceTree = "<group>"; };
 		CD87DE1A26EF38E400C04FEB /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
-		CD87DE1C26F1AECD00C04FEB /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		CD87DE1C26F1AECD00C04FEB /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		CD87DE2026F1B50000C04FEB /* ErrorTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTracker.swift; sourceTree = "<group>"; };
 		CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleCell.swift; sourceTree = "<group>"; };
 		CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTitleCell.xib; sourceTree = "<group>"; };
@@ -568,7 +570,8 @@
 			isa = PBXGroup;
 			children = (
 				CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */,
-				CD87DE1C26F1AECD00C04FEB /* BaseViewModel.swift */,
+				CD87DE1C26F1AECD00C04FEB /* ViewModel.swift */,
+				24D1B4C126FC67E900F8211A /* RowViewModel.swift */,
 				CD87DE1A26EF38E400C04FEB /* ActivityIndicator.swift */,
 				CD87DE2026F1B50000C04FEB /* ErrorTracker.swift */,
 				CD5D612B26D772F000FE3FB4 /* Localize.swift */,
@@ -1214,7 +1217,7 @@
 				CD5D612E26D777B700FE3FB4 /* NSNotificationExtension.swift in Sources */,
 				246CAD2425C984CF00288F4B /* Language.swift in Sources */,
 				CD4D28AA26DF6F98008716BB /* ContentDetailViewModel.swift in Sources */,
-				CD87DE1D26F1AECD00C04FEB /* BaseViewModel.swift in Sources */,
+				CD87DE1D26F1AECD00C04FEB /* ViewModel.swift in Sources */,
 				CD4D28A326DF1E82008716BB /* SplashViewModel.swift in Sources */,
 				24C95D68259880BA0020C15C /* ReviewCell.swift in Sources */,
 				24C95D802599B0290020C15C /* Enums.swift in Sources */,
@@ -1239,6 +1242,7 @@
 				CD0BA8EB26E9C7E50072C208 /* SynopsisViewModel.swift in Sources */,
 				CD97164225DB911C009074E5 /* Config.swift in Sources */,
 				CD936FE9258884840006441C /* UINavigationControllerExtension.swift in Sources */,
+				24D1B4C226FC67E900F8211A /* RowViewModel.swift in Sources */,
 				CDB6D42A254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift in Sources */,
 				CDB6D525254FD329001B0AEB /* SplashViewController.swift in Sources */,
 				24C95D62259880840020C15C /* ReviewSectionController.swift in Sources */,
