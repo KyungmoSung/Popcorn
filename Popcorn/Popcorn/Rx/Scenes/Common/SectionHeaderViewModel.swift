@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import RxSwift
-import RxCocoa
 
 final class SectionHeaderViewModel {
     let section: _SectionType

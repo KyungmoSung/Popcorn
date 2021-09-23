@@ -1,5 +1,5 @@
 //
-//  ReportCellViewModel.swift
+//  ReportItemViewModel.swift
 //  Popcorn
 //
 //  Created by Front-Artist on 2021/09/08.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ReportCellViewModel: RowViewModel {
+final class ReportItemViewModel: RowViewModel {
     let title: String
     let content: String
     

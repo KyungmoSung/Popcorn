@@ -18,7 +18,7 @@ class TitleCell: UICollectionViewCell {
         super.awakeFromNib()
     }
 
-    func bind(_ viewModel: TitleCellViewModel)  {
+    func bind(_ viewModel: TitleItemViewModel)  {
         titleLb.text = viewModel.title
         subTitleLb.text = viewModel.subTitle
         voteAverageLb.text = viewModel.voteAverageText

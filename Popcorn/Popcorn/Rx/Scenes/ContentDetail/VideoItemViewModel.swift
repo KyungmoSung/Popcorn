@@ -1,5 +1,5 @@
 //
-//  VideoCellViewModel.swift
+//  VideoItemViewModel.swift
 //  
 //
 //  Created by Front-Artist on 2021/09/06.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class VideoCellViewModel: RowViewModel {
+final class VideoItemViewModel: RowViewModel {
     let videoURL: URL?
     
     init(with videoInfo: VideoInfo) {

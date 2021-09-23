@@ -84,15 +84,15 @@ class ContentDetailViewModel: ViewModel {
                 .map { (movie, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
                     var sectionItems: [DetailSectionItem] = [
                         DetailSectionItem(section: .movie(.title),
-                                          items: [TitleCellViewModel(with: movie)])
+                                          items: [TitleItemViewModel(with: movie)])
                     ]
                     
-                    var synopsisViewModels: [SynopsisViewModel] = []
+                    var synopsisViewModels: [SynopsisItemViewModel] = []
                     if let tagline = movie.tagline, tagline.count > 0 {
-                        synopsisViewModels.append(SynopsisViewModel(with: tagline, isTagline: true))
+                        synopsisViewModels.append(SynopsisItemViewModel(with: tagline, isTagline: true))
                     }
                     if let overview = movie.overview, overview.count > 0 {
-                        synopsisViewModels.append(SynopsisViewModel(with: overview, isTagline: false))
+                        synopsisViewModels.append(SynopsisItemViewModel(with: overview, isTagline: false))
                     }
                     if !synopsisViewModels.isEmpty {
                         sectionItems.append(DetailSectionItem(section: .movie(.synopsis),
@@ -102,28 +102,28 @@ class ContentDetailViewModel: ViewModel {
                     if credits.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.credit),
                                                               items: credits.map {
-                                                                CreditCellViewModel(with: $0)
+                                                                CreditItemViewModel(with: $0)
                                                               }))
                     }
                     
                     if movie.reports.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.report),
                                                               items: movie.reports.map {
-                                                                ReportCellViewModel(with: $0)
+                                                                ReportItemViewModel(with: $0)
                                                               }))
                     }
                     
                     if videos.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.video),
                                                               items: videos.map {
-                                                                VideoCellViewModel(with: $0)
+                                                                VideoItemViewModel(with: $0)
                                                               }))
                     }
                     
                     if imageInfos.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.image),
                                                               items: imageInfos.map {
-                                                                ImageCellViewModel(with: $0)
+                                                                ImageItemViewModel(with: $0)
                                                               }))
                     }
                     
@@ -144,7 +144,7 @@ class ContentDetailViewModel: ViewModel {
                     if reviews.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.review),
                                                               items: reviews.map {
-                                                                ReviewCellViewModel(with: $0)
+                                                                ReviewItemViewModel(with: $0)
                                                               }))
                     }
                     
@@ -181,7 +181,7 @@ class ContentDetailViewModel: ViewModel {
                             .trackError(self.errorTracker))
                 }
                 .map { (tvShow, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
-                    [DetailSectionItem(section: .tvShow(.title), items: [TitleCellViewModel(with: tvShow)]) ]
+                    [DetailSectionItem(section: .tvShow(.title), items: [TitleItemViewModel(with: tvShow)]) ]
                 }
 
         default:

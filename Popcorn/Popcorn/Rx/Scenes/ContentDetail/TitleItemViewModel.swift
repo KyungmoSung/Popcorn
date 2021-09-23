@@ -1,5 +1,5 @@
 //
-//  TitleCellViewModel.swift
+//  TitleItemViewModel.swift
 //  Popcorn
 //
 //  Created by Front-Artist on 2021/09/02.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TitleCellViewModel: RowViewModel {
+final class TitleItemViewModel: RowViewModel {
     let title: String
     private let releaseDate: Date?
     private let originalTitle: String?

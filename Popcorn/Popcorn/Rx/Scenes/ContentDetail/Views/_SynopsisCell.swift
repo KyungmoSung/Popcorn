@@ -14,7 +14,7 @@ class _SynopsisCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    func bind(_ viewModel: SynopsisViewModel){
+    func bind(_ viewModel: SynopsisItemViewModel){
         let font =  UIFont.NanumSquare(size: 14, family: viewModel.isTagline ? .ExtraBold : .Regular)
         let synopsis = viewModel.synopsis.replacingOccurrences(of: ". ", with: ".\n")
         synopsisLb.attributedText = synopsis.attributedString(font: font)

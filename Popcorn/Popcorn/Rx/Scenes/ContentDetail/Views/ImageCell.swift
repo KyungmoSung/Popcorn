@@ -17,7 +17,7 @@ class ImageCell: UICollectionViewCell {
         contentView.applyShadow()
     }
     
-    func bind(_ viewModel: ImageCellViewModel)  {
+    func bind(_ viewModel: ImageItemViewModel)  {
         backdropIv.kf.setImage(with: viewModel.imageURL, options: [.transition(.fade(1))])
         aspectRatio = NSLayoutConstraint(item: backdropIv!,
                                          attribute: .width,

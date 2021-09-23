@@ -1,5 +1,5 @@
 //
-//  CreditCellViewModel.swift
+//  CreditItemViewModel.swift
 //  Popcorn
 //
 //  Created by Front-Artist on 2021/09/02.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class CreditCellViewModel: RowViewModel {
+final class CreditItemViewModel: RowViewModel {
     let name: String
     let job: String?
     let profileURL: URL?

@@ -1,14 +1,13 @@
 //
-//  SynopsisViewModel.swift
+//  SynopsisItemViewModel.swift
 //  Popcorn
 //
 //  Created by Front-Artist on 2021/09/09.
 //
 
 import Foundation
-import RxSwift
 
-final class SynopsisViewModel: RowViewModel {
+final class SynopsisItemViewModel: RowViewModel {
     let synopsis: String
     let isTagline: Bool
     

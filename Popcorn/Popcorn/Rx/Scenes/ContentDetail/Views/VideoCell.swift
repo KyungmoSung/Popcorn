@@ -21,7 +21,7 @@ class VideoCell: UICollectionViewCell {
         webView.scrollView.contentInsetAdjustmentBehavior = .never
     }
     
-    func bind(_ viewModel: VideoCellViewModel)  {
+    func bind(_ viewModel: VideoItemViewModel)  {
         guard let videoURL = viewModel.videoURL else {
             return
         }

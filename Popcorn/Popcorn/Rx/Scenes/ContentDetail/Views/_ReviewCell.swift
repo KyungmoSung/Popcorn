@@ -21,7 +21,7 @@ class _ReviewCell: UICollectionViewCell {
         contentView.applyShadow()
     }
     
-    func bind(_ viewModel: ReviewCellViewModel) {
+    func bind(_ viewModel: ReviewItemViewModel) {
         avatarIv.kf.setImage(with: viewModel.profileURL,
                              placeholder: UIImage(named: "icAvatar"),
                              options: [.transition(.fade(1))])

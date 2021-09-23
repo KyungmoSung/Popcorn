@@ -19,7 +19,7 @@ class _CreditCell: UICollectionViewCell {
         profileIv.superview?.applyShadow()
     }
     
-    func bind(_ viewModel: CreditCellViewModel)  {
+    func bind(_ viewModel: CreditItemViewModel)  {
         nameLb.text = viewModel.name
         jobLb.text = viewModel.job
         profileIv.kf.setImage(with: viewModel.profileURL, placeholder: UIImage(named: "icAvatar"), options: [.transition(.fade(1))])

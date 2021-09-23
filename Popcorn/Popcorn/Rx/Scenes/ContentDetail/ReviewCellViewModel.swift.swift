@@ -1,13 +1,13 @@
 //
-//  ReviewCellViewModel.swift.swift
-//  ReviewCellViewModel.swift
+//  ReviewItemViewModel.swift
+//  Popcorn
 //
 //  Created by Kyungmo on 2021/09/07.
 //
 
 import Foundation
 
-final class ReviewCellViewModel: RowViewModel {
+final class ReviewItemViewModel: RowViewModel {
     let profileURL: URL?
     let name: String
     var contents: String

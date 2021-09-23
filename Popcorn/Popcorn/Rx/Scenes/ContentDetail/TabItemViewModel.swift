@@ -1,5 +1,5 @@
 //
-//  TabCellViewModel.swift
+//  TabItemViewModel.swift
 //  Popcorn
 //
 //  Created by Front-Artist on 2021/09/06.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TabCellViewModel: RowViewModel {
+final class TabItemViewModel: RowViewModel {
     let title: String
     let isSelected: Bool
     

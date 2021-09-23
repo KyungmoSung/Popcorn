@@ -17,7 +17,7 @@ class ReportCell: UICollectionViewCell {
         contentView.applyShadow()
     }
     
-    func bind(_ viewModel: ReportCellViewModel)  {
+    func bind(_ viewModel: ReportItemViewModel)  {
         titleLb.text = viewModel.title
         contentLb.text = viewModel.content
     }

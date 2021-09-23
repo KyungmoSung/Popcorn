@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RxDataSources
 
 final class PosterItemViewModel: RowViewModel {
     let content: _Content

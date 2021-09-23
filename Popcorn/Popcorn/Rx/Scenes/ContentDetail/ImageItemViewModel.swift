@@ -1,11 +1,13 @@
 //
-//  ImageCellViewModel.swift
+//  ImageItemViewModel.swift
 //  Popcorn
 //
 //  Created by Front-Artist on 2021/09/06.
 //
 
-final class ImageCellViewModel: RowViewModel {
+import Foundation
+
+final class ImageItemViewModel: RowViewModel {
     let imageURL: URL?
     let aspectRatio: Double
     

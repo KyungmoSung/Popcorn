@@ -164,33 +164,33 @@ extension ContentDetailViewController {
             let section = dataSource[indexPath.section].section
             
             switch (section, viewModel) {
-            case let (.movie(.title), viewModel as TitleCellViewModel),
-                 let (.tvShow(.title), viewModel as TitleCellViewModel):
+            case let (.movie(.title), viewModel as TitleItemViewModel),
+                 let (.tvShow(.title), viewModel as TitleItemViewModel):
                 let cell = collectionView.dequeueReusableCell(with: TitleCell.self, for: indexPath)
                 cell.bind(viewModel)
                 return cell
-            case let (.movie(.synopsis), viewModel as SynopsisViewModel),
-                 let (.tvShow(.synopsis), viewModel as SynopsisViewModel):
+            case let (.movie(.synopsis), viewModel as SynopsisItemViewModel),
+                 let (.tvShow(.synopsis), viewModel as SynopsisItemViewModel):
                 let cell = collectionView.dequeueReusableCell(with: _SynopsisCell.self, for: indexPath)
                 cell.bind(viewModel)
                 return cell
-            case let (.movie(.report), viewModel  as ReportCellViewModel),
-                 let (.tvShow(.report), viewModel  as ReportCellViewModel):
+            case let (.movie(.report), viewModel  as ReportItemViewModel),
+                 let (.tvShow(.report), viewModel  as ReportItemViewModel):
                 let cell = collectionView.dequeueReusableCell(with: ReportCell.self, for: indexPath)
                 cell.bind(viewModel)
                 return cell
-            case let (.movie(.credit), viewModel as CreditCellViewModel),
-                 let (.tvShow(.credit), viewModel as CreditCellViewModel):
+            case let (.movie(.credit), viewModel as CreditItemViewModel),
+                 let (.tvShow(.credit), viewModel as CreditItemViewModel):
                 let cell = collectionView.dequeueReusableCell(with: _CreditCell.self, for: indexPath)
                 cell.bind(viewModel)
                 return cell
-            case let (.movie(.image), viewModel as ImageCellViewModel),
-                 let (.tvShow(.image), viewModel as ImageCellViewModel):
+            case let (.movie(.image), viewModel as ImageItemViewModel),
+                 let (.tvShow(.image), viewModel as ImageItemViewModel):
                 let cell = collectionView.dequeueReusableCell(with: ImageCell.self, for: indexPath)
                 cell.bind(viewModel)
                 return cell
-            case let (.movie(.video), viewModel as VideoCellViewModel),
-                 let (.tvShow(.video), viewModel as VideoCellViewModel):
+            case let (.movie(.video), viewModel as VideoItemViewModel),
+                 let (.tvShow(.video), viewModel as VideoItemViewModel):
                 let cell = collectionView.dequeueReusableCell(with: VideoCell.self, for: indexPath)
                 cell.bind(viewModel)
                 return cell
@@ -201,8 +201,8 @@ extension ContentDetailViewController {
                 let cell = collectionView.dequeueReusableCell(with: PosterCell.self, for: indexPath)
                 cell.bind(viewModel)
                 return cell
-            case let (.movie(.review), viewModel as ReviewCellViewModel),
-                 let (.tvShow(.review), viewModel as ReviewCellViewModel):
+            case let (.movie(.review), viewModel as ReviewItemViewModel),
+                 let (.tvShow(.review), viewModel as ReviewItemViewModel):
                 let cell = collectionView.dequeueReusableCell(with: _ReviewCell.self, for: indexPath)
                 cell.bind(viewModel)
                 return cell

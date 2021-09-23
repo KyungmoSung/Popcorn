@@ -19,7 +19,7 @@ class TabCell: UICollectionViewCell {
     }
     
     
-    func bind(_ viewModel: TabCellViewModel)  {
+    func bind(_ viewModel: TabItemViewModel)  {
         titleLb.text = viewModel.title
         
         selectedBottomLine.isHidden = !viewModel.isSelected
