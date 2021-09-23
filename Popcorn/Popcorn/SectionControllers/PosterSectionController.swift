@@ -96,7 +96,7 @@ class PosterSectionController: ListSectionController {
             }
             return cell
         default:
-            let cell: HomePosterCell = context.dequeueReusableXibCell(for: self, at: index)
+            let cell: PosterCell = context.dequeueReusableXibCell(for: self, at: index)
             if item.isLoading {
                 cell.showAnimatedGradientSkeleton(transition: .crossDissolve(0.3))
             } else {
@@ -130,7 +130,7 @@ class PosterSectionController: ListSectionController {
         
         let vc = ContentsDetailViewController(contents: contents)
         
-        if let cell = collectionContext?.cellForItem(at: index, sectionController: self) as? HomePosterCell {
+        if let cell = collectionContext?.cellForItem(at: index, sectionController: self) as? PosterCell {
             vc.posterHeroId = "\(viewController?.className ?? "")\(uuid)\(contents.id)"
 //            vc.posterHeroImage = cell.posterImage
         }

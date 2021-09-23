@@ -59,7 +59,7 @@ class ContentListViewController: _BaseViewController {
     }
     
     private func setupUI() {
-        collectionView.register(cellType: HomePosterCell.self)
+        collectionView.register(cellType: PosterCell.self)
         collectionView.collectionViewLayout = createCompositionalLayout()
     }
 }
@@ -69,7 +69,7 @@ extension ContentListViewController {
     
     private func dataSource() -> DataSource {
         return DataSource { dataSource, collectionView, indexPath, viewModel in
-            let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(with: PosterCell.self, for: indexPath)
             cell.bind(viewModel)
             
             return cell

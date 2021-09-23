@@ -100,7 +100,7 @@ class ContentDetailViewController: _BaseViewController {
     func setupFloatingPanel() {
         collectionView.backgroundColor = .secondarySystemGroupedBackground
         collectionView.register(cellType: TitleCell.self)
-        collectionView.register(cellType: HomePosterCell.self)
+        collectionView.register(cellType: PosterCell.self)
         collectionView.register(cellType: _CreditCell.self)
         collectionView.register(cellType: ImageCell.self)
         collectionView.register(cellType: VideoCell.self)
@@ -198,7 +198,7 @@ extension ContentDetailViewController {
                 let (.movie(.similar), viewModel as PosterItemViewModel),
                 let (.tvShow(.recommendation), viewModel as PosterItemViewModel),
                 let (.tvShow(.similar), viewModel as PosterItemViewModel):
-                let cell = collectionView.dequeueReusableCell(with: HomePosterCell.self, for: indexPath)
+                let cell = collectionView.dequeueReusableCell(with: PosterCell.self, for: indexPath)
                 cell.bind(viewModel)
                 return cell
             case let (.movie(.review), viewModel as ReviewCellViewModel),
