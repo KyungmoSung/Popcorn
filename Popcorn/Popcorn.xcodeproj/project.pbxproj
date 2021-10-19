@@ -66,6 +66,7 @@
 		CD06B5E8258853E100E15540 /* TextTagSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD06B5E7258853E100E15540 /* TextTagSectionController.swift */; };
 		CD06B5EE258853FE00E15540 /* TextTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD06B5EC258853FE00E15540 /* TextTagCell.swift */; };
 		CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD06B5ED258853FE00E15540 /* TextTagCell.xib */; };
+		CD0AC904271EA8CF00702092 /* RowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0AC903271EA8CF00702092 /* RowViewModel.swift */; };
 		CD0BA8DF26E848980072C208 /* ReportCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0BA8DE26E848980072C208 /* ReportCellViewModel.swift */; };
 		CD0BA8E126E848B20072C208 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0BA8E026E848B20072C208 /* Report.swift */; };
 		CD0BA8E426E84AA70072C208 /* ReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0BA8E326E84AA70072C208 /* ReportCell.swift */; };
@@ -258,6 +259,7 @@
 		CD06B5E7258853E100E15540 /* TextTagSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTagSectionController.swift; sourceTree = "<group>"; };
 		CD06B5EC258853FE00E15540 /* TextTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTagCell.swift; sourceTree = "<group>"; };
 		CD06B5ED258853FE00E15540 /* TextTagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTagCell.xib; sourceTree = "<group>"; };
+		CD0AC903271EA8CF00702092 /* RowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowViewModel.swift; sourceTree = "<group>"; };
 		CD0BA8DE26E848980072C208 /* ReportCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCellViewModel.swift; sourceTree = "<group>"; };
 		CD0BA8E026E848B20072C208 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		CD0BA8E226E84AA70072C208 /* ReportCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportCell.xib; sourceTree = "<group>"; };
@@ -569,6 +571,7 @@
 			children = (
 				CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */,
 				CD87DE1C26F1AECD00C04FEB /* BaseViewModel.swift */,
+				CD0AC903271EA8CF00702092 /* RowViewModel.swift */,
 				CD87DE1A26EF38E400C04FEB /* ActivityIndicator.swift */,
 				CD87DE2026F1B50000C04FEB /* ErrorTracker.swift */,
 				CD5D612B26D772F000FE3FB4 /* Localize.swift */,
@@ -1239,6 +1242,7 @@
 				CD0BA8EB26E9C7E50072C208 /* SynopsisViewModel.swift in Sources */,
 				CD97164225DB911C009074E5 /* Config.swift in Sources */,
 				CD936FE9258884840006441C /* UINavigationControllerExtension.swift in Sources */,
+				CD0AC904271EA8CF00702092 /* RowViewModel.swift in Sources */,
 				CDB6D42A254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift in Sources */,
 				CDB6D525254FD329001B0AEB /* SplashViewController.swift in Sources */,
 				24C95D62259880840020C15C /* ReviewSectionController.swift in Sources */,

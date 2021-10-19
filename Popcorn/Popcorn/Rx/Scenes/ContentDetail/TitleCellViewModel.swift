@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TitleCellViewModel: RowViewModelType {
+final class TitleCellViewModel: RowViewModel {
     let title: String
     private let releaseDate: Date?
     private let originalTitle: String?
@@ -38,18 +38,7 @@ final class TitleCellViewModel: RowViewModelType {
         self.releaseDate = content.releaseDate?.dateValue()
         self.originalTitle = content.originalTitle
         self.voteAverage = content.voteAverage
+        
+        super.init(identifier: title)
     }
 }
-
-extension TitleCellViewModel {
-    typealias Identity = String
-    
-    var identity: Identity {
-        return title
-    }
-    
-    static func == (lhs: TitleCellViewModel, rhs: TitleCellViewModel) -> Bool {
-        return lhs.title == rhs.title
-    }
-}
-

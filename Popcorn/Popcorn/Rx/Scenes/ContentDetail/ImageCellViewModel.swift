@@ -5,7 +5,7 @@
 //  Created by Front-Artist on 2021/09/06.
 //
 
-final class ImageCellViewModel: RowViewModelType {
+final class ImageCellViewModel: RowViewModel {
     let imageURL: URL?
     let aspectRatio: Double
     
@@ -17,5 +17,7 @@ final class ImageCellViewModel: RowViewModelType {
         }
         
         self.aspectRatio = imageInfo.aspectRatio
+        
+        super.init(identifier: imageInfo.filePath)
     }
 }

@@ -9,13 +9,13 @@ import Foundation
 import RxSwift
 
 class ContentDetailViewModel: ViewModel {
-    typealias DetailSectionItem = _SectionItem<DetailSection, RowViewModelType>
+    typealias DetailSectionItem = _SectionItem<DetailSection, RowViewModel>
     
     struct Input {
         let ready: Observable<Void>
         let localizeChanged: Observable<Void>
         let headerSelection: Observable<Int>
-        let selection: Observable<RowViewModelType>
+        let selection: Observable<RowViewModel>
     }
     
     struct Output {
@@ -101,51 +101,37 @@ class ContentDetailViewModel: ViewModel {
                     
                     if credits.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.credit),
-                                                              items: credits.map {
-                                                                CreditCellViewModel(with: $0)
-                                                              }))
+                                                              items: credits.map { CreditCellViewModel(with: $0) }))
                     }
                     
                     if movie.reports.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.report),
-                                                              items: movie.reports.map {
-                                                                ReportCellViewModel(with: $0)
-                                                              }))
+                                                              items: movie.reports.map { ReportCellViewModel(with: $0) }))
                     }
                     
                     if videos.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.video),
-                                                              items: videos.map {
-                                                                VideoCellViewModel(with: $0)
-                                                              }))
+                                                              items: videos.map { VideoCellViewModel(with: $0) }))
                     }
                     
                     if imageInfos.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.image),
-                                                              items: imageInfos.map {
-                                                                ImageCellViewModel(with: $0)
-                                                              }))
+                                                              items: imageInfos.map { ImageCellViewModel(with: $0) }))
                     }
                     
                     if recommendations.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.recommendation),
-                                                              items: recommendations.map {
-                                                                PosterItemViewModel(with: $0, heroID: "recommendations")
-                                                              }))
+                                                              items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations") }))
                     }
                     
                     if similar.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.similar),
-                                                              items: similar.map {
-                                                                PosterItemViewModel(with: $0, heroID: "similar")
-                                                              }))
+                                                              items: similar.map { PosterItemViewModel(with: $0, heroID: "similar") }))
                     }
                     
                     if reviews.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.review),
-                                                              items: reviews.map {
-                                                                ReviewCellViewModel(with: $0)
-                                                              }))
+                                                              items: reviews.map { ReviewCellViewModel(with: $0) }))
                     }
                     
                     return sectionItems

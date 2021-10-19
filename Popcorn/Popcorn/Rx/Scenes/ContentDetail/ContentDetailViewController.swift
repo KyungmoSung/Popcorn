@@ -42,7 +42,7 @@ class ContentDetailViewController: _BaseViewController {
         let input = ContentDetailViewModel.Input(ready: rx.viewWillAppear.take(1).asObservable(),
                                                  localizeChanged: localizeChanged.asObservable(),
                                                  headerSelection: selectedSection.asObservable(),
-                                                 selection: collectionView.rx.modelSelected(RowViewModelType.self).asObservable())
+                                                 selection: collectionView.rx.modelSelected(RowViewModel.self).asObservable())
 
         let dataSource = RxCollectionViewSectionedReloadDataSource<ContentDetailViewModel.DetailSectionItem> { dataSource, collectionView, indexPath, viewModel in
             
