@@ -121,12 +121,12 @@ class ContentDetailViewModel: ViewModel {
                     
                     if recommendations.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.recommendation),
-                                                              items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations") }))
+                                                              items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations_\($0.id)") }))
                     }
                     
                     if similar.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.similar),
-                                                              items: similar.map { PosterItemViewModel(with: $0, heroID: "similar") }))
+                                                              items: similar.map { PosterItemViewModel(with: $0, heroID: "similar_\($0.id)") }))
                     }
                     
                     if reviews.count > 0 {
@@ -167,9 +167,60 @@ class ContentDetailViewModel: ViewModel {
                             .trackError(self.errorTracker))
                 }
                 .map { (tvShow, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
-                    [DetailSectionItem(section: .tvShow(.title), items: [TitleCellViewModel(with: tvShow)]) ]
+                    var sectionItems: [DetailSectionItem] = [
+                        DetailSectionItem(section: .tvShow(.title),
+                                          items: [TitleCellViewModel(with: tvShow)])
+                    ]
+                    
+                    var synopsisViewModels: [SynopsisViewModel] = []
+                    if let tagline = tvShow.tagline, tagline.count > 0 {
+                        synopsisViewModels.append(SynopsisViewModel(with: tagline, isTagline: true))
+                    }
+                    if let overview = tvShow.overview, overview.count > 0 {
+                        synopsisViewModels.append(SynopsisViewModel(with: overview, isTagline: false))
+                    }
+                    if !synopsisViewModels.isEmpty {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.synopsis),
+                                                              items: synopsisViewModels))
+                    }
+                    
+                    if credits.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.credit),
+                                                              items: credits.map { CreditCellViewModel(with: $0) }))
+                    }
+                    
+                    if tvShow.reports.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.report),
+                                                              items: tvShow.reports.map { ReportCellViewModel(with: $0) }))
+                    }
+                    
+                    if videos.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.video),
+                                                              items: videos.map { VideoCellViewModel(with: $0) }))
+                    }
+                    
+                    if imageInfos.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.image),
+                                                              items: imageInfos.map { ImageCellViewModel(with: $0) }))
+                    }
+                    
+                    if recommendations.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.recommendation),
+                                                              items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations_\($0.id)") }))
+                    }
+                    
+                    if similar.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.similar),
+                                                              items: similar.map { PosterItemViewModel(with: $0, heroID: "similar_\($0.id)") }))
+                    }
+                    
+                    if reviews.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.review),
+                                                              items: reviews.map { ReviewCellViewModel(with: $0) }))
+                    }
+                    
+                    return sectionItems
                 }
-
         default:
             sectionItems = Observable.empty()
         }
