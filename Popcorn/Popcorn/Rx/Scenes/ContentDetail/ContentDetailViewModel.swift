@@ -101,51 +101,37 @@ class ContentDetailViewModel: ViewModel {
                     
                     if credits.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.credit),
-                                                              items: credits.map {
-                                                                CreditItemViewModel(with: $0)
-                                                              }))
+                                                              items: credits.map { CreditItemViewModel(with: $0) }))
                     }
                     
                     if movie.reports.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.report),
-                                                              items: movie.reports.map {
-                                                                ReportItemViewModel(with: $0)
-                                                              }))
+                                                              items: movie.reports.map { ReportItemViewModel(with: $0) }))
                     }
                     
                     if videos.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.video),
-                                                              items: videos.map {
-                                                                VideoItemViewModel(with: $0)
-                                                              }))
+                                                              items: videos.map { VideoItemViewModel(with: $0) }))
                     }
                     
                     if imageInfos.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.image),
-                                                              items: imageInfos.map {
-                                                                ImageItemViewModel(with: $0)
-                                                              }))
+                                                              items: imageInfos.map { ImageItemViewModel(with: $0) }))
                     }
                     
                     if recommendations.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.recommendation),
-                                                              items: recommendations.map {
-                                                                PosterItemViewModel(with: $0, heroID: "recommendations")
-                                                              }))
+                                                              items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations_\($0.id)") }))
                     }
                     
                     if similar.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.similar),
-                                                              items: similar.map {
-                                                                PosterItemViewModel(with: $0, heroID: "similar")
-                                                              }))
+                                                              items: similar.map { PosterItemViewModel(with: $0, heroID: "similar_\($0.id)") }))
                     }
                     
                     if reviews.count > 0 {
                         sectionItems.append(DetailSectionItem(section: .movie(.review),
-                                                              items: reviews.map {
-                                                                ReviewItemViewModel(with: $0)
-                                                              }))
+                                                              items: reviews.map { ReviewItemViewModel(with: $0) }))
                     }
                     
                     return sectionItems
@@ -181,9 +167,60 @@ class ContentDetailViewModel: ViewModel {
                             .trackError(self.errorTracker))
                 }
                 .map { (tvShow, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
-                    [DetailSectionItem(section: .tvShow(.title), items: [TitleItemViewModel(with: tvShow)]) ]
+                    var sectionItems: [DetailSectionItem] = [
+                        DetailSectionItem(section: .tvShow(.title),
+                                          items: [TitleItemViewModel(with: tvShow)])
+                    ]
+                    
+                    var synopsisViewModels: [SynopsisItemViewModel] = []
+                    if let tagline = tvShow.tagline, tagline.count > 0 {
+                        synopsisViewModels.append(SynopsisItemViewModel(with: tagline, isTagline: true))
+                    }
+                    if let overview = tvShow.overview, overview.count > 0 {
+                        synopsisViewModels.append(SynopsisItemViewModel(with: overview, isTagline: false))
+                    }
+                    if !synopsisViewModels.isEmpty {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.synopsis),
+                                                              items: synopsisViewModels))
+                    }
+                    
+                    if credits.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.credit),
+                                                              items: credits.map { CreditItemViewModel(with: $0) }))
+                    }
+                    
+                    if tvShow.reports.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.report),
+                                                              items: tvShow.reports.map { ReportItemViewModel(with: $0) }))
+                    }
+                    
+                    if videos.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.video),
+                                                              items: videos.map { VideoItemViewModel(with: $0) }))
+                    }
+                    
+                    if imageInfos.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.image),
+                                                              items: imageInfos.map { ImageItemViewModel(with: $0) }))
+                    }
+                    
+                    if recommendations.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.recommendation),
+                                                              items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations_\($0.id)") }))
+                    }
+                    
+                    if similar.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.similar),
+                                                              items: similar.map { PosterItemViewModel(with: $0, heroID: "similar_\($0.id)") }))
+                    }
+                    
+                    if reviews.count > 0 {
+                        sectionItems.append(DetailSectionItem(section: .tvShow(.review),
+                                                              items: reviews.map { ReviewItemViewModel(with: $0) }))
+                    }
+                    
+                    return sectionItems
                 }
-
         default:
             sectionItems = Observable.empty()
         }

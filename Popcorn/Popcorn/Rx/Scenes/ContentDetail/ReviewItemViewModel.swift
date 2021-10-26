@@ -39,6 +39,6 @@ final class ReviewItemViewModel: RowViewModel {
             self.date = nil
         }
         
-        super.init(identity: name)
+        super.init(identity: name + contents)
     }
 }

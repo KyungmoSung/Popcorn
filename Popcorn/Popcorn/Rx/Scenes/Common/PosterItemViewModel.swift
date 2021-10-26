@@ -28,6 +28,6 @@ final class PosterItemViewModel: RowViewModel {
             self.posterImgURL = nil
         }
         
-        super.init(identity: "\(id)")
+        super.init(identity: id)
     }
 }
