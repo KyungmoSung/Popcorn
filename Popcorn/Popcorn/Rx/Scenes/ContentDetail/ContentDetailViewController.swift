@@ -74,6 +74,11 @@ class ContentDetailViewController: _BaseViewController {
             .drive()
             .disposed(by: disposeBag)
         
+        output.selectedSection
+            .asDriverOnErrorJustComplete()
+            .drive()
+            .disposed(by: disposeBag)
+        
         posterIv.hero.id = viewModel.heroID
     }
     
