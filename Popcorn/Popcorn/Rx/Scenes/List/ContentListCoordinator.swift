@@ -12,7 +12,8 @@ class ContentListCoordinator: Coordinator {
     var navigationController: UINavigationController
     
     let id: Int?
-    let contents: [_Content]
+    let contents: [_Content]?
+    let credits: [Person]?
     let sourceSection: _SectionType
     let service: TmdbService
     
@@ -22,13 +23,31 @@ class ContentListCoordinator: Coordinator {
         self.sourceSection = sourceSection
         self.navigationController = navigationController
         self.service = service
+        self.credits = nil
+    }
+    
+    init(credits: [Person], sourceSection: _SectionType, navigationController: UINavigationController, service: TmdbService) {
+        self.credits = credits
+        self.sourceSection = sourceSection
+        self.navigationController = navigationController
+        self.service = service
+        self.id = nil
+        self.contents = nil
     }
     
     func start() {
-        let viewModel = ContentListViewModel(with: contents, id: id, sourceSection: sourceSection, networkService: service, coordinator: self)
-        let viewController = ContentListViewController(viewModel: viewModel)
+        var viewModel: BaseViewModel?
         
-        navigationController.pushViewController(viewController, animated: true)
+        if let contents = contents {
+            viewModel = ContentListViewModel(with: contents, id: id, sourceSection: sourceSection, networkService: service, coordinator: self)
+        } else if let credits = credits {
+            viewModel = CreditListViewModel(with: credits, sourceSection: sourceSection, networkService: service, coordinator: self)
+        }
+        
+        if let viewModel = viewModel {
+            let viewController = ContentListViewController(viewModel: viewModel)            
+            navigationController.pushViewController(viewController, animated: true)
+        }
     }
     
     func showDetail(content: _Content, heroID: String?) {

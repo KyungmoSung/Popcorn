@@ -12,11 +12,11 @@ import RxDataSources
 import NSObject_Rx
 
 class ContentListViewController: _BaseViewController {
-    var viewModel: ContentListViewModel!
+    var viewModel: BaseViewModel!
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    convenience init(viewModel: ContentListViewModel) {
+    convenience init(viewModel: BaseViewModel) {
         self.init()
         self.viewModel = viewModel
     }
@@ -42,34 +42,61 @@ class ContentListViewController: _BaseViewController {
                 }
             }.throttle(.seconds(1), scheduler: MainScheduler.instance)
         
-        
-        let input = ContentListViewModel.Input(ready: ready, scrollToBottom: scrollToBottom)
-        let output = viewModel.transform(input: input)
-        
-        output.title
-            .asDriverOnErrorJustComplete()
-            .drive(rx.title)
-            .disposed(by: disposeBag)
-        
-        output.sectionItems
-            .asDriverOnErrorJustComplete()
-            .drive(collectionView.rx.items(dataSource: dataSource()))
-            .disposed(by: disposeBag)
-        
+        switch viewModel {
+        case let viewModel as ContentListViewModel:
+            let input = ContentListViewModel.Input(ready: ready, scrollToBottom: scrollToBottom)
+            let output = viewModel.transform(input: input)
+            
+            output.title
+                .asDriverOnErrorJustComplete()
+                .drive(rx.title)
+                .disposed(by: disposeBag)
+            
+            output.sectionItems
+                .asDriverOnErrorJustComplete()
+                .drive(collectionView.rx.items(dataSource: contentsDataSource()))
+                .disposed(by: disposeBag)
+        case let viewModel as CreditListViewModel:
+            let input = CreditListViewModel.Input(ready: ready)
+            let output = viewModel.transform(input: input)
+            
+            output.title
+                .asDriverOnErrorJustComplete()
+                .drive(rx.title)
+                .disposed(by: disposeBag)
+            
+            output.sectionItems
+                .asDriverOnErrorJustComplete()
+                .drive(collectionView.rx.items(dataSource: creditsDataSource()))
+                .disposed(by: disposeBag)
+        default:
+            break
+        }
     }
     
     private func setupUI() {
         collectionView.register(cellType: PosterCell.self)
+        collectionView.register(cellType: _CreditCell.self)
         collectionView.collectionViewLayout = createCompositionalLayout()
     }
 }
 
 extension ContentListViewController {
-    typealias DataSource = RxCollectionViewSectionedAnimatedDataSource<ContentListViewModel.ListSectionItem>
+    typealias ContentsDataSource = RxCollectionViewSectionedAnimatedDataSource<ContentListViewModel.ListSectionItem>
+    typealias CreditsDataSource = RxCollectionViewSectionedAnimatedDataSource<CreditListViewModel.ListSectionItem>
     
-    private func dataSource() -> DataSource {
-        return DataSource { dataSource, collectionView, indexPath, viewModel in
+    private func contentsDataSource() -> ContentsDataSource {
+        return ContentsDataSource { dataSource, collectionView, indexPath, viewModel in
             let cell = collectionView.dequeueReusableCell(with: PosterCell.self, for: indexPath)
+            cell.bind(viewModel)
+            
+            return cell
+        }
+    }
+    
+    private func creditsDataSource() -> CreditsDataSource {
+        return CreditsDataSource { dataSource, collectionView, indexPath, viewModel in
+            let cell = collectionView.dequeueReusableCell(with: _CreditCell.self, for: indexPath)
             cell.bind(viewModel)
             
             return cell

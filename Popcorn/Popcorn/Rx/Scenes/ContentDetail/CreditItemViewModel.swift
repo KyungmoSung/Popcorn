@@ -8,11 +8,14 @@
 import Foundation
 
 final class CreditItemViewModel: RowViewModel {
+    let person: Person
     let name: String
     let job: String?
     let profileURL: URL?
     
     init(with person: Person) {
+        self.person = person
+        
         self.name = person.name
         
         if let cast = person as? Cast {

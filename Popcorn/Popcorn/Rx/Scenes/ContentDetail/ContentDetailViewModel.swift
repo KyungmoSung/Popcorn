@@ -244,7 +244,10 @@ class ContentDetailViewModel: ViewModel {
                 switch viewModels {
                 case let (posterItemViewModels as [PosterItemViewModel]) as Any:
                     let contents = posterItemViewModels.map { $0.content }
-                    self.coordinator.showContentsList(contents: contents, section: section)
+                    self.coordinator.showList(contents: contents, section: section)
+                case let (creditItemViewModels as [CreditItemViewModel]) as Any:
+                    let credits = creditItemViewModels.map { $0.person }
+                    self.coordinator.showList(credits: credits, section: section)
                 default:
                     break
                 }

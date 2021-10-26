@@ -58,8 +58,6 @@ extension TmdbTarget: TargetType {
         case let .recommendations(type, id, _, _):  return "\(type.path)/\(id)/recommendations"
         case let .similar(type, id, _, _):          return "\(type.path)/\(id)/similar"
         case let .reviews(type, id, _, _):          return "\(type.path)/\(id)/reviews"
-            
-
         }
     }
     
