@@ -31,6 +31,8 @@ class _SectionHeaderView: UICollectionReusableView {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        titleLb.text = nil
         disposeBag = DisposeBag()
     }
 }

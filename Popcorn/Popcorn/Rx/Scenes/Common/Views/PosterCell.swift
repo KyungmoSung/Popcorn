@@ -29,11 +29,7 @@ class PosterCell: UICollectionViewCell {
         
 //        titleLb.numberOfLines = 2 // 스켈레톤뷰 적용시 셀 밖으로 벗어나는 현상 방지
         
-        if let path = viewModel.posterImgPath,
-           let url = URL(string: AppConstants.Domain.tmdbImage + path) {
-            Nuke.loadImage(with: url, options: ImageLoadingOptions.fadeIn, into: posterIv)
-        }
-        
+        posterIv.kf.setImage(with: viewModel.posterImgURL, placeholder: UIImage(named: "icAvatar"), options: [.transition(.fade(1))])
         posterIv.hero.id = viewModel.posterHeroId
 
         if let voteAverage = viewModel.voteAverage {
@@ -41,5 +37,12 @@ class PosterCell: UICollectionViewCell {
         } else {
             voteLb.text = "-"
         }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        posterIv.kf.cancelDownloadTask()
+        posterIv.image = nil
     }
 }

@@ -33,5 +33,8 @@ class ImageCell: UICollectionViewCell {
         if let aspectRatio = aspectRatio {
             backdropIv.removeConstraint(aspectRatio)
         }
+        
+        backdropIv.kf.cancelDownloadTask()
+        backdropIv.image = nil
     }
 }

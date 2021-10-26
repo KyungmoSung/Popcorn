@@ -24,4 +24,11 @@ class _CreditCell: UICollectionViewCell {
         jobLb.text = viewModel.job
         profileIv.kf.setImage(with: viewModel.profileURL, placeholder: UIImage(named: "icAvatar"), options: [.transition(.fade(1))])
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        profileIv.kf.cancelDownloadTask()
+        profileIv.image = nil
+    }
 }

@@ -50,4 +50,11 @@ class _ReviewCell: UICollectionViewCell {
 
         }
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        avatarIv.kf.cancelDownloadTask()
+        avatarIv.image = nil
+    }
 }

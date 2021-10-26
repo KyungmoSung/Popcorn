@@ -22,5 +22,5 @@ class TitleCell: UICollectionViewCell {
         titleLb.text = viewModel.title
         subTitleLb.text = viewModel.subTitle
         voteAverageLb.text = viewModel.voteAverageText
-    }
+    }    
 }
