@@ -22,6 +22,7 @@ class ContentDetailViewModel: ViewModel {
         let posterImage: Observable<UIImage>
         let sectionItems: Observable<[DetailSectionItem]>
         let selectedContent: Observable<_Content>
+        let selectedSection: Observable<([RowViewModel], DetailSection)>
     }
     
     var content: _Content
@@ -232,7 +233,25 @@ class ContentDetailViewModel: ViewModel {
             .do(onNext: coordinator.showDetail)
             .map{ $0.0 }
         
-        return Output(posterImage: posterImage, sectionItems: sectionItems, selectedContent: selectedContent)
+        // 헤더 선택 - 차트 리스트 화면 이동
+        let selectedSection = input.headerSelection
+            .withLatestFrom(sectionItems) { section, result in
+                return (result[section].items.map { $0 }, result[section].section)
+            }
+            .do(onNext: { [weak self] (viewModels, section) in
+                guard let self = self else { return }
+                
+                switch viewModels {
+                case let (posterItemViewModels as [PosterItemViewModel]) as Any:
+                    let contents = posterItemViewModels.map { $0.content }
+                    self.coordinator.showContentsList(contents: contents, section: section)
+                default:
+                    break
+                }
+            })
+//            .do(onNext: coordinator.showContentsList)
+        
+        return Output(posterImage: posterImage, sectionItems: sectionItems, selectedContent: selectedContent, selectedSection: selectedSection)
     }
     
 //    func requestInfo(for sections: [SectionType]) {

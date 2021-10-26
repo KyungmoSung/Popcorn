@@ -107,6 +107,7 @@ class ContentListViewModel: ViewModel {
             .trackActivity(activityIndicator)
             .trackError(errorTracker)
             .map { contents -> [PosterItemViewModel] in
+                contents.forEach{ print("#id : \($0.id)") }
                 let viewModels = contents.map { PosterItemViewModel(with: $0, heroID: "\($0.id)") }
                 return viewModels
             }

@@ -32,8 +32,10 @@ class ContentListCoordinator: Coordinator {
     }
     
     func showDetail(content: _Content, heroID: String?) {
-        print("pushToDetail",content)
-        let coordinator = ContentDetailCoordinator(content: content, heroID: heroID, navigationController: navigationController, service: service)
+        let coordinator = ContentDetailCoordinator(content: content,
+                                                   heroID: heroID,
+                                                   navigationController: navigationController,
+                                                   service: service)
         coordinator.start()
     }
 }
