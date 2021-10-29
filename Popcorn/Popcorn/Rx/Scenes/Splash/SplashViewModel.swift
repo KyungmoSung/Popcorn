@@ -7,15 +7,14 @@
 
 import UIKit
 import RxSwift
-import RxCocoa
 
 class SplashViewModel: ViewModel {
     struct Input {
-        let ready: Driver<Void>
+        let ready: Observable<Void>
     }
     
     struct Output {
-        let settingConfig: Driver<Void>
+        let settingConfig: Observable<Void>
     }
     
     private let coordinator: SplashCoodinator
@@ -52,7 +51,6 @@ class SplashViewModel: ViewModel {
                 Genre.allCases[.movies] = movieGenres
                 Genre.allCases[.tvShows] = tvGenres
             }
-            .asDriver(onErrorJustReturn: ())
             .do(onNext: coordinator.showAuth)
             
         return Output(settingConfig: config)

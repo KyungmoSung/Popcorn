@@ -19,10 +19,11 @@ class SplashViewController: _BaseViewController {
     }
     
     private func bindViewModel() {
-        let input = SplashViewModel.Input(ready: rx.viewWillAppear.asDriver())
+        let input = SplashViewModel.Input(ready: rx.viewWillAppear.take(1).asObservable())
         let output = viewModel.transform(input: input)
         
         output.settingConfig
+            .asDriverOnErrorJustComplete()
             .drive()
             .disposed(by: rx.disposeBag)
     }

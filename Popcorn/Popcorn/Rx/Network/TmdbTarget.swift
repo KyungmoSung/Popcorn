@@ -38,6 +38,9 @@ enum TmdbTarget {
     case createRequestToken
     case createAccessToken(requestToken: String)
     case createSession(accessToken: String)
+    
+    // Account
+    case profile(sessionID: String)
 }
 
 extension TmdbTarget: TargetType {
@@ -68,6 +71,7 @@ extension TmdbTarget: TargetType {
         case .createRequestToken:                   return "/4/auth/request_token"
         case .createAccessToken:                    return "/4/auth/access_token"
         case .createSession:                        return "/3/authentication/session/convert/4"
+        case .profile:                              return "/3/account"
         }
     }
     
@@ -113,6 +117,8 @@ extension TmdbTarget: TargetType {
             params["request_token"] = requestToken
         case let .createSession(accessToken):
             params["access_token"] = accessToken
+        case let .profile(sessionID):
+            params["session_id"] = sessionID
         default:
             break
         }

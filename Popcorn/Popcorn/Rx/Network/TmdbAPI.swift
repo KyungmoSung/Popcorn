@@ -220,6 +220,17 @@ extension TmdbAPI: TmdbAuthService {
     }
 }
 
+// MARK: - TmdbAccountService
+extension TmdbAPI: TmdbAccountService {
+    func profile(sessionID: String) -> Observable<User> {
+        return provider.rx
+            .request(.profile(sessionID: sessionID))
+            .retry(3)
+            .map(User.self)
+            .asObservable()
+    }
+}
+
 // MARK: - TmdbConfigService
 extension TmdbAPI: TmdbConfigService {
 func languages() -> Observable<[Language]> {

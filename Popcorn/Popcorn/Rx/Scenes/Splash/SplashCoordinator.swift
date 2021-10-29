@@ -27,8 +27,7 @@ class SplashCoodinator: Coordinator {
     }
     
     func showAuth() {
-        let coordinator = SignInCoordinator(navigationController: navigationController, service: service)
-        coordinator.start()
+        AuthManager.shared.openSignURL()
     }
     
     func showTabBar() {

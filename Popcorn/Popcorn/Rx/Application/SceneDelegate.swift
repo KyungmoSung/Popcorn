@@ -27,7 +27,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let host = url.host {
             switch host {
             case "auth":
-                break
+                AuthManager.shared.requestSignIn()
+                    .subscribe(onNext: { user in
+                        print(user)
+                    })
+                    .disposed(by: rx.disposeBag)
             default:
                 return
             }
