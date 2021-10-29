@@ -17,6 +17,7 @@ enum AppConstants {
         static let tmdbAPI                  = "https://api.themoviedb.org/3"
         static let tmdbImage                = "https://image.tmdb.org/t/p/original"
         static let youtubeEmbed             = "https://www.youtube.com/embed/"
+        static let tmdbAuth                 = "https://www.themoviedb.org/auth/access"
     }
     
     enum API {

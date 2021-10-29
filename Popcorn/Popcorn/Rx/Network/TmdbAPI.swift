@@ -195,7 +195,29 @@ extension TmdbAPI: TmdbPersonService {
 
 // MARK: - TmdbAuthService
 extension TmdbAPI: TmdbAuthService {
+    func createRequestToken() -> Observable<Auth> {
+        return provider.rx
+            .request(.createRequestToken)
+            .retry(3)
+            .map(Auth.self)
+            .asObservable()
+    }
     
+    func createAccessToken(requestToken: String) -> Observable<Auth> {
+        return provider.rx
+            .request(.createAccessToken(requestToken: requestToken))
+            .retry(3)
+            .map(Auth.self)
+            .asObservable()
+    }
+    
+    func createSession(accessToken: String) -> Observable<Auth> {
+        return provider.rx
+            .request(.createSession(accessToken: accessToken))
+            .retry(3)
+            .map(Auth.self)
+            .asObservable()
+    }
 }
 
 // MARK: - TmdbConfigService

@@ -273,9 +273,9 @@ enum ContentsType: Int, CaseIterable {
     var path: String {
         switch self {
         case .movies:
-            return "/movie"
+            return "movie"
         case .tvShows:
-            return "/tv"
+            return "tv"
         }
     }
 }

@@ -26,6 +26,11 @@ class SplashCoodinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    func showAuth() {
+        let coordinator = SignInCoordinator(navigationController: navigationController, service: service)
+        coordinator.start()
+    }
+    
     func showTabBar() {
         let coordinator = TabBarCoordinator(navigationController: navigationController, service: service)
         coordinator.start()

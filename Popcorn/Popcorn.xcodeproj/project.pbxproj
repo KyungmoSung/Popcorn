@@ -88,6 +88,7 @@
 		CD4D28B926E0ADA2008716BB /* Informations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D28B826E0ADA2008716BB /* Informations.swift */; };
 		CD54010D26DC798D00EA9900 /* SectionHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD54010C26DC798D00EA9900 /* SectionHeaderViewModel.swift */; };
 		CD54011726DCA79800EA9900 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD54011626DCA79800EA9900 /* AppCoordinator.swift */; };
+		CD576E0D27293F44006137E5 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD576E0C27293F44006137E5 /* Auth.swift */; };
 		CD5D612626D7251800FE3FB4 /* TmdbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612526D7251800FE3FB4 /* TmdbService.swift */; };
 		CD5D612826D725F100FE3FB4 /* TmdbAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612726D725F100FE3FB4 /* TmdbAPI.swift */; };
 		CD5D612A26D7685300FE3FB4 /* _BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */; };
@@ -162,6 +163,7 @@
 		CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD109B625B91AFC00225C4E /* Loadingable.swift */; };
 		CDD711A125CBE00200D025CB /* FloatingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD711A025CBE00200D025CB /* FloatingLayout.swift */; };
 		CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9F66925C153AF00B83536 /* AnyValue.swift */; };
+		CDE1D413272A86DA00AB04A2 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D412272A86DA00AB04A2 /* AuthManager.swift */; };
 		CDFF2FA426BA6769001ABD89 /* _HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */; };
 		CDFF2FA526BA6769001ABD89 /* _HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */; };
 		CDFF2FF026CCF5F8001ABD89 /* _SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FEF26CCF5F8001ABD89 /* _SectionItem.swift */; };
@@ -284,6 +286,7 @@
 		CD4D28B826E0ADA2008716BB /* Informations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Informations.swift; sourceTree = "<group>"; };
 		CD54010C26DC798D00EA9900 /* SectionHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderViewModel.swift; sourceTree = "<group>"; };
 		CD54011626DCA79800EA9900 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		CD576E0C27293F44006137E5 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		CD5D612526D7251800FE3FB4 /* TmdbService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbService.swift; sourceTree = "<group>"; };
 		CD5D612726D725F100FE3FB4 /* TmdbAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbAPI.swift; sourceTree = "<group>"; };
 		CD5D612926D7685300FE3FB4 /* _BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _BaseViewController.swift; sourceTree = "<group>"; };
@@ -364,6 +367,7 @@
 		CDD109B625B91AFC00225C4E /* Loadingable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadingable.swift; sourceTree = "<group>"; };
 		CDD711A025CBE00200D025CB /* FloatingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLayout.swift; sourceTree = "<group>"; };
 		CDD9F66925C153AF00B83536 /* AnyValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
+		CDE1D412272A86DA00AB04A2 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _HomeViewController.swift; sourceTree = "<group>"; };
 		CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _HomeViewController.xib; sourceTree = "<group>"; };
 		CDFF2FEF26CCF5F8001ABD89 /* _SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _SectionItem.swift; sourceTree = "<group>"; };
@@ -566,6 +570,7 @@
 		CD87DE2226F1B51C00C04FEB /* Rx */ = {
 			isa = PBXGroup;
 			children = (
+				CDE1D411272A86CD00AB04A2 /* Auth */,
 				CDB6D3AC254A8F0C001B0AEB /* Resources */,
 				CD87DE2526F1B5DB00C04FEB /* Models */,
 				CD54011526DCA77300EA9900 /* Application */,
@@ -612,6 +617,7 @@
 				CDFF2FFB26CDE8A9001ABD89 /* _TVShow.swift */,
 				CD4D28B826E0ADA2008716BB /* Informations.swift */,
 				CD0BA8E026E848B20072C208 /* Report.swift */,
+				CD576E0C27293F44006137E5 /* Auth.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -844,6 +850,14 @@
 				CDB6D421254BAB70001B0AEB /* HomeHorizontalSectionController.swift */,
 			);
 			path = HorizontalSectionController;
+			sourceTree = "<group>";
+		};
+		CDE1D411272A86CD00AB04A2 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				CDE1D412272A86DA00AB04A2 /* AuthManager.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		CDFF300526CE42F2001ABD89 /* ViewModels */ = {
@@ -1185,6 +1199,7 @@
 				CD5D613026D8B13200FE3FB4 /* _Chart.swift in Sources */,
 				CD71C1D826E5DD69006E40C2 /* TabItemViewModel.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
+				CD576E0D27293F44006137E5 /* Auth.swift in Sources */,
 				CDFF300726CE430D001ABD89 /* HomeViewModel.swift in Sources */,
 				244BF51C25D2726100100C66 /* OptionalExtension.swift in Sources */,
 				24987E9F25C981FB00CD4CDF /* TVShow.swift in Sources */,
@@ -1240,6 +1255,7 @@
 				CD39C67625BE8F7500408D05 /* DetailInfo.swift in Sources */,
 				24ED629D25836A8100FC98B3 /* TextTabCell.swift in Sources */,
 				CD4D28A526DF333F008716BB /* SplashCoordinator.swift in Sources */,
+				CDE1D413272A86DA00AB04A2 /* AuthManager.swift in Sources */,
 				CDD711A125CBE00200D025CB /* FloatingLayout.swift in Sources */,
 				CD54010D26DC798D00EA9900 /* SectionHeaderViewModel.swift in Sources */,
 				CDB6D45E254BE003001B0AEB /* SectionHeaderView.swift in Sources */,

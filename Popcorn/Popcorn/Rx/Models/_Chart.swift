@@ -62,13 +62,13 @@ enum MovieChart: Int, CaseIterable {
     var path: String {
         switch self {
         case .nowPlaying:
-            return "/now_playing"
+            return "now_playing"
         case .upcoming:
-            return "/upcoming"
+            return "upcoming"
         case .popular:
-            return "/popular"
+            return "popular"
         case .topRated:
-            return "/top_rated"
+            return "top_rated"
         }
     }
 }

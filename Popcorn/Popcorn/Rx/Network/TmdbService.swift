@@ -38,7 +38,9 @@ protocol TmdbPersonService {
 }
 
 protocol TmdbAuthService {
-    
+    func createRequestToken() -> Observable<Auth>
+    func createAccessToken(requestToken: String) -> Observable<Auth>
+    func createSession(accessToken: String) -> Observable<Auth>
 }
 
 protocol TmdbConfigService {

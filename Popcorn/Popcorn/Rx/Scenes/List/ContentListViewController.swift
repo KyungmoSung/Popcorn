@@ -28,7 +28,7 @@ class ContentListViewController: _BaseViewController {
         bindViewModel()
     }
 
-    private func bindViewModel(){
+    private func bindViewModel() {
         let ready = rx.viewWillAppear.take(1).asObservable()
         let scrollToBottom = collectionView.rx.contentOffset
             .flatMap { offset -> Observable<Void> in

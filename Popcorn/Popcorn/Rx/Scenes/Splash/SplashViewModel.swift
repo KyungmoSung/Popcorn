@@ -53,7 +53,7 @@ class SplashViewModel: ViewModel {
                 Genre.allCases[.tvShows] = tvGenres
             }
             .asDriver(onErrorJustReturn: ())
-            .do(onNext: coordinator.showTabBar)
+            .do(onNext: coordinator.showAuth)
             
         return Output(settingConfig: config)
     }
