@@ -51,7 +51,7 @@ class SplashViewModel: ViewModel {
                 Genre.allCases[.movies] = movieGenres
                 Genre.allCases[.tvShows] = tvGenres
             }
-            .do(onNext: coordinator.showAuth)
+            .do(onNext: coordinator.showTabBar)
             
         return Output(settingConfig: config)
     }

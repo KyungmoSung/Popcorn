@@ -165,6 +165,14 @@
 		CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9F66925C153AF00B83536 /* AnyValue.swift */; };
 		CDE1D413272A86DA00AB04A2 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D412272A86DA00AB04A2 /* AuthManager.swift */; };
 		CDE1D415272BAA9800AB04A2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D414272BAA9800AB04A2 /* User.swift */; };
+		CDE1D41A272FACD100AB04A2 /* SignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D418272FACD100AB04A2 /* SignViewController.swift */; };
+		CDE1D41B272FACD100AB04A2 /* SignViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE1D419272FACD100AB04A2 /* SignViewController.xib */; };
+		CDE1D41E272FACE200AB04A2 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D41C272FACE200AB04A2 /* RecommendViewController.swift */; };
+		CDE1D41F272FACE200AB04A2 /* RecommendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE1D41D272FACE200AB04A2 /* RecommendViewController.xib */; };
+		CDE1D421272FAD7100AB04A2 /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D420272FAD7100AB04A2 /* SignViewModel.swift */; };
+		CDE1D423272FB51500AB04A2 /* SignCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D422272FB51500AB04A2 /* SignCoordinator.swift */; };
+		CDE1D425272FC04000AB04A2 /* RecommendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D424272FC03F00AB04A2 /* RecommendViewModel.swift */; };
+		CDE1D427272FC04D00AB04A2 /* RecommendCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D426272FC04D00AB04A2 /* RecommendCoordinator.swift */; };
 		CDFF2FA426BA6769001ABD89 /* _HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */; };
 		CDFF2FA526BA6769001ABD89 /* _HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */; };
 		CDFF2FF026CCF5F8001ABD89 /* _SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FEF26CCF5F8001ABD89 /* _SectionItem.swift */; };
@@ -370,6 +378,14 @@
 		CDD9F66925C153AF00B83536 /* AnyValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
 		CDE1D412272A86DA00AB04A2 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		CDE1D414272BAA9800AB04A2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CDE1D418272FACD100AB04A2 /* SignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewController.swift; sourceTree = "<group>"; };
+		CDE1D419272FACD100AB04A2 /* SignViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignViewController.xib; sourceTree = "<group>"; };
+		CDE1D41C272FACE200AB04A2 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
+		CDE1D41D272FACE200AB04A2 /* RecommendViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecommendViewController.xib; sourceTree = "<group>"; };
+		CDE1D420272FAD7100AB04A2 /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
+		CDE1D422272FB51500AB04A2 /* SignCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignCoordinator.swift; sourceTree = "<group>"; };
+		CDE1D424272FC03F00AB04A2 /* RecommendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewModel.swift; sourceTree = "<group>"; };
+		CDE1D426272FC04D00AB04A2 /* RecommendCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCoordinator.swift; sourceTree = "<group>"; };
 		CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _HomeViewController.swift; sourceTree = "<group>"; };
 		CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _HomeViewController.xib; sourceTree = "<group>"; };
 		CDFF2FEF26CCF5F8001ABD89 /* _SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _SectionItem.swift; sourceTree = "<group>"; };
@@ -505,6 +521,7 @@
 		CD54010E26DC946800EA9900 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				CDE1D416272FAC2400AB04A2 /* Recommend */,
 				24D1B4C326FC72FD00F8211A /* Common */,
 				CD87DE1326EB3E6900C04FEB /* List */,
 				CD4D28A626DF6D26008716BB /* ContentDetail */,
@@ -863,6 +880,29 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		CDE1D416272FAC2400AB04A2 /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				CDE1D417272FACB000AB04A2 /* Sign */,
+				CDE1D41C272FACE200AB04A2 /* RecommendViewController.swift */,
+				CDE1D41D272FACE200AB04A2 /* RecommendViewController.xib */,
+				CDE1D424272FC03F00AB04A2 /* RecommendViewModel.swift */,
+				CDE1D426272FC04D00AB04A2 /* RecommendCoordinator.swift */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+		CDE1D417272FACB000AB04A2 /* Sign */ = {
+			isa = PBXGroup;
+			children = (
+				CDE1D418272FACD100AB04A2 /* SignViewController.swift */,
+				CDE1D419272FACD100AB04A2 /* SignViewController.xib */,
+				CDE1D420272FAD7100AB04A2 /* SignViewModel.swift */,
+				CDE1D422272FB51500AB04A2 /* SignCoordinator.swift */,
+			);
+			path = Sign;
+			sourceTree = "<group>";
+		};
 		CDFF300526CE42F2001ABD89 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -996,6 +1036,7 @@
 				24E02D712585FE0A00591234 /* MediaVideoCell.xib in Resources */,
 				24661376259867E4008B982B /* NanumSquareLight.ttf in Resources */,
 				CD8F017F25C7C21700BD8FFD /* HeaderTitleCell.xib in Resources */,
+				CDE1D41B272FACD100AB04A2 /* SignViewController.xib in Resources */,
 				24A4293225AAE41500845C94 /* SynopsisCell.xib in Resources */,
 				CD71C1D626E5DD2D006E40C2 /* TabCell.xib in Resources */,
 				24661377259867E4008B982B /* NanumSquareExtraBold.ttf in Resources */,
@@ -1011,6 +1052,7 @@
 				24661375259867E4008B982B /* NanumSquareBold.ttf in Resources */,
 				CDB6D526254FD329001B0AEB /* SplashViewController.xib in Resources */,
 				CD0BA8E526E84AC50072C208 /* ReportCell.xib in Resources */,
+				CDE1D41F272FACE200AB04A2 /* RecommendViewController.xib in Resources */,
 				CD71C1C426E5AE0A006E40C2 /* _CreditCell.xib in Resources */,
 				247FF85D25BD604F00BC73D2 /* ContentsListViewController.xib in Resources */,
 				CDB6D53D2550DA40001B0AEB /* HomeBackdropCell.xib in Resources */,
@@ -1162,6 +1204,7 @@
 				CD5D612826D725F100FE3FB4 /* TmdbAPI.swift in Sources */,
 				CD0BA8E426E84AA70072C208 /* ReportCell.swift in Sources */,
 				24ED62BF2585EBB000FC98B3 /* MediaSectionController.swift in Sources */,
+				CDE1D423272FB51500AB04A2 /* SignCoordinator.swift in Sources */,
 				CD71C1D526E5DCDA006E40C2 /* TabCell.swift in Sources */,
 				CD87DE1526EB3E9B00C04FEB /* ContentListViewModel.swift in Sources */,
 				24B3BE1B25A71AFC00AFBF1C /* ContentsHeaderVIew.swift in Sources */,
@@ -1179,6 +1222,7 @@
 				24ED6290258355A200FC98B3 /* Genre.swift in Sources */,
 				CDB6D40B254AB115001B0AEB /* Response.swift in Sources */,
 				CD8F017E25C7C21700BD8FFD /* HeaderTitleCell.swift in Sources */,
+				CDE1D41A272FACD100AB04A2 /* SignViewController.swift in Sources */,
 				24987EA425C9821200CD4CDF /* Contents.swift in Sources */,
 				24E02D8925860AFD00591234 /* Media.swift in Sources */,
 				CD7D4130257F3ADD00A73E31 /* NukeExtension.swift in Sources */,
@@ -1201,6 +1245,7 @@
 				CD8F018425C7C40300BD8FFD /* HeaderTitleSectionController.swift in Sources */,
 				CD87DE1126EB3E6100C04FEB /* ContentListViewController.swift in Sources */,
 				CD5D613026D8B13200FE3FB4 /* _Chart.swift in Sources */,
+				CDE1D421272FAD7100AB04A2 /* SignViewModel.swift in Sources */,
 				CD71C1D826E5DD69006E40C2 /* TabItemViewModel.swift in Sources */,
 				CDB6D3FD254AA937001B0AEB /* Movie.swift in Sources */,
 				CD576E0D27293F44006137E5 /* Auth.swift in Sources */,
@@ -1221,6 +1266,7 @@
 				CDFF2FF026CCF5F8001ABD89 /* _SectionItem.swift in Sources */,
 				CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */,
 				2457E33525864B20005CE9FB /* CreditSectionController.swift in Sources */,
+				CDE1D41E272FACE200AB04A2 /* RecommendViewController.swift in Sources */,
 				242D62EB2593782D00450120 /* InfoCardCell.swift in Sources */,
 				CD4D289A26DF11E1008716BB /* HomeCoordinator.swift in Sources */,
 				CD67044826D5CA6D00FA622E /* TmdbTarget.swift in Sources */,
@@ -1238,6 +1284,7 @@
 				24A4292B25AAE3AF00845C94 /* SynopsisSectionController.swift in Sources */,
 				CDFF2FF226CCF603001ABD89 /* _Section.swift in Sources */,
 				CDB6D422254BAB70001B0AEB /* HomeHorizontalSectionController.swift in Sources */,
+				CDE1D425272FC04000AB04A2 /* RecommendViewModel.swift in Sources */,
 				242D62FE25939D5100450120 /* NumberExtension.swift in Sources */,
 				245B25FF26E73D980070FE4F /* VideoItemViewModel.swift in Sources */,
 				242D62E5259377D100450120 /* InfoCardSectionController.swift in Sources */,
@@ -1245,6 +1292,7 @@
 				24ED62C52585EBF200FC98B3 /* MediaImageCell.swift in Sources */,
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
 				CD5D612E26D777B700FE3FB4 /* NSNotificationExtension.swift in Sources */,
+				CDE1D427272FC04D00AB04A2 /* RecommendCoordinator.swift in Sources */,
 				246CAD2425C984CF00288F4B /* Language.swift in Sources */,
 				CD4D28AA26DF6F98008716BB /* ContentDetailViewModel.swift in Sources */,
 				CD87DE1D26F1AECD00C04FEB /* ViewModel.swift in Sources */,

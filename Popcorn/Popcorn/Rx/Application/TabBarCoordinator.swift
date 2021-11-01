@@ -39,9 +39,9 @@ class TabBarCoordinator: Coordinator {
         let homeCoordinator = HomeCoordinator(navigationController: homeNC,
                                               service: service)
         
-        let homeNC2 = UINavigationController()
-        homeNC2.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
-        let homeCoordinator2 = HomeCoordinator(navigationController: homeNC2,
+        let recommendNC = UINavigationController()
+        recommendNC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
+        let recommendCoordinator = RecommendCoordinator(navigationController: recommendNC,
                                               service: service)
         
         let homeNC3 = UINavigationController()
@@ -49,12 +49,12 @@ class TabBarCoordinator: Coordinator {
         let homeCoordinator3 = HomeCoordinator(navigationController: homeNC3,
                                               service: service)
         
-        tabBarController.viewControllers = [homeNC, homeNC2, homeNC3]
+        tabBarController.viewControllers = [homeNC, recommendNC, homeNC3]
 
         navigationController.viewControllers = [tabBarController]
         
         homeCoordinator.start()
-        homeCoordinator2.start()
+        recommendCoordinator.start()
         homeCoordinator3.start()
     }
 }

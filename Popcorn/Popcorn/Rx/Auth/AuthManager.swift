@@ -18,6 +18,7 @@ class AuthManager {
     let activityIndicator = ActivityIndicator()
     let errorTracker = ErrorTracker()
     
+    var signResultSubject = BehaviorSubject<User?>(value: nil)
     var user: User?
     var accountID: String?
     var requestToken: String?
@@ -68,8 +69,8 @@ class AuthManager {
     }
     
     /**
-     1. requestToken(v4) 생성 후 TMDB URL에 Token 추가
-     2. Safari로 TMDB 로그인 사이트 이동
+     Safari로 TMDB 로그인 사이트 이동
+     - requestToken(v4) 생성 후 TMDB URL에 Token 추가
      */
     func openSignURL() {
         createRequestToken()
@@ -103,11 +104,15 @@ class AuthManager {
                 self.getProfile(sessionID: sessionID)
             })
             .map({ user in
-                self.user = user
+                self.signResultSubject.onNext(user)
                 return user
             })
             .trackActivity(activityIndicator)
             .trackError(errorTracker)
+    }
+    
+    func isSignIn() -> Bool {
+        return user != nil
     }
 }
 
