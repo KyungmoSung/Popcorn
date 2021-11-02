@@ -40,7 +40,8 @@ enum TmdbTarget {
     case createSession(accessToken: String)
     
     // Account
-    case profile(sessionID: String)
+    case accountProfile(sessionID: String)
+    case accountRecommendations(type: ContentsType, accountID: String, sortBy: Sort?)
 }
 
 extension TmdbTarget: TargetType {
@@ -50,28 +51,29 @@ extension TmdbTarget: TargetType {
     
     var path: String {
         switch self {
-        case .languages:                            return "/3/configuration/languages"
-        case .countries:                            return "/3/configuration/countries"
-        case .jobs:                                 return "/3/configuration/jobs"
-        case let .genres(type):                     return "/3/genre/\(type.path)/list"
+        case .languages:                                     return "/3/configuration/languages"
+        case .countries:                                     return "/3/configuration/countries"
+        case .jobs:                                          return "/3/configuration/jobs"
+        case let .genres(type):                              return "/3/genre/\(type.path)/list"
         
-        case let .movies(chart, _, _, _):           return "/3/movie/\(chart.path)"
+        case let .movies(chart, _, _, _):                    return "/3/movie/\(chart.path)"
             
-        case let .tvShows(chart, _, _, _):          return "/3/tv/\(chart.path)"
-        case let .episodeGroups(id):                return "/3/tv/\(id)/episode_groups"
+        case let .tvShows(chart, _, _, _):                   return "/3/tv/\(chart.path)"
+        case let .episodeGroups(id):                         return "/3/tv/\(id)/episode_groups"
         
-        case let .details(type, id, _):             return "/3/\(type.path)/\(id)"
-        case let .credits(type, id, _):             return "/3/\(type.path)/\(id)/credits"
-        case let .videos(type, id, _):              return "/3/\(type.path)/\(id)/videos"
-        case let .images(type, id, _):              return "/3/\(type.path)/\(id)/images"
-        case let .recommendations(type, id, _, _):  return "/3/\(type.path)/\(id)/recommendations"
-        case let .similar(type, id, _, _):          return "/3/\(type.path)/\(id)/similar"
-        case let .reviews(type, id, _, _):          return "/3/\(type.path)/\(id)/reviews"
+        case let .details(type, id, _):                      return "/3/\(type.path)/\(id)"
+        case let .credits(type, id, _):                      return "/3/\(type.path)/\(id)/credits"
+        case let .videos(type, id, _):                       return "/3/\(type.path)/\(id)/videos"
+        case let .images(type, id, _):                       return "/3/\(type.path)/\(id)/images"
+        case let .recommendations(type, id, _, _):           return "/3/\(type.path)/\(id)/recommendations"
+        case let .similar(type, id, _, _):                   return "/3/\(type.path)/\(id)/similar"
+        case let .reviews(type, id, _, _):                   return "/3/\(type.path)/\(id)/reviews"
             
-        case .createRequestToken:                   return "/4/auth/request_token"
-        case .createAccessToken:                    return "/4/auth/access_token"
-        case .createSession:                        return "/3/authentication/session/convert/4"
-        case .profile:                              return "/3/account"
+        case .createRequestToken:                            return "/4/auth/request_token"
+        case .createAccessToken:                             return "/4/auth/access_token"
+        case .createSession:                                 return "/3/authentication/session/convert/4"
+        case .accountProfile:                                return "/3/account"
+        case let .accountRecommendations(type, accountID, _):      return "/4/account/\(accountID)/\(type.path)/recommendations"
         }
     }
     
@@ -117,8 +119,13 @@ extension TmdbTarget: TargetType {
             params["request_token"] = requestToken
         case let .createSession(accessToken):
             params["access_token"] = accessToken
-        case let .profile(sessionID):
+        case let .accountProfile(sessionID):
             params["session_id"] = sessionID
+        case let .accountRecommendations(_, accountID, sort):
+            params["account_id"] = accountID
+            if let sort = sort {
+                params["sort_by"] = sort.param
+            }
         default:
             break
         }

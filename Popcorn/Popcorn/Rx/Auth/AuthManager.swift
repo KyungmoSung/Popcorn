@@ -60,7 +60,7 @@ class AuthManager {
     }
     
     private func getProfile(sessionID: String) -> Observable<User> {
-        return networkService.profile(sessionID: sessionID)
+        return networkService.accountProfile(sessionID: sessionID)
             .do(onNext: { user in
                 self.user = user
             })

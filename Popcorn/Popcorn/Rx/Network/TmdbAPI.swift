@@ -222,11 +222,29 @@ extension TmdbAPI: TmdbAuthService {
 
 // MARK: - TmdbAccountService
 extension TmdbAPI: TmdbAccountService {
-    func profile(sessionID: String) -> Observable<User> {
+    func accountProfile(sessionID: String) -> Observable<User> {
         return provider.rx
-            .request(.profile(sessionID: sessionID))
+            .request(.accountProfile(sessionID: sessionID))
             .retry(3)
             .map(User.self)
+            .asObservable()
+    }
+    
+    func accountMovieRecommendations(accountID: String, sortBy: Sort) -> Observable<[_Movie]> {
+        return provider.rx
+            .request(.accountRecommendations(type: .movies, accountID: accountID, sortBy: sortBy))
+            .retry(3)
+            .map(PageResponse<_Movie>.self)
+            .map{ $0.results ?? [] }
+            .asObservable()
+    }
+    
+    func accountTvRecommendations(accountID: String, sortBy: Sort) -> Observable<[_TVShow]> {
+        return provider.rx
+            .request(.accountRecommendations(type: .tvShows, accountID: accountID, sortBy: sortBy))
+            .retry(3)
+            .map(PageResponse<_TVShow>.self)
+            .map{ $0.results ?? [] }
             .asObservable()
     }
 }

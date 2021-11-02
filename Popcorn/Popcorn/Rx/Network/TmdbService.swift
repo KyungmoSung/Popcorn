@@ -45,7 +45,9 @@ protocol TmdbAuthService {
 
 
 protocol TmdbAccountService {
-    func profile(sessionID: String) -> Observable<User>
+    func accountProfile(sessionID: String) -> Observable<User>
+    func accountMovieRecommendations(accountID: String, sortBy: Sort) -> Observable<[_Movie]>
+    func accountTvRecommendations(accountID: String, sortBy: Sort) -> Observable<[_TVShow]>
 }
 
 protocol TmdbConfigService {

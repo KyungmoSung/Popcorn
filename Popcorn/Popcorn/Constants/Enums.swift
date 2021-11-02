@@ -279,3 +279,60 @@ enum ContentsType: Int, CaseIterable {
         }
     }
 }
+
+enum Sort {
+    case createdAt(_ orderBy: SortOrder)
+    case title(_ orderBy: SortOrder)
+    case popularity(_ orderBy: SortOrder)
+    case releaseDate(_ orderBy: SortOrder)
+    case revenue(_ orderBy: SortOrder)
+    case primaryReleaseDate(_ orderBy: SortOrder)
+    case originalTitle(_ orderBy: SortOrder)
+    case voteAverage(_ orderBy: SortOrder)
+    case voteCount(_ orderBy: SortOrder)
+    
+    var param: String {
+        switch self {
+        case let .createdAt(orderBy):
+            return "created_at.\(orderBy.rawValue)"
+        case let .title(orderBy):
+            return "title.\(orderBy.rawValue)"
+        case let .popularity(orderBy):
+            return "popularity.\(orderBy.rawValue)"
+        case let .releaseDate(orderBy):
+            return "release_date.\(orderBy.rawValue)"
+        case let .revenue(orderBy):
+            return "revenue.\(orderBy.rawValue)"
+        case let .primaryReleaseDate(orderBy):
+            return "primary_release_date.\(orderBy.rawValue)"
+        case let .originalTitle(orderBy):
+            return "original_title.\(orderBy.rawValue)"
+        case let .voteAverage(orderBy):
+            return "vote_average.\(orderBy.rawValue)"
+        case let .voteCount(orderBy):
+            return "vote_count.\(orderBy.rawValue)"
+        }
+    }
+    
+    static func forRecommendations(_ type: ContentsType) -> [Sort] {
+        return [.createdAt(.asc), .createdAt(.desc),
+                .releaseDate(.asc), .releaseDate(.desc),
+                .title(.asc), .title(.desc),
+                .voteAverage(.asc), .voteAverage(.desc)]
+    }
+    
+    static func forDiscover(_ type: ContentsType) -> [Sort] {
+        return [.popularity(.asc), .popularity(.desc),
+                .releaseDate(.asc), .releaseDate(.desc),
+                .revenue(.asc), .revenue(.desc),
+                .primaryReleaseDate(.asc), .primaryReleaseDate(.desc),
+                .originalTitle(.asc), .originalTitle(.desc),
+                .voteAverage(.asc), .voteAverage(.desc),
+                .voteCount(.asc), .voteCount(.desc)]
+    }
+}
+
+enum SortOrder: String {
+    case asc
+    case desc
+}

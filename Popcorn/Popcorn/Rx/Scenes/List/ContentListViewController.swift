@@ -9,7 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
-import NSObject_Rx
 
 class ContentListViewController: _BaseViewController {
     var viewModel: BaseViewModel!
@@ -26,6 +25,12 @@ class ContentListViewController: _BaseViewController {
         
         setupUI()
         bindViewModel()
+    }
+    
+    private func setupUI() {
+        collectionView.register(cellType: PosterCell.self)
+        collectionView.register(cellType: _CreditCell.self)
+        collectionView.collectionViewLayout = createCompositionalLayout()
     }
 
     private func bindViewModel() {
@@ -72,12 +77,6 @@ class ContentListViewController: _BaseViewController {
         default:
             break
         }
-    }
-    
-    private func setupUI() {
-        collectionView.register(cellType: PosterCell.self)
-        collectionView.register(cellType: _CreditCell.self)
-        collectionView.collectionViewLayout = createCompositionalLayout()
     }
 }
 
