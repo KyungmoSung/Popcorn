@@ -78,21 +78,21 @@ class PosterSectionController: ListSectionController {
             } else {
                 cell.hideSkeleton(transition: .crossDissolve(0.3))
                 
-                cell.backdropImgPath = item.backdropPath
-                cell.voteAverage = item.voteAverage
-                
-                switch item {
-                case let movie as Movie:
-                    cell.title = movie.title
-                    cell.originalTitle = movie.originalTitle
-                    cell.releaseDate = movie.releaseDate?.dateValue()
-                case let tvShow as TVShow:
-                    cell.title = tvShow.name
-                    cell.originalTitle = tvShow.originalName
-                    cell.releaseDate = tvShow.firstAirDate?.dateValue()
-                default:
-                    break
-                }
+//                cell.backdropImgPath = item.backdropPath
+//                cell.voteAverage = item.voteAverage
+//                
+//                switch item {
+//                case let movie as Movie:
+//                    cell.title = movie.title
+//                    cell.originalTitle = movie.originalTitle
+//                    cell.releaseDate = movie.releaseDate?.dateValue()
+//                case let tvShow as TVShow:
+//                    cell.title = tvShow.name
+//                    cell.originalTitle = tvShow.originalName
+//                    cell.releaseDate = tvShow.firstAirDate?.dateValue()
+//                default:
+//                    break
+//                }
             }
             return cell
         default:

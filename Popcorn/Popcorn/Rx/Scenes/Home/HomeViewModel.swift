@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 class HomeViewModel: ViewModel {
-    typealias HomeSectionItem = _SectionItem<HomeSection, PosterItemViewModel>
+    typealias HomeSectionItem = _SectionItem<HomeSection, RowViewModel>
     
     struct Input {
         let ready: Observable<Void>
@@ -52,7 +52,13 @@ class HomeViewModel: ViewModel {
                             self.networkService.movies(chart: chart, page: 1)
                                 .trackActivity(self.activityIndicator)
                                 .trackError(self.errorTracker)
-                                .map { $0.map { PosterItemViewModel(with: $0, heroID: (chart.title ?? "") + "\($0.id)") }}
+                                .map {
+                                    if chart == .nowPlaying {
+                                        return $0.map { BackdropItemViewModel(with: $0, heroID: (chart.title ?? "") + "\($0.id)") }
+                                    } else {
+                                        return $0.map { PosterItemViewModel(with: $0, heroID: (chart.title ?? "") + "\($0.id)") }
+                                    }
+                                }
                                 .map { HomeSectionItem(section: .movie(chart), items: $0) }
                         }
                     )
@@ -72,16 +78,36 @@ class HomeViewModel: ViewModel {
         // 셀 선택 - 디테일 화면 이동
         let selectedContent = input.selection
             .withLatestFrom(sectionItems) { indexPath, result in
-                return (result[indexPath.section].items[indexPath.row].content, result[indexPath.section].items[indexPath.row].posterHeroId)
+                let viewModel = result[indexPath.section].items[indexPath.row]
+                switch viewModel {
+                case let viewModel as PosterItemViewModel:
+                    return (viewModel.content, viewModel.posterHeroId)
+                case let viewModel as BackdropItemViewModel:
+                    return (viewModel.content, viewModel.backdropHeroId)
+                default:
+                    return nil
+                }
             }
+            .compactMap { $0 }
             .do(onNext: coordinator.showDetail)
             .map { $0.0 }
         
         // 헤더 선택 - 차트 리스트 화면 이동
         let selectedSection = input.headerSelection
             .withLatestFrom(sectionItems) { section, result in
-                return (result[section].items.map { $0.content }, result[section].section)
+                let viewModels = result[section].items
+                let section = result[section].section
+                
+                switch viewModels {
+                case (let viewModels as [PosterItemViewModel]) as Any:
+                    return (viewModels.map{ $0.content }, section)
+                case (let viewModels as [BackdropItemViewModel]) as Any:
+                    return (viewModels.map{ $0.content }, section)
+                default:
+                    return nil
+                }
             }
+            .compactMap { $0 }
             .do(onNext: coordinator.showChartList)
         
         return Output(sectionItems: sectionItems, selectedContent: selectedContent, selectedSection: selectedSection)

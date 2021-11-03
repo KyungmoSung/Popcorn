@@ -175,6 +175,7 @@
 		CDE1D427272FC04D00AB04A2 /* RecommendCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D426272FC04D00AB04A2 /* RecommendCoordinator.swift */; };
 		CDE1D42B27321BEA00AB04A2 /* SectionLineFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D42A27321BEA00AB04A2 /* SectionLineFooterView.swift */; };
 		CDE1D42D27321C2E00AB04A2 /* SectionLineFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE1D42C27321BED00AB04A2 /* SectionLineFooterView.xib */; };
+		CDE1D42F2732744100AB04A2 /* BackdropItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D42E2732744100AB04A2 /* BackdropItemViewModel.swift */; };
 		CDFF2FA426BA6769001ABD89 /* _HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */; };
 		CDFF2FA526BA6769001ABD89 /* _HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */; };
 		CDFF2FF026CCF5F8001ABD89 /* _SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FEF26CCF5F8001ABD89 /* _SectionItem.swift */; };
@@ -390,6 +391,7 @@
 		CDE1D426272FC04D00AB04A2 /* RecommendCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCoordinator.swift; sourceTree = "<group>"; };
 		CDE1D42A27321BEA00AB04A2 /* SectionLineFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionLineFooterView.swift; sourceTree = "<group>"; };
 		CDE1D42C27321BED00AB04A2 /* SectionLineFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionLineFooterView.xib; sourceTree = "<group>"; };
+		CDE1D42E2732744100AB04A2 /* BackdropItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackdropItemViewModel.swift; sourceTree = "<group>"; };
 		CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _HomeViewController.swift; sourceTree = "<group>"; };
 		CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _HomeViewController.xib; sourceTree = "<group>"; };
 		CDFF2FEF26CCF5F8001ABD89 /* _SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _SectionItem.swift; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 			isa = PBXGroup;
 			children = (
 				CDFF300A26CF8183001ABD89 /* PosterItemViewModel.swift */,
+				CDE1D42E2732744100AB04A2 /* BackdropItemViewModel.swift */,
 				CD54010C26DC798D00EA9900 /* SectionHeaderViewModel.swift */,
 				CD54011026DC94AD00EA9900 /* Views */,
 			);
@@ -551,6 +554,8 @@
 			children = (
 				CDB6D450254BCC10001B0AEB /* PosterCell.swift */,
 				CDB6D451254BCC10001B0AEB /* PosterCell.xib */,
+				CDB6D53A2550DA40001B0AEB /* HomeBackdropCell.swift */,
+				CDB6D53B2550DA40001B0AEB /* HomeBackdropCell.xib */,
 				CDFF2FFD26CE3367001ABD89 /* _SectionHeaderView.swift */,
 				CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */,
 				CDE1D42A27321BEA00AB04A2 /* SectionLineFooterView.swift */,
@@ -823,7 +828,6 @@
 				2457E33C25864BBE005CE9FB /* CreditCell.swift */,
 				CDB6D429254BAD07001B0AEB /* EmbeddedCollectionViewCell.swift */,
 				CD8F017C25C7C21700BD8FFD /* HeaderTitleCell.swift */,
-				CDB6D53A2550DA40001B0AEB /* HomeBackdropCell.swift */,
 				242D62E92593782D00450120 /* InfoCardCell.swift */,
 				24ED62C32585EBF200FC98B3 /* MediaImageCell.swift */,
 				24E02D702585FE0A00591234 /* MediaVideoCell.swift */,
@@ -856,7 +860,6 @@
 				24B3BE1A25A71AFC00AFBF1C /* ContentsHeaderVIew.xib */,
 				2457E33D25864BBE005CE9FB /* CreditCell.xib */,
 				CD8F017D25C7C21700BD8FFD /* HeaderTitleCell.xib */,
-				CDB6D53B2550DA40001B0AEB /* HomeBackdropCell.xib */,
 				242D62EA2593782D00450120 /* InfoCardCell.xib */,
 				24ED62C42585EBF200FC98B3 /* MediaImageCell.xib */,
 				24E02D6F2585FE0A00591234 /* MediaVideoCell.xib */,
@@ -1225,6 +1228,7 @@
 				CD4D28B126E0A2A3008716BB /* TitleCell.swift in Sources */,
 				247FF85C25BD604F00BC73D2 /* ContentsListViewController.swift in Sources */,
 				CD936FC625887E170006441C /* UICollectionViewExtension.swift in Sources */,
+				CDE1D42F2732744100AB04A2 /* BackdropItemViewModel.swift in Sources */,
 				CD71C1CA26E5CF33006E40C2 /* ImageCell.swift in Sources */,
 				24ED6290258355A200FC98B3 /* Genre.swift in Sources */,
 				CDB6D40B254AB115001B0AEB /* Response.swift in Sources */,

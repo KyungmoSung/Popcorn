@@ -10,8 +10,8 @@ import Foundation
 final class PosterItemViewModel: RowViewModel {
     let content: _Content
     let id: Int
-    let title:String
-    let voteAverage: Double?
+    let title: String
+    let voteAverage: String
     let posterHeroId: String?
     let posterImgURL: URL?
     
@@ -19,8 +19,13 @@ final class PosterItemViewModel: RowViewModel {
         self.content = content
         self.id = content.id
         self.title = content.title
-        self.voteAverage = content.voteAverage
         self.posterHeroId = heroID
+        
+        if let voteAverage = content.voteAverage {
+            self.voteAverage = "\(voteAverage)"
+        } else {
+            self.voteAverage = "-"
+        }
         
         if let posterPath = content.posterPath, let url = URL(string: AppConstants.Domain.tmdbImage + posterPath) {
             self.posterImgURL = url

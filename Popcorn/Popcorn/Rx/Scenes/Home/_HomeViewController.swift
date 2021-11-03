@@ -71,6 +71,7 @@ class _HomeViewController: _BaseViewController {
         
     private func setupUI() {
         collectionView.register(cellType: PosterCell.self)
+        collectionView.register(cellType: HomeBackdropCell.self)
         collectionView.register(reusableViewType: _SectionHeaderView.self,
                                 ofKind: UICollectionView.elementKindSectionHeader)
         collectionView.register(reusableViewType: SectionLineFooterView.self,
@@ -84,10 +85,18 @@ extension _HomeViewController {
     
     private func dataSource() -> DataSource {
         return DataSource { dataSource, collectionView, indexPath, viewModel in
-            let cell = collectionView.dequeueReusableCell(with: PosterCell.self, for: indexPath)
-            cell.bind(viewModel)
-            
-            return cell
+            switch viewModel {
+            case let viewModel as BackdropItemViewModel:
+                let cell = collectionView.dequeueReusableCell(with: HomeBackdropCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
+            case let viewModel as PosterItemViewModel:
+                let cell = collectionView.dequeueReusableCell(with: PosterCell.self, for: indexPath)
+                cell.bind(viewModel)
+                return cell
+            default:
+                return UICollectionViewCell()
+            }
         } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
             switch kind {
             case UICollectionView.elementKindSectionHeader:
@@ -123,19 +132,42 @@ extension _HomeViewController {
             
             // Item
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                              heightDimension: .estimated(homeSection.height))
+                                                  heightDimension: .estimated(homeSection.height))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
+            
             // Group
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4),
-                                               heightDimension: .estimated(homeSection.height))
+            let groupSize: NSCollectionLayoutSize
+            let scrollBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior
+            let itemSpacing: CGFloat = 15
+            
+            let sideInset: CGFloat = 26
+            let contentWidth: CGFloat = env.container.contentSize.width
+            let contentWidthWithouInset: CGFloat = contentWidth - (sideInset * 2)
+            
+            if case let .movie(chart) = homeSection, chart == .nowPlaying {
+                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(contentWidthWithouInset),
+                                                   heightDimension: .estimated(homeSection.height))
+                scrollBehavior = .groupPaging
+            } else if case let .tvShow(chart) = homeSection, chart == .airingToday {
+                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(contentWidthWithouInset),
+                                                   heightDimension: .estimated(homeSection.height))
+                scrollBehavior = .groupPaging
+            } else {
+                let numberOfvisibleItem: CGFloat = 3
+                // 양쪽 Inset, Item간 Spacing 을 제외한 실제 크기 계산
+                let groupWidth = (contentWidthWithouInset / numberOfvisibleItem) - (itemSpacing / numberOfvisibleItem * (numberOfvisibleItem - 1))
+                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(groupWidth),
+                                                   heightDimension: .estimated(homeSection.height))
+                scrollBehavior = .continuous
+            }
+            
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             
             // Section
             let section = NSCollectionLayoutSection(group: group)
-            section.orthogonalScrollingBehavior = .continuous
-            section.interGroupSpacing = 15
-            section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
+            section.orthogonalScrollingBehavior = scrollBehavior
+            section.interGroupSpacing = itemSpacing
+            section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: sideInset, bottom: 20, trailing: sideInset)
             
             // Header
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),

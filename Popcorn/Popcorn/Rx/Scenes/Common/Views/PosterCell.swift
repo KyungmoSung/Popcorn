@@ -26,17 +26,12 @@ class PosterCell: UICollectionViewCell {
     
     func bind(_ viewModel: PosterItemViewModel) {
         titleLb.text = viewModel.title
+        voteLb.text = viewModel.voteAverage
         
 //        titleLb.numberOfLines = 2 // 스켈레톤뷰 적용시 셀 밖으로 벗어나는 현상 방지
         
         posterIv.kf.setImage(with: viewModel.posterImgURL, placeholder: UIImage(named: "icAvatar"), options: [.transition(.fade(1))])
         posterIv.hero.id = viewModel.posterHeroId
-
-        if let voteAverage = viewModel.voteAverage {
-            voteLb.text = "\(voteAverage)"
-        } else {
-            voteLb.text = "-"
-        }
     }
     
     override func prepareForReuse() {
