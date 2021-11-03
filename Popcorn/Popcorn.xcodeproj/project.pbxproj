@@ -173,6 +173,8 @@
 		CDE1D423272FB51500AB04A2 /* SignCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D422272FB51500AB04A2 /* SignCoordinator.swift */; };
 		CDE1D425272FC04000AB04A2 /* RecommendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D424272FC03F00AB04A2 /* RecommendViewModel.swift */; };
 		CDE1D427272FC04D00AB04A2 /* RecommendCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D426272FC04D00AB04A2 /* RecommendCoordinator.swift */; };
+		CDE1D42B27321BEA00AB04A2 /* SectionLineFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D42A27321BEA00AB04A2 /* SectionLineFooterView.swift */; };
+		CDE1D42D27321C2E00AB04A2 /* SectionLineFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE1D42C27321BED00AB04A2 /* SectionLineFooterView.xib */; };
 		CDFF2FA426BA6769001ABD89 /* _HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */; };
 		CDFF2FA526BA6769001ABD89 /* _HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */; };
 		CDFF2FF026CCF5F8001ABD89 /* _SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FEF26CCF5F8001ABD89 /* _SectionItem.swift */; };
@@ -386,6 +388,8 @@
 		CDE1D422272FB51500AB04A2 /* SignCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignCoordinator.swift; sourceTree = "<group>"; };
 		CDE1D424272FC03F00AB04A2 /* RecommendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewModel.swift; sourceTree = "<group>"; };
 		CDE1D426272FC04D00AB04A2 /* RecommendCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCoordinator.swift; sourceTree = "<group>"; };
+		CDE1D42A27321BEA00AB04A2 /* SectionLineFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionLineFooterView.swift; sourceTree = "<group>"; };
+		CDE1D42C27321BED00AB04A2 /* SectionLineFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionLineFooterView.xib; sourceTree = "<group>"; };
 		CDFF2FA226BA6768001ABD89 /* _HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _HomeViewController.swift; sourceTree = "<group>"; };
 		CDFF2FA326BA6768001ABD89 /* _HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _HomeViewController.xib; sourceTree = "<group>"; };
 		CDFF2FEF26CCF5F8001ABD89 /* _SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _SectionItem.swift; sourceTree = "<group>"; };
@@ -549,6 +553,8 @@
 				CDB6D451254BCC10001B0AEB /* PosterCell.xib */,
 				CDFF2FFD26CE3367001ABD89 /* _SectionHeaderView.swift */,
 				CDFF300226CE36CB001ABD89 /* _SectionHeaderView.xib */,
+				CDE1D42A27321BEA00AB04A2 /* SectionLineFooterView.swift */,
+				CDE1D42C27321BED00AB04A2 /* SectionLineFooterView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1066,6 +1072,7 @@
 				24661378259867E4008B982B /* NanumSquareRegular.ttf in Resources */,
 				246A3A2525C692AF002CEFF7 /* PersonDetailViewController.xib in Resources */,
 				CDFF2FA526BA6769001ABD89 /* _HomeViewController.xib in Resources */,
+				CDE1D42D27321C2E00AB04A2 /* SectionLineFooterView.xib in Resources */,
 				CDB6D3F7254AA4FE001B0AEB /* HomeViewController.xib in Resources */,
 				CD71C1BA26E1EB10006E40C2 /* TitleCell.xib in Resources */,
 				CD71C1B926E1EAE9006E40C2 /* ContentDetailViewController.xib in Resources */,
@@ -1289,6 +1296,7 @@
 				245B25FF26E73D980070FE4F /* VideoItemViewModel.swift in Sources */,
 				242D62E5259377D100450120 /* InfoCardSectionController.swift in Sources */,
 				CDB6D53C2550DA40001B0AEB /* HomeBackdropCell.swift in Sources */,
+				CDE1D42B27321BEA00AB04A2 /* SectionLineFooterView.swift in Sources */,
 				24ED62C52585EBF200FC98B3 /* MediaImageCell.swift in Sources */,
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
 				CD5D612E26D777B700FE3FB4 /* NSNotificationExtension.swift in Sources */,
@@ -1511,7 +1519,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YV47R3P48P;
 				INFOPLIST_FILE = Popcorn/Rx/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1533,7 +1541,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YV47R3P48P;
 				INFOPLIST_FILE = Popcorn/Rx/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

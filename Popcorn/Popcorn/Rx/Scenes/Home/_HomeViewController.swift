@@ -71,7 +71,10 @@ class _HomeViewController: _BaseViewController {
         
     private func setupUI() {
         collectionView.register(cellType: PosterCell.self)
-        collectionView.register(reusableViewType: _SectionHeaderView.self)
+        collectionView.register(reusableViewType: _SectionHeaderView.self,
+                                ofKind: UICollectionView.elementKindSectionHeader)
+        collectionView.register(reusableViewType: SectionLineFooterView.self,
+                                ofKind: UICollectionView.elementKindSectionFooter)
     }
 }
 
@@ -86,52 +89,73 @@ extension _HomeViewController {
             
             return cell
         } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
-            let headerView = collectionView.dequeueReusableView(with: _SectionHeaderView.self, for: indexPath)
-            let section = dataSource[indexPath.section].section
-            let viewModel = SectionHeaderViewModel(with: section, index: indexPath.section)
+            switch kind {
+            case UICollectionView.elementKindSectionHeader:
+                let headerView = collectionView.dequeueReusableView(with: _SectionHeaderView.self, for: indexPath, ofKind: kind)
+                let section = dataSource[indexPath.section].section
+                let viewModel = SectionHeaderViewModel(with: section, index: indexPath.section)
 
-            headerView.bind(viewModel)
-            headerView.selection?
-                .bind(to: self.selectedSection)
-                .disposed(by: headerView.disposeBag)
-            
-            return headerView
+                headerView.bind(viewModel)
+                headerView.selection?
+                    .bind(to: self.selectedSection)
+                    .disposed(by: headerView.disposeBag)
+                
+                return headerView
+            case UICollectionView.elementKindSectionFooter:
+                let footerView = collectionView.dequeueReusableView(with: SectionLineFooterView.self, for: indexPath, ofKind: kind)
+                return footerView
+            default:
+                return UICollectionReusableView()
+            }
         }
     }
         
     private func createCompositionalLayout(with homeSections: [HomeSection]) -> UICollectionViewLayout {
-        return UICollectionViewCompositionalLayout {   sectionIndex, _ in
-            var itemSize = NSCollectionLayoutSize(widthDimension: .absolute(CGFloat.leastNonzeroMagnitude),
-                                                  heightDimension: .absolute(CGFloat.leastNonzeroMagnitude))
-            var groupSize = NSCollectionLayoutSize(widthDimension: .absolute(CGFloat.leastNonzeroMagnitude),
-                                                   heightDimension: .absolute(CGFloat.leastNonzeroMagnitude))
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.interSectionSpacing = 20
 
+        return UICollectionViewCompositionalLayout(sectionProvider: { sectionIndex, env in
             guard let homeSection = homeSections[safe: sectionIndex] else {
                 assertionFailure("section is nil")
-                return NSCollectionLayoutSection(group: NSCollectionLayoutGroup(layoutSize: groupSize))
+                let config = UICollectionLayoutListConfiguration(appearance: .plain)
+                return NSCollectionLayoutSection.list(using: config, layoutEnvironment: env)
             }
             
-            itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+            // Item
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                               heightDimension: .estimated(homeSection.height))
-            groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4),
-                                               heightDimension: .estimated(homeSection.height))
-
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            // Group
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4),
+                                               heightDimension: .estimated(homeSection.height))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             
+            // Section
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
             section.interGroupSpacing = 15
-            section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 40, trailing: 20)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
             
+            // Header
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                     heightDimension: .estimated(100))
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                             elementKind: UICollectionView.elementKindSectionHeader,
                                                                             alignment: .top)
-            section.boundarySupplementaryItems = [sectionHeader]
+            
+            // Footer
+            let lineFooterHeight = 1 / env.traitCollection.displayScale
+            let lineFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                        heightDimension: .absolute(lineFooterHeight))
+
+            let sectionLineFooter = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: lineFooterSize,
+                                                                                elementKind: UICollectionView.elementKindSectionFooter,
+                                                                                alignment: .bottom)
+
+            section.boundarySupplementaryItems = [sectionHeader, sectionLineFooter]
             
             return section
-        }
+        }, configuration: config)
     }
 }
