@@ -51,18 +51,23 @@ class _BaseViewController: UIViewController {
         // 기본 뒤로가기 버튼 제거
         navigationItem.setHidesBackButton(true, animated: false);
         
-        // 좌측 버튼 아이템 추가
-        let leftBarBtnItemView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        
-        let leftBtn = UIButton(type: .custom)
-        leftBarBtnItemView.addSubview(leftBtn)
-        leftBtn.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        leftBtn.setImage(UIImage(named: "icBack"), for: .normal)
-        leftBtn.addTarget(self, action: #selector(didTapNavigationBackBtn), for: .touchUpInside)
-        leftBtn.tintColor = .label
-        
-        let leftBarButtonItem = UIBarButtonItem(customView: leftBarBtnItemView)
-        navigationItem.leftBarButtonItem = leftBarButtonItem
+        if let count = navigationController?.viewControllers.count, count > 1 {
+            navigationController?.navigationBar.prefersLargeTitles = false
+            // 좌측 버튼 아이템 추가
+            let leftBarBtnItemView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            
+            let leftBtn = UIButton(type: .custom)
+            leftBarBtnItemView.addSubview(leftBtn)
+            leftBtn.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+            leftBtn.setImage(UIImage(named: "icBack"), for: .normal)
+            leftBtn.addTarget(self, action: #selector(didTapNavigationBackBtn), for: .touchUpInside)
+            leftBtn.tintColor = .label
+            
+            let leftBarButtonItem = UIBarButtonItem(customView: leftBarBtnItemView)
+            navigationItem.leftBarButtonItem = leftBarButtonItem
+        } else {
+            navigationController?.navigationBar.prefersLargeTitles = true
+        }
         
         let rightBarBtnItemView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 30))
         

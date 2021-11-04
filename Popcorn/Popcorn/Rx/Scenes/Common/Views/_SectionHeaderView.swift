@@ -12,6 +12,8 @@ import RxCocoa
 class _SectionHeaderView: UICollectionReusableView {
     var disposeBag = DisposeBag()
     
+    @IBOutlet weak var topSpacing: NSLayoutConstraint!
+    @IBOutlet weak var seperatorView: UIView!
     @IBOutlet private weak var titleLb: UILabel!
     @IBOutlet weak var detailBtn: UIButton!
     
@@ -22,6 +24,7 @@ class _SectionHeaderView: UICollectionReusableView {
     }
     
     func bind(_ viewModel: SectionHeaderViewModel) {
+        topSpacing.constant = viewModel.index == 0 ? 10 : 0
         titleLb.text = viewModel.section.title
         
         selection = detailBtn.rx.tap

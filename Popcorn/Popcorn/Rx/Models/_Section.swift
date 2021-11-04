@@ -33,6 +33,17 @@ enum HomeSection: _SectionType {
     var expandable: Bool {
         return true
     }
+    
+    var displayType: ImageType {
+        switch self {
+        case .movie(let chart) where chart == .nowPlaying:
+            return .backdrop
+        case .tvShow(let chart) where chart == .airingToday:
+            return .backdrop
+        default:
+            return .poster
+        }
+    }
 }
 
 enum DetailSection: _SectionType {

@@ -14,35 +14,33 @@ class HomeViewModel: ViewModel {
     struct Input {
         let ready: Observable<Void>
         let localizeChanged: Observable<Void>
-        let contentsTypeSelection: Observable<ContentsType>
         let headerSelection: Observable<Int>
         let selection: Observable<IndexPath>
     }
     
     struct Output {
+        let loading: Observable<Bool>
         let sectionItems: Observable<[HomeSectionItem]>
         let selectedContent: Observable<_Content>
         let selectedSection: Observable<([_Content], HomeSection)>
     }
     
     private let coordinator: HomeCoordinator
+    let contentsType: ContentsType
     
-    init(networkService: TmdbService = TmdbAPI(), coordinator: HomeCoordinator) {
+    init(contentsType: ContentsType, networkService: TmdbService = TmdbAPI(), coordinator: HomeCoordinator) {
+        self.contentsType = contentsType
         self.coordinator = coordinator
         super.init(networkService: networkService)
     }
     
     func transform(input: Input) -> Output {
         let refreshTrigger = Observable.merge(input.ready, input.localizeChanged)
-        
-        let updateTrigger = Observable.combineLatest(refreshTrigger,
-                                                     input.contentsTypeSelection
-                                                        .startWith(ContentsType.movies)
-                                                        .distinctUntilChanged())
+            .map{ self.contentsType }
 
         // Update - 현재 타입에 해당하는 Charts API 호출
-        let sectionItems = updateTrigger
-            .flatMap { [weak self] _, contentsType -> Observable<[HomeSectionItem]> in
+        let sectionItems = refreshTrigger
+            .flatMap { [weak self] contentsType -> Observable<[HomeSectionItem]> in
                 guard let self = self else { return Observable.just([]) }
                 
                 switch contentsType {
@@ -110,6 +108,8 @@ class HomeViewModel: ViewModel {
             .compactMap { $0 }
             .do(onNext: coordinator.showChartList)
         
-        return Output(sectionItems: sectionItems, selectedContent: selectedContent, selectedSection: selectedSection)
+        let loading = activityIndicator.asObservable()
+                
+        return Output(loading: loading, sectionItems: sectionItems, selectedContent: selectedContent, selectedSection: selectedSection)
     }
 }

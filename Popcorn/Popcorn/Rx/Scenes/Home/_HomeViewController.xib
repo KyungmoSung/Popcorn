@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,8 +12,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="_HomeViewController" customModule="Popcorn" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="9Jp-bt-FFo" id="Td3-M7-ZJG"/>
-                <outlet property="moviesBtn" destination="cQo-u0-5Yz" id="w9f-YF-bS7"/>
-                <outlet property="showsBtn" destination="Nun-6k-s9X" id="d99-rV-o4T"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="9Jp-bt-FFo">
-                    <rect key="frame" x="0.0" y="104" width="414" height="758"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9Ny-rV-1bx">
                         <size key="itemSize" width="128" height="128"/>
@@ -32,48 +30,19 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="kIc-L0-Lx1">
-                    <rect key="frame" x="0.0" y="44" width="283" height="60"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQo-u0-5Yz">
-                            <rect key="frame" x="20" y="0.0" width="93" height="60"/>
-                            <fontDescription key="fontDescription" type="system" weight="black" pointSize="26"/>
-                            <state key="normal" title="Movies">
-                                <color key="titleColor" systemColor="labelColor"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nun-6k-s9X">
-                            <rect key="frame" x="133" y="0.0" width="130" height="60"/>
-                            <fontDescription key="fontDescription" type="system" weight="black" pointSize="26"/>
-                            <state key="normal" title="TV Shows">
-                                <color key="titleColor" systemColor="labelColor"/>
-                            </state>
-                        </button>
-                    </subviews>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="ejf-gT-cgw"/>
-                    </constraints>
-                    <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
-                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9Jp-bt-FFo" secondAttribute="trailing" id="Adk-5f-YXA"/>
-                <constraint firstItem="kIc-L0-Lx1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ExU-zM-kMh"/>
-                <constraint firstItem="9Jp-bt-FFo" firstAttribute="top" secondItem="kIc-L0-Lx1" secondAttribute="bottom" id="M9c-cQ-D6P"/>
+                <constraint firstItem="9Jp-bt-FFo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="PEv-PK-hoF"/>
                 <constraint firstItem="9Jp-bt-FFo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="WSl-Lt-eTy"/>
-                <constraint firstItem="kIc-L0-Lx1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="XVr-Gz-jag"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="9Jp-bt-FFo" secondAttribute="bottom" id="faq-Iy-Zgm"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kIc-L0-Lx1" secondAttribute="trailing" id="oeR-Fb-Xju"/>
+                <constraint firstAttribute="bottom" secondItem="9Jp-bt-FFo" secondAttribute="bottom" id="vUD-Nr-OQG"/>
             </constraints>
             <point key="canvasLocation" x="39" y="118"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

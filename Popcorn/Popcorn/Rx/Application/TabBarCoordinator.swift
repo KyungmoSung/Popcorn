@@ -33,28 +33,28 @@ class TabBarCoordinator: Coordinator {
         UITabBar.appearance().tintColor = .label
         UITabBar.appearance().isTranslucent = true
         
-        let homeNC = UINavigationController()
-        homeNC.hero.isEnabled = true
-        homeNC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
-        let homeCoordinator = HomeCoordinator(navigationController: homeNC,
+        let movieHomeNavi = UINavigationController()
+        movieHomeNavi.hero.isEnabled = true
+        movieHomeNavi.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
+        let movieHomeCoordinator = HomeCoordinator(navigationController: movieHomeNavi,
                                               service: service)
         
-        let recommendNC = UINavigationController()
-        recommendNC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
-        let recommendCoordinator = RecommendCoordinator(navigationController: recommendNC,
+        let tvShowHomeNavi = UINavigationController()
+        tvShowHomeNavi.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
+        let tvShowHomeCoordinator = HomeCoordinator(navigationController: tvShowHomeNavi,
                                               service: service)
         
         let homeNC3 = UINavigationController()
         homeNC3.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 2)
-        let homeCoordinator3 = HomeCoordinator(navigationController: homeNC3,
+        let homeCoordinator3 = RecommendCoordinator(navigationController: homeNC3,
                                               service: service)
         
-        tabBarController.viewControllers = [homeNC, recommendNC, homeNC3]
+        tabBarController.viewControllers = [movieHomeNavi, tvShowHomeNavi, homeNC3]
 
         navigationController.viewControllers = [tabBarController]
         
-        homeCoordinator.start()
-        recommendCoordinator.start()
+        movieHomeCoordinator.start(contentsType: .movies)
+        tvShowHomeCoordinator.start(contentsType: .tvShows)
         homeCoordinator3.start()
     }
 }

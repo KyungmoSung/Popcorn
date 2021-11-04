@@ -19,9 +19,12 @@ class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = HomeViewModel(networkService: service, coordinator: self)
+        start(contentsType: .movies)
+    }
+    
+    func start(contentsType: ContentsType) {
+        let viewModel = HomeViewModel(contentsType: contentsType, networkService: service, coordinator: self)
         let viewController = _HomeViewController(viewModel: viewModel)
-        viewController.hidesNavigationBar = true
         viewController.hidesTabBar = false
 
         navigationController.viewControllers = [viewController]

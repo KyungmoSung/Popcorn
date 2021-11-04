@@ -16,8 +16,6 @@ class _HomeViewController: _BaseViewController {
     let selectedSection = PublishRelay<Int>()
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var moviesBtn: UIButton!
-    @IBOutlet weak var showsBtn: UIButton!
     
     convenience init(viewModel: HomeViewModel) {
         self.init()
@@ -26,24 +24,28 @@ class _HomeViewController: _BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         
         setupUI()
         bindViewModel()
     }
     
+    private func setupUI() {
+        collectionView.register(cellType: PosterCell.self)
+        collectionView.register(cellType: HomeBackdropCell.self)
+        collectionView.register(reusableViewType: _SectionHeaderView.self,
+                                ofKind: UICollectionView.elementKindSectionHeader)
+    }
+    
     private func bindViewModel() {
-        let tapContentsType = Observable.merge(moviesBtn.rx.tap.map { ContentsType.movies },
-                                               showsBtn.rx.tap.map { ContentsType.tvShows })
-        
+        title = viewModel.contentsType.title
         
         let input = HomeViewModel.Input(ready: rx.viewWillAppear.take(1).asObservable(),
                                         localizeChanged: localizeChanged.asObservable(),
-                                        contentsTypeSelection: tapContentsType,
                                         headerSelection: selectedSection.asObservable(),
                                         selection: collectionView.rx.itemSelected.asObservable())
         
         let output = viewModel.transform(input: input)
-        
+                
         output.sectionItems
             .asDriverOnErrorJustComplete()
             .map{ $0.map { $0.section } }
@@ -67,15 +69,6 @@ class _HomeViewController: _BaseViewController {
             .asDriverOnErrorJustComplete()
             .drive()
             .disposed(by: disposeBag)
-    }
-        
-    private func setupUI() {
-        collectionView.register(cellType: PosterCell.self)
-        collectionView.register(cellType: HomeBackdropCell.self)
-        collectionView.register(reusableViewType: _SectionHeaderView.self,
-                                ofKind: UICollectionView.elementKindSectionHeader)
-        collectionView.register(reusableViewType: SectionLineFooterView.self,
-                                ofKind: UICollectionView.elementKindSectionFooter)
     }
 }
 
@@ -110,9 +103,6 @@ extension _HomeViewController {
                     .disposed(by: headerView.disposeBag)
                 
                 return headerView
-            case UICollectionView.elementKindSectionFooter:
-                let footerView = collectionView.dequeueReusableView(with: SectionLineFooterView.self, for: indexPath, ofKind: kind)
-                return footerView
             default:
                 return UICollectionReusableView()
             }
@@ -120,10 +110,7 @@ extension _HomeViewController {
     }
         
     private func createCompositionalLayout(with homeSections: [HomeSection]) -> UICollectionViewLayout {
-        let config = UICollectionViewCompositionalLayoutConfiguration()
-        config.interSectionSpacing = 20
-
-        return UICollectionViewCompositionalLayout(sectionProvider: { sectionIndex, env in
+        return UICollectionViewCompositionalLayout { sectionIndex, env in
             guard let homeSection = homeSections[safe: sectionIndex] else {
                 assertionFailure("section is nil")
                 let config = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -138,21 +125,18 @@ extension _HomeViewController {
             // Group
             let groupSize: NSCollectionLayoutSize
             let scrollBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior
-            let itemSpacing: CGFloat = 15
+            let itemSpacing: CGFloat = 10
             
-            let sideInset: CGFloat = 26
+            let sideInset: CGFloat = 20
             let contentWidth: CGFloat = env.container.contentSize.width
             let contentWidthWithouInset: CGFloat = contentWidth - (sideInset * 2)
             
-            if case let .movie(chart) = homeSection, chart == .nowPlaying {
+            switch homeSection.displayType {
+            case .backdrop:
                 groupSize = NSCollectionLayoutSize(widthDimension: .absolute(contentWidthWithouInset),
                                                    heightDimension: .estimated(homeSection.height))
                 scrollBehavior = .groupPaging
-            } else if case let .tvShow(chart) = homeSection, chart == .airingToday {
-                groupSize = NSCollectionLayoutSize(widthDimension: .absolute(contentWidthWithouInset),
-                                                   heightDimension: .estimated(homeSection.height))
-                scrollBehavior = .groupPaging
-            } else {
+            case .poster:
                 let numberOfvisibleItem: CGFloat = 3
                 // 양쪽 Inset, Item간 Spacing 을 제외한 실제 크기 계산
                 let groupWidth = (contentWidthWithouInset / numberOfvisibleItem) - (itemSpacing / numberOfvisibleItem * (numberOfvisibleItem - 1))
@@ -176,18 +160,9 @@ extension _HomeViewController {
                                                                             elementKind: UICollectionView.elementKindSectionHeader,
                                                                             alignment: .top)
             
-            // Footer
-            let lineFooterHeight = 1 / env.traitCollection.displayScale
-            let lineFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                        heightDimension: .absolute(lineFooterHeight))
-
-            let sectionLineFooter = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: lineFooterSize,
-                                                                                elementKind: UICollectionView.elementKindSectionFooter,
-                                                                                alignment: .bottom)
-
-            section.boundarySupplementaryItems = [sectionHeader, sectionLineFooter]
+            section.boundarySupplementaryItems = [sectionHeader]
             
             return section
-        }, configuration: config)
+        }
     }
 }
