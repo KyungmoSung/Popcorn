@@ -66,7 +66,13 @@ class HomeViewModel: ViewModel {
                             self.networkService.tvShows(chart: chart, page: 1)
                                 .trackActivity(self.activityIndicator)
                                 .trackError(self.errorTracker)
-                                .map { $0.map { PosterItemViewModel(with: $0, heroID: (chart.title ?? "") + "\($0.id)") }}
+                                .map {
+                                    if chart == .airingToday {
+                                        return $0.map { BackdropItemViewModel(with: $0, heroID: (chart.title ?? "") + "\($0.id)") }
+                                    } else {
+                                        return $0.map { PosterItemViewModel(with: $0, heroID: (chart.title ?? "") + "\($0.id)") }
+                                    }
+                                }
                                 .map { HomeSectionItem(section: .tvShow(chart), items: $0) }
                         }
                     )
