@@ -194,11 +194,11 @@ extension ContentDetailViewController {
                 let cell = collectionView.dequeueReusableCell(with: TitleCell.self, for: indexPath)
                 cell.bind(viewModel)
                 
-                cell.selection?
+                cell.actionSelection?
                     .bind(to: self.selectedAction)
                     .disposed(by: cell.disposeBag)
                 
-                cell.share?
+                cell.shareSelection?
                     .bind(to: self.selectedShare)
                     .disposed(by: cell.disposeBag)
                 

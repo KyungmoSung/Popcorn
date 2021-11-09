@@ -9,7 +9,6 @@ import Foundation
 
 class HomeCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
-    
     var navigationController: UINavigationController
     let service: TmdbService
     

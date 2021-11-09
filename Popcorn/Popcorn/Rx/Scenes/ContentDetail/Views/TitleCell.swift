@@ -23,8 +23,8 @@ class TitleCell: UICollectionViewCell {
     @IBOutlet weak var watchlistBtn: UIButton!
     @IBOutlet weak var shareBtn: UIButton!
     
-    var selection: Observable<ContentAction>?
-    var share: Observable<Void>?
+    var actionSelection: Observable<ContentAction>?
+    var shareSelection: Observable<Void>?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,12 +35,12 @@ class TitleCell: UICollectionViewCell {
         subTitleLb.text = viewModel.subTitle
         voteAverageLb.text = viewModel.voteAverageText
         
-        selection = Observable.merge(
+        actionSelection = Observable.merge(
             rateBtn.rx.tap.map{ ContentAction.rate },
             favoriteBtn.rx.tap.map{ ContentAction.favorite },
             watchlistBtn.rx.tap.map{ ContentAction.watchlist })
         
-        share = shareBtn.rx.tap.asObservable()
+        shareSelection = shareBtn.rx.tap.asObservable()
         
         viewModel.state
             .asDriverOnErrorJustComplete()
