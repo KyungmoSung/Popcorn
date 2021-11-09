@@ -11,50 +11,90 @@ import RxSwift
 class AuthManager {
     static let shared = AuthManager()
     
-    private init(){}
+    private init(){
+        if let data = UserDefaults.standard.value(forKey:"auth") as? Data,
+           let auth = try? PropertyListDecoder().decode(Auth.self, from: data) {
+            authResultSubject.onNext(auth)
+        }
+        
+        if let data = UserDefaults.standard.value(forKey:"user") as? Data,
+           let user = try? PropertyListDecoder().decode(User.self, from: data) {
+            profileResultSubject.onNext(user)
+        }
+
+        authResultSubject
+            .subscribe(onNext: { auth in
+                UserDefaults.standard.set(try? PropertyListEncoder().encode(auth), forKey:"auth")
+            })
+            .disposed(by: disposeBag)
+        
+        profileResultSubject
+            .subscribe(onNext: { user in
+                UserDefaults.standard.set(try? PropertyListEncoder().encode(user), forKey:"user")
+            })
+            .disposed(by: disposeBag)
+    }
     
     var disposeBag = DisposeBag()
     var networkService: TmdbService = TmdbAPI()
     let activityIndicator = ActivityIndicator()
     let errorTracker = ErrorTracker()
     
-    var signResultSubject = BehaviorSubject<User?>(value: nil)
-    var user: User?
-    var accountID: String?
-    var requestToken: String?
-    var accessToken: String?
-    var sessionID: String?
+    var authResultSubject = BehaviorSubject<Auth?>(value: nil)
+    var auth: Auth? {
+        return try? authResultSubject.value()
+    }
+    
+    var profileResultSubject = BehaviorSubject<User?>(value: nil)
+    var user: User? {
+        return try? profileResultSubject.value()
+    }
+    
+    var signResult: Observable<Bool> {
+        return Observable.combineLatest(authResultSubject, profileResultSubject)
+            .map { auth, user in
+                if let _ = auth, let _ = user {
+                    return true
+                } else {
+                    return false
+                }
+            }
+    }
     
     private func createRequestToken() -> Observable<String> {
         return networkService.createRequestToken()
-            .map{ auth in
-                self.requestToken = auth.requestToken
-                return auth.requestToken
-            }
-            .compactMap{ $0 }
+            .compactMap{ $0.requestToken }
+            .do(onNext: { requestToken in
+                var currentAuth = self.auth ?? Auth()
+                currentAuth.requestToken = requestToken
+                self.authResultSubject.onNext(currentAuth)
+            })
             .trackActivity(activityIndicator)
             .trackError(errorTracker)
     }
     
     private func createAccessToken(requestToken: String) -> Observable<String> {
         return networkService.createAccessToken(requestToken: requestToken)
-            .map { auth in
-                self.accountID = auth.accountID
-                self.accessToken = auth.accessToken
-                return auth.accessToken
-            }
-            .compactMap{ $0 }
+            .map { ($0.accessToken, $0.accountID) }
+            .do(onNext: { accessToken, accountID in
+                var currentAuth = self.auth
+                currentAuth?.accessToken = accessToken
+                currentAuth?.accountID = accountID
+                self.authResultSubject.onNext(currentAuth)
+            })
+            .compactMap{ $0.0 }
             .trackActivity(activityIndicator)
             .trackError(errorTracker)
     }
     
     private func createSessionID(accessToken: String) -> Observable<String> {
         return networkService.createSession(accessToken: accessToken)
-            .map { auth in
-                self.sessionID = auth.sessionID
-                return auth.sessionID
-            }
-            .compactMap{ $0 }
+            .compactMap{ $0.sessionID }
+            .do(onNext: { sessionID in
+                var currentAuth = self.auth
+                currentAuth?.sessionID = sessionID
+                self.authResultSubject.onNext(currentAuth)
+            })
             .trackActivity(activityIndicator)
             .trackError(errorTracker)
     }
@@ -62,7 +102,7 @@ class AuthManager {
     private func getProfile(sessionID: String) -> Observable<User> {
         return networkService.accountProfile(sessionID: sessionID)
             .do(onNext: { user in
-                self.user = user
+                self.profileResultSubject.onNext(user)
             })
             .trackActivity(activityIndicator)
             .trackError(errorTracker)
@@ -94,7 +134,7 @@ class AuthManager {
      4. sessionID(v3)로 유저 프로필 요청
      */
     func requestSignIn() -> Observable<User> {
-        guard let requestToken = requestToken else { return Observable.error(AuthError(msg: "invalide requestToken"))}
+        guard let requestToken = auth?.requestToken else { return Observable.error(AuthError.invalideRequestToken)}
         
         return createAccessToken(requestToken: requestToken)
             .flatMap({ accessToken in
@@ -103,19 +143,24 @@ class AuthManager {
             .flatMap({ sessionID in
                 self.getProfile(sessionID: sessionID)
             })
-            .map({ user in
-                self.signResultSubject.onNext(user)
-                return user
-            })
             .trackActivity(activityIndicator)
             .trackError(errorTracker)
     }
     
     func isSignIn() -> Bool {
-        return user != nil
+        let auth = try? authResultSubject.value()
+        let user = try? profileResultSubject.value()
+        return auth != nil && user != nil
+    }
+    
+    func signOut() {
+        authResultSubject.onNext(nil)
+        profileResultSubject.onNext(nil)
     }
 }
 
-struct AuthError: Error {
-    var msg: String
+enum AuthError: Error {
+    case notSignIn
+    case invalideRequestToken
+    case server(msg: String)
 }
