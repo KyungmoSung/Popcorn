@@ -14,12 +14,14 @@ class ContentListViewModel: ViewModel {
     struct Input {
         let ready: Observable<Void>
         let scrollToBottom: Observable<Void>
+        let selection: Observable<IndexPath>
     }
     
     struct Output {
         let loading: Observable<Bool>
         let title: Observable<String>
         let sectionItems: Observable<[ListSectionItem]>
+        let selectedContent: Observable<_Content>
     }
 
     private var page = 1
@@ -74,7 +76,17 @@ class ContentListViewModel: ViewModel {
         
         let title = Observable.just(sourceSection.title).compactMap{ $0 }
         
-        return Output(loading: activityIndicator.asObservable(), title: title, sectionItems: sectionItems)
+        // 셀 선택 - 디테일 화면 이동
+        let selectedContent = input.selection
+            .withLatestFrom(sectionItems) { indexPath, result in
+                let viewModel = result[indexPath.section].items[indexPath.row]
+                return (viewModel.content, viewModel.posterHeroId)
+            }
+            .do(onNext: coordinator.showDetail)
+            .map { $0.0 }
+        
+        
+        return Output(loading: activityIndicator.asObservable(), title: title, sectionItems: sectionItems, selectedContent: selectedContent)
     }
     
     func request() -> Observable<[PosterItemViewModel]> {

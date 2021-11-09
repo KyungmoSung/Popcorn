@@ -49,7 +49,10 @@ class ContentListViewController: _BaseViewController {
         
         switch viewModel {
         case let viewModel as ContentListViewModel:
-            let input = ContentListViewModel.Input(ready: ready, scrollToBottom: scrollToBottom)
+            let input = ContentListViewModel.Input(ready: ready,
+                                                   scrollToBottom: scrollToBottom,
+                                                   selection: collectionView.rx.itemSelected
+                                                    .asObservable())
             let output = viewModel.transform(input: input)
             
             output.title
@@ -61,6 +64,12 @@ class ContentListViewController: _BaseViewController {
                 .asDriverOnErrorJustComplete()
                 .drive(collectionView.rx.items(dataSource: contentsDataSource()))
                 .disposed(by: disposeBag)
+            
+            output.selectedContent
+                .asDriverOnErrorJustComplete()
+                .drive()
+                .disposed(by: disposeBag)
+            
         case let viewModel as CreditListViewModel:
             let input = CreditListViewModel.Input(ready: ready)
             let output = viewModel.transform(input: input)
