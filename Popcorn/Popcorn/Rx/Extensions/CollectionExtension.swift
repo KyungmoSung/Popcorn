@@ -12,3 +12,23 @@ extension Collection {
         return indices.contains(index) ? self[index] : nil
     }
 }
+
+extension Dictionary {
+    func toJsonData() -> Data? {
+        if let jsonData = try? JSONSerialization.data(withJSONObject: self,
+                                                      options: .prettyPrinted) {            
+            return jsonData
+        } else {
+            return nil
+        }
+    }
+    
+    func toJsonString() -> String? {
+        if let jsonData = toJsonData(), let jsonString = String(data: jsonData,
+                                                                encoding: String.Encoding.ascii) {
+            return jsonString
+        } else {
+            return nil
+        }
+    }
+}

@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import RxSwift
 
 final class TitleItemViewModel: RowViewModel {
     let title: String
     private let releaseDate: Date?
     private let originalTitle: String?
     private let voteAverage: Double?
+    let state: Observable<AccountStates>
     
     var subTitle: String {
         if let date = releaseDate, let originalTitle = originalTitle {
@@ -33,11 +35,12 @@ final class TitleItemViewModel: RowViewModel {
         }
     }
     
-    init(with content: _Content) {
+    init(with content: _Content, state: Observable<AccountStates>) {
         self.title = content.title
         self.releaseDate = content.releaseDate?.dateValue()
         self.originalTitle = content.originalTitle
         self.voteAverage = content.voteAverage
+        self.state = state
         
         super.init(identity: title)
     }

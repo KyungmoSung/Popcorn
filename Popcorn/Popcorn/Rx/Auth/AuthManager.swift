@@ -107,7 +107,7 @@ class AuthManager {
             .trackActivity(activityIndicator)
             .trackError(errorTracker)
     }
-    
+ 
     /**
      Safari로 TMDB 로그인 사이트 이동
      - requestToken(v4) 생성 후 TMDB URL에 Token 추가

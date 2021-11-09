@@ -43,11 +43,13 @@ protocol TmdbAuthService {
     func createSession(accessToken: String) -> Observable<Auth>
 }
 
-
 protocol TmdbAccountService {
     func accountProfile(sessionID: String) -> Observable<User>
+    func accountStates(sessionID: String?, type: ContentsType, id: Int) -> Observable<AccountStates>
     func accountMovieRecommendations(accountID: String, sortBy: Sort) -> Observable<[_Movie]>
     func accountTvRecommendations(accountID: String, sortBy: Sort) -> Observable<[_TVShow]>
+    func markFavorite(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool) -> Observable<Void>
+    func markWatchlist(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool) -> Observable<Void>
 }
 
 protocol TmdbConfigService {

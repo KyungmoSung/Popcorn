@@ -22,7 +22,10 @@ class ContentDetailViewController: _BaseViewController {
     var collectionView: UICollectionView {
         return collectionViewController.collectionView
     }
+    
     let selectedSection = PublishRelay<Int>()
+    let selectedAction = PublishRelay<ContentAction>()
+    let selectedShare = PublishRelay<Void>()
         
     convenience init(viewModel: ContentDetailViewModel) {
         self.init()
@@ -41,6 +44,8 @@ class ContentDetailViewController: _BaseViewController {
         let input = ContentDetailViewModel.Input(ready: rx.viewWillAppear.take(1).asObservable(),
                                                  localizeChanged: localizeChanged.asObservable(),
                                                  headerSelection: selectedSection.asObservable(),
+                                                 actionSelection: selectedAction.asObservable(),
+                                                 shareSelection: selectedShare.asObservable(),
                                                  selection: collectionView.rx.modelSelected(RowViewModel.self).asObservable())
 
         let output = viewModel.transform(input: input)
@@ -75,6 +80,21 @@ class ContentDetailViewController: _BaseViewController {
             .disposed(by: disposeBag)
         
         output.selectedSection
+            .asDriverOnErrorJustComplete()
+            .drive()
+            .disposed(by: disposeBag)
+        
+        output.selectedAction
+            .asDriverOnErrorJustComplete()
+            .drive()
+            .disposed(by: disposeBag)
+        
+        output.selectedShare
+            .asDriverOnErrorJustComplete()
+            .drive()
+            .disposed(by: disposeBag)
+        
+        output.accountStates
             .asDriverOnErrorJustComplete()
             .drive()
             .disposed(by: disposeBag)
@@ -173,6 +193,15 @@ extension ContentDetailViewController {
                  let (.tvShow(.title), viewModel as TitleItemViewModel):
                 let cell = collectionView.dequeueReusableCell(with: TitleCell.self, for: indexPath)
                 cell.bind(viewModel)
+                
+                cell.selection?
+                    .bind(to: self.selectedAction)
+                    .disposed(by: cell.disposeBag)
+                
+                cell.share?
+                    .bind(to: self.selectedShare)
+                    .disposed(by: cell.disposeBag)
+                
                 return cell
             case let (.movie(.synopsis), viewModel as SynopsisItemViewModel),
                  let (.tvShow(.synopsis), viewModel as SynopsisItemViewModel):

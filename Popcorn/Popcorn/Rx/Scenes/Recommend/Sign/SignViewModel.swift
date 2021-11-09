@@ -31,8 +31,8 @@ class SignViewModel: ViewModel {
             })
             .disposed(by: disposeBag)
         
-        let result = AuthManager.shared.signResultSubject
-            .compactMap{ $0 }
+        let result = AuthManager.shared.signResult
+            .filter{ $0 == true }
             .mapToVoid()
             .do(onNext: coordinator.dismiss)
         

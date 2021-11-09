@@ -29,6 +29,10 @@ class _Content: Codable, Loadingable {
     
     var isLoading: Bool = false
     
+    var contentType: ContentsType {
+        self is _Movie ? .movies : .tvShows
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id
         case title

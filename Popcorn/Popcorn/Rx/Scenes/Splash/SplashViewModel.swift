@@ -28,7 +28,6 @@ class SplashViewModel: ViewModel {
     func transform(input: Input) -> Output {
         // Config API - 탭바 화면 이동
         let config = input.ready.asObservable()
-            .debug()
             .flatMap { [weak self] _ -> Observable<([Language], [Country], [Genre], [Genre])> in
                 guard let self = self else { return Observable.empty() }
                 

@@ -230,9 +230,21 @@ extension TmdbAPI: TmdbAccountService {
             .asObservable()
     }
     
+    func accountStates(sessionID: String?, type: ContentsType, id: Int) -> Observable<AccountStates> {
+        guard let sessionID = sessionID else {
+            return Observable.just(AccountStates())
+        }
+
+        return provider.rx
+            .request(.accountStates(sessionID: sessionID, type: type, id: id))
+            .retry(3)
+            .map(AccountStates.self)
+            .asObservable()
+    }
+    
     func accountMovieRecommendations(accountID: String, sortBy: Sort) -> Observable<[_Movie]> {
         return provider.rx
-            .request(.accountRecommendations(type: .movies, accountID: accountID, sortBy: sortBy))
+            .request(.accountRecommendations(accountID: accountID, type: .movies, sortBy: sortBy))
             .retry(3)
             .map(PageResponse<_Movie>.self)
             .map{ $0.results ?? [] }
@@ -241,11 +253,31 @@ extension TmdbAPI: TmdbAccountService {
     
     func accountTvRecommendations(accountID: String, sortBy: Sort) -> Observable<[_TVShow]> {
         return provider.rx
-            .request(.accountRecommendations(type: .tvShows, accountID: accountID, sortBy: sortBy))
+            .request(.accountRecommendations(accountID: accountID, type: .tvShows, sortBy: sortBy))
             .retry(3)
             .map(PageResponse<_TVShow>.self)
             .map{ $0.results ?? [] }
             .asObservable()
+    }
+    
+    func markFavorite(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool) -> Observable<Void> {
+        return provider.rx
+            .request(.markFavorite(accountID: accountID, sessionID: sessionID, type: type, id: id, add: add))
+            .do(onSuccess: { res in
+                print(try? res.mapString())
+                dump(res)
+            })
+            .retry(3)
+            .asObservable()
+            .mapToVoid()
+    }
+    
+    func markWatchlist(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool) -> Observable<Void> {
+        return provider.rx
+            .request(.markWatchlist(accountID: accountID, sessionID: sessionID, type: type, id: id, add: add))
+            .retry(3)
+            .asObservable()
+            .mapToVoid()
     }
 }
 

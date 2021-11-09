@@ -42,9 +42,9 @@ class RecommendViewModel: ViewModel {
                 }
             })
 
-        let sectionItems = AuthManager.shared.signResultSubject
+        let sectionItems = AuthManager.shared.profileResultSubject
             .flatMap { [weak self] _ -> Observable<[_Movie]> in
-                guard let self = self, let accountID = AuthManager.shared.accountID else {
+                guard let self = self, let accountID = AuthManager.shared.auth?.accountID else {
                     return Observable.just([])
                 }
                     

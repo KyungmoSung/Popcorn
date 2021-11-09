@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -99,9 +99,6 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Biw-GD-VEB">
                                                 <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="de1-Ad-YWG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
-                                                    </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="hxI-4F-MkD">
                                                         <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
                                                         <subviews>
@@ -123,6 +120,9 @@
                                                             </label>
                                                         </subviews>
                                                     </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="de1-Ad-YWG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="de1-Ad-YWG" firstAttribute="top" secondItem="Biw-GD-VEB" secondAttribute="top" id="H42-nC-oCK"/>
@@ -138,9 +138,6 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hSF-wx-aEr">
                                                 <rect key="frame" x="85" y="0.0" width="65" height="50"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0sN-rv-GYi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
-                                                    </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="vl2-0R-YKY">
                                                         <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
                                                         <subviews>
@@ -162,6 +159,9 @@
                                                             </label>
                                                         </subviews>
                                                     </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0sN-rv-GYi">
+                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="vl2-0R-YKY" secondAttribute="bottom" id="43p-6e-wFz"/>
@@ -177,9 +177,6 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="89p-Ie-chH">
                                                 <rect key="frame" x="170" y="0.0" width="65" height="50"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dta-ml-x3T">
-                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
-                                                    </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Icr-2B-fZb">
                                                         <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
                                                         <subviews>
@@ -201,6 +198,9 @@
                                                             </label>
                                                         </subviews>
                                                     </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dta-ml-x3T">
+                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="dta-ml-x3T" firstAttribute="top" secondItem="89p-Ie-chH" secondAttribute="top" id="5rH-Vy-N3Q"/>
@@ -216,9 +216,6 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QIO-Qm-BKK">
                                                 <rect key="frame" x="255" y="0.0" width="65" height="50"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ra-R0-7NX">
-                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
-                                                    </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="KNr-4m-7wP">
                                                         <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
                                                         <subviews>
@@ -240,6 +237,9 @@
                                                             </label>
                                                         </subviews>
                                                     </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ra-R0-7NX">
+                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="50"/>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="KNr-4m-7wP" secondAttribute="trailing" id="7v5-sw-C5P"/>
@@ -284,11 +284,15 @@
             </constraints>
             <size key="customSize" width="340" height="411"/>
             <connections>
+                <outlet property="favoriteBtn" destination="0sN-rv-GYi" id="Rkn-GO-3so"/>
                 <outlet property="genreCollectionView" destination="TUh-Me-CeD" id="K98-5c-XaW"/>
+                <outlet property="rateBtn" destination="de1-Ad-YWG" id="Igs-XH-qGA"/>
+                <outlet property="shareBtn" destination="1Ra-R0-7NX" id="1kh-FC-fGM"/>
                 <outlet property="starIv" destination="Znf-MH-VzB" id="crX-mu-dDn"/>
                 <outlet property="subTitleLb" destination="7AF-XD-uN2" id="QXe-oH-jQ6"/>
                 <outlet property="titleLb" destination="3c6-TL-pL3" id="V0U-F0-EUg"/>
                 <outlet property="voteAverageLb" destination="3Si-xw-H86" id="7uR-Fx-68O"/>
+                <outlet property="watchlistBtn" destination="dta-ml-x3T" id="gag-dg-545"/>
             </connections>
             <point key="canvasLocation" x="346.37681159420293" y="223.32589285714283"/>
         </collectionViewCell>
@@ -306,7 +310,7 @@
             <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
-            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

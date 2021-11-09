@@ -10,6 +10,7 @@ import Foundation
 class ContentDetailCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    var viewController: UIViewController?
     let service: TmdbService
     
     let content: _Content
@@ -24,10 +25,10 @@ class ContentDetailCoordinator: Coordinator {
     
     func start() {
         let viewModel = ContentDetailViewModel(with: content, heroID: heroID, coordinator: self)
-        let viewController = ContentDetailViewController(viewModel: viewModel)
+        viewController = ContentDetailViewController(viewModel: viewModel)
         
         navigationController.hero.navigationAnimationType = .fade
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.pushViewController(viewController!, animated: true)
     }
     
     func showDetail(content: _Content, heroID: String?) {
@@ -53,5 +54,15 @@ class ContentDetailCoordinator: Coordinator {
                                                  navigationController: navigationController,
                                                  service: service)
         coordinator.start()
+    }
+    
+    func showRatePopup(activityItems: [Any]) {
+        guard let viewController = viewController else { return }
+        
+        let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = viewController.view
+
+        viewController.present(activityVC, animated: true, completion: nil)
+
     }
 }

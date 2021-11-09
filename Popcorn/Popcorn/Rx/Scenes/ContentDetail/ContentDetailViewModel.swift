@@ -15,6 +15,8 @@ class ContentDetailViewModel: ViewModel {
         let ready: Observable<Void>
         let localizeChanged: Observable<Void>
         let headerSelection: Observable<Int>
+        let actionSelection: Observable<ContentAction>
+        let shareSelection: Observable<Void>
         let selection: Observable<RowViewModel>
     }
     
@@ -23,11 +25,15 @@ class ContentDetailViewModel: ViewModel {
         let sectionItems: Observable<[DetailSectionItem]>
         let selectedContent: Observable<_Content>
         let selectedSection: Observable<([RowViewModel], DetailSection)>
+        let selectedAction: Observable<Void>
+        let selectedShare: Observable<Void>
+        let accountStates: Observable<AccountStates>
     }
     
     var content: _Content
     var heroID: String?
     let coordinator: ContentDetailCoordinator
+    let accountStates = BehaviorSubject<AccountStates>(value: AccountStates())
     
     init(with content: _Content, heroID: String?, networkService: TmdbService = TmdbAPI(), coordinator: ContentDetailCoordinator) {
         self.content = content
@@ -38,16 +44,18 @@ class ContentDetailViewModel: ViewModel {
     }
     
     func transform(input: Input) -> Output {
+        let posterImageSubject = BehaviorSubject<UIImage?>(value: nil)
+        
         let posterImage = input.ready
-            .map { [weak self] in
+            .compactMap { [weak self] in
                 guard let self = self else { return nil }
                 return self.content.posterPath
             }
-            .compactMap { $0 }
             .flatMap {
                 ImagePipeline.shared.rx.loadImage(with: AppConstants.Domain.tmdbImage + $0)
             }
             .map { $0.image }
+            .do(onNext: { posterImageSubject.onNext($0) })
         
         let sectionItems: Observable<[DetailSectionItem]>
         let updateTrigger = Observable.merge(input.ready, input.localizeChanged)
@@ -85,7 +93,7 @@ class ContentDetailViewModel: ViewModel {
                 .map { (movie, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
                     var sectionItems: [DetailSectionItem] = [
                         DetailSectionItem(section: .movie(.title),
-                                          items: [TitleItemViewModel(with: movie)])
+                                          items: [TitleItemViewModel(with: movie, state: self.accountStates.asObservable())])
                     ]
                     
                     var synopsisViewModels: [SynopsisItemViewModel] = []
@@ -170,7 +178,7 @@ class ContentDetailViewModel: ViewModel {
                 .map { (tvShow, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
                     var sectionItems: [DetailSectionItem] = [
                         DetailSectionItem(section: .tvShow(.title),
-                                          items: [TitleItemViewModel(with: tvShow)])
+                                          items: [TitleItemViewModel(with: tvShow, state: self.accountStates.asObservable())])
                     ]
                     
                     var synopsisViewModels: [SynopsisItemViewModel] = []
@@ -252,7 +260,76 @@ class ContentDetailViewModel: ViewModel {
                     break
                 }
             })
+                
+        // 액션 선택 - 팝업 띄움
+        let selectedAction = input.actionSelection
+            .withLatestFrom(accountStates){ ($0, $1) }
+            .flatMap{ [weak self] action, states -> Observable<Void> in
+                guard let self = self else { return Observable.empty() }
+
+                let sessionID = AuthManager.shared.auth?.sessionID
+                let accountID = AuthManager.shared.auth?.accountID
+                let type = self.content.contentType
+                let id = self.content.id
+                
+                switch (action, sessionID, accountID) {
+                case let (.rate, sessionID?, accountID?):
+                    return Observable.empty()
+                case let (.favorite, sessionID?, accountID?):
+                    let isFavorite = states.favorite ?? false
+                    return self.networkService.markFavorite(accountID: accountID,
+                                                            sessionID: sessionID,
+                                                            type: type,
+                                                            id: id,
+                                                            add: !isFavorite)
+                case let (.watchlist, sessionID?, accountID?):
+                    let isWatchlist = states.watchlist ?? false
+                    return self.networkService.markWatchlist(accountID: accountID,
+                                                             sessionID: sessionID,
+                                                             type: type,
+                                                             id: id,
+                                                             add: !isWatchlist)
+                default:
+                    return Observable.empty()
+                }
+            }
+            .share()
         
-        return Output(posterImage: posterImage, sectionItems: sectionItems, selectedContent: selectedContent, selectedSection: selectedSection)
+        let selectedShare = input.shareSelection
+            .do(onNext: { [weak self] in
+                guard let self = self else { return }
+                var activityItems: [Any] = []
+                
+                if let image = try? posterImageSubject.value() {
+                    activityItems.append(image)
+                }
+                
+                if let title = self.content.title {
+                    activityItems.append(title)
+                }
+                
+                if let originalTitle = self.content.originalTitle, originalTitle != self.content.title {
+                    activityItems.append("(\(originalTitle))")
+                }
+                
+                self.coordinator.showRatePopup(activityItems: activityItems)
+            })
+            .mapToVoid()
+        
+        Observable.merge(input.ready, selectedAction)
+            .flatMap { [weak self] () -> Observable<AccountStates> in
+                guard let self = self, let sessionID = AuthManager.shared.auth?.sessionID else { return Observable.empty() }
+
+                return self.networkService.accountStates(sessionID: sessionID,
+                                                         type: self.content.contentType,
+                                                         id: self.content.id)
+                    .trackActivity(self.activityIndicator)
+                    .trackError(self.errorTracker)
+            }
+            .subscribe(onNext: accountStates.onNext(_:))
+            .disposed(by: disposeBag)
+        
+        
+        return Output(posterImage: posterImage, sectionItems: sectionItems, selectedContent: selectedContent, selectedSection: selectedSection, selectedAction: selectedAction, selectedShare: selectedShare, accountStates: accountStates)
     }
 }

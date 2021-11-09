@@ -128,6 +128,7 @@
 		CD936FE9258884840006441C /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FE8258884840006441C /* UINavigationControllerExtension.swift */; };
 		CD97164225DB911C009074E5 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD97164125DB911C009074E5 /* Config.swift */; };
 		CD9A69EA25DE29AE006CAD6A /* Credit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9A69E925DE29AE006CAD6A /* Credit.swift */; };
+		CDAB6CFC2738E0E9005AA082 /* AccountStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAB6CFB2738E0E9005AA082 /* AccountStates.swift */; };
 		CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */; };
 		CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */; };
 		CDB6D368254A5CEA001B0AEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB6D367254A5CEA001B0AEB /* Assets.xcassets */; };
@@ -336,6 +337,7 @@
 		CD936FE8258884840006441C /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		CD97164125DB911C009074E5 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		CD9A69E925DE29AE006CAD6A /* Credit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credit.swift; sourceTree = "<group>"; };
+		CDAB6CFB2738E0E9005AA082 /* AccountStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStates.swift; sourceTree = "<group>"; };
 		CDB6D35B254A5CE9001B0AEB /* Popcorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popcorn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -649,6 +651,7 @@
 				CD0BA8E026E848B20072C208 /* Report.swift */,
 				CD576E0C27293F44006137E5 /* Auth.swift */,
 				CDE1D414272BAA9800AB04A2 /* User.swift */,
+				CDAB6CFB2738E0E9005AA082 /* AccountStates.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1305,6 +1308,7 @@
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
 				CD5D612E26D777B700FE3FB4 /* NSNotificationExtension.swift in Sources */,
 				CDE1D427272FC04D00AB04A2 /* RecommendCoordinator.swift in Sources */,
+				CDAB6CFC2738E0E9005AA082 /* AccountStates.swift in Sources */,
 				246CAD2425C984CF00288F4B /* Language.swift in Sources */,
 				CD4D28AA26DF6F98008716BB /* ContentDetailViewModel.swift in Sources */,
 				CD87DE1D26F1AECD00C04FEB /* ViewModel.swift in Sources */,

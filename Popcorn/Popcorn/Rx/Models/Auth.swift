@@ -9,13 +9,13 @@ import Foundation
 
 // MARK: - Auth
 struct Auth: Codable {
-    let statusMessage: String?
-    let requestToken: String?
-    let success: Bool?
-    let statusCode: Int?
-    let accountID: String?
-    let accessToken: String?
-    let sessionID: String?
+    var statusMessage: String?
+    var requestToken: String?
+    var success: Bool?
+    var statusCode: Int?
+    var accountID: String?
+    var accessToken: String?
+    var sessionID: String?
 
     enum CodingKeys: String, CodingKey {
         case statusMessage = "status_message"
