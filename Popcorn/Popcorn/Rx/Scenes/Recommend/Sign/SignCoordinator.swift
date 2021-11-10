@@ -21,11 +21,23 @@ class SignCoordinator: Coordinator {
     func start() {
         let viewModel = SignViewModel(networkService: service, coordinator: self)
         let viewController = SignViewController(viewModel: viewModel)
+        
         navigationController.pushViewController(viewController, animated: false)
     }
     
+    func startOnTabBar(currentCoordinator: Coordinator) {
+        childCoordinators.append(currentCoordinator)
+        
+        let viewModel = SignViewModel(networkService: service, coordinator: self)
+        let viewController = SignViewController(viewModel: viewModel)
+
+        navigationController.viewControllers = [viewController]
+    }
+    
     func dismiss() {
-        if navigationController.topViewController is SignViewController {
+        if !childCoordinators.isEmpty {
+            childCoordinators.last?.start()
+        } else if navigationController.topViewController is SignViewController {
             navigationController.popViewController(animated: true)
         }
     }

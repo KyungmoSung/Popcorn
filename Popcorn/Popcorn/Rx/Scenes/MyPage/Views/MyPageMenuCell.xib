@@ -46,13 +46,18 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eAh-fN-qAc" secondAttribute="trailing" constant="8" id="1HY-xi-0wm"/>
                             <constraint firstItem="eAh-fN-qAc" firstAttribute="leading" secondItem="5fR-02-hyI" secondAttribute="leading" constant="8" id="AxA-Hs-1ep"/>
                             <constraint firstAttribute="bottom" secondItem="eAh-fN-qAc" secondAttribute="bottom" constant="8" id="WBA-lZ-cFq"/>
                             <constraint firstItem="eAh-fN-qAc" firstAttribute="top" secondItem="5fR-02-hyI" secondAttribute="top" constant="8" id="oke-aH-Igs"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
             </view>
@@ -65,6 +70,7 @@
             </constraints>
             <size key="customSize" width="316" height="50"/>
             <connections>
+                <outlet property="containerView" destination="5fR-02-hyI" id="wCk-Nc-NME"/>
                 <outlet property="menuIv" destination="W4m-Kw-5gO" id="Lxg-aS-0dO"/>
                 <outlet property="menuLb" destination="Mvl-r3-ttS" id="VR5-nd-erU"/>
             </connections>
@@ -76,8 +82,8 @@
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="tertiarySystemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

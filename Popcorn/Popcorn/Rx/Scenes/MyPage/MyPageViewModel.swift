@@ -17,7 +17,9 @@ class MyPageViewModel: ViewModel {
     }
     
     struct Output {
+        let needSignIn: Observable<Bool>
         let sectionItems: Observable<[Section]>
+        let currentUser: Observable<User?>
         let selectedMenu: Observable<Menu>
     }
     
@@ -30,6 +32,16 @@ class MyPageViewModel: ViewModel {
     }
     
     func transform(input: Input) -> Output {
+        // 미로그인시 로그인으로 이동
+        let needSignIn = AuthManager.shared.signResult
+            .do(onNext: { [weak self] isSignIn in
+                guard let self = self else { return }
+                
+                if !isSignIn {
+                    self.coordinator.showSignIn()
+                }
+            })
+
         let sectionItems = input.ready
             .map { _ -> [Section] in
                 let menus = Menu.allCases
@@ -51,9 +63,14 @@ class MyPageViewModel: ViewModel {
                     self.coordinator.showWatchlist()
                 case .rated:
                     self.coordinator.showRated()
+                case .signOut:
+                    AuthManager.shared.signOut()
                 }
             })
-        
-        return Output(sectionItems: sectionItems, selectedMenu: selectedMenu)
+                
+        return Output(needSignIn: needSignIn,
+                      sectionItems: sectionItems,
+                      currentUser: AuthManager.shared.profileResultSubject,
+                      selectedMenu: selectedMenu)
     }
 }

@@ -33,6 +33,16 @@ class AuthManager {
                 UserDefaults.standard.set(try? PropertyListEncoder().encode(user), forKey:"user")
             })
             .disposed(by: disposeBag)
+        
+        Observable.combineLatest(authResultSubject, profileResultSubject)
+            .subscribe(onNext: { auth, user in
+                if let _ = auth, let _ = user {
+                    self.signResult.onNext(true)
+                } else {
+                    self.signResult.onNext(false)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     var disposeBag = DisposeBag()
@@ -50,16 +60,7 @@ class AuthManager {
         return try? profileResultSubject.value()
     }
     
-    var signResult: Observable<Bool> {
-        return Observable.combineLatest(authResultSubject, profileResultSubject)
-            .map { auth, user in
-                if let _ = auth, let _ = user {
-                    return true
-                } else {
-                    return false
-                }
-            }
-    }
+    var signResult = BehaviorSubject<Bool>(value: false)
     
     private func createRequestToken() -> Observable<String> {
         return networkService.createRequestToken()

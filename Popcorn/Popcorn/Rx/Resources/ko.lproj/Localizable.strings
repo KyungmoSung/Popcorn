@@ -54,3 +54,4 @@ myPage = "My Page";
 favorite = "Favorite";
 watchlist = "Watchlist";
 rated = "Rated";
+signOut = "Sign Out";

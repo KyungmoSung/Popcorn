@@ -29,15 +29,6 @@ class _HomeViewController: _BaseViewController {
         bindViewModel()
     }
     
-    // TEST
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if viewModel.contentsType == .tvShows {
-            AuthManager.shared.signOut()
-        }
-    }
-    
     private func setupUI() {
         collectionView.register(cellType: PosterCell.self)
         collectionView.register(cellType: HomeBackdropCell.self)
@@ -63,7 +54,7 @@ class _HomeViewController: _BaseViewController {
                 self.collectionView.collectionViewLayout = self.createCompositionalLayout(with: sections)
             }
             .disposed(by: disposeBag)
-            
+        
         output.sectionItems
             .asDriverOnErrorJustComplete()
             .drive(collectionView.rx.items(dataSource: dataSource()))

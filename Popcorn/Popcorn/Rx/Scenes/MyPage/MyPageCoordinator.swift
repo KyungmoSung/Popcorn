@@ -25,6 +25,11 @@ class MyPageCoordinator: Coordinator {
         navigationController.viewControllers = [viewController]
     }
     
+    func showSignIn() {
+        let coordinator = SignCoordinator(navigationController: navigationController, service: service)
+        coordinator.startOnTabBar(currentCoordinator: self)
+    }
+    
     func showFavorite(){
         Log.d("showFavorite")
     }
