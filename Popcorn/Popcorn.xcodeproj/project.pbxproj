@@ -128,6 +128,13 @@
 		CD936FE9258884840006441C /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD936FE8258884840006441C /* UINavigationControllerExtension.swift */; };
 		CD97164225DB911C009074E5 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD97164125DB911C009074E5 /* Config.swift */; };
 		CD9A69EA25DE29AE006CAD6A /* Credit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9A69E925DE29AE006CAD6A /* Credit.swift */; };
+		CD9D5484273A636F004B445A /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D5482273A636F004B445A /* MyPageViewController.swift */; };
+		CD9D5485273A636F004B445A /* MyPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD9D5483273A636F004B445A /* MyPageViewController.xib */; };
+		CD9D5487273A63A7004B445A /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D5486273A63A7004B445A /* MyPageViewModel.swift */; };
+		CD9D5489273A63B4004B445A /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D5488273A63B4004B445A /* MyPageCoordinator.swift */; };
+		CD9D548D273B422D004B445A /* MyPageMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D548B273B422D004B445A /* MyPageMenuCell.swift */; };
+		CD9D548E273B422D004B445A /* MyPageMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD9D548C273B422D004B445A /* MyPageMenuCell.xib */; };
+		CD9D5490273B4399004B445A /* MenuItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D548F273B4399004B445A /* MenuItemViewModel.swift */; };
 		CDAB6CFC2738E0E9005AA082 /* AccountStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAB6CFB2738E0E9005AA082 /* AccountStates.swift */; };
 		CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */; };
 		CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */; };
@@ -337,6 +344,13 @@
 		CD936FE8258884840006441C /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		CD97164125DB911C009074E5 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		CD9A69E925DE29AE006CAD6A /* Credit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credit.swift; sourceTree = "<group>"; };
+		CD9D5482273A636F004B445A /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		CD9D5483273A636F004B445A /* MyPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPageViewController.xib; sourceTree = "<group>"; };
+		CD9D5486273A63A7004B445A /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		CD9D5488273A63B4004B445A /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
+		CD9D548B273B422D004B445A /* MyPageMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMenuCell.swift; sourceTree = "<group>"; };
+		CD9D548C273B422D004B445A /* MyPageMenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPageMenuCell.xib; sourceTree = "<group>"; };
+		CD9D548F273B4399004B445A /* MenuItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemViewModel.swift; sourceTree = "<group>"; };
 		CDAB6CFB2738E0E9005AA082 /* AccountStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStates.swift; sourceTree = "<group>"; };
 		CDB6D35B254A5CE9001B0AEB /* Popcorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popcorn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -530,6 +544,7 @@
 		CD54010E26DC946800EA9900 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				CD9D5481273A634A004B445A /* MyPage */,
 				CDE1D416272FAC2400AB04A2 /* Recommend */,
 				24D1B4C326FC72FD00F8211A /* Common */,
 				CD87DE1326EB3E6900C04FEB /* List */,
@@ -591,8 +606,8 @@
 			isa = PBXGroup;
 			children = (
 				CD87DE0F26EB3E6100C04FEB /* ContentListViewController.swift */,
-				CD87DE1826EEE14900C04FEB /* ContentListCoordinator.swift */,
 				CD87DE1026EB3E6100C04FEB /* ContentListViewController.xib */,
+				CD87DE1826EEE14900C04FEB /* ContentListCoordinator.swift */,
 				CD87DE1426EB3E9B00C04FEB /* ContentListViewModel.swift */,
 				24B3C0A7272801CC00BD3220 /* CreditListViewModel.swift */,
 			);
@@ -654,6 +669,28 @@
 				CDAB6CFB2738E0E9005AA082 /* AccountStates.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		CD9D5481273A634A004B445A /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				CD9D5482273A636F004B445A /* MyPageViewController.swift */,
+				CD9D5483273A636F004B445A /* MyPageViewController.xib */,
+				CD9D5486273A63A7004B445A /* MyPageViewModel.swift */,
+				CD9D5488273A63B4004B445A /* MyPageCoordinator.swift */,
+				CD9D548F273B4399004B445A /* MenuItemViewModel.swift */,
+				CD9D548A273B41F1004B445A /* Views */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		CD9D548A273B41F1004B445A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CD9D548B273B422D004B445A /* MyPageMenuCell.swift */,
+				CD9D548C273B422D004B445A /* MyPageMenuCell.xib */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		CDB6D352254A5CE9001B0AEB = {
@@ -1046,6 +1083,7 @@
 				24ED629E25836A8100FC98B3 /* TextTabCell.xib in Resources */,
 				24661379259867E4008B982B /* NanumBarunGothicRegular.ttf in Resources */,
 				24E02D712585FE0A00591234 /* MediaVideoCell.xib in Resources */,
+				CD9D5485273A636F004B445A /* MyPageViewController.xib in Resources */,
 				24661376259867E4008B982B /* NanumSquareLight.ttf in Resources */,
 				CD8F017F25C7C21700BD8FFD /* HeaderTitleCell.xib in Resources */,
 				CDE1D41B272FACD100AB04A2 /* SignViewController.xib in Resources */,
@@ -1067,6 +1105,7 @@
 				CDE1D41F272FACE200AB04A2 /* RecommendViewController.xib in Resources */,
 				CD71C1C426E5AE0A006E40C2 /* _CreditCell.xib in Resources */,
 				247FF85D25BD604F00BC73D2 /* ContentsListViewController.xib in Resources */,
+				CD9D548E273B422D004B445A /* MyPageMenuCell.xib in Resources */,
 				CDB6D53D2550DA40001B0AEB /* HomeBackdropCell.xib in Resources */,
 				CD87DE0E26E9C91C00C04FEB /* _SynopsisCell.xib in Resources */,
 				24C95D69259880BA0020C15C /* ReviewCell.xib in Resources */,
@@ -1227,6 +1266,7 @@
 				CD06B5E8258853E100E15540 /* TextTagSectionController.swift in Sources */,
 				CDB6D452254BCC10001B0AEB /* PosterCell.swift in Sources */,
 				CDFF2FF826CDE82C001ABD89 /* _Contents.swift in Sources */,
+				CD9D5484273A636F004B445A /* MyPageViewController.swift in Sources */,
 				CDB6D458254BD611001B0AEB /* NSObjectExtension.swift in Sources */,
 				CD4D28B126E0A2A3008716BB /* TitleCell.swift in Sources */,
 				247FF85C25BD604F00BC73D2 /* ContentsListViewController.swift in Sources */,
@@ -1258,6 +1298,7 @@
 				CDB6D47E254BF35B001B0AEB /* SectionItem.swift in Sources */,
 				CD8F018425C7C40300BD8FFD /* HeaderTitleSectionController.swift in Sources */,
 				CD87DE1126EB3E6100C04FEB /* ContentListViewController.swift in Sources */,
+				CD9D5487273A63A7004B445A /* MyPageViewModel.swift in Sources */,
 				CD5D613026D8B13200FE3FB4 /* _Chart.swift in Sources */,
 				CDE1D421272FAD7100AB04A2 /* SignViewModel.swift in Sources */,
 				CD71C1D826E5DD69006E40C2 /* TabItemViewModel.swift in Sources */,
@@ -1298,8 +1339,10 @@
 				24A4292B25AAE3AF00845C94 /* SynopsisSectionController.swift in Sources */,
 				CDFF2FF226CCF603001ABD89 /* _Section.swift in Sources */,
 				CDB6D422254BAB70001B0AEB /* HomeHorizontalSectionController.swift in Sources */,
+				CD9D5489273A63B4004B445A /* MyPageCoordinator.swift in Sources */,
 				CDE1D425272FC04000AB04A2 /* RecommendViewModel.swift in Sources */,
 				242D62FE25939D5100450120 /* NumberExtension.swift in Sources */,
+				CD9D5490273B4399004B445A /* MenuItemViewModel.swift in Sources */,
 				245B25FF26E73D980070FE4F /* VideoItemViewModel.swift in Sources */,
 				242D62E5259377D100450120 /* InfoCardSectionController.swift in Sources */,
 				CDB6D53C2550DA40001B0AEB /* HomeBackdropCell.swift in Sources */,
@@ -1307,6 +1350,7 @@
 				24ED62C52585EBF200FC98B3 /* MediaImageCell.swift in Sources */,
 				CDB6D3DA254A9CC0001B0AEB /* Log.swift in Sources */,
 				CD5D612E26D777B700FE3FB4 /* NSNotificationExtension.swift in Sources */,
+				CD9D548D273B422D004B445A /* MyPageMenuCell.swift in Sources */,
 				CDE1D427272FC04D00AB04A2 /* RecommendCoordinator.swift in Sources */,
 				CDAB6CFC2738E0E9005AA082 /* AccountStates.swift in Sources */,
 				246CAD2425C984CF00288F4B /* Language.swift in Sources */,

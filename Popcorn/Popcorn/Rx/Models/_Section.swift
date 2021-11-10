@@ -90,3 +90,19 @@ enum ListSection: _SectionType {
         return false
     }
 }
+
+enum MyPageSection: _SectionType {
+    case menu
+    
+    var title: String? {
+        return nil
+    }
+    
+    var height: CGFloat {
+        return 100
+    }
+    
+    var expandable: Bool {
+        return false
+    }
+}

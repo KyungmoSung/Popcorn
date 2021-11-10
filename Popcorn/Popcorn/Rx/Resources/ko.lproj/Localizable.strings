@@ -49,3 +49,8 @@ female = "여성";
 male = "남성";
 knownForDepartment = "분야";
 biography = "바이오그래피";
+
+myPage = "My Page";
+favorite = "Favorite";
+watchlist = "Watchlist";
+rated = "Rated";

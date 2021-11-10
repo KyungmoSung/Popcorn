@@ -50,3 +50,7 @@ male = "Male";
 knownForDepartment = "Known For Department";
 biography = "Biography";
 
+myPage = "My Page";
+favorite = "Favorite";
+watchlist = "Watchlist";
+rated = "Rated";
