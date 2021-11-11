@@ -45,6 +45,7 @@ enum TmdbTarget {
     case accountRecommendations(accountID: String, type: ContentsType, sortBy: Sort?)
     case markFavorite(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool)
     case markWatchlist(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool)
+    case favorites(accountID: String, type: ContentsType, page: Int, sortBy: Sort?)
 }
 
 extension TmdbTarget: TargetType {
@@ -75,11 +76,14 @@ extension TmdbTarget: TargetType {
         case .createRequestToken:                               return "/4/auth/request_token"
         case .createAccessToken:                                return "/4/auth/access_token"
         case .createSession:                                    return "/3/authentication/session/convert/4"
+            
         case .accountProfile:                                   return "/3/account"
         case let .accountStates(_, type, id):                    return "/3/\(type.path)/\(id)/account_states"
         case let .accountRecommendations(accountID, type, _):   return "/4/account/\(accountID)/\(type.path)/recommendations"
         case let .markFavorite(accountID, _, _, _, _):          return "/3/account/\(accountID)/favorite"
         case let .markWatchlist(accountID, _, _, _, _):         return "/3/account/\(accountID)/watchlist"
+            
+        case let .favorites(accountID, type, _, _):              return "/4/account/\(accountID)/\(type.path)/favorites"
         }
     }
     
@@ -110,13 +114,11 @@ extension TmdbTarget: TargetType {
             params["language"] = language.code.rawValue
             params["page"] = page
             params["region"] = region.code.rawValue
-            
         case let .details(_, _, language),
              let .credits(_, _, language),
              let .videos(_, _, language),
              let .images(_, _, language):
             params["language"] = language.code.rawValue
-            
         case let .recommendations(_, _, page, language),
              let .similar(_, _, page, language),
              let .reviews(_, _, page, language):
@@ -134,14 +136,12 @@ extension TmdbTarget: TargetType {
             params["session_id"] = sessionID
         case let .accountRecommendations(accountID, _, sort):
             params["account_id"] = accountID
-            if let sort = sort {
-                params["sort_by"] = sort.param
-            }
+            params["sort_by"] = sort?.param
         case let .markFavorite(_, sessionID, type, id, add):
             bodyParams["media_type"] = type.path
             bodyParams["media_id"] = id
             bodyParams["favorite"] = add
-            
+
             params["session_id"] = sessionID
         case let .markWatchlist(_, sessionID, type, id, add):
             bodyParams["media_type"] = type.path
@@ -149,6 +149,9 @@ extension TmdbTarget: TargetType {
             bodyParams["watchlist"] = add
             
             params["session_id"] = sessionID
+        case let .favorites(_, _, page, sort):
+            params["page"] = page
+            params["sort_by"] = sort?.param
         default:
             break
         }

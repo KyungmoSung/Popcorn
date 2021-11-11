@@ -263,10 +263,6 @@ extension TmdbAPI: TmdbAccountService {
     func markFavorite(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool) -> Observable<Void> {
         return provider.rx
             .request(.markFavorite(accountID: accountID, sessionID: sessionID, type: type, id: id, add: add))
-            .do(onSuccess: { res in
-                print(try? res.mapString())
-                dump(res)
-            })
             .retry(3)
             .asObservable()
             .mapToVoid()
@@ -279,6 +275,25 @@ extension TmdbAPI: TmdbAccountService {
             .asObservable()
             .mapToVoid()
     }
+    
+    func favoriteMovies(accountID: String, page: Int, sortBy: Sort?) -> Observable<[_Movie]> {
+        return provider.rx
+            .request(.favorites(accountID: accountID, type: .movies, page: page, sortBy: sortBy))
+            .retry(3)
+            .map(PageResponse<_Movie>.self)
+            .map{ $0.results ?? [] }
+            .asObservable()
+    }
+    
+    func favoriteTvShows(accountID: String, page: Int, sortBy: Sort?) -> Observable<[_TVShow]> {
+        return provider.rx
+            .request(.favorites(accountID: accountID, type: .tvShows, page: page, sortBy: sortBy))
+            .retry(3)
+            .map(PageResponse<_TVShow>.self)
+            .map{ $0.results ?? [] }
+            .asObservable()
+    }
+
 }
 
 // MARK: - TmdbConfigService

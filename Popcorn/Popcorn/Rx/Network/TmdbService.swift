@@ -50,6 +50,8 @@ protocol TmdbAccountService {
     func accountTvRecommendations(accountID: String, sortBy: Sort) -> Observable<[_TVShow]>
     func markFavorite(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool) -> Observable<Void>
     func markWatchlist(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool) -> Observable<Void>
+    func favoriteMovies(accountID: String, page: Int, sortBy: Sort?) -> Observable<[_Movie]>
+    func favoriteTvShows(accountID: String, page: Int, sortBy: Sort?) -> Observable<[_TVShow]>
 }
 
 protocol TmdbConfigService {

@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import RxSwift
 
 class SegmentedControlHeaderView: UICollectionReusableView {
+    var disposeBag = DisposeBag()
+    
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     override func awakeFromNib() {

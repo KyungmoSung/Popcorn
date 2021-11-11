@@ -81,7 +81,7 @@ enum ListSection: _SectionType {
     case movieInformation(Informations.Movie, Int)
     case tvShowInformation(Informations.TVShow, Int)
     case recommendations(ContentsType)
-    case favorites(ContentsType)
+    case favorites
     case credits
     
     var title: String? {
@@ -109,6 +109,16 @@ enum ListSection: _SectionType {
     
     var expandable: Bool {
         return false
+    }
+    
+    var segmentTitles: [String]? {
+        switch self {
+        case .recommendations,
+                .favorites:
+            return ContentsType.allCases.map{ $0.title }
+        default:
+            return nil
+        }
     }
 }
 

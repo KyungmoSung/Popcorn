@@ -26,12 +26,17 @@ class MyPageCoordinator: Coordinator {
     }
     
     func showSignIn() {
-        let coordinator = SignCoordinator(navigationController: navigationController, service: service)
+        let coordinator = SignCoordinator(navigationController: navigationController,
+                                          service: service)
         coordinator.startOnTabBar(currentCoordinator: self)
     }
     
     func showFavorite(){
-        Log.d("showFavorite")
+        let coordinator = ContentListCoordinator(contents: [],
+                                                 sectionType: .favorites,
+                                                 navigationController: navigationController,
+                                                 service: service)
+        coordinator.start()
     }
     
     func showWatchlist(){

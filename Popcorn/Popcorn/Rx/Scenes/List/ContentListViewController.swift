@@ -12,7 +12,8 @@ import RxDataSources
 
 class ContentListViewController: _BaseViewController {
     var viewModel: BaseViewModel!
-    
+    let selectedSegmentIndex = PublishRelay<Int>()
+
     @IBOutlet weak var collectionView: UICollectionView!
     
     convenience init(viewModel: BaseViewModel) {
@@ -35,6 +36,7 @@ class ContentListViewController: _BaseViewController {
 
     private func bindViewModel() {
         let ready = rx.viewWillAppear.take(1).asObservable()
+        let segmentSelection = selectedSegmentIndex.asObservable()
         let scrollToBottom = collectionView.rx.contentOffset
             .flatMap { offset -> Observable<Void> in
                 let scrollViewHeight = self.collectionView.bounds.size.height
@@ -51,8 +53,8 @@ class ContentListViewController: _BaseViewController {
         case let viewModel as ContentListViewModel:
             let input = ContentListViewModel.Input(ready: ready,
                                                    scrollToBottom: scrollToBottom,
-                                                   selection: collectionView.rx.itemSelected
-                                                    .asObservable())
+                                                   selection: collectionView.rx.itemSelected.asObservable(),
+                                                   segmentSelection: segmentSelection)
             let output = viewModel.transform(input: input)
             
             output.title
@@ -110,6 +112,20 @@ extension ContentListViewController {
             return cell
         } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
             let headerView = collectionView.dequeueReusableView(with: SegmentedControlHeaderView.self, for: indexPath, ofKind: kind)
+            
+            let section = indexPath.section
+            let sectionModel = dataSource.sectionModels[section]
+            
+            sectionModel.section.segmentTitles?.enumerated().forEach{ index, title in
+                Observable.just(title)
+                    .bind(to: headerView.segmentedControl.rx.titleForSegment(at: index))
+                    .disposed(by: headerView.disposeBag)
+            }
+            
+            headerView.segmentedControl.rx.value
+                .bind(to: self.selectedSegmentIndex)
+                .disposed(by: headerView.disposeBag)
+            
             return headerView
         }
     }

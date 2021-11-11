@@ -15,6 +15,7 @@ class ContentListViewModel: ViewModel {
         let ready: Observable<Void>
         let scrollToBottom: Observable<Void>
         let selection: Observable<IndexPath>
+        let segmentSelection: Observable<Int>
     }
     
     struct Output {
@@ -43,12 +44,26 @@ class ContentListViewModel: ViewModel {
             ListSectionItem(section: sectionType, items: [])
         ])
         
-        input.ready
-            .flatMap { [weak self] _ -> Observable<[PosterItemViewModel]> in
+        input.segmentSelection
+            .subscribe(onNext: { index in
+                self.page = 1
+                self.contents = []
+                
+                if var sectionItem = try? sectionItems.value().first {
+                    sectionItem.items = []
+                    sectionItems.onNext([sectionItem])
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        //
+        Observable.combineLatest(input.ready,
+                                 input.segmentSelection)
+            .flatMap { [weak self] _, segmentIndex -> Observable<[PosterItemViewModel]> in
                 guard let self = self else { return Observable.just([]) }
                 
                 self.page = 1
-                return self.request()
+                return self.request(segmentIndex)
             }
             .subscribe(onNext: { viewModels in
                 if var sectionItem = try? sectionItems.value().first {
@@ -58,15 +73,16 @@ class ContentListViewModel: ViewModel {
             })
             .disposed(by: disposeBag)
         
-        input.scrollToBottom.withLatestFrom(activityIndicator)
-            .flatMap { [weak self] loading -> Observable<[PosterItemViewModel]> in
+        Observable.combineLatest(input.scrollToBottom.withLatestFrom(activityIndicator),
+                                 input.segmentSelection)
+            .flatMap { [weak self] loading, segmentIndex -> Observable<[PosterItemViewModel]> in
                 guard let self = self else { return Observable.just([]) }
                 
                 if loading {
                     return Observable.empty()
                 } else {
                     self.page += 1
-                    return self.request()
+                    return self.request(segmentIndex)
                 }
             }
             .subscribe(onNext: { viewModels in
@@ -89,51 +105,52 @@ class ContentListViewModel: ViewModel {
             .map { $0.0 }
         
         let title = Observable.just(sectionType.title).compactMap{ $0 }
+        
         let segmentedControlVisible: Observable<Bool>
-        switch sectionType {
-        case .recommendations,
-                .favorites:
-            segmentedControlVisible = .just(true)
-        default:
+        if sectionType.segmentTitles.isNilOrEmpty {
             segmentedControlVisible = .just(false)
+        } else {
+            segmentedControlVisible = .just(true)
         }
         
         return Output(loading: activityIndicator.asObservable(), title: title, sectionItems: sectionItems, selectedContent: selectedContent, segmentedControlVisible: segmentedControlVisible)
     }
     
-    func request() -> Observable<[PosterItemViewModel]> {
+    func request(_ segmentIndex: Int) -> Observable<[PosterItemViewModel]> {
         var results: Observable<[_Content]> = Observable.just([])
         
-        if page == 1 {
+        if !contents.isEmpty && page == 1 {
             results = Observable.just(contents)
         } else {
             switch sectionType {
             case let .movieChart(movieChart):
-                results = networkService.movies(chart: movieChart,
-                                                page: page)
-                    .mapToContents()
+                results = networkService.movies(chart: movieChart, page: page).mapToContents()
             case let .tvShowChart(tvShowChart):
-                results = networkService.tvShows(chart: tvShowChart,
-                                                 page: page)
-                    .mapToContents()
+                results = networkService.tvShows(chart: tvShowChart, page: page).mapToContents()
             case let .movieInformation(info, id):
                 switch info {
                 case .recommendation:
-                    results = networkService.movieRecommendations(id: id, page: page)
-                        .mapToContents()
+                    results = networkService.movieRecommendations(id: id, page: page).mapToContents()
                 default:
                     break
                 }
             case let .tvShowInformation(info, id):
                 switch info {
                 case .recommendation:
-                    results = networkService.tvShowRecommendations(id: id, page: page)
-                        .mapToContents()
+                    results = networkService.tvShowRecommendations(id: id, page: page).mapToContents()
                 default:
                     break
                 }
-            case .favorites(let contentsType):
-                break
+            case .favorites:
+                guard let accountID = AuthManager.shared.auth?.accountID else { break }
+                switch ContentsType(rawValue: segmentIndex) {
+                case .movies:
+                    results = networkService.favoriteMovies(accountID: accountID, page: page, sortBy: nil).mapToContents()
+                case .tvShows:
+                    results = networkService.favoriteTvShows(accountID: accountID, page: page, sortBy: nil).mapToContents()
+                default:
+                    break
+                }
             default:
                 break
             }
