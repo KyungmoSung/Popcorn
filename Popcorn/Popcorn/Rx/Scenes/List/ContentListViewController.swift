@@ -30,7 +30,7 @@ class ContentListViewController: _BaseViewController {
     private func setupUI() {
         collectionView.register(cellType: PosterCell.self)
         collectionView.register(cellType: _CreditCell.self)
-        collectionView.collectionViewLayout = createCompositionalLayout()
+        collectionView.register(reusableViewType: SegmentedControlHeaderView.self)
     }
 
     private func bindViewModel() {
@@ -70,6 +70,15 @@ class ContentListViewController: _BaseViewController {
                 .drive()
                 .disposed(by: disposeBag)
             
+            output.segmentedControlVisible
+                .asDriverOnErrorJustComplete()
+                .map(createCompositionalLayout(with:))
+                .drive(onNext: { [weak self] layout in
+                    guard let self = self else { return }
+                    self.collectionView.collectionViewLayout = layout
+                })
+                .disposed(by: disposeBag)
+            
         case let viewModel as CreditListViewModel:
             let input = CreditListViewModel.Input(ready: ready)
             let output = viewModel.transform(input: input)
@@ -99,6 +108,9 @@ extension ContentListViewController {
             cell.bind(viewModel)
             
             return cell
+        } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
+            let headerView = collectionView.dequeueReusableView(with: SegmentedControlHeaderView.self, for: indexPath, ofKind: kind)
+            return headerView
         }
     }
     
@@ -111,7 +123,7 @@ extension ContentListViewController {
         }
     }
 
-    private func createCompositionalLayout() -> UICollectionViewLayout {
+    private func createCompositionalLayout(with headerVisible: Bool) -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout {   sectionIndex, _ in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                               heightDimension: .estimated(100))
@@ -126,6 +138,16 @@ extension ContentListViewController {
             section.interGroupSpacing = 30
             section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 40, trailing: 20)
             
+            // Header
+            if headerVisible {
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                        heightDimension: .estimated(100))
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
+                                                                                elementKind: UICollectionView.elementKindSectionHeader,
+                                                                                alignment: .top)
+                sectionHeader.pinToVisibleBounds = true
+                section.boundarySupplementaryItems = [sectionHeader]
+            }
             return section
         }
     }

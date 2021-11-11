@@ -11,17 +11,15 @@ class HomeCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     let service: TmdbService
+    let contentsType: ContentsType
     
-    init(navigationController: UINavigationController, service: TmdbService) {
+    init(contentsType: ContentsType, navigationController: UINavigationController, service: TmdbService) {
+        self.contentsType = contentsType
         self.navigationController = navigationController
         self.service = service
     }
     
     func start() {
-        start(contentsType: .movies)
-    }
-    
-    func start(contentsType: ContentsType) {
         let viewModel = HomeViewModel(contentsType: contentsType, networkService: service, coordinator: self)
         let viewController = _HomeViewController(viewModel: viewModel)
         viewController.hidesTabBar = false
@@ -38,8 +36,16 @@ class HomeCoordinator: Coordinator {
     }
     
     func showChartList(contents: [_Content], section: HomeSection) {
+        let listSection: ListSection
+        switch section {
+        case .movie(let chart):
+            listSection = .movieChart(chart)
+        case .tvShow(let chart):
+            listSection = .tvShowChart(chart)
+        }
+        
         let coordinator = ContentListCoordinator(contents: contents,
-                                                 sourceSection: section,
+                                                 sectionType: listSection,
                                                  navigationController: navigationController,
                                                  service: service)
         coordinator.start()

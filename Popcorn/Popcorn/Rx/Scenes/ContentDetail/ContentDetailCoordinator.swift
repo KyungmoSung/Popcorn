@@ -41,8 +41,7 @@ class ContentDetailCoordinator: Coordinator {
     
     func showList(contents: [_Content], section: DetailSection) {
         let coordinator = ContentListCoordinator(contents: contents,
-                                                 id: content.id,
-                                                 sourceSection: section,
+                                                 sectionType: listSection(for: section),
                                                  navigationController: navigationController,
                                                  service: service)
         coordinator.start()
@@ -50,7 +49,7 @@ class ContentDetailCoordinator: Coordinator {
     
     func showList(credits: [Person], section: DetailSection) {
         let coordinator = ContentListCoordinator(credits: credits,
-                                                 sourceSection: section,
+                                                 sectionType: listSection(for: section),
                                                  navigationController: navigationController,
                                                  service: service)
         coordinator.start()
@@ -64,5 +63,14 @@ class ContentDetailCoordinator: Coordinator {
 
         viewController.present(activityVC, animated: true, completion: nil)
 
+    }
+                                                 
+    func listSection(for detailSection: DetailSection) -> ListSection {
+        switch detailSection {
+        case .movie(let info):
+            return .movieInformation(info, content.id)
+        case .tvShow(let info):
+            return .tvShowInformation(info, content.id)
+        }
     }
 }

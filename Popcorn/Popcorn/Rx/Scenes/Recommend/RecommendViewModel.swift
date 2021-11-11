@@ -51,7 +51,7 @@ class RecommendViewModel: ViewModel {
                 return self.networkService.accountMovieRecommendations(accountID: accountID , sortBy: .createdAt(.asc))
             }
             .map{ $0.map { PosterItemViewModel(with: $0, heroID: "\($0.id)") }}
-            .map { [RecommendSectionItem(section: .contents, items: $0)] }
+            .map { [RecommendSectionItem(section: .recommendations(.movies), items: $0)] }
         
         
         let loading = activityIndicator.asObservable()

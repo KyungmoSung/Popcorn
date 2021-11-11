@@ -22,20 +22,21 @@ class CreditListViewModel: ViewModel {
     }
 
     private var credits: [Person]
-    private let sourceSection: _SectionType
+    private var sectionType: ListSection
     private let coordinator: ContentListCoordinator
     
-    init(with credits: [Person], sourceSection: _SectionType, networkService: TmdbService = TmdbAPI(), coordinator: ContentListCoordinator) {
+    init(with credits: [Person], sectionType: ListSection, networkService: TmdbService = TmdbAPI(), coordinator: ContentListCoordinator) {
         self.credits = credits
-        self.sourceSection = sourceSection
+        self.sectionType = sectionType
         self.coordinator = coordinator
         
         super.init(networkService: networkService)
     }
 
     func transform(input: Input) -> Output {
-        let sectionItems = BehaviorSubject<[ListSectionItem]>(value: [])
-        
+        let sectionItems = BehaviorSubject<[ListSectionItem]>(value: [
+            ListSectionItem(section: sectionType, items: [])
+        ])
         input.ready
             .flatMap { [weak self] _ -> Observable<[CreditItemViewModel]> in
                 guard let self = self else { return Observable.just([]) }
@@ -49,12 +50,14 @@ class CreditListViewModel: ViewModel {
                     }
             }
             .subscribe(onNext: { viewModels in
-                let sectionItem = ListSectionItem(section: .contents, items: viewModels)
-                sectionItems.onNext([sectionItem])
+                if var sectionItem = try? sectionItems.value().first {
+                    sectionItem.items += viewModels
+                    sectionItems.onNext([sectionItem])
+                }
             })
             .disposed(by: disposeBag)
                 
-        let title = Observable.just(sourceSection.title).compactMap{ $0 }
+        let title = Observable.just(sectionType.title).compactMap{ $0 }
         
         return Output(loading: activityIndicator.asObservable(), title: title, sectionItems: sectionItems)
     }

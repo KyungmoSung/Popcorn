@@ -36,15 +36,17 @@ class TabBarCoordinator: Coordinator {
         let movieHomeNavi = UINavigationController()
         movieHomeNavi.hero.isEnabled = true
         movieHomeNavi.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
-        let movieHomeCoordinator = HomeCoordinator(navigationController: movieHomeNavi,
+        let movieHomeCoordinator = HomeCoordinator(contentsType: .movies,
+                                                   navigationController: movieHomeNavi,
                                                    service: service)
-        movieHomeCoordinator.start(contentsType: .movies)
+        movieHomeCoordinator.start()
         
         let tvShowHomeNavi = UINavigationController()
         tvShowHomeNavi.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
-        let tvShowHomeCoordinator = HomeCoordinator(navigationController: tvShowHomeNavi,
+        let tvShowHomeCoordinator = HomeCoordinator(contentsType: .tvShows,
+                                                    navigationController: tvShowHomeNavi,
                                                     service: service)
-        tvShowHomeCoordinator.start(contentsType: .tvShows)
+        tvShowHomeCoordinator.start()
         
         let homeNC3 = UINavigationController()
         homeNC3.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 2)

@@ -11,27 +11,24 @@ class ContentListCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
-    let id: Int?
+    let sectionType: ListSection
     let contents: [_Content]?
     let credits: [Person]?
-    let sourceSection: _SectionType
     let service: TmdbService
     
-    init(contents: [_Content], id: Int? = nil, sourceSection: _SectionType, navigationController: UINavigationController, service: TmdbService) {
-        self.id = id
+    init(contents: [_Content], sectionType: ListSection, navigationController: UINavigationController, service: TmdbService) {
+        self.sectionType = sectionType
         self.contents = contents
-        self.sourceSection = sourceSection
         self.navigationController = navigationController
         self.service = service
         self.credits = nil
     }
     
-    init(credits: [Person], sourceSection: _SectionType, navigationController: UINavigationController, service: TmdbService) {
+    init(credits: [Person], sectionType: ListSection, navigationController: UINavigationController, service: TmdbService) {
         self.credits = credits
-        self.sourceSection = sourceSection
+        self.sectionType = sectionType
         self.navigationController = navigationController
         self.service = service
-        self.id = nil
         self.contents = nil
     }
     
@@ -39,9 +36,9 @@ class ContentListCoordinator: Coordinator {
         var viewModel: BaseViewModel?
         
         if let contents = contents {
-            viewModel = ContentListViewModel(with: contents, id: id, sourceSection: sourceSection, networkService: service, coordinator: self)
+            viewModel = ContentListViewModel(with: contents, sectionType: sectionType, networkService: service, coordinator: self)
         } else if let credits = credits {
-            viewModel = CreditListViewModel(with: credits, sourceSection: sourceSection, networkService: service, coordinator: self)
+            viewModel = CreditListViewModel(with: credits, sectionType: sectionType, networkService: service, coordinator: self)
         }
         
         if let viewModel = viewModel {

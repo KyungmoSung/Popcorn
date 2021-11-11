@@ -22,25 +22,26 @@ class ContentListViewModel: ViewModel {
         let title: Observable<String>
         let sectionItems: Observable<[ListSectionItem]>
         let selectedContent: Observable<_Content>
+        let segmentedControlVisible: Observable<Bool>
     }
 
     private var page = 1
-    private let id: Int?
     private var contents: [_Content]
-    private let sourceSection: _SectionType
+    private var sectionType: ListSection
     private let coordinator: ContentListCoordinator
     
-    init(with contents: [_Content], id: Int? = nil, sourceSection: _SectionType, networkService: TmdbService = TmdbAPI(), coordinator: ContentListCoordinator) {
-        self.id = id
+    init(with contents: [_Content], sectionType: ListSection, networkService: TmdbService = TmdbAPI(), coordinator: ContentListCoordinator) {
         self.contents = contents
-        self.sourceSection = sourceSection
+        self.sectionType = sectionType
         self.coordinator = coordinator
         
         super.init(networkService: networkService)
     }
 
     func transform(input: Input) -> Output {
-        let sectionItems = BehaviorSubject<[ListSectionItem]>(value: [])
+        let sectionItems = BehaviorSubject<[ListSectionItem]>(value: [
+            ListSectionItem(section: sectionType, items: [])
+        ])
         
         input.ready
             .flatMap { [weak self] _ -> Observable<[PosterItemViewModel]> in
@@ -50,8 +51,10 @@ class ContentListViewModel: ViewModel {
                 return self.request()
             }
             .subscribe(onNext: { viewModels in
-                let sectionItem = ListSectionItem(section: .contents, items: viewModels)
-                sectionItems.onNext([sectionItem])
+                if var sectionItem = try? sectionItems.value().first {
+                    sectionItem.items += viewModels
+                    sectionItems.onNext([sectionItem])
+                }
             })
             .disposed(by: disposeBag)
         
@@ -67,14 +70,14 @@ class ContentListViewModel: ViewModel {
                 }
             }
             .subscribe(onNext: { viewModels in
-                if var sectionItem = try? sectionItems.value().first(where: { $0.section == .contents }) {
-                    sectionItem.items += viewModels
+                if var sectionItem = try? sectionItems.value().first {
+                    sectionItem.items += viewModels.filter{ // API 중복데이터 제외
+                        !sectionItem.items.map{ $0.identity }.contains($0.identity)
+                    }
                     sectionItems.onNext([sectionItem])
                 }
             })
             .disposed(by: disposeBag)
-        
-        let title = Observable.just(sourceSection.title).compactMap{ $0 }
         
         // 셀 선택 - 디테일 화면 이동
         let selectedContent = input.selection
@@ -85,8 +88,17 @@ class ContentListViewModel: ViewModel {
             .do(onNext: coordinator.showDetail)
             .map { $0.0 }
         
+        let title = Observable.just(sectionType.title).compactMap{ $0 }
+        let segmentedControlVisible: Observable<Bool>
+        switch sectionType {
+        case .recommendations,
+                .favorites:
+            segmentedControlVisible = .just(true)
+        default:
+            segmentedControlVisible = .just(false)
+        }
         
-        return Output(loading: activityIndicator.asObservable(), title: title, sectionItems: sectionItems, selectedContent: selectedContent)
+        return Output(loading: activityIndicator.asObservable(), title: title, sectionItems: sectionItems, selectedContent: selectedContent, segmentedControlVisible: segmentedControlVisible)
     }
     
     func request() -> Observable<[PosterItemViewModel]> {
@@ -95,31 +107,43 @@ class ContentListViewModel: ViewModel {
         if page == 1 {
             results = Observable.just(contents)
         } else {
-            switch (sourceSection, id) {
-            case (let homeSection as HomeSection, _):
-                switch homeSection {
-                case let .movie(chart):
-                    results = networkService.movies(chart: chart, page: page).mapToContents()
-                case let .tvShow(chart):
-                    results = networkService.tvShows(chart: chart, page: page).mapToContents()
-                }
-            case (let detailSection as DetailSection, .some(let id)):
-                switch detailSection {
-                case .movie(.recommendation):
-                    results = networkService.movieRecommendations(id: id, page: page).mapToContents()
+            switch sectionType {
+            case let .movieChart(movieChart):
+                results = networkService.movies(chart: movieChart,
+                                                page: page)
+                    .mapToContents()
+            case let .tvShowChart(tvShowChart):
+                results = networkService.tvShows(chart: tvShowChart,
+                                                 page: page)
+                    .mapToContents()
+            case let .movieInformation(info, id):
+                switch info {
+                case .recommendation:
+                    results = networkService.movieRecommendations(id: id, page: page)
+                        .mapToContents()
                 default:
                     break
                 }
+            case let .tvShowInformation(info, id):
+                switch info {
+                case .recommendation:
+                    results = networkService.tvShowRecommendations(id: id, page: page)
+                        .mapToContents()
+                default:
+                    break
+                }
+            case .favorites(let contentsType):
+                break
             default:
                 break
             }
         }
-        
+        Log.i("#id ------------------------------")
         return results
             .trackActivity(activityIndicator)
             .trackError(errorTracker)
             .map { contents -> [PosterItemViewModel] in
-                contents.forEach{ print("#id : \($0.id)") }
+                contents.enumerated().forEach{ Log.i("#id\($0) : \($1.id)") }
                 let viewModels = contents.map { PosterItemViewModel(with: $0, heroID: "\($0.id)") }
                 return viewModels
             }

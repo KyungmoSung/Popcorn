@@ -76,10 +76,31 @@ enum DetailSection: _SectionType {
 }
 
 enum ListSection: _SectionType {
-    case contents
+    case movieChart(MovieChart)
+    case tvShowChart(TVShowChart)
+    case movieInformation(Informations.Movie, Int)
+    case tvShowInformation(Informations.TVShow, Int)
+    case recommendations(ContentsType)
+    case favorites(ContentsType)
+    case credits
     
     var title: String? {
-        return nil
+        switch self {
+        case let .movieChart(chart):
+            return chart.title
+        case let .tvShowChart(chart):
+            return chart.title
+        case let .movieInformation(info, _):
+            return info.title
+        case let .tvShowInformation(info, _):
+            return info.title
+        case .recommendations:
+            return "recommendation".localized
+        case .favorites:
+            return "favorite".localized
+        case .credits:
+            return "credits".localized
+        }
     }
     
     var height: CGFloat {
