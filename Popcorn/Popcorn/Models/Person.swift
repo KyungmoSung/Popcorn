@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Person: Codable, ListDiffable {
+class Person: Codable {
     let id: Int!
     let birthday: AnyValue?
     let deathday: AnyValue?
@@ -42,52 +42,44 @@ class Person: Codable, ListDiffable {
         case creditId = "credit_id"
     }
     
-    var detailInfos: [DetailInfo] {
-        var infoItems: [DetailInfo] = []
-        
-        if let birthday = birthday?.stringValue {
-            infoItems.append(DetailInfo(title: "birthday".localized, desc: birthday))
-        }
-        
-        if let gender = gender {
-            var genderDesc: String?
-            
-            switch gender {
-            case 1:
-                genderDesc = "female".localized
-            case 2:
-                genderDesc = "male".localized
-            default:
-                genderDesc = nil
-            }
-            
-            if let genderDesc = genderDesc {
-                infoItems.append(DetailInfo(title: "gender".localized, desc: genderDesc))
-            }
-        }
-
-        if let popularity = popularity {
-            infoItems.append(DetailInfo(title: "popularity".localized, desc: "\(Int(popularity)) 점"))
-        }
-
-        if let knownForDepartment = knownForDepartment {
-            infoItems.append(DetailInfo(title: "knownForDepartment".localized, desc: knownForDepartment))
-        }
-
-        if let placeOfBirth = placeOfBirth {
-            infoItems.append(DetailInfo(title: "placeOfBirth".localized, desc: placeOfBirth))
-        }
-                
-        return infoItems
-    }
-    
-    func diffIdentifier() -> NSObjectProtocol {
-        return id as NSObjectProtocol
-    }
-    
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        return true
-    }
+//    var detailInfos: [DetailInfo] {
+//        var infoItems: [DetailInfo] = []
+//
+//        if let birthday = birthday?.stringValue {
+//            infoItems.append(DetailInfo(title: "birthday".localized, desc: birthday))
+//        }
+//
+//        if let gender = gender {
+//            var genderDesc: String?
+//
+//            switch gender {
+//            case 1:
+//                genderDesc = "female".localized
+//            case 2:
+//                genderDesc = "male".localized
+//            default:
+//                genderDesc = nil
+//            }
+//
+//            if let genderDesc = genderDesc {
+//                infoItems.append(DetailInfo(title: "gender".localized, desc: genderDesc))
+//            }
+//        }
+//
+//        if let popularity = popularity {
+//            infoItems.append(DetailInfo(title: "popularity".localized, desc: "\(Int(popularity)) 점"))
+//        }
+//
+//        if let knownForDepartment = knownForDepartment {
+//            infoItems.append(DetailInfo(title: "knownForDepartment".localized, desc: knownForDepartment))
+//        }
+//
+//        if let placeOfBirth = placeOfBirth {
+//            infoItems.append(DetailInfo(title: "placeOfBirth".localized, desc: placeOfBirth))
+//        }
+//
+//        return infoItems
+//    }
 }
 
 class Cast: Person {

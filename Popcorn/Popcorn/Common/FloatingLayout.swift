@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FloatingPanel
 
 class FloatingLayout: FloatingPanelLayout {
     var position: FloatingPanelPosition = .bottom

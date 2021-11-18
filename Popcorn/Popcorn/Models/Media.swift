@@ -30,16 +30,6 @@ class ImageInfo: Media, Codable {
     }
 }
 
-extension ImageInfo: ListDiffable {
-    func diffIdentifier() -> NSObjectProtocol {
-        return filePath as NSObjectProtocol
-    }
-    
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        return true
-    }
-}
-
 // MARK: - VideoInfo
 class VideoInfo: Media, Codable {
     let id: String
@@ -50,14 +40,4 @@ class VideoInfo: Media, Codable {
     let site: String
     let size: Int
     let type: String
-}
-
-extension VideoInfo: ListDiffable {
-    func diffIdentifier() -> NSObjectProtocol {
-        return id as NSObjectProtocol
-    }
-    
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        return true
-    }
 }

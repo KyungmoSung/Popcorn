@@ -27,16 +27,6 @@ class Genre: Loadingable, Codable {
     }
 }
 
-extension Genre: ListDiffable {
-    func diffIdentifier() -> NSObjectProtocol {
-        return id as NSObjectProtocol
-    }
-    
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        return true
-    }
-}
-
 extension Genre: Equatable {
     static func == (lhs: Genre, rhs: Genre) -> Bool {
         return (lhs.id == rhs.id) && (lhs.name == rhs.name)

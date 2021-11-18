@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Review
-class Review: Codable, ListDiffable {
+class Review: Codable {
     let id: String
     let author: String?
     let authorDetails: Author
@@ -25,14 +25,6 @@ class Review: Codable, ListDiffable {
         case id
         case updatedAt = "updated_at"
         case url
-    }
-    
-    func diffIdentifier() -> NSObjectProtocol {
-        return id as NSObjectProtocol
-    }
-    
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        return true
     }
 }
 

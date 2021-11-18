@@ -7,17 +7,12 @@
 
 import Foundation
 
-
-// MARK: - Result
-class TVShow: Contents {
-    var name: String!
-    var originalName: String!
+class TVShow: Content {
     var originCountry: [ISO_3166_1]?
     var createdBy: [Person]?
     var episodeRunTime: [Int]?
     var inProduction: Bool?
     var languages: [String]?
-    var firstAirDate: AnyValue?
     var lastAirDate: AnyValue?
     var lastEpisodeToAir: Episode?
     var nextEpisodeToAir: Episode?
@@ -28,15 +23,61 @@ class TVShow: Contents {
     var status: String?
     var type: String?
     
+    var reports: [Report] {
+        var reports: [Report] = []
+
+        if let numberOfSeasons = numberOfSeasons {
+            reports.append(Report(title: "numberOfSeasons".localized, content: "\(numberOfSeasons) \("seasons".localized)"))
+        }
+
+        if let numberOfEpisodes = numberOfEpisodes {
+            reports.append(Report(title: "numberOfEpisodes".localized, content: "\(numberOfEpisodes) \("episodes".localized)"))
+        }
+
+        if let firstAirDate = releaseDate?.stringValue {
+            reports.append(Report(title: "firstAirDate".localized, content: firstAirDate))
+        }
+
+        if let lastAirDate = lastAirDate?.stringValue {
+            reports.append(Report(title: "lastAirDate".localized, content: lastAirDate))
+        }
+
+        if let originalLanguage = originalLanguage {
+            reports.append(Report(title: "originalLanguage".localized, content: originalLanguage.rawValue))
+        }
+
+        if let popularity = popularity {
+            reports.append(Report(title: "popularity".localized, content: "\(Int(popularity)) 점"))
+        }
+
+        return reports
+    }
+    
     enum CodingKeys: String, CodingKey {
-        case name
-        case originalName = "original_name"
+        case id
+        case title = "name"
+        case originalTitle = "original_name"
+        case overview
+        case tagline
+        case genres
+        case genreIDS = "genre_ids"
+        case popularity
+        case posterPath = "poster_path"
+        case backdropPath = "backdrop_path"
+        case homepage
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+        case originalLanguage = "original_language"
+        case spokenLanguages = "spoken_languages"
+        case productionCompanies = "production_companies"
+        case productionCountries = "production_countries"
+        
         case originCountry = "origin_country"
         case createdBy = "created_by"
         case episodeRunTime = "episode_run_time"
         case inProduction = "in_production"
         case languages
-        case firstAirDate = "first_air_date"
+        case releaseDate = "first_air_date"
         case lastAirDate = "last_air_date"
         case lastEpisodeToAir = "last_episode_to_air"
         case nextEpisodeToAir = "next_episode_to_air"
@@ -50,15 +91,16 @@ class TVShow: Contents {
     
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
+        
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.decodeIfPresent(String.self, forKey: .name)
-        self.originalName = try container.decodeIfPresent(String.self, forKey: .originalName)
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
+        self.originalTitle = try container.decodeIfPresent(String.self, forKey: .originalTitle)
         self.originCountry = try container.decodeIfPresent([ISO_3166_1].self, forKey: .originCountry)
         self.createdBy = try container.decodeIfPresent([Person].self, forKey: .createdBy)
         self.episodeRunTime = try container.decodeIfPresent([Int].self, forKey: .episodeRunTime)
         self.inProduction = try container.decodeIfPresent(Bool.self, forKey: .inProduction)
         self.languages = try container.decodeIfPresent([String].self, forKey: .languages)
-        self.firstAirDate = try container.decodeIfPresent(AnyValue.self, forKey: .firstAirDate)
+        self.releaseDate = try container.decodeIfPresent(AnyValue.self, forKey: .releaseDate)
         self.lastAirDate = try container.decodeIfPresent(AnyValue.self, forKey: .lastAirDate)
         self.lastEpisodeToAir = try container.decodeIfPresent(Episode.self, forKey: .lastEpisodeToAir)
         self.nextEpisodeToAir = try container.decodeIfPresent(Episode.self, forKey: .nextEpisodeToAir)
@@ -68,41 +110,6 @@ class TVShow: Contents {
         self.seasons = try container.decodeIfPresent([Season].self, forKey: .seasons)
         self.status = try container.decodeIfPresent(String.self, forKey: .status)
         self.type = try container.decodeIfPresent(String.self, forKey: .type)
-        
-    }
-    
-    override init(id: Int, isLoading: Bool) {
-        super.init(id: id, isLoading: isLoading)
-    }
-    
-    var detailInfos: [DetailInfo] {
-        var infoItems: [DetailInfo] = []
-        
-        if let numberOfSeasons = numberOfSeasons {
-            infoItems.append(DetailInfo(title: "numberOfSeasons".localized, desc: "\(numberOfSeasons) \("seasons".localized)"))
-        }
-        
-        if let numberOfEpisodes = numberOfEpisodes {
-            infoItems.append(DetailInfo(title: "numberOfEpisodes".localized, desc: "\(numberOfEpisodes) \("episodes".localized)"))
-        }
-        
-        if let firstAirDate = firstAirDate?.stringValue {
-            infoItems.append(DetailInfo(title: "firstAirDate".localized, desc: firstAirDate))
-        }
-        
-        if let lastAirDate = lastAirDate?.stringValue {
-            infoItems.append(DetailInfo(title: "lastAirDate".localized, desc: lastAirDate))
-        }
-        
-        if let originalLanguage = originalLanguage {
-            infoItems.append(DetailInfo(title: "originalLanguage".localized, desc: originalLanguage.rawValue))
-        }
-        
-        if let popularity = popularity {
-            infoItems.append(DetailInfo(title: "popularity".localized, desc: "\(Int(popularity)) 점"))
-        }
-        
-        return infoItems
     }
 }
 
