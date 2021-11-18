@@ -7,7 +7,6 @@
 
 import UIKit
 import RxSwift
-import NSObject_Rx
 
 class SplashViewController: BaseViewController {
     var viewModel: SplashViewModel!
@@ -25,6 +24,6 @@ class SplashViewController: BaseViewController {
         output.settingConfig
             .asDriverOnErrorJustComplete()
             .drive()
-            .disposed(by: rx.disposeBag)
+            .disposed(by: disposeBag)
     }
 }

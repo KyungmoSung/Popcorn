@@ -6,11 +6,11 @@
 //
 
 import UIKit
+import RxSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    var disposeBag = DisposeBag()
     var window: UIWindow?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     .subscribe(onNext: { user in
                         print(user)
                     })
-                    .disposed(by: rx.disposeBag)
+                    .disposed(by: disposeBag)
             default:
                 return
             }
