@@ -138,8 +138,8 @@
 		CD9D5493273B80A8004B445A /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D5491273B80A8004B445A /* ProfileHeaderView.swift */; };
 		CD9D5494273B80A8004B445A /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD9D5492273B80A8004B445A /* ProfileHeaderView.xib */; };
 		CD9D5497273B9A0A004B445A /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D5496273B9A0A004B445A /* Menu.swift */; };
-		CD9D549A273BA1B9004B445A /* SegmentedControlHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D5498273BA1B9004B445A /* SegmentedControlHeaderView.swift */; };
-		CD9D549B273BA1B9004B445A /* SegmentedControlHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD9D5499273BA1B9004B445A /* SegmentedControlHeaderView.xib */; };
+		CD9D549A273BA1B9004B445A /* ListFilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D5498273BA1B9004B445A /* ListFilterHeaderView.swift */; };
+		CD9D549B273BA1B9004B445A /* ListFilterHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD9D5499273BA1B9004B445A /* ListFilterHeaderView.xib */; };
 		CDAB6CFC2738E0E9005AA082 /* AccountStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAB6CFB2738E0E9005AA082 /* AccountStates.swift */; };
 		CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */; };
 		CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6D360254A5CE9001B0AEB /* SceneDelegate.swift */; };
@@ -359,8 +359,8 @@
 		CD9D5491273B80A8004B445A /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		CD9D5492273B80A8004B445A /* ProfileHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
 		CD9D5496273B9A0A004B445A /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
-		CD9D5498273BA1B9004B445A /* SegmentedControlHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlHeaderView.swift; sourceTree = "<group>"; };
-		CD9D5499273BA1B9004B445A /* SegmentedControlHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedControlHeaderView.xib; sourceTree = "<group>"; };
+		CD9D5498273BA1B9004B445A /* ListFilterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFilterHeaderView.swift; sourceTree = "<group>"; };
+		CD9D5499273BA1B9004B445A /* ListFilterHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListFilterHeaderView.xib; sourceTree = "<group>"; };
 		CDAB6CFB2738E0E9005AA082 /* AccountStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStates.swift; sourceTree = "<group>"; };
 		CDB6D35B254A5CE9001B0AEB /* Popcorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popcorn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB6D35E254A5CE9001B0AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -718,8 +718,8 @@
 		CD9D549C273BA1BD004B445A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CD9D5498273BA1B9004B445A /* SegmentedControlHeaderView.swift */,
-				CD9D5499273BA1B9004B445A /* SegmentedControlHeaderView.xib */,
+				CD9D5498273BA1B9004B445A /* ListFilterHeaderView.swift */,
+				CD9D5499273BA1B9004B445A /* ListFilterHeaderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1125,7 +1125,7 @@
 				CD06B5EF258853FE00E15540 /* TextTagCell.xib in Resources */,
 				242D62EC2593782D00450120 /* InfoCardCell.xib in Resources */,
 				CDBD1420256E388A003F625F /* ContentsDetailViewController.xib in Resources */,
-				CD9D549B273BA1B9004B445A /* SegmentedControlHeaderView.xib in Resources */,
+				CD9D549B273BA1B9004B445A /* ListFilterHeaderView.xib in Resources */,
 				2466137A259867E4008B982B /* NanumBarunGothicLight.ttf in Resources */,
 				CD71C1CC26E5CF7C006E40C2 /* VideoCell.xib in Resources */,
 				CDB6D510254FC7DF001B0AEB /* Localizable.strings in Resources */,
@@ -1304,7 +1304,7 @@
 				CD4D28B126E0A2A3008716BB /* TitleCell.swift in Sources */,
 				247FF85C25BD604F00BC73D2 /* ContentsListViewController.swift in Sources */,
 				CD936FC625887E170006441C /* UICollectionViewExtension.swift in Sources */,
-				CD9D549A273BA1B9004B445A /* SegmentedControlHeaderView.swift in Sources */,
+				CD9D549A273BA1B9004B445A /* ListFilterHeaderView.swift in Sources */,
 				CDE1D42F2732744100AB04A2 /* BackdropItemViewModel.swift in Sources */,
 				CD71C1CA26E5CF33006E40C2 /* ImageCell.swift in Sources */,
 				24ED6290258355A200FC98B3 /* Genre.swift in Sources */,

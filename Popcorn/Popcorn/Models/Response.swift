@@ -17,6 +17,15 @@ struct PageResponse<T: Codable>: Codable {
     let totalResults: Int?
     let totalPages: Int?
     
+    // 다음페이지 존재 여부
+    var hasNextPage: Bool {
+        if let page = page, let totalPages = totalPages {
+            return page < totalPages
+        } else {
+            return false
+        }
+    }
+    
     enum CodingKeys : String, CodingKey{
         case page
         case results

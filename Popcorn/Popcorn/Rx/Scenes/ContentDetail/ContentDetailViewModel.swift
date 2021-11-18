@@ -24,7 +24,7 @@ class ContentDetailViewModel: ViewModel {
         let posterImage: Observable<UIImage>
         let sectionItems: Observable<[DetailSectionItem]>
         let selectedContent: Observable<_Content>
-        let selectedSection: Observable<([RowViewModel], DetailSection)>
+        let selectedSection: Observable<DetailSection>
         let selectedAction: Observable<Void>
         let selectedShare: Observable<Void>
         let accountStates: Observable<AccountStates>
@@ -82,13 +82,16 @@ class ContentDetailViewModel: ViewModel {
                             .trackError(self.errorTracker),
                         self.networkService.movieRecommendations(id: id, page: 1)
                             .trackActivity(self.activityIndicator)
-                            .trackError(self.errorTracker),
+                            .trackError(self.errorTracker)
+                            .mapToResults(),
                         self.networkService.movieSimilar(id: id, page: 1)
                             .trackActivity(self.activityIndicator)
-                            .trackError(self.errorTracker),
+                            .trackError(self.errorTracker)
+                            .mapToResults(),
                         self.networkService.movieReviews(id: id, page: 1)
                             .trackActivity(self.activityIndicator)
-                            .trackError(self.errorTracker))
+                            .trackError(self.errorTracker)
+                            .mapToResults())
                 }
                 .map { (movie, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
                     var sectionItems: [DetailSectionItem] = [
@@ -167,13 +170,16 @@ class ContentDetailViewModel: ViewModel {
                             .trackError(self.errorTracker),
                         self.networkService.tvShowRecommendations(id: id, page: 1)
                             .trackActivity(self.activityIndicator)
-                            .trackError(self.errorTracker),
+                            .trackError(self.errorTracker)
+                            .mapToResults(),
                         self.networkService.tvShowSimilar(id: id, page: 1)
                             .trackActivity(self.activityIndicator)
-                            .trackError(self.errorTracker),
+                            .trackError(self.errorTracker)
+                            .mapToResults(),
                         self.networkService.tvShowReviews(id: id, page: 1)
                             .trackActivity(self.activityIndicator)
-                            .trackError(self.errorTracker))
+                            .trackError(self.errorTracker)
+                            .mapToResults())
                 }
                 .map { (tvShow, credits, videos, imageInfos, recommendations, similar, reviews) -> [DetailSectionItem] in
                     var sectionItems: [DetailSectionItem] = [
@@ -244,22 +250,9 @@ class ContentDetailViewModel: ViewModel {
         // 헤더 선택 - 차트 리스트 화면 이동
         let selectedSection = input.headerSelection
             .withLatestFrom(sectionItems) { section, result in
-                return (result[section].items.map { $0 }, result[section].section)
+                return result[section].section
             }
-            .do(onNext: { [weak self] (viewModels, section) in
-                guard let self = self else { return }
-                
-                switch viewModels {
-                case let (posterItemViewModels as [PosterItemViewModel]) as Any:
-                    let contents = posterItemViewModels.map { $0.content }
-                    self.coordinator.showList(contents: contents, section: section)
-                case let (creditItemViewModels as [CreditItemViewModel]) as Any:
-                    let credits = creditItemViewModels.map { $0.person }
-                    self.coordinator.showList(credits: credits, section: section)
-                default:
-                    break
-                }
-            })
+            .do(onNext: coordinator.showList(section:))
                 
         // 액션 선택 - 팝업 띄움
         let selectedAction = input.actionSelection

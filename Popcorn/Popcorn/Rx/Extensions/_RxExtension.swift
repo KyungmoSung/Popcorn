@@ -57,3 +57,13 @@ extension ObservableType where Element: Collection, Element.Element: _Content {
         return map { $0.map { $0 as _Content }}
     }
 }
+
+extension ObservableType {
+    func mapToContents<T>() -> Observable<[_Content]> where Element == PageResponse<T>{
+        return compactMap { $0.results as? [_Content] }
+    }
+    
+    func mapToResults<T>() -> Observable<[T]> where Element == PageResponse<T>{
+        return compactMap { $0.results }
+    }
+}

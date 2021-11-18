@@ -32,8 +32,7 @@ class MyPageCoordinator: Coordinator {
     }
     
     func showFavorite(){
-        let coordinator = ContentListCoordinator(contents: [],
-                                                 sectionType: .favorites,
+        let coordinator = ContentListCoordinator(sectionType: .favorites,
                                                  navigationController: navigationController,
                                                  service: service)
         coordinator.start()

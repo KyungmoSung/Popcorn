@@ -13,6 +13,8 @@ import RxDataSources
 class ContentListViewController: _BaseViewController {
     var viewModel: BaseViewModel!
     let selectedSegmentIndex = PublishRelay<Int>()
+    var showSortOptions = PublishRelay<Void>()
+    let selectedSort = BehaviorRelay<Sort?>(value: nil)
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -31,18 +33,20 @@ class ContentListViewController: _BaseViewController {
     private func setupUI() {
         collectionView.register(cellType: PosterCell.self)
         collectionView.register(cellType: _CreditCell.self)
-        collectionView.register(reusableViewType: SegmentedControlHeaderView.self)
+        collectionView.register(reusableViewType: ListFilterHeaderView.self)
     }
 
     private func bindViewModel() {
         let ready = rx.viewWillAppear.take(1).asObservable()
-        let segmentSelection = selectedSegmentIndex.asObservable()
         let scrollToBottom = collectionView.rx.contentOffset
             .flatMap { offset -> Observable<Void> in
                 let scrollViewHeight = self.collectionView.bounds.size.height
                 let contentHeight = self.collectionView.contentSize.height
-                
-                if contentHeight > 0 && offset.y + scrollViewHeight > contentHeight {
+
+                let itemCount = self.collectionView.numberOfItems(inSection: 0)
+                if itemCount > 0,
+                    contentHeight > scrollViewHeight,
+                    offset.y + scrollViewHeight > contentHeight {
                     return Observable.just(())
                 } else {
                     return Observable.empty()
@@ -54,7 +58,10 @@ class ContentListViewController: _BaseViewController {
             let input = ContentListViewModel.Input(ready: ready,
                                                    scrollToBottom: scrollToBottom,
                                                    selection: collectionView.rx.itemSelected.asObservable(),
-                                                   segmentSelection: segmentSelection)
+                                                   segmentSelection: selectedSegmentIndex
+                                                    .startWith(0)
+                                                    .asObservable(),
+                                                   sortSelection: selectedSort.asObservable())
             let output = viewModel.transform(input: input)
             
             output.title
@@ -72,6 +79,7 @@ class ContentListViewController: _BaseViewController {
                 .drive()
                 .disposed(by: disposeBag)
             
+            // 세그먼트 표시 여부 변경시 컬렉션뷰 레이아웃 세팅
             output.segmentedControlVisible
                 .asDriverOnErrorJustComplete()
                 .map(createCompositionalLayout(with:))
@@ -80,7 +88,38 @@ class ContentListViewController: _BaseViewController {
                     self.collectionView.collectionViewLayout = layout
                 })
                 .disposed(by: disposeBag)
+
+            // 정렬옵션이 변경되면 선택되어있던 옵션 제거
+            output.sorts
+                .asDriverOnErrorJustComplete()
+                .drive(onNext: { _ in
+                    self.selectedSort.accept(nil)
+                })
+                .disposed(by: disposeBag)
             
+            // 정렬옵션 버튼 선택시 Alert 호출
+            showSortOptions.withLatestFrom(output.sorts)
+                .asDriverOnErrorJustComplete()
+                .compactMap{ $0 }
+                .drive(onNext: { sorts in
+                    let alert = UIAlertController(title: "Sort by",
+                                                  message: nil,
+                                                  preferredStyle: .actionSheet)
+                    
+                    for sort in sorts {
+                        let sortAction = UIAlertAction(title: sort.title, style: .default, handler: { _ in
+                            self.selectedSort.accept(sort)
+                        })
+                        alert.addAction(sortAction)
+                    }
+                    
+                    let noAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    alert.addAction(noAction)
+                    
+                    self.present(alert, animated: true, completion: nil)
+                })
+                .disposed(by: disposeBag)
+                
         case let viewModel as CreditListViewModel:
             let input = CreditListViewModel.Input(ready: ready)
             let output = viewModel.transform(input: input)
@@ -111,7 +150,7 @@ extension ContentListViewController {
             
             return cell
         } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
-            let headerView = collectionView.dequeueReusableView(with: SegmentedControlHeaderView.self, for: indexPath, ofKind: kind)
+            let headerView = collectionView.dequeueReusableView(with: ListFilterHeaderView.self, for: indexPath, ofKind: kind)
             
             let section = indexPath.section
             let sectionModel = dataSource.sectionModels[section]
@@ -124,6 +163,15 @@ extension ContentListViewController {
             
             headerView.segmentedControl.rx.value
                 .bind(to: self.selectedSegmentIndex)
+                .disposed(by: headerView.disposeBag)
+            
+            headerView.sortBtn.rx.tap
+                .bind(to: self.showSortOptions)
+                .disposed(by: headerView.disposeBag)            
+            
+            self.selectedSort
+                .map{ $0?.title ?? "Sort" }
+                .bind(to: headerView.sortBtn.rx.title())
                 .disposed(by: headerView.disposeBag)
             
             return headerView

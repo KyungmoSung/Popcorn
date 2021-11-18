@@ -82,6 +82,8 @@ enum ListSection: _SectionType {
     case tvShowInformation(Informations.TVShow, Int)
     case recommendations(ContentsType)
     case favorites
+    case watchlist
+    case rated
     case credits
     
     var title: String? {
@@ -98,6 +100,10 @@ enum ListSection: _SectionType {
             return "recommendation".localized
         case .favorites:
             return "favorite".localized
+        case .watchlist:
+            return "watchlist".localized
+        case .rated:
+            return "rated".localized
         case .credits:
             return "credits".localized
         }
@@ -114,8 +120,25 @@ enum ListSection: _SectionType {
     var segmentTitles: [String]? {
         switch self {
         case .recommendations,
-                .favorites:
+                .favorites,
+                .watchlist,
+                .rated:
             return ContentsType.allCases.map{ $0.title }
+        default:
+            return nil
+        }
+    }
+    
+    func sortOptions(for type: ContentsType? = nil) -> [Sort]? {
+        switch (self, type) {
+        case let (.recommendations, .some(type)):
+            return Sort.forRecommendations(type)
+        case let (.favorites, .some(type)):
+            return Sort.forFavorite(type)
+        case let (.watchlist, .some(type)):
+            return Sort.forWatchlist(type)
+        case let (.rated, .some(type)):
+            return Sort.forRated(type)
         default:
             return nil
         }

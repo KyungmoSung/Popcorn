@@ -35,7 +35,7 @@ class HomeCoordinator: Coordinator {
         coordinator.start()
     }
     
-    func showChartList(contents: [_Content], section: HomeSection) {
+    func showChartList(section: HomeSection) {
         let listSection: ListSection
         switch section {
         case .movie(let chart):
@@ -44,8 +44,7 @@ class HomeCoordinator: Coordinator {
             listSection = .tvShowChart(chart)
         }
         
-        let coordinator = ContentListCoordinator(contents: contents,
-                                                 sectionType: listSection,
+        let coordinator = ContentListCoordinator(sectionType: listSection,
                                                  navigationController: navigationController,
                                                  service: service)
         coordinator.start()

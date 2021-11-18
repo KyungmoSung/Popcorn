@@ -12,8 +12,8 @@ nowPlaying = "현재 상영 중";
 popular = "인기";
 topRated = "높은 평점";
 upcoming = "개봉 예정";
-airingToday = "Airing Today";
-onTheAir = "On The Air";
+airingToday = "오늘 방송";
+onTheAir = "방영중인 프로그램";
 
 detail = "상세 정보";
 synopsis = "시놉시스";
@@ -50,8 +50,18 @@ male = "남성";
 knownForDepartment = "분야";
 biography = "바이오그래피";
 
-myPage = "My Page";
-favorite = "Favorite";
-watchlist = "Watchlist";
-rated = "Rated";
-signOut = "Sign Out";
+myPage = "마이 페이지";
+favorite = "즐겨찾기";
+watchlist = "보관함";
+rated = "평가";
+signOut = "로그아웃";
+
+createdAt = "제작일";
+title = "제목";
+popularity = "인기도";
+releaseDate = "개봉일";
+revenue = "수익";
+primaryReleaseDate = "첫 방영일";
+originalTitle = "원 제목";
+voteAverage = "평균 평점";
+voteCount = "평점 평가자 수";

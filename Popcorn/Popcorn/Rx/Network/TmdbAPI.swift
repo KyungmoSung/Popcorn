@@ -24,12 +24,11 @@ final class TmdbAPI {
 
 // MARK: - TmdbMovieService
 extension TmdbAPI: TmdbMovieService {
-    func movies(chart: MovieChart, page: Int) -> Observable<[_Movie]> {
+    func movies(chart: MovieChart, page: Int) -> Observable<PageResponse<_Movie>> {
         return provider.rx
             .request(.movies(chart: chart, page: page, language: language, region: region))
             .retry(3)
             .map(PageResponse<_Movie>.self)
-            .map { ($0.results ?? []) }
             .asObservable()
     }
     
@@ -77,42 +76,38 @@ extension TmdbAPI: TmdbMovieService {
             .asObservable()
     }
     
-    func movieRecommendations(id: Int, page: Int) -> Observable<[_Movie]> {
+    func movieRecommendations(id: Int, page: Int) -> Observable<PageResponse<_Movie>> {
         return provider.rx
             .request(.recommendations(type: .movies, id: id, page: page, language: language))
             .retry(3)
             .map(PageResponse<_Movie>.self)
-            .map{ $0.results ?? [] }
             .asObservable()
     }
     
-    func movieSimilar(id: Int, page: Int) -> Observable<[_Movie]> {
+    func movieSimilar(id: Int, page: Int) -> Observable<PageResponse<_Movie>> {
         return provider.rx
             .request(.similar(type: .movies, id: id, page: page, language: language))
             .retry(3)
             .map(PageResponse<_Movie>.self)
-            .map{ $0.results ?? [] }
             .asObservable()
     }
     
-    func movieReviews(id: Int, page: Int) -> Observable<[Review]> {
+    func movieReviews(id: Int, page: Int) -> Observable<PageResponse<Review>> {
         return provider.rx
             .request(.reviews(type: .movies, id: id, page: page, language: .init(code: .en)))
             .retry(3)
             .map(PageResponse<Review>.self)
-            .map{ $0.results ?? [] }
             .asObservable()
     }
 }
 
 // MARK: - TmdbTVShowService
 extension TmdbAPI: TmdbTVShowService {
-    func tvShows(chart: TVShowChart, page: Int) -> Observable<[_TVShow]> {
+    func tvShows(chart: TVShowChart, page: Int) -> Observable<PageResponse<_TVShow>> {
         return provider.rx
             .request(.tvShows(chart: chart, page: page, language: language, region: region))
             .retry(3)
             .map(PageResponse<_TVShow>.self)
-            .map { ($0.results ?? []) }
             .asObservable()
     }
     
@@ -160,30 +155,27 @@ extension TmdbAPI: TmdbTVShowService {
             .asObservable()
     }
     
-    func tvShowRecommendations(id: Int, page: Int) -> Observable<[_TVShow]> {
+    func tvShowRecommendations(id: Int, page: Int) -> Observable<PageResponse<_TVShow>> {
         return provider.rx
             .request(.recommendations(type: .tvShows, id: id, page: page, language: language))
             .retry(3)
             .map(PageResponse<_TVShow>.self)
-            .map{ $0.results ?? [] }
             .asObservable()
     }
     
-    func tvShowSimilar(id: Int, page: Int) -> Observable<[_TVShow]> {
+    func tvShowSimilar(id: Int, page: Int) -> Observable<PageResponse<_TVShow>> {
         return provider.rx
             .request(.similar(type: .tvShows, id: id, page: page, language: language))
             .retry(3)
             .map(PageResponse<_TVShow>.self)
-            .map{ $0.results ?? [] }
             .asObservable()
     }
     
-    func tvShowReviews(id: Int, page: Int) -> Observable<[Review]> {
+    func tvShowReviews(id: Int, page: Int) -> Observable<PageResponse<Review>> {
         return provider.rx
             .request(.reviews(type: .tvShows, id: id, page: page, language: language))
             .retry(3)
             .map(PageResponse<Review>.self)
-            .map{ $0.results ?? [] }
             .asObservable()
     }
 }
@@ -242,21 +234,19 @@ extension TmdbAPI: TmdbAccountService {
             .asObservable()
     }
     
-    func accountMovieRecommendations(accountID: String, sortBy: Sort) -> Observable<[_Movie]> {
+    func accountMovieRecommendations(accountID: String, page: Int, sortBy: Sort) -> Observable<PageResponse<_Movie>> {
         return provider.rx
-            .request(.accountRecommendations(accountID: accountID, type: .movies, sortBy: sortBy))
+            .request(.accountRecommendations(accountID: accountID, type: .movies, page: page, sortBy: sortBy))
             .retry(3)
             .map(PageResponse<_Movie>.self)
-            .map{ $0.results ?? [] }
             .asObservable()
     }
     
-    func accountTvRecommendations(accountID: String, sortBy: Sort) -> Observable<[_TVShow]> {
+    func accountTvRecommendations(accountID: String, page: Int, sortBy: Sort) -> Observable<PageResponse<_TVShow>> {
         return provider.rx
-            .request(.accountRecommendations(accountID: accountID, type: .tvShows, sortBy: sortBy))
+            .request(.accountRecommendations(accountID: accountID, type: .tvShows, page: page, sortBy: sortBy))
             .retry(3)
             .map(PageResponse<_TVShow>.self)
-            .map{ $0.results ?? [] }
             .asObservable()
     }
     
@@ -276,21 +266,19 @@ extension TmdbAPI: TmdbAccountService {
             .mapToVoid()
     }
     
-    func favoriteMovies(accountID: String, page: Int, sortBy: Sort?) -> Observable<[_Movie]> {
+    func favoriteMovies(accountID: String, page: Int, sortBy: Sort?) -> Observable<PageResponse<_Movie>> {
         return provider.rx
             .request(.favorites(accountID: accountID, type: .movies, page: page, sortBy: sortBy))
             .retry(3)
             .map(PageResponse<_Movie>.self)
-            .map{ $0.results ?? [] }
             .asObservable()
     }
     
-    func favoriteTvShows(accountID: String, page: Int, sortBy: Sort?) -> Observable<[_TVShow]> {
+    func favoriteTvShows(accountID: String, page: Int, sortBy: Sort?) -> Observable<PageResponse<_TVShow>> {
         return provider.rx
             .request(.favorites(accountID: accountID, type: .tvShows, page: page, sortBy: sortBy))
             .retry(3)
             .map(PageResponse<_TVShow>.self)
-            .map{ $0.results ?? [] }
             .asObservable()
     }
 

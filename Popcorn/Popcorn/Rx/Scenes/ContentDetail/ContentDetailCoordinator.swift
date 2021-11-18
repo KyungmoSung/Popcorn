@@ -39,17 +39,8 @@ class ContentDetailCoordinator: Coordinator {
         coordinator.start()
     }
     
-    func showList(contents: [_Content], section: DetailSection) {
-        let coordinator = ContentListCoordinator(contents: contents,
-                                                 sectionType: listSection(for: section),
-                                                 navigationController: navigationController,
-                                                 service: service)
-        coordinator.start()
-    }
-    
-    func showList(credits: [Person], section: DetailSection) {
-        let coordinator = ContentListCoordinator(credits: credits,
-                                                 sectionType: listSection(for: section),
+    func showList(section: DetailSection) {
+        let coordinator = ContentListCoordinator(sectionType: listSection(for: section),
                                                  navigationController: navigationController,
                                                  service: service)
         coordinator.start()

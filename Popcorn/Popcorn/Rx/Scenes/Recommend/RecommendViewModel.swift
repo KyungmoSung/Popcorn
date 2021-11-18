@@ -48,7 +48,10 @@ class RecommendViewModel: ViewModel {
                     return Observable.just([])
                 }
                     
-                return self.networkService.accountMovieRecommendations(accountID: accountID , sortBy: .createdAt(.asc))
+                return self.networkService.accountMovieRecommendations(accountID: accountID,
+                                                                       page: 1,
+                                                                       sortBy: .createdAt(.asc))
+                    .mapToResults()
             }
             .map{ $0.map { PosterItemViewModel(with: $0, heroID: "\($0.id)") }}
             .map { [RecommendSectionItem(section: .recommendations(.movies), items: $0)] }

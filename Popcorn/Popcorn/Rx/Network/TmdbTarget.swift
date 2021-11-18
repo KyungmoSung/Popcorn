@@ -42,7 +42,7 @@ enum TmdbTarget {
     // Account
     case accountProfile(sessionID: String)
     case accountStates(sessionID: String, type: ContentsType, id: Int)
-    case accountRecommendations(accountID: String, type: ContentsType, sortBy: Sort?)
+    case accountRecommendations(accountID: String, type: ContentsType, page: Int, sortBy: Sort?)
     case markFavorite(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool)
     case markWatchlist(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool)
     case favorites(accountID: String, type: ContentsType, page: Int, sortBy: Sort?)
@@ -79,7 +79,7 @@ extension TmdbTarget: TargetType {
             
         case .accountProfile:                                   return "/3/account"
         case let .accountStates(_, type, id):                    return "/3/\(type.path)/\(id)/account_states"
-        case let .accountRecommendations(accountID, type, _):   return "/4/account/\(accountID)/\(type.path)/recommendations"
+        case let .accountRecommendations(accountID, type, _, _):   return "/4/account/\(accountID)/\(type.path)/recommendations"
         case let .markFavorite(accountID, _, _, _, _):          return "/3/account/\(accountID)/favorite"
         case let .markWatchlist(accountID, _, _, _, _):         return "/3/account/\(accountID)/watchlist"
             
@@ -134,8 +134,9 @@ extension TmdbTarget: TargetType {
             params["session_id"] = sessionID
         case let .accountStates(sessionID, _, _):
             params["session_id"] = sessionID
-        case let .accountRecommendations(accountID, _, sort):
+        case let .accountRecommendations(accountID, _, page, sort):
             params["account_id"] = accountID
+            params["page"] = page
             params["sort_by"] = sort?.param
         case let .markFavorite(_, sessionID, type, id, add):
             bodyParams["media_type"] = type.path

@@ -22,7 +22,7 @@ class HomeViewModel: ViewModel {
         let loading: Observable<Bool>
         let sectionItems: Observable<[HomeSectionItem]>
         let selectedContent: Observable<_Content>
-        let selectedSection: Observable<([_Content], HomeSection)>
+        let selectedSection: Observable<HomeSection>
     }
     
     private let coordinator: HomeCoordinator
@@ -50,6 +50,7 @@ class HomeViewModel: ViewModel {
                             self.networkService.movies(chart: chart, page: 1)
                                 .trackActivity(self.activityIndicator)
                                 .trackError(self.errorTracker)
+                                .mapToResults()
                                 .map {
                                     if chart == .nowPlaying {
                                         return $0.map { BackdropItemViewModel(with: $0, heroID: (chart.title ?? "") + "\($0.id)") }
@@ -66,6 +67,7 @@ class HomeViewModel: ViewModel {
                             self.networkService.tvShows(chart: chart, page: 1)
                                 .trackActivity(self.activityIndicator)
                                 .trackError(self.errorTracker)
+                                .mapToResults()
                                 .map {
                                     if chart == .airingToday {
                                         return $0.map { BackdropItemViewModel(with: $0, heroID: (chart.title ?? "") + "\($0.id)") }
@@ -99,19 +101,9 @@ class HomeViewModel: ViewModel {
         // 헤더 선택 - 차트 리스트 화면 이동
         let selectedSection = input.headerSelection
             .withLatestFrom(sectionItems) { section, result in
-                let viewModels = result[section].items
                 let section = result[section].section
-                
-                switch viewModels {
-                case (let viewModels as [PosterItemViewModel]) as Any:
-                    return (viewModels.map{ $0.content }, section)
-                case (let viewModels as [BackdropItemViewModel]) as Any:
-                    return (viewModels.map{ $0.content }, section)
-                default:
-                    return nil
-                }
+                return section
             }
-            .compactMap { $0 }
             .do(onNext: coordinator.showChartList)
         
         let loading = activityIndicator.asObservable()

@@ -55,3 +55,13 @@ favorite = "Favorite";
 watchlist = "Watchlist";
 rated = "Rated";
 signOut = "Sign Out";
+
+createdAt = "Created at";
+title = "Title";
+popularity = "Popularity";
+releaseDate = "Release date";
+revenue = "Revenue";
+primaryReleaseDate = "Primary release date";
+originalTitle = "Original title";
+voteAverage = "Vote average";
+voteCount = "Vote count";

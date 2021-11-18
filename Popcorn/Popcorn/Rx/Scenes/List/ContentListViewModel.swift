@@ -16,6 +16,7 @@ class ContentListViewModel: ViewModel {
         let scrollToBottom: Observable<Void>
         let selection: Observable<IndexPath>
         let segmentSelection: Observable<Int>
+        let sortSelection: Observable<Sort?>
     }
     
     struct Output {
@@ -24,15 +25,15 @@ class ContentListViewModel: ViewModel {
         let sectionItems: Observable<[ListSectionItem]>
         let selectedContent: Observable<_Content>
         let segmentedControlVisible: Observable<Bool>
+        let sorts: Observable<[Sort]?>
     }
 
     private var page = 1
-    private var contents: [_Content]
+    private var hasNextPage: Bool = false
     private var sectionType: ListSection
     private let coordinator: ContentListCoordinator
     
-    init(with contents: [_Content], sectionType: ListSection, networkService: TmdbService = TmdbAPI(), coordinator: ContentListCoordinator) {
-        self.contents = contents
+    init(with sectionType: ListSection, networkService: TmdbService = TmdbAPI(), coordinator: ContentListCoordinator) {
         self.sectionType = sectionType
         self.coordinator = coordinator
         
@@ -43,46 +44,37 @@ class ContentListViewModel: ViewModel {
         let sectionItems = BehaviorSubject<[ListSectionItem]>(value: [
             ListSectionItem(section: sectionType, items: [])
         ])
-        
-        input.segmentSelection
-            .subscribe(onNext: { index in
-                self.page = 1
-                self.contents = []
                 
-                if var sectionItem = try? sectionItems.value().first {
-                    sectionItem.items = []
-                    sectionItems.onNext([sectionItem])
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        //
+        // 화면 진입, 세그먼트 선택, 정렬옵션 선택시 초기화
         Observable.combineLatest(input.ready,
-                                 input.segmentSelection)
-            .flatMap { [weak self] _, segmentIndex -> Observable<[PosterItemViewModel]> in
+                                 input.segmentSelection,
+                                 input.sortSelection)
+            .flatMap { [weak self] _, segmentIndex, sort -> Observable<[PosterItemViewModel]> in
                 guard let self = self else { return Observable.just([]) }
-                
+
                 self.page = 1
-                return self.request(segmentIndex)
+                return self.request(segmentIndex, sortBy: sort)
             }
             .subscribe(onNext: { viewModels in
                 if var sectionItem = try? sectionItems.value().first {
-                    sectionItem.items += viewModels
+                    sectionItem.items = viewModels
                     sectionItems.onNext([sectionItem])
                 }
             })
             .disposed(by: disposeBag)
         
+        // 스크롤시 다음페이지 요청
         Observable.combineLatest(input.scrollToBottom.withLatestFrom(activityIndicator),
-                                 input.segmentSelection)
-            .flatMap { [weak self] loading, segmentIndex -> Observable<[PosterItemViewModel]> in
+                                 input.segmentSelection,
+                                 input.sortSelection)
+            .flatMap { [weak self] loading, segmentIndex, sort -> Observable<[PosterItemViewModel]> in
                 guard let self = self else { return Observable.just([]) }
                 
-                if loading {
-                    return Observable.empty()
-                } else {
+                if self.hasNextPage, !loading {
                     self.page += 1
-                    return self.request(segmentIndex)
+                    return self.request(segmentIndex, sortBy: sort)
+                } else {
+                    return Observable.empty()
                 }
             }
             .subscribe(onNext: { viewModels in
@@ -95,6 +87,11 @@ class ContentListViewModel: ViewModel {
             })
             .disposed(by: disposeBag)
         
+        // 정렬 옵션
+        let sorts = input.segmentSelection
+            .compactMap{ ContentsType(rawValue: $0) }
+            .map { self.sectionType.sortOptions(for: $0) }
+        
         // 셀 선택 - 디테일 화면 이동
         let selectedContent = input.selection
             .withLatestFrom(sectionItems) { indexPath, result in
@@ -104,8 +101,11 @@ class ContentListViewModel: ViewModel {
             .do(onNext: coordinator.showDetail)
             .map { $0.0 }
         
+        // 네비게이션 타이틀
         let title = Observable.just(sectionType.title).compactMap{ $0 }
         
+        // 세그먼트 표시 여부
+        // TODO: 세그먼트, 정렬 옵션 분리
         let segmentedControlVisible: Observable<Bool>
         if sectionType.segmentTitles.isNilOrEmpty {
             segmentedControlVisible = .just(false)
@@ -113,56 +113,69 @@ class ContentListViewModel: ViewModel {
             segmentedControlVisible = .just(true)
         }
         
-        return Output(loading: activityIndicator.asObservable(), title: title, sectionItems: sectionItems, selectedContent: selectedContent, segmentedControlVisible: segmentedControlVisible)
+        return Output(loading: activityIndicator.asObservable(), title: title, sectionItems: sectionItems, selectedContent: selectedContent, segmentedControlVisible: segmentedControlVisible, sorts: sorts
+        )
     }
     
-    func request(_ segmentIndex: Int) -> Observable<[PosterItemViewModel]> {
-        var results: Observable<[_Content]> = Observable.just([])
+    func request(_ segmentIndex: Int, sortBy sort: Sort?) -> Observable<[PosterItemViewModel]> {
+        var results: Observable<(Bool, [_Content]?)> = Observable.just((false, []))
         
-        if !contents.isEmpty && page == 1 {
-            results = Observable.just(contents)
-        } else {
-            switch sectionType {
-            case let .movieChart(movieChart):
-                results = networkService.movies(chart: movieChart, page: page).mapToContents()
-            case let .tvShowChart(tvShowChart):
-                results = networkService.tvShows(chart: tvShowChart, page: page).mapToContents()
-            case let .movieInformation(info, id):
-                switch info {
-                case .recommendation:
-                    results = networkService.movieRecommendations(id: id, page: page).mapToContents()
-                default:
-                    break
-                }
-            case let .tvShowInformation(info, id):
-                switch info {
-                case .recommendation:
-                    results = networkService.tvShowRecommendations(id: id, page: page).mapToContents()
-                default:
-                    break
-                }
-            case .favorites:
-                guard let accountID = AuthManager.shared.auth?.accountID else { break }
-                switch ContentsType(rawValue: segmentIndex) {
-                case .movies:
-                    results = networkService.favoriteMovies(accountID: accountID, page: page, sortBy: nil).mapToContents()
-                case .tvShows:
-                    results = networkService.favoriteTvShows(accountID: accountID, page: page, sortBy: nil).mapToContents()
-                default:
-                    break
-                }
+        switch sectionType {
+        case let .movieChart(movieChart):
+            results = networkService.movies(chart: movieChart,
+                                            page: page)
+                .map{ ($0.hasNextPage, $0.results) }
+        case let .tvShowChart(tvShowChart):
+            results = networkService.tvShows(chart: tvShowChart,
+                                             page: page)
+                .map{ ($0.hasNextPage, $0.results) }
+        case let .movieInformation(info, id):
+            switch info {
+            case .recommendation:
+                results = networkService.movieRecommendations(id: id,
+                                                              page: page)
+                    .map{ ($0.hasNextPage, $0.results) }
             default:
                 break
             }
+        case let .tvShowInformation(info, id):
+            switch info {
+            case .recommendation:
+                results = networkService.tvShowRecommendations(id: id,
+                                                               page: page)
+                    .map{ ($0.hasNextPage, $0.results) }
+            default:
+                break
+            }
+        case .favorites:
+            guard let accountID = AuthManager.shared.auth?.accountID else { break }
+            switch ContentsType(rawValue: segmentIndex) {
+            case .movies:
+                results = networkService.favoriteMovies(accountID: accountID,
+                                                        page: page,
+                                                        sortBy: sort)
+                    .map{ ($0.hasNextPage, $0.results) }
+            case .tvShows:
+                results = networkService.favoriteTvShows(accountID: accountID,
+                                                         page: page,
+                                                         sortBy: sort)
+                    .map{ ($0.hasNextPage, $0.results) }
+            default:
+                break
+            }
+        default:
+            break
         }
-        Log.i("#id ------------------------------")
+        
         return results
+            .map { [weak self] hasNextPage, contents -> [PosterItemViewModel] in
+                guard let self = self else { return [] }
+                
+                self.hasNextPage = hasNextPage
+                let viewModels = contents?.map { PosterItemViewModel(with: $0, heroID: "\($0.id)") }
+                return viewModels ?? []
+            }
             .trackActivity(activityIndicator)
             .trackError(errorTracker)
-            .map { contents -> [PosterItemViewModel] in
-                contents.enumerated().forEach{ Log.i("#id\($0) : \($1.id)") }
-                let viewModels = contents.map { PosterItemViewModel(with: $0, heroID: "\($0.id)") }
-                return viewModels
-            }
     }
 }
