@@ -11,6 +11,7 @@ import RxCocoa
 import RxDataSources
 import FloatingPanel
 import Hero
+import Kingfisher
 
 class ContentDetailViewController: BaseViewController {
     var viewModel: ContentDetailViewModel!
@@ -50,16 +51,18 @@ class ContentDetailViewController: BaseViewController {
 
         let output = viewModel.transform(input: input)
         
-        output.posterImage
+        output.posterImageURL
+            .compactMap{ $0 }
             .asDriverOnErrorJustComplete()
-            .drive(blurPosterIv.rx.image)
+            .drive(blurPosterIv.kf.rx.image(placeholder: nil, options: [.transition(.fade(1))]))
             .disposed(by: disposeBag)
         
-        output.posterImage
+        output.posterImageURL
+            .compactMap{ $0 }
             .asDriverOnErrorJustComplete()
-            .drive(posterIv.rx.image)
+            .drive(posterIv.kf.rx.image(placeholder: nil, options: [.transition(.fade(1))]))
             .disposed(by: disposeBag)
-        
+
         output.sectionItems
             .asDriverOnErrorJustComplete()
             .map{ $0.map { $0.section } }

@@ -8,6 +8,7 @@
 import Foundation
 import Nuke
 import RxSwift
+import Kingfisher
 
 class ContentDetailViewModel: ViewModel {
     typealias DetailSectionItem = SectionItem<DetailSection, RowViewModel>
@@ -22,7 +23,7 @@ class ContentDetailViewModel: ViewModel {
     }
     
     struct Output {
-        let posterImage: Observable<UIImage>
+        let posterImageURL: Observable<URL?>
         let sectionItems: Observable<[DetailSectionItem]>
         let selectedContent: Observable<Content>
         let selectedSection: Observable<DetailSection>
@@ -45,18 +46,15 @@ class ContentDetailViewModel: ViewModel {
     }
     
     func transform(input: Input) -> Output {
-        let posterImageSubject = BehaviorSubject<UIImage?>(value: nil)
-        
-        let posterImage = input.ready
-            .compactMap { [weak self] in
-                guard let self = self else { return nil }
-                return self.content.posterPath
+        let posterImageURL = input.ready
+            .map { [weak self] _ -> URL? in
+                guard let self = self,
+                      let posterPath = self.content.posterPath,
+                      let url = URL(string: AppConstants.Domain.tmdbImage + posterPath) else {
+                          return nil
+                      }
+                return url
             }
-            .flatMap {
-                ImagePipeline.shared.rx.loadImage(with: AppConstants.Domain.tmdbImage + $0)
-            }
-            .map { $0.image }
-            .do(onNext: { posterImageSubject.onNext($0) })
         
         let sectionItems: Observable<[DetailSectionItem]>
         let updateTrigger = Observable.merge(input.ready, input.localizeChanged)
@@ -289,13 +287,13 @@ class ContentDetailViewModel: ViewModel {
             }
             .share()
         
-        let selectedShare = input.shareSelection
-            .do(onNext: { [weak self] in
+        let selectedShare = input.shareSelection.withLatestFrom(posterImageURL)
+            .do(onNext: { [weak self] url in
                 guard let self = self else { return }
                 var activityItems: [Any] = []
                 
-                if let image = try? posterImageSubject.value() {
-                    activityItems.append(image)
+                if let url = url {
+                    activityItems.append(url)
                 }
                 
                 if let title = self.content.title {
@@ -324,6 +322,6 @@ class ContentDetailViewModel: ViewModel {
             .disposed(by: disposeBag)
         
         
-        return Output(posterImage: posterImage, sectionItems: sectionItems, selectedContent: selectedContent, selectedSection: selectedSection, selectedAction: selectedAction, selectedShare: selectedShare, accountStates: accountStates)
+        return Output(posterImageURL: posterImageURL, sectionItems: sectionItems, selectedContent: selectedContent, selectedSection: selectedSection, selectedAction: selectedAction, selectedShare: selectedShare, accountStates: accountStates)
     }
 }
