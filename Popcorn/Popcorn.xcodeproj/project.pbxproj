@@ -41,7 +41,6 @@
 		CD0BA8E526E84AC50072C208 /* ReportCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD0BA8E226E84AA70072C208 /* ReportCell.xib */; };
 		CD0BA8E826E9C7740072C208 /* SynopsisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0BA8E626E9C7740072C208 /* SynopsisCell.swift */; };
 		CD0BA8EB26E9C7E50072C208 /* SynopsisItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0BA8EA26E9C7E50072C208 /* SynopsisItemViewModel.swift */; };
-		CD1B38CB274639970012CCF9 /* KingfisherExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1B38CA274639970012CCF9 /* KingfisherExtension.swift */; };
 		CD1B38CE27473D710012CCF9 /* RateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1B38CC27473D710012CCF9 /* RateViewController.swift */; };
 		CD1B38CF27473D710012CCF9 /* RateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD1B38CD27473D710012CCF9 /* RateViewController.xib */; };
 		CD1B38D1274778680012CCF9 /* RateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1B38D0274778680012CCF9 /* RateViewModel.swift */; };
@@ -211,7 +210,6 @@
 		CD0BA8E326E84AA70072C208 /* ReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCell.swift; sourceTree = "<group>"; };
 		CD0BA8E626E9C7740072C208 /* SynopsisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynopsisCell.swift; sourceTree = "<group>"; };
 		CD0BA8EA26E9C7E50072C208 /* SynopsisItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynopsisItemViewModel.swift; sourceTree = "<group>"; };
-		CD1B38CA274639970012CCF9 /* KingfisherExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherExtension.swift; sourceTree = "<group>"; };
 		CD1B38CC27473D710012CCF9 /* RateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateViewController.swift; sourceTree = "<group>"; };
 		CD1B38CD27473D710012CCF9 /* RateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RateViewController.xib; sourceTree = "<group>"; };
 		CD1B38D0274778680012CCF9 /* RateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateViewModel.swift; sourceTree = "<group>"; };
@@ -558,7 +556,6 @@
 				244AA2B025875B1800754687 /* UIViewExtension.swift */,
 				2480521B25CFE98400C9F5B2 /* DateExtension.swift */,
 				244BF51B25D2726100100C66 /* OptionalExtension.swift */,
-				CD1B38CA274639970012CCF9 /* KingfisherExtension.swift */,
 			);
 			name = Extensions;
 			path = Rx/Extensions;
@@ -1063,7 +1060,6 @@
 				CD9D5487273A63A7004B445A /* MyPageViewModel.swift in Sources */,
 				CD5D613026D8B13200FE3FB4 /* Chart.swift in Sources */,
 				CDE1D421272FAD7100AB04A2 /* SignViewModel.swift in Sources */,
-				CD1B38CB274639970012CCF9 /* KingfisherExtension.swift in Sources */,
 				CD71C1D826E5DD69006E40C2 /* TabItemViewModel.swift in Sources */,
 				CD576E0D27293F44006137E5 /* Auth.swift in Sources */,
 				CDFF300726CE430D001ABD89 /* HomeViewModel.swift in Sources */,
