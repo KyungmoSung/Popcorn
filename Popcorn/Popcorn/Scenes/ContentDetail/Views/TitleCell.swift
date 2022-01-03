@@ -23,6 +23,9 @@ class TitleCell: UICollectionViewCell {
     @IBOutlet weak var watchlistBtn: UIButton!
     @IBOutlet weak var shareBtn: UIButton!
     
+    @IBOutlet weak var rateIv: UIImageView!
+    @IBOutlet weak var favoriteIv: UIImageView!
+    @IBOutlet weak var watchlistIv: UIImageView!
     var actionSelection: Observable<ContentAction>?
     var shareSelection: Observable<Void>?
     
@@ -47,8 +50,9 @@ class TitleCell: UICollectionViewCell {
             .drive { [weak self] state in
                 guard let self = self else { return }
                 
-                self.favoriteBtn.isSelected = state.favorite ?? false
-                self.watchlistBtn.isSelected = state.watchlist ?? false
+//                rateIv.tintColor = (state.rated ?? false) ? .systemYellow : .secondaryLabel
+                self.favoriteIv.tintColor = (state.favorite ?? false) ? .systemPink : .secondaryLabel
+                self.watchlistIv.tintColor = (state.watchlist ?? false) ? .systemPurple : .secondaryLabel
             }
             .disposed(by: disposeBag)
     }

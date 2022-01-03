@@ -42,6 +42,9 @@
 		CD0BA8E826E9C7740072C208 /* SynopsisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0BA8E626E9C7740072C208 /* SynopsisCell.swift */; };
 		CD0BA8EB26E9C7E50072C208 /* SynopsisItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0BA8EA26E9C7E50072C208 /* SynopsisItemViewModel.swift */; };
 		CD1B38CB274639970012CCF9 /* KingfisherExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1B38CA274639970012CCF9 /* KingfisherExtension.swift */; };
+		CD1B38CE27473D710012CCF9 /* RateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1B38CC27473D710012CCF9 /* RateViewController.swift */; };
+		CD1B38CF27473D710012CCF9 /* RateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD1B38CD27473D710012CCF9 /* RateViewController.xib */; };
+		CD1B38D1274778680012CCF9 /* RateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1B38D0274778680012CCF9 /* RateViewModel.swift */; };
 		CD4D289626DF0D77008716BB /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D289526DF0D77008716BB /* Coordinator.swift */; };
 		CD4D289A26DF11E1008716BB /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D289926DF11E1008716BB /* HomeCoordinator.swift */; };
 		CD4D28A026DF1A57008716BB /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D289F26DF1A57008716BB /* TabBarCoordinator.swift */; };
@@ -121,6 +124,7 @@
 		CDD109B725B91AFC00225C4E /* Loadingable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD109B625B91AFC00225C4E /* Loadingable.swift */; };
 		CDD711A125CBE00200D025CB /* FloatingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD711A025CBE00200D025CB /* FloatingLayout.swift */; };
 		CDD9F66A25C153AF00B83536 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9F66925C153AF00B83536 /* AnyValue.swift */; };
+		CDDDC17E2747804D0071B2FF /* RateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDDC17D2747804D0071B2FF /* RateCoordinator.swift */; };
 		CDE1D413272A86DA00AB04A2 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D412272A86DA00AB04A2 /* AuthManager.swift */; };
 		CDE1D415272BAA9800AB04A2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D414272BAA9800AB04A2 /* User.swift */; };
 		CDE1D41A272FACD100AB04A2 /* SignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D418272FACD100AB04A2 /* SignViewController.swift */; };
@@ -208,6 +212,9 @@
 		CD0BA8E626E9C7740072C208 /* SynopsisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynopsisCell.swift; sourceTree = "<group>"; };
 		CD0BA8EA26E9C7E50072C208 /* SynopsisItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynopsisItemViewModel.swift; sourceTree = "<group>"; };
 		CD1B38CA274639970012CCF9 /* KingfisherExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherExtension.swift; sourceTree = "<group>"; };
+		CD1B38CC27473D710012CCF9 /* RateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateViewController.swift; sourceTree = "<group>"; };
+		CD1B38CD27473D710012CCF9 /* RateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RateViewController.xib; sourceTree = "<group>"; };
+		CD1B38D0274778680012CCF9 /* RateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateViewModel.swift; sourceTree = "<group>"; };
 		CD4D289526DF0D77008716BB /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CD4D289926DF11E1008716BB /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		CD4D289F26DF1A57008716BB /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
@@ -294,6 +301,7 @@
 		CDD109B625B91AFC00225C4E /* Loadingable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadingable.swift; sourceTree = "<group>"; };
 		CDD711A025CBE00200D025CB /* FloatingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLayout.swift; sourceTree = "<group>"; };
 		CDD9F66925C153AF00B83536 /* AnyValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
+		CDDDC17D2747804D0071B2FF /* RateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCoordinator.swift; sourceTree = "<group>"; };
 		CDE1D412272A86DA00AB04A2 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		CDE1D414272BAA9800AB04A2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CDE1D418272FACD100AB04A2 /* SignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewController.swift; sourceTree = "<group>"; };
@@ -370,6 +378,10 @@
 				CDE1D42E2732744100AB04A2 /* BackdropItemViewModel.swift */,
 				CD54010C26DC798D00EA9900 /* SectionHeaderViewModel.swift */,
 				CD54011026DC94AD00EA9900 /* Views */,
+				CD1B38CC27473D710012CCF9 /* RateViewController.swift */,
+				CD1B38CD27473D710012CCF9 /* RateViewController.xib */,
+				CD1B38D0274778680012CCF9 /* RateViewModel.swift */,
+				CDDDC17D2747804D0071B2FF /* RateCoordinator.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -857,6 +869,7 @@
 			files = (
 				24661379259867E4008B982B /* NanumBarunGothicRegular.ttf in Resources */,
 				CD9D5485273A636F004B445A /* MyPageViewController.xib in Resources */,
+				CD1B38CF27473D710012CCF9 /* RateViewController.xib in Resources */,
 				24661376259867E4008B982B /* NanumSquareLight.ttf in Resources */,
 				CDE1D41B272FACD100AB04A2 /* SignViewController.xib in Resources */,
 				CD71C1D626E5DD2D006E40C2 /* TabCell.xib in Resources */,
@@ -1019,6 +1032,7 @@
 				CD0BA8E426E84AA70072C208 /* ReportCell.swift in Sources */,
 				CDE1D423272FB51500AB04A2 /* SignCoordinator.swift in Sources */,
 				CD71C1D526E5DCDA006E40C2 /* TabCell.swift in Sources */,
+				CDDDC17E2747804D0071B2FF /* RateCoordinator.swift in Sources */,
 				CD87DE1526EB3E9B00C04FEB /* ContentListViewModel.swift in Sources */,
 				CD5D612626D7251800FE3FB4 /* TmdbService.swift in Sources */,
 				CDFF2FA426BA6769001ABD89 /* HomeViewController.swift in Sources */,
@@ -1076,8 +1090,10 @@
 				CDB6D3D5254A9927001B0AEB /* Constants.swift in Sources */,
 				CDB6D35F254A5CE9001B0AEB /* AppDelegate.swift in Sources */,
 				CDB6D361254A5CE9001B0AEB /* SceneDelegate.swift in Sources */,
+				CD1B38D1274778680012CCF9 /* RateViewModel.swift in Sources */,
 				CD71C1C926E5CF33006E40C2 /* VideoCell.swift in Sources */,
 				CDFF2FF226CCF603001ABD89 /* Section.swift in Sources */,
+				CD1B38CE27473D710012CCF9 /* RateViewController.swift in Sources */,
 				CD9D5489273A63B4004B445A /* MyPageCoordinator.swift in Sources */,
 				CDE1D425272FC04000AB04A2 /* RecommendViewModel.swift in Sources */,
 				242D62FE25939D5100450120 /* NumberExtension.swift in Sources */,
@@ -1295,6 +1311,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YV47R3P48P;
 				INFOPLIST_FILE = Popcorn/SupportFiles/Info.plist;
@@ -1305,6 +1322,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.kmsung.popcorn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1317,6 +1335,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YV47R3P48P;
 				INFOPLIST_FILE = Popcorn/SupportFiles/Info.plist;
@@ -1327,6 +1346,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.kmsung.popcorn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

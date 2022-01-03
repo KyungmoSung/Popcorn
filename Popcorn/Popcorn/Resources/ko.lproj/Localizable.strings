@@ -65,3 +65,6 @@ primaryReleaseDate = "첫 방영일";
 originalTitle = "원 제목";
 voteAverage = "평균 평점";
 voteCount = "평점 평가자 수";
+
+saveRate = "평점 등록";
+removeRate = "평점 제거";

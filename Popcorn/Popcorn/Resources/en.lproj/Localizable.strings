@@ -65,3 +65,6 @@ primaryReleaseDate = "Primary release date";
 originalTitle = "Original title";
 voteAverage = "Vote average";
 voteCount = "Vote count";
+
+saveRate = "Rate";
+removeRate = "Remove Rating";

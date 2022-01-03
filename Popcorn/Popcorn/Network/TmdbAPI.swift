@@ -250,6 +250,22 @@ extension TmdbAPI: TmdbAccountService {
             .asObservable()
     }
     
+    func rate(sessionID: String, type: ContentsType, id: Int, rateValue: Int) -> Observable<Void> {
+        return provider.rx
+            .request(.rate(sessionID: sessionID, type: type, id: id, rateValue: rateValue))
+            .retry(3)
+            .asObservable()
+            .mapToVoid()
+    }
+    
+    func deleteRating(sessionID: String, type: ContentsType, id: Int) -> Observable<Void> {
+        return provider.rx
+            .request(.deleteRating(sessionID: sessionID, type: type, id: id))
+            .retry(3)
+            .asObservable()
+            .mapToVoid()
+    }
+
     func markFavorite(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool) -> Observable<Void> {
         return provider.rx
             .request(.markFavorite(accountID: accountID, sessionID: sessionID, type: type, id: id, add: add))
@@ -281,7 +297,22 @@ extension TmdbAPI: TmdbAccountService {
             .map(PageResponse<TVShow>.self)
             .asObservable()
     }
-
+    
+    func ratedMovies(accountID: String, page: Int, sortBy: Sort?) -> Observable<PageResponse<Movie>> {
+        return provider.rx
+            .request(.rated(accountID: accountID, type: .movies, page: page, sortBy: sortBy))
+            .retry(3)
+            .map(PageResponse<Movie>.self)
+            .asObservable()
+    }
+    
+    func ratedTvShows(accountID: String, page: Int, sortBy: Sort?) -> Observable<PageResponse<TVShow>> {
+        return provider.rx
+            .request(.rated(accountID: accountID, type: .tvShows, page: page, sortBy: sortBy))
+            .retry(3)
+            .map(PageResponse<TVShow>.self)
+            .asObservable()
+    }
 }
 
 // MARK: - TmdbConfigService

@@ -42,7 +42,8 @@ class ContentDetailViewController: BaseViewController {
     }
     
     private func bindViewModel() {
-        let input = ContentDetailViewModel.Input(ready: rx.viewWillAppear.take(1).asObservable(),
+        let input = ContentDetailViewModel.Input(load: rx.viewWillAppear.take(1).asObservable(),
+                                                 appear: rx.viewWillAppear.asObservable(),
                                                  localizeChanged: localizeChanged.asObservable(),
                                                  headerSelection: selectedSection.asObservable(),
                                                  actionSelection: selectedAction.asObservable(),

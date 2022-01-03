@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Nuke
 import RxSwift
 import Kingfisher
 
@@ -14,7 +13,8 @@ class ContentDetailViewModel: ViewModel {
     typealias DetailSectionItem = SectionItem<DetailSection, RowViewModel>
     
     struct Input {
-        let ready: Observable<Void>
+        let load: Observable<Void>
+        let appear: Observable<Void>
         let localizeChanged: Observable<Void>
         let headerSelection: Observable<Int>
         let actionSelection: Observable<ContentAction>
@@ -46,7 +46,7 @@ class ContentDetailViewModel: ViewModel {
     }
     
     func transform(input: Input) -> Output {
-        let posterImageURL = input.ready
+        let posterImageURL = input.load
             .map { [weak self] _ -> URL? in
                 guard let self = self,
                       let posterPath = self.content.posterPath,
@@ -57,7 +57,7 @@ class ContentDetailViewModel: ViewModel {
             }
         
         let sectionItems: Observable<[DetailSectionItem]>
-        let updateTrigger = Observable.merge(input.ready, input.localizeChanged)
+        let updateTrigger = Observable.merge(input.load, input.localizeChanged)
 
         switch content {
         case let movie as Movie:
@@ -266,6 +266,7 @@ class ContentDetailViewModel: ViewModel {
                 
                 switch (action, sessionID, accountID) {
                 case let (.rate, sessionID?, accountID?):
+                    self.coordinator.showRatePopup(accountState: states)
                     return Observable.empty()
                 case let (.favorite, sessionID?, accountID?):
                     let isFavorite = states.favorite ?? false
@@ -304,22 +305,22 @@ class ContentDetailViewModel: ViewModel {
                     activityItems.append("(\(originalTitle))")
                 }
                 
-                self.coordinator.showRatePopup(activityItems: activityItems)
+                self.coordinator.showSharePopup(activityItems: activityItems)
             })
             .mapToVoid()
         
-        Observable.merge(input.ready, selectedAction)
-            .flatMap { [weak self] () -> Observable<AccountStates> in
-                guard let self = self, let sessionID = AuthManager.shared.auth?.sessionID else { return Observable.empty() }
-
-                return self.networkService.accountStates(sessionID: sessionID,
-                                                         type: self.content.contentType,
-                                                         id: self.content.id)
-                    .trackActivity(self.activityIndicator)
-                    .trackError(self.errorTracker)
-            }
-            .subscribe(onNext: accountStates.onNext(_:))
-            .disposed(by: disposeBag)
+                Observable.merge(input.appear.debug(), selectedAction)
+                .flatMap { [weak self] () -> Observable<AccountStates> in
+                    guard let self = self, let sessionID = AuthManager.shared.auth?.sessionID else { return Observable.empty() }
+                    
+                    return self.networkService.accountStates(sessionID: sessionID,
+                                                             type: self.content.contentType,
+                                                             id: self.content.id)
+                        .trackActivity(self.activityIndicator)
+                        .trackError(self.errorTracker)
+                }
+                .subscribe(onNext: accountStates.onNext(_:))
+                .disposed(by: disposeBag)
         
         
         return Output(posterImageURL: posterImageURL, sectionItems: sectionItems, selectedContent: selectedContent, selectedSection: selectedSection, selectedAction: selectedAction, selectedShare: selectedShare, accountStates: accountStates)

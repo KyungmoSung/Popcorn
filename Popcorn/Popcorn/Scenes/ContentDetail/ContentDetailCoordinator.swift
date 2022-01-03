@@ -46,14 +46,21 @@ class ContentDetailCoordinator: Coordinator {
         coordinator.start()
     }
     
-    func showRatePopup(activityItems: [Any]) {
+    func showRatePopup(accountState: AccountStates) {
+        let coordinator = RateCoordinator(content: content,
+                                          accountState: accountState,
+                                          navigationController: navigationController,
+                                          service: service)
+        coordinator.start()
+    }
+    
+    func showSharePopup(activityItems: [Any]) {
         guard let viewController = viewController else { return }
         
         let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = viewController.view
 
         viewController.present(activityVC, animated: true, completion: nil)
-
     }
                                                  
     func listSection(for detailSection: DetailSection) -> ListSection {

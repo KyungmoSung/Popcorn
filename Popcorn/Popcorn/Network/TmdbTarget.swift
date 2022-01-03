@@ -43,9 +43,12 @@ enum TmdbTarget {
     case accountProfile(sessionID: String)
     case accountStates(sessionID: String, type: ContentsType, id: Int)
     case accountRecommendations(accountID: String, type: ContentsType, page: Int, sortBy: Sort?)
+    case rate(sessionID: String, type: ContentsType, id: Int, rateValue: Int)
+    case deleteRating(sessionID: String, type: ContentsType, id: Int)
     case markFavorite(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool)
     case markWatchlist(accountID: String, sessionID: String, type: ContentsType, id: Int, add: Bool)
     case favorites(accountID: String, type: ContentsType, page: Int, sortBy: Sort?)
+    case rated(accountID: String, type: ContentsType, page: Int, sortBy: Sort?)
 }
 
 extension TmdbTarget: TargetType {
@@ -55,35 +58,38 @@ extension TmdbTarget: TargetType {
     
     var path: String {
         switch self {
-        case .languages:                                        return "/3/configuration/languages"
-        case .countries:                                        return "/3/configuration/countries"
-        case .jobs:                                             return "/3/configuration/jobs"
-        case let .genres(type):                                 return "/3/genre/\(type.path)/list"
+        case .languages:                                            return "/3/configuration/languages"
+        case .countries:                                            return "/3/configuration/countries"
+        case .jobs:                                                 return "/3/configuration/jobs"
+        case let .genres(type):                                     return "/3/genre/\(type.path)/list"
         
-        case let .movies(chart, _, _, _):                       return "/3/movie/\(chart.path)"
+        case let .movies(chart, _, _, _):                           return "/3/movie/\(chart.path)"
             
-        case let .tvShows(chart, _, _, _):                      return "/3/tv/\(chart.path)"
-        case let .episodeGroups(id):                            return "/3/tv/\(id)/episode_groups"
+        case let .tvShows(chart, _, _, _):                          return "/3/tv/\(chart.path)"
+        case let .episodeGroups(id):                                return "/3/tv/\(id)/episode_groups"
         
-        case let .details(type, id, _):                         return "/3/\(type.path)/\(id)"
-        case let .credits(type, id, _):                         return "/3/\(type.path)/\(id)/credits"
-        case let .videos(type, id, _):                          return "/3/\(type.path)/\(id)/videos"
-        case let .images(type, id, _):                          return "/3/\(type.path)/\(id)/images"
-        case let .recommendations(type, id, _, _):              return "/3/\(type.path)/\(id)/recommendations"
-        case let .similar(type, id, _, _):                      return "/3/\(type.path)/\(id)/similar"
-        case let .reviews(type, id, _, _):                      return "/3/\(type.path)/\(id)/reviews"
+        case let .details(type, id, _):                             return "/3/\(type.path)/\(id)"
+        case let .credits(type, id, _):                             return "/3/\(type.path)/\(id)/credits"
+        case let .videos(type, id, _):                              return "/3/\(type.path)/\(id)/videos"
+        case let .images(type, id, _):                              return "/3/\(type.path)/\(id)/images"
+        case let .recommendations(type, id, _, _):                  return "/3/\(type.path)/\(id)/recommendations"
+        case let .similar(type, id, _, _):                          return "/3/\(type.path)/\(id)/similar"
+        case let .reviews(type, id, _, _):                          return "/3/\(type.path)/\(id)/reviews"
             
-        case .createRequestToken:                               return "/4/auth/request_token"
-        case .createAccessToken:                                return "/4/auth/access_token"
-        case .createSession:                                    return "/3/authentication/session/convert/4"
+        case .createRequestToken:                                   return "/4/auth/request_token"
+        case .createAccessToken:                                    return "/4/auth/access_token"
+        case .createSession:                                        return "/3/authentication/session/convert/4"
             
-        case .accountProfile:                                   return "/3/account"
-        case let .accountStates(_, type, id):                    return "/3/\(type.path)/\(id)/account_states"
-        case let .accountRecommendations(accountID, type, _, _):   return "/4/account/\(accountID)/\(type.path)/recommendations"
-        case let .markFavorite(accountID, _, _, _, _):          return "/3/account/\(accountID)/favorite"
-        case let .markWatchlist(accountID, _, _, _, _):         return "/3/account/\(accountID)/watchlist"
+        case .accountProfile:                                       return "/3/account"
+        case let .accountStates(_, type, id):                       return "/3/\(type.path)/\(id)/account_states"
+        case let .accountRecommendations(accountID, type, _, _):    return "/4/account/\(accountID)/\(type.path)/recommendations"
+        case let .rate(_, type, id, _):                             return "/3/\(type.path)/\(id)/rating"
+        case let .deleteRating(_, type, id):                        return "/3/\(type.path)/\(id)/rating"
+        case let .markFavorite(accountID, _, _, _, _):              return "/3/account/\(accountID)/favorite"
+        case let .markWatchlist(accountID, _, _, _, _):             return "/3/account/\(accountID)/watchlist"
             
-        case let .favorites(accountID, type, _, _):              return "/4/account/\(accountID)/\(type.path)/favorites"
+        case let .favorites(accountID, type, _, _):                 return "/4/account/\(accountID)/\(type.path)/favorites"
+        case let .rated(accountID, type, _, _):                     return "4/account/\(accountID)/\(type.path)/rated"
         }
     }
     
@@ -92,9 +98,12 @@ extension TmdbTarget: TargetType {
         case .createRequestToken,
                 .createAccessToken,
                 .createSession,
+                .rate,
                 .markFavorite,
                 .markWatchlist:
             return .post
+        case .deleteRating:
+            return .delete
         default:
             return .get
         }
@@ -138,6 +147,11 @@ extension TmdbTarget: TargetType {
             params["account_id"] = accountID
             params["page"] = page
             params["sort_by"] = sort?.param
+        case let .rate(sessionID, _, _, rateValue):
+            params["session_id"] = sessionID
+            bodyParams["value"] = rateValue
+        case let .deleteRating(sessionID, _, _):
+            params["session_id"] = sessionID
         case let .markFavorite(_, sessionID, type, id, add):
             bodyParams["media_type"] = type.path
             bodyParams["media_id"] = id
@@ -153,13 +167,17 @@ extension TmdbTarget: TargetType {
         case let .favorites(_, _, page, sort):
             params["page"] = page
             params["sort_by"] = sort?.param
+        case let .rated(_, _, page, sort):
+            params["page"] = page
+            params["sort_by"] = sort?.param
         default:
             break
         }
         
-        if !bodyParams.isEmpty, let jsonData = bodyParams.toJsonData() {
-            return .requestCompositeData(bodyData: jsonData,
-                                         urlParameters: params)
+        if !bodyParams.isEmpty {
+            return .requestCompositeParameters(bodyParameters: bodyParams,
+                                               bodyEncoding: JSONEncoding.default,
+                                               urlParameters: params)
         } else {
             return .requestParameters(parameters: params,
                                       encoding: URLEncoding.default)

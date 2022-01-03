@@ -31,18 +31,24 @@ class MyPageCoordinator: Coordinator {
         coordinator.startOnTabBar(currentCoordinator: self)
     }
     
-    func showFavorite(){
+    func showFavorite() {
         let coordinator = ContentListCoordinator(sectionType: .favorites,
                                                  navigationController: navigationController,
                                                  service: service)
         coordinator.start()
     }
     
-    func showWatchlist(){
-        Log.d("showWatchlist")
+    func showWatchlist() {
+        let coordinator = ContentListCoordinator(sectionType: .watchlist,
+                                                 navigationController: navigationController,
+                                                 service: service)
+        coordinator.start()
     }
     
-    func showRated(){
-        Log.d("showRated")
+    func showRated() {
+        let coordinator = ContentListCoordinator(sectionType: .rated,
+                                                 navigationController: navigationController,
+                                                 service: service)
+        coordinator.start()
     }
 }

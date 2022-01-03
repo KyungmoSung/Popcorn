@@ -148,8 +148,12 @@ class ContentListViewModel: ViewModel {
                 break
             }
         case .favorites:
-            guard let accountID = AuthManager.shared.auth?.accountID else { break }
-            switch ContentsType(rawValue: segmentIndex) {
+            guard let accountID = AuthManager.shared.auth?.accountID,
+                  let contentsType = ContentsType(rawValue: segmentIndex) else {
+                      break
+                  }
+            
+            switch contentsType {
             case .movies:
                 results = networkService.favoriteMovies(accountID: accountID,
                                                         page: page,
@@ -160,8 +164,24 @@ class ContentListViewModel: ViewModel {
                                                          page: page,
                                                          sortBy: sort)
                     .map{ ($0.hasNextPage, $0.results) }
-            default:
-                break
+            }
+        case .rated:
+            guard let accountID = AuthManager.shared.auth?.accountID,
+                  let contentsType = ContentsType(rawValue: segmentIndex) else {
+                      break
+                  }
+            
+            switch contentsType {
+            case .movies:
+                results = networkService.ratedMovies(accountID: accountID,
+                                                        page: page,
+                                                        sortBy: sort)
+                    .map{ ($0.hasNextPage, $0.results) }
+            case .tvShows:
+                results = networkService.ratedTvShows(accountID: accountID,
+                                                         page: page,
+                                                         sortBy: sort)
+                    .map{ ($0.hasNextPage, $0.results) }
             }
         default:
             break
