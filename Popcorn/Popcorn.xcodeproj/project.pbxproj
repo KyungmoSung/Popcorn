@@ -49,7 +49,6 @@
 		CD4D28A026DF1A57008716BB /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D289F26DF1A57008716BB /* TabBarCoordinator.swift */; };
 		CD4D28A326DF1E82008716BB /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D28A226DF1E82008716BB /* SplashViewModel.swift */; };
 		CD4D28A526DF333F008716BB /* SplashCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D28A426DF333F008716BB /* SplashCoordinator.swift */; };
-		CD4D28AA26DF6F98008716BB /* ContentDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D28A926DF6F98008716BB /* ContentDetailViewModel.swift */; };
 		CD4D28AC26DF7144008716BB /* ContentDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D28AB26DF7144008716BB /* ContentDetailCoordinator.swift */; };
 		CD4D28AD26E04A59008716BB /* ContentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D28A726DF6D85008716BB /* ContentDetailViewController.swift */; };
 		CD4D28B126E0A2A3008716BB /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D28AF26E0A2A3008716BB /* TitleCell.swift */; };
@@ -66,7 +65,6 @@
 		CD5D613026D8B13200FE3FB4 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D612F26D8B13200FE3FB4 /* Chart.swift */; };
 		CD67044426D38BDB00FA622E /* RxExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD67044326D38BDB00FA622E /* RxExtension.swift */; };
 		CD67044826D5CA6D00FA622E /* TmdbTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD67044726D5CA6D00FA622E /* TmdbTarget.swift */; };
-		CD71C1B926E1EAE9006E40C2 /* ContentDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4D28A826DF6E05008716BB /* ContentDetailViewController.xib */; };
 		CD71C1BA26E1EB10006E40C2 /* TitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4D28B526E0A8E7008716BB /* TitleCell.xib */; };
 		CD71C1BE26E5919B006E40C2 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C1BD26E5919B006E40C2 /* CollectionExtension.swift */; };
 		CD71C1C126E5A024006E40C2 /* CreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C1C026E5A024006E40C2 /* CreditCell.swift */; };
@@ -137,6 +135,7 @@
 		CDE1D42B27321BEA00AB04A2 /* SectionLineFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D42A27321BEA00AB04A2 /* SectionLineFooterView.swift */; };
 		CDE1D42D27321C2E00AB04A2 /* SectionLineFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE1D42C27321BED00AB04A2 /* SectionLineFooterView.xib */; };
 		CDE1D42F2732744100AB04A2 /* BackdropItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1D42E2732744100AB04A2 /* BackdropItemViewModel.swift */; };
+		CDE520FB2782D3C500121461 /* ContentDetailViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE520FA2782D3C500121461 /* ContentDetailViewReactor.swift */; };
 		CDFF2FA426BA6769001ABD89 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FA226BA6768001ABD89 /* HomeViewController.swift */; };
 		CDFF2FA526BA6769001ABD89 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFF2FA326BA6768001ABD89 /* HomeViewController.xib */; };
 		CDFF2FF026CCF5F8001ABD89 /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFF2FEF26CCF5F8001ABD89 /* SectionItem.swift */; };
@@ -219,8 +218,6 @@
 		CD4D28A226DF1E82008716BB /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		CD4D28A426DF333F008716BB /* SplashCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashCoordinator.swift; sourceTree = "<group>"; };
 		CD4D28A726DF6D85008716BB /* ContentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetailViewController.swift; sourceTree = "<group>"; };
-		CD4D28A826DF6E05008716BB /* ContentDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentDetailViewController.xib; sourceTree = "<group>"; };
-		CD4D28A926DF6F98008716BB /* ContentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetailViewModel.swift; sourceTree = "<group>"; };
 		CD4D28AB26DF7144008716BB /* ContentDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetailCoordinator.swift; sourceTree = "<group>"; };
 		CD4D28AF26E0A2A3008716BB /* TitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 		CD4D28B326E0A2D9008716BB /* TitleItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleItemViewModel.swift; sourceTree = "<group>"; };
@@ -313,6 +310,7 @@
 		CDE1D42A27321BEA00AB04A2 /* SectionLineFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionLineFooterView.swift; sourceTree = "<group>"; };
 		CDE1D42C27321BED00AB04A2 /* SectionLineFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionLineFooterView.xib; sourceTree = "<group>"; };
 		CDE1D42E2732744100AB04A2 /* BackdropItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackdropItemViewModel.swift; sourceTree = "<group>"; };
+		CDE520FA2782D3C500121461 /* ContentDetailViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetailViewReactor.swift; sourceTree = "<group>"; };
 		CDFF2FA226BA6768001ABD89 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CDFF2FA326BA6768001ABD89 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		CDFF2FEF26CCF5F8001ABD89 /* SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
@@ -411,8 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				CD4D28A726DF6D85008716BB /* ContentDetailViewController.swift */,
-				CD4D28A826DF6E05008716BB /* ContentDetailViewController.xib */,
-				CD4D28A926DF6F98008716BB /* ContentDetailViewModel.swift */,
+				CDE520FA2782D3C500121461 /* ContentDetailViewReactor.swift */,
 				CD4D28AB26DF7144008716BB /* ContentDetailCoordinator.swift */,
 				CD71C1C226E5A049006E40C2 /* CreditItemViewModel.swift */,
 				CD4D28B326E0A2D9008716BB /* TitleItemViewModel.swift */,
@@ -894,7 +891,6 @@
 				CDFF2FA526BA6769001ABD89 /* HomeViewController.xib in Resources */,
 				CDE1D42D27321C2E00AB04A2 /* SectionLineFooterView.xib in Resources */,
 				CD71C1BA26E1EB10006E40C2 /* TitleCell.xib in Resources */,
-				CD71C1B926E1EAE9006E40C2 /* ContentDetailViewController.xib in Resources */,
 				CD87DE1226EB3E6100C04FEB /* ContentListViewController.xib in Resources */,
 				24661373259867E4008B982B /* NanumBarunGothicUltraLight.ttf in Resources */,
 			);
@@ -1027,6 +1023,7 @@
 				CD5D612A26D7685300FE3FB4 /* BaseViewController.swift in Sources */,
 				CD5D612826D725F100FE3FB4 /* TmdbAPI.swift in Sources */,
 				CD0BA8E426E84AA70072C208 /* ReportCell.swift in Sources */,
+				CDE520FB2782D3C500121461 /* ContentDetailViewReactor.swift in Sources */,
 				CDE1D423272FB51500AB04A2 /* SignCoordinator.swift in Sources */,
 				CD71C1D526E5DCDA006E40C2 /* TabCell.swift in Sources */,
 				CDDDC17E2747804D0071B2FF /* RateCoordinator.swift in Sources */,
@@ -1103,7 +1100,6 @@
 				CDE1D427272FC04D00AB04A2 /* RecommendCoordinator.swift in Sources */,
 				CDAB6CFC2738E0E9005AA082 /* AccountStates.swift in Sources */,
 				246CAD2425C984CF00288F4B /* Language.swift in Sources */,
-				CD4D28AA26DF6F98008716BB /* ContentDetailViewModel.swift in Sources */,
 				CD87DE1D26F1AECD00C04FEB /* ViewModel.swift in Sources */,
 				CD4D28A326DF1E82008716BB /* SplashViewModel.swift in Sources */,
 				24C95D802599B0290020C15C /* Enums.swift in Sources */,

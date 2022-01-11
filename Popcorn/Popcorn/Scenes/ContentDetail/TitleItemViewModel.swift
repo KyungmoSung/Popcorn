@@ -13,7 +13,7 @@ final class TitleItemViewModel: RowViewModel {
     private let releaseDate: Date?
     private let originalTitle: String?
     private let voteAverage: Double?
-    let state: Observable<AccountStates>
+//    let state: Observable<AccountStates>
     
     var subTitle: String {
         if let date = releaseDate, let originalTitle = originalTitle {
@@ -35,12 +35,11 @@ final class TitleItemViewModel: RowViewModel {
         }
     }
     
-    init(with content: Content, state: Observable<AccountStates>) {
+    init(with content: Content) {
         self.title = content.title
         self.releaseDate = content.releaseDate?.dateValue()
         self.originalTitle = content.originalTitle
         self.voteAverage = content.voteAverage
-        self.state = state
         
         super.init(identity: title)
     }

@@ -45,16 +45,16 @@ class TitleCell: UICollectionViewCell {
         
         shareSelection = shareBtn.rx.tap.asObservable()
         
-        viewModel.state
-            .asDriverOnErrorJustComplete()
-            .drive { [weak self] state in
-                guard let self = self else { return }
-                
-//                rateIv.tintColor = (state.rated ?? false) ? .systemYellow : .secondaryLabel
-                self.favoriteIv.tintColor = (state.favorite ?? false) ? .systemPink : .secondaryLabel
-                self.watchlistIv.tintColor = (state.watchlist ?? false) ? .systemPurple : .secondaryLabel
-            }
-            .disposed(by: disposeBag)
+//        viewModel.state
+//            .asDriverOnErrorJustComplete()
+//            .drive { [weak self] state in
+//                guard let self = self else { return }
+//                
+////                rateIv.tintColor = (state.rated ?? false) ? .systemYellow : .secondaryLabel
+//                self.favoriteIv.tintColor = (state.favorite ?? false) ? .systemPink : .secondaryLabel
+//                self.watchlistIv.tintColor = (state.watchlist ?? false) ? .systemPurple : .secondaryLabel
+//            }
+//            .disposed(by: disposeBag)
     }
     
     override func prepareForReuse() {

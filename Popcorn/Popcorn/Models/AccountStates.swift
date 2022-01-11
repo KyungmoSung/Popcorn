@@ -10,21 +10,21 @@ import Foundation
 // MARK: - AccountStates
 struct AccountStates: Codable {
     let id: Int?
-    let favorite: Bool?
-    let rated: AnyValue?
-    let watchlist: Bool?
+    var rated: AnyValue?
+    var favorite: Bool
+    var watchlist: Bool
 
     init() {
         id = nil
-        favorite = nil
         rated = nil
-        watchlist = nil
+        favorite = false
+        watchlist = false
     }
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
-        case favorite = "favorite"
         case rated = "rated"
+        case favorite = "favorite"
         case watchlist = "watchlist"
     }
 }

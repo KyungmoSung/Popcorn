@@ -24,8 +24,8 @@ class ContentDetailCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = ContentDetailViewModel(with: content, heroID: heroID, coordinator: self)
-        viewController = ContentDetailViewController(viewModel: viewModel)
+        let reactor = ContentDetailViewReactor(with: content, heroID: heroID, coordinator: self)
+        viewController = ContentDetailViewController(reactor: reactor)
         
         navigationController.hero.navigationAnimationType = .fade
         navigationController.pushViewController(viewController!, animated: true)
@@ -40,10 +40,10 @@ class ContentDetailCoordinator: Coordinator {
     }
     
     func showList(section: DetailSection) {
-        let coordinator = ContentListCoordinator(sectionType: listSection(for: section),
-                                                 navigationController: navigationController,
-                                                 service: service)
-        coordinator.start()
+//        let coordinator = ContentListCoordinator(sectionType: listSection(for: section),
+//                                                 navigationController: navigationController,
+//                                                 service: service)
+//        coordinator.start()
     }
     
     func showRatePopup(accountState: AccountStates) {
@@ -63,12 +63,12 @@ class ContentDetailCoordinator: Coordinator {
         viewController.present(activityVC, animated: true, completion: nil)
     }
                                                  
-    func listSection(for detailSection: DetailSection) -> ListSection {
-        switch detailSection {
-        case .movie(let info):
-            return .movieInformation(info, content.id)
-        case .tvShow(let info):
-            return .tvShowInformation(info, content.id)
-        }
-    }
+//    func listSection(for detailSection: DetailSection) -> ListSection {
+//        switch detailSection {
+//        case .movie(let info):
+//            return .movieInformation(info, content.id)
+//        case .tvShow(let info):
+//            return .tvShowInformation(info, content.id)
+//        }
+//    }
 }
