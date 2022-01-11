@@ -16,6 +16,7 @@ target 'Popcorn' do
   pod 'Moya/RxSwift',   '~> 15.0'
   pod 'RxKingfisher',   '~> 2.1'
   
+  pod 'SnapKit',        '~> 5.0.0'
   pod 'Hero'
   pod 'FloatingPanel'
   pod 'SkeletonView'
