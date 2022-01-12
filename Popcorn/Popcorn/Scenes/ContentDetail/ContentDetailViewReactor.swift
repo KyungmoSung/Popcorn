@@ -15,19 +15,16 @@ final class ContentDetailViewReactor: Reactor {
         case load
         case appear
         case localizeChanged
-        case selectHeader(Int)
-//        case selectAction(ContentAction)
-        case rating
-        case share
         case markFavorite
         case markWatchList
+        case selectHeader(Int)
         case selectItem(RowViewModel)
     }
     
     enum Mutation {
         case setPosterImageURL(String?)
         case setLoading(Bool)
-        case setTitle(Content)
+        case setTitle(Content, AccountStates)
         case setSynopsis(String?, String?)
         case setReports([Report])
         case setCredits([Person])
@@ -38,15 +35,12 @@ final class ContentDetailViewReactor: Reactor {
         case setReviews([Review])
         case setFavorite(Bool)
         case setWatchList(Bool)
+        case setAccountStates(AccountStates)
     }
     
     struct State {
         var posterImageURL: URL?
         var sectionItems: [DetailSectionItem] = []
-//        var selectedContent: Content
-//        let selectedSection: DetailSection
-//        let selectedAction: Void
-//        let selectedShare: Void
         var accountStates: AccountStates = AccountStates()
         var isLoading: Bool = false
     }
@@ -67,19 +61,28 @@ final class ContentDetailViewReactor: Reactor {
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
+        let id = content.id
+        let type = content.contentType
+        let sessionID = AuthManager.shared.auth?.sessionID
+        
         switch action {
         case .load:
             let details: Observable<Mutation>
-            switch content {
-            case let movie as Movie:
-                let id = movie.id
+            switch type {
+            case .movies:
                 details = Observable.merge(
-                    networkService.movieDetails(id: id)
+                    Observable.zip(
+                        networkService.movieDetails(id: id),
+                        networkService.accountStates(sessionID: sessionID,
+                                                     type: type,
+                                                     id: id)
+                    )
                         .trackActivity(activityIndicator)
-                        .flatMap {
-                            Observable.of(Mutation.setTitle($0),
-                                          Mutation.setSynopsis($0.tagline, $0.overview),
-                                          Mutation.setReports($0.reports))
+                        .flatMap { (movie, states) in
+                            Observable.of(Mutation.setTitle(movie, states),
+                                          Mutation.setSynopsis(movie.tagline, movie.overview),
+                                          Mutation.setReports(movie.reports),
+                                          Mutation.setAccountStates(states))
                         },
                     networkService.movieCredits(id: id)
                         .trackActivity(activityIndicator)
@@ -103,15 +106,20 @@ final class ContentDetailViewReactor: Reactor {
                         .mapToResults()
                         .map { Mutation.setReviews($0) }
                 )
-            case let tvShow as TVShow:
-                let id = tvShow.id
+            case .tvShows:
                 details = Observable.merge(
-                    networkService.tvShowDetails(id: id)
+                    Observable.zip(
+                        networkService.tvShowDetails(id: id),
+                        networkService.accountStates(sessionID: sessionID,
+                                                     type: .tvShows,
+                                                     id: id)
+                    )
                         .trackActivity(activityIndicator)
-                        .flatMap {
-                            Observable.of(Mutation.setTitle($0),
-                                          Mutation.setSynopsis($0.tagline, $0.overview),
-                                          Mutation.setReports($0.reports))
+                        .flatMap { (tv, states) in
+                            Observable.of(Mutation.setTitle(tv, states),
+                                          Mutation.setSynopsis(tv.tagline, tv.overview),
+                                          Mutation.setReports(tv.reports),
+                                          Mutation.setAccountStates(states))
                         },
                     networkService.tvShowCredits(id: id)
                         .trackActivity(activityIndicator)
@@ -135,8 +143,6 @@ final class ContentDetailViewReactor: Reactor {
                         .mapToResults()
                         .map { Mutation.setReviews($0) }
                 )
-            default:
-                details = .empty()
             }
             
             return Observable.merge(
@@ -153,29 +159,6 @@ final class ContentDetailViewReactor: Reactor {
             let section = currentState.sectionItems[index].section
             coordinator.showList(section: section)
             
-            return .empty()
-        case .rating:
-            let states = currentState.accountStates
-            coordinator.showRatePopup(accountState: states)
-            return .empty()
-        case .share:
-            let url = currentState.posterImageURL
-            var activityItems: [Any] = []
-            
-            if let url = url {
-                activityItems.append(url)
-            }
-            
-            if let title = self.content.title {
-                activityItems.append(title)
-            }
-            
-            if let originalTitle = self.content.originalTitle, originalTitle != self.content.title {
-                activityItems.append("(\(originalTitle))")
-            }
-            
-            self.coordinator.showSharePopup(activityItems: activityItems)
-
             return .empty()
         case .markFavorite:
             guard let auth = AuthManager.shared.auth,
@@ -227,9 +210,9 @@ final class ContentDetailViewReactor: Reactor {
         case .setLoading(let isLoading):
             newState.isLoading = isLoading
             
-        case .setTitle(let content):
+        case .setTitle(let content, let states):
             let item = DetailSectionItem(section: .title,
-                                         items: [TitleItemViewModel(with: content)])
+                                         items: [TitleCellReactor(with: content, rated: states.rated, coordinator: coordinator)])
             updatedSectionItems(&newState.sectionItems, with: item)
             
         case .setSynopsis(let tagline, let overview):
@@ -288,7 +271,13 @@ final class ContentDetailViewReactor: Reactor {
             
         case .setWatchList(let isWatchList):
             newState.accountStates.watchlist = isWatchList
+                
+        case .setAccountStates(let states):
+            newState.accountStates = states
             
+            let item = DetailSectionItem(section: .title,
+                                         items: [TitleCellReactor(with: content, rated: states.rated, coordinator: coordinator)])
+            updatedSectionItems(&newState.sectionItems, with: item)
         default:
             break
         }
@@ -297,8 +286,8 @@ final class ContentDetailViewReactor: Reactor {
     }
     
     private func updatedSectionItems(_ sectionItems: inout [DetailSectionItem], with sectionItem: DetailSectionItem) {
-        if var section = sectionItems.first(where: { $0.section == sectionItem.section }) {
-            section.items = sectionItem.items
+        if let index = sectionItems.firstIndex(where: { $0.section == sectionItem.section }) {
+            sectionItems[index].items = sectionItem.items
         } else {
             sectionItems.append(sectionItem)
             sectionItems.sort(by: { $0.section.rawValue < $1.section.rawValue })

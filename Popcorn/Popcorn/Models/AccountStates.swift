@@ -10,30 +10,25 @@ import Foundation
 // MARK: - AccountStates
 struct AccountStates: Codable {
     let id: Int?
-    var rated: AnyValue?
     var favorite: Bool
     var watchlist: Bool
+    private var ratedInfo: AnyValue?
+    
+    var rated: Double? {
+        return ratedInfo?.dictValue?["value"]?.doubleValue
+    }
 
     init() {
         id = nil
-        rated = nil
+        ratedInfo = nil
         favorite = false
         watchlist = false
     }
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
-        case rated = "rated"
+        case ratedInfo = "rated"
         case favorite = "favorite"
         case watchlist = "watchlist"
-    }
-}
-
-// MARK: - Rated
-struct Rated: Codable {
-    let value: Int?
-
-    enum CodingKeys: String, CodingKey {
-        case value = "value"
     }
 }

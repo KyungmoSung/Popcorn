@@ -25,12 +25,12 @@ class RateViewModel: ViewModel {
     }
     
     private let coordinator: RateCoordinator
-    private let accountState: AccountStates
+    private let rated: Double?
     private let content: Content
     
-    init(with content: Content, accountState: AccountStates, networkService: TmdbService, coordinator: RateCoordinator) {
+    init(with content: Content, rated: Double?, networkService: TmdbService, coordinator: RateCoordinator) {
         self.content = content
-        self.accountState = accountState
+        self.rated = rated
         self.coordinator = coordinator
         super.init(networkService: networkService)
     }
@@ -81,7 +81,7 @@ class RateViewModel: ViewModel {
         let rate = input.rateValue
             .skip(1)
             .map{ Int(round($0)) }
-            .startWith(self.accountState.rated?.dictValue?["value"]?.intValue ?? 0)
+            .startWith(Int(self.rated ?? 0))
         
         // 슬라이더 값에 따라 세팅할 Star 이미지
         let starImageNames = input.rateValue
@@ -109,8 +109,8 @@ class RateViewModel: ViewModel {
             .map{ $0 > 0 }
         
         // 삭제버튼 표시 여부
-        let deleteHidden = Observable.just(accountState)
-            .map{ $0.rated == nil || $0.rated?.boolValue == false }
+        let deleteHidden = Observable.just(rated)
+            .map{ $0 == nil }
         
         
         return Output(rate: rate, starImageNames: starImageNames, saveEnable: saveEnable, deleteHidden: deleteHidden)

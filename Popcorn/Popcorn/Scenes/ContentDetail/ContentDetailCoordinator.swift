@@ -46,11 +46,12 @@ class ContentDetailCoordinator: Coordinator {
 //        coordinator.start()
     }
     
-    func showRatePopup(accountState: AccountStates) {
+    func showRatePopup(rated: Double?, completion: (() -> Void)?) {
         let coordinator = RateCoordinator(content: content,
-                                          accountState: accountState,
+                                          rated: rated,
                                           navigationController: navigationController,
                                           service: service)
+        coordinator.completion = completion
         coordinator.start()
     }
     

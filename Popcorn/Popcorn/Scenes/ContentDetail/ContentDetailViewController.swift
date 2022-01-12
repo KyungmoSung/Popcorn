@@ -39,8 +39,8 @@ final class ContentDetailViewController: BaseViewController {
     // MARK: - Properties
     
     let selectedSection = PublishRelay<Int>()
-    let selectedAction = PublishRelay<ContentAction>()
-    let selectedShare = PublishRelay<Void>()
+//    let selectedAction = PublishRelay<ContentAction>()
+//    let selectedShare = PublishRelay<Void>()
     
     // MARK: - Initializer
     
@@ -167,17 +167,30 @@ extension ContentDetailViewController {
             let section = dataSource[indexPath.section].section
             
             switch (section, viewModel) {
-            case let (.title, viewModel as TitleItemViewModel):
+            case let (.title, cellReactor as TitleCellReactor):
                 let cell = collectionView.dequeueReusableCell(with: TitleCell.self, for: indexPath)
-                cell.bind(viewModel)
+                cell.reactor = cellReactor
                 
-                cell.actionSelection?
-                    .bind(to: self.selectedAction)
-                    .disposed(by: cell.disposeBag)
-                
-                cell.shareSelection?
-                    .bind(to: self.selectedShare)
-                    .disposed(by: cell.disposeBag)
+//                if let reactor = self.reactor {
+//                    cellReactor.action
+//                        .subscribe(onNext: { action in
+//                            switch action {
+//                            case .rating:
+//                                Observable.just(())
+//                                    .map { Reactor.Action.showRating }
+//                                    .bind(to: reactor.action)
+//                                    .disposed(by: cell.disposeBag)
+//                                
+//                            case .share:
+//                                Observable.just(())
+//                                    .map { Reactor.Action.share }
+//                                    .bind(to: reactor.action)
+//                                    .disposed(by: cell.disposeBag)
+//                            default:
+//                                break
+//                            }
+//                        }).disposed(by: cell.disposeBag)
+//                }
                 
                 return cell
             case let (.synopsis, viewModel as SynopsisItemViewModel):
@@ -350,28 +363,18 @@ extension ContentDetailViewController: View {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        selectedAction
-            .filter { $0 == .rate }
-            .map { _ in Reactor.Action.rating }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
         
-        selectedShare
-            .map { Reactor.Action.share }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        selectedAction
-            .filter { $0 == .favorite }
-            .map { _ in Reactor.Action.markFavorite }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        selectedAction
-            .filter { $0 == .watchlist }
-            .map { _ in Reactor.Action.markWatchList }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
+//        selectedAction
+//            .filter { $0 == .favorite }
+//            .map { _ in Reactor.Action.markFavorite }
+//            .bind(to: reactor.action)
+//            .disposed(by: disposeBag)
+//
+//        selectedAction
+//            .filter { $0 == .watchlist }
+//            .map { _ in Reactor.Action.markWatchList }
+//            .bind(to: reactor.action)
+//            .disposed(by: disposeBag)
         
         collectionView.rx.modelSelected(RowViewModel.self)
             .map { Reactor.Action.selectItem($0) }
@@ -403,8 +406,8 @@ extension ContentDetailViewController: View {
             .disposed(by: disposeBag)
 
         reactor.state
-            .debug("datasource")
             .map { $0.sectionItems }
+            .debug("datasource")
             .asDriverOnErrorJustComplete()
             .drive(collectionView.rx.items(dataSource: dataSource()))
             .disposed(by: disposeBag)

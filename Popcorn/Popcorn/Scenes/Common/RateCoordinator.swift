@@ -14,17 +14,18 @@ class RateCoordinator: Coordinator {
     
     let service: TmdbService
     let content: Content
-    let accountState: AccountStates
+    let rated: Double?
+    var completion: (() -> Void)?
     
-    init(content: Content, accountState: AccountStates, navigationController: UINavigationController, service: TmdbService) {
+    init(content: Content, rated: Double?, navigationController: UINavigationController, service: TmdbService) {
         self.content = content
-        self.accountState = accountState
+        self.rated = rated
         self.navigationController = navigationController
         self.service = service
     }
     
     func start() {
-        let viewModel = RateViewModel(with: content, accountState: accountState, networkService: service, coordinator: self)
+        let viewModel = RateViewModel(with: content, rated: rated, networkService: service, coordinator: self)
         let viewController = RateViewController(viewModel: viewModel)
         viewController.hidesNavigationBar = true
         viewController.hidesTabBar = false
@@ -34,6 +35,6 @@ class RateCoordinator: Coordinator {
     }
     
     func dismiss() {
-        navigationController.dismiss(animated: true)
+        navigationController.dismiss(animated: true, completion: completion)
     }
 }

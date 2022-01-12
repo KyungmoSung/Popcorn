@@ -207,9 +207,3 @@ enum SortOrder: String {
     case asc
     case desc
 }
-
-enum ContentAction {
-    case rate
-    case favorite
-    case watchlist
-}
