@@ -123,6 +123,5 @@ extension TitleCell: StoryboardView {
             .asDriverOnErrorJustComplete()
             .drive(ratingTitleLb.rx.text)
             .disposed(by: disposeBag)
-        
     }
 }

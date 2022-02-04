@@ -36,6 +36,7 @@ final class ContentDetailViewReactor: Reactor {
         case setFavorite(Bool)
         case setWatchList(Bool)
         case setAccountStates(AccountStates)
+        case setSectionItems([DetailSectionItem])
     }
     
     struct State {
@@ -70,42 +71,21 @@ final class ContentDetailViewReactor: Reactor {
             let details: Observable<Mutation>
             switch type {
             case .movies:
-                details = Observable.merge(
-                    Observable.zip(
-                        networkService.movieDetails(id: id),
-                        networkService.accountStates(sessionID: sessionID,
-                                                     type: type,
-                                                     id: id)
-                    )
-                        .trackActivity(activityIndicator)
-                        .flatMap { (movie, states) in
-                            Observable.of(Mutation.setTitle(movie, states),
-                                          Mutation.setSynopsis(movie.tagline, movie.overview),
-                                          Mutation.setReports(movie.reports),
-                                          Mutation.setAccountStates(states))
-                        },
-                    networkService.movieCredits(id: id)
-                        .trackActivity(activityIndicator)
-                        .map { Mutation.setCredits($0) },
-                    networkService.movieVideos(id: id)
-                        .trackActivity(activityIndicator)
-                        .map { Mutation.setVideos($0) },
-                    networkService.movieImages(id: id)
-                        .trackActivity(activityIndicator)
-                        .map { Mutation.setImages($0) },
-                    networkService.movieRecommendations(id: id, page: 1)
-                        .trackActivity(activityIndicator)
-                        .mapToResults()
-                        .map { Mutation.setRecommendations($0) },
-                    networkService.movieSimilar(id: id, page: 1)
-                        .trackActivity(activityIndicator)
-                        .mapToResults()
-                        .map { Mutation.setSimilar($0) },
-                    networkService.movieReviews(id: id, page: 1)
-                        .trackActivity(activityIndicator)
-                        .mapToResults()
-                        .map { Mutation.setReviews($0) }
+                details = Observable.zip(
+                    networkService.movieDetails(id: id),
+                    networkService.accountStates(sessionID: sessionID, type: type, id: id),
+                    networkService.movieCredits(id: id),
+                    networkService.movieVideos(id: id),
+                    networkService.movieImages(id: id),
+                    networkService.movieRecommendations(id: id, page: 1).mapToResults(),
+                    networkService.movieSimilar(id: id, page: 1).mapToResults(),
+                    networkService.movieReviews(id: id, page: 1).mapToResults()
                 )
+                    .trackActivity(activityIndicator)
+                    .map { (content, states, credits, videos, images, recommendations, similars, reviews) in
+                        self.mapToDetailSection(content: content, states: states, credits: credits, videos: videos, images: images, recommendations: recommendations, similars: similars, reviews: reviews)
+                    }
+                    .map { Mutation.setSectionItems($0) }
             case .tvShows:
                 details = Observable.merge(
                     Observable.zip(
@@ -145,11 +125,16 @@ final class ContentDetailViewReactor: Reactor {
                 )
             }
             
+            let titleSection = DetailSectionItem(section: .title,
+                                                 items: [TitleCellReactor(with: content, rated: nil, coordinator: coordinator)])
+            
             return Observable.merge(
                 .just(Mutation.setPosterImageURL(content.posterPath)),
-                activityIndicator.asObservable()
-                    .map { Mutation.setLoading($0) },
                 details
+                    .startWith(Mutation.setSectionItems([titleSection])),
+                activityIndicator
+                    .asObservable()
+                    .map { Mutation.setLoading($0) }
             )
         case .appear:
             return .empty()
@@ -278,6 +263,8 @@ final class ContentDetailViewReactor: Reactor {
             let item = DetailSectionItem(section: .title,
                                          items: [TitleCellReactor(with: content, rated: states.rated, coordinator: coordinator)])
             updatedSectionItems(&newState.sectionItems, with: item)
+        case .setSectionItems(let sectionItems):
+            newState.sectionItems = sectionItems
         default:
             break
         }
@@ -292,5 +279,80 @@ final class ContentDetailViewReactor: Reactor {
             sectionItems.append(sectionItem)
             sectionItems.sort(by: { $0.section.rawValue < $1.section.rawValue })
         }
+    }
+    private func mapToDetailSection(content: Content,
+                                    states: AccountStates,
+                                    credits: [Person],
+                                    videos: [VideoInfo],
+                                    images: [ImageInfo],
+                                    recommendations: [Content],
+                                    similars: [Content],
+                                    reviews: [Review]) -> [DetailSectionItem]{
+        
+        var sectionItems: [DetailSectionItem] = []
+        
+        let titleSection = DetailSectionItem(section: .title,
+                                     items: [TitleCellReactor(with: content, rated: states.rated, coordinator: coordinator)])
+        sectionItems.append(titleSection)
+        
+        var synopsisViewModels: [SynopsisItemViewModel] = []
+        
+        if let tagline = content.tagline, tagline.count > 0 {
+            synopsisViewModels.append(SynopsisItemViewModel(with: tagline, isTagline: true))
+        }
+        
+        if let overview = content.overview, overview.count > 0 {
+            synopsisViewModels.append(SynopsisItemViewModel(with: overview, isTagline: false))
+        }
+        
+        if !synopsisViewModels.isEmpty {
+            let synopsisSection = DetailSectionItem(section: .synopsis,
+                                                    items: synopsisViewModels)
+            sectionItems.append(synopsisSection)
+        }
+        
+        if content.reports.count > 0{
+            let reportSection = DetailSectionItem(section: .report,
+                                                  items: content.reports.map { ReportItemViewModel(with: $0) })
+            sectionItems.append(reportSection)
+        }
+        
+        if credits.count > 0 {
+            let creditSection = DetailSectionItem(section: .credit,
+                                                  items: credits.map { CreditItemViewModel(with: $0) })
+            sectionItems.append(creditSection)
+        }
+        
+        if videos.count > 0 {
+            let videoSection = DetailSectionItem(section: .video,
+                                         items: videos.map { VideoItemViewModel(with: $0) })
+            sectionItems.append(videoSection)
+        }
+        
+        if images.count > 0 {
+            let imageSection = DetailSectionItem(section: .image,
+                                         items: images.map { ImageItemViewModel(with: $0) })
+            sectionItems.append(imageSection)
+        }
+        
+        if recommendations.count > 0 {
+            let recommendationSection = DetailSectionItem(section: .recommendation,
+                                         items: recommendations.map { PosterItemViewModel(with: $0, heroID: "recommendations_\($0.id)") })
+            sectionItems.append(recommendationSection)
+        }
+        
+        if similars.count > 0 {
+            let similarSection = DetailSectionItem(section: .similar,
+                                         items: similars.map { PosterItemViewModel(with: $0, heroID: "similar_\($0.id)") })
+            sectionItems.append(similarSection)
+        }
+        
+        if reviews.count > 0 {
+            let reviewSection = DetailSectionItem(section: .review,
+                                         items: reviews.map { ReviewItemViewModel(with: $0) })
+            sectionItems.append(reviewSection)
+        }
+        
+        return sectionItems
     }
 }

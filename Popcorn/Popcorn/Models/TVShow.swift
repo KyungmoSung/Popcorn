@@ -23,7 +23,7 @@ class TVShow: Content {
     var status: String?
     var type: String?
     
-    var reports: [Report] {
+    override var reports: [Report] {
         var reports: [Report] = []
 
         if let numberOfSeasons = numberOfSeasons {

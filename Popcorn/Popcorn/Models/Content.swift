@@ -27,6 +27,10 @@ class Content: Codable, Loadingable {
     var productionCompanies: [Company]?
     var releaseDate: AnyValue?
     
+    var reports: [Report] {
+        return []
+    }
+    
     var isLoading: Bool = false
     
     var contentType: ContentsType {

@@ -14,7 +14,7 @@ class Movie: Content {
     var revenue: Int?
     var budget: Int?
 
-    var reports: [Report] {
+    override var reports: [Report] {
         var reports: [Report] = []
 
         if let runtime = runtime {
