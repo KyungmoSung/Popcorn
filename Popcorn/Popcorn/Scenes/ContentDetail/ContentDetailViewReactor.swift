@@ -22,7 +22,6 @@ final class ContentDetailViewReactor: Reactor {
     }
     
     enum Mutation {
-        case setPosterImageURL(String?)
         case setLoading(Bool)
         case setTitle(Content, AccountStates)
         case setSynopsis(String?, String?)
@@ -40,28 +39,28 @@ final class ContentDetailViewReactor: Reactor {
     }
     
     struct State {
-        var posterImageURL: URL?
+        var content: Content
         var sectionItems: [DetailSectionItem] = []
         var accountStates: AccountStates = AccountStates()
         var isLoading: Bool = false
     }
     
-    private var content: Content
     private var heroID: String?
     private let coordinator: ContentDetailCoordinator
     private let networkService: TmdbService
     private let activityIndicator = ActivityIndicator()
 
-    var initialState: State = State()
+    var initialState: State
     
     init(with content: Content, heroID: String?, networkService: TmdbService = TmdbAPI(), coordinator: ContentDetailCoordinator) {
-        self.content = content
         self.heroID = heroID
         self.coordinator = coordinator
         self.networkService = networkService
+        self.initialState = State(content: content)
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
+        let content = currentState.content
         let id = content.id
         let type = content.contentType
         let sessionID = AuthManager.shared.auth?.sessionID
@@ -125,13 +124,8 @@ final class ContentDetailViewReactor: Reactor {
                 )
             }
             
-            let titleSection = DetailSectionItem(section: .title,
-                                                 items: [TitleCellReactor(with: content, rated: nil, coordinator: coordinator)])
-            
             return Observable.merge(
-                .just(Mutation.setPosterImageURL(content.posterPath)),
-                details
-                    .startWith(Mutation.setSectionItems([titleSection])),
+                details,
                 activityIndicator
                     .asObservable()
                     .map { Mutation.setLoading($0) }
@@ -187,11 +181,6 @@ final class ContentDetailViewReactor: Reactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-        case .setPosterImageURL(let url?):
-            if let url = URL(string: AppConstants.Domain.tmdbImage + url) {
-                newState.posterImageURL = url
-            }
-            
         case .setLoading(let isLoading):
             newState.isLoading = isLoading
             
@@ -259,10 +248,7 @@ final class ContentDetailViewReactor: Reactor {
                 
         case .setAccountStates(let states):
             newState.accountStates = states
-            
-            let item = DetailSectionItem(section: .title,
-                                         items: [TitleCellReactor(with: content, rated: states.rated, coordinator: coordinator)])
-            updatedSectionItems(&newState.sectionItems, with: item)
+
         case .setSectionItems(let sectionItems):
             newState.sectionItems = sectionItems
         default:

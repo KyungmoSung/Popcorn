@@ -9,7 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
-import FloatingPanel
 import Hero
 import RxKingfisher
 import ReactorKit
@@ -20,20 +19,36 @@ final class ContentDetailViewController: BaseViewController {
     
     // MARK: - UI Properties
     
-    private let blurPosterIv = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.clipsToBounds = true
-    }
+    private let topGradientView = UIView()
+    private let bottomGradientView = UIView()
     
     private let posterIv = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
-        $0.layer.cornerRadius = 40
     }
     
-    var collectionViewController = UICollectionViewController(collectionViewLayout: UICollectionViewLayout())
-    var collectionView: UICollectionView {
-        return collectionViewController.collectionView
+    private let titleView = UIView()
+    
+    private let titleLb = UILabel()
+    private let subTitleLb = UILabel()
+    
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()).then {
+        $0.backgroundColor = .secondarySystemGroupedBackground
+        $0.contentInsetAdjustmentBehavior = .never
+        
+        $0.register(cellType: TitleCell.self)
+        $0.register(cellType: PosterCell.self)
+        $0.register(cellType: CreditCell.self)
+        $0.register(cellType: ImageCell.self)
+        $0.register(cellType: VideoCell.self)
+        $0.register(cellType: ReviewCell.self)
+        $0.register(cellType: ReportCell.self)
+        $0.register(cellType: SynopsisCell.self)
+        $0.register(reusableViewType: SectionHeaderView.self)
+    }
+    
+    private let scrollView = UIScrollView().then {
+        $0.contentInsetAdjustmentBehavior = .never
     }
     
     // MARK: - Properties
@@ -74,85 +89,66 @@ final class ContentDetailViewController: BaseViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.label]
     }
     
-    private func setupUI() {
-        view.addSubview(blurPosterIv)
-        blurPosterIv.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        blurPosterIv.applyBlur(style: .regular)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+              
+        let gradientColors: [UIColor] = [.secondarySystemGroupedBackground.withAlphaComponent(1),
+                                        .secondarySystemGroupedBackground.withAlphaComponent(0)]
         
-        let containerView = UIView()
-        view.addSubview(containerView)
-        containerView.snp.makeConstraints {
-            $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.7)
-        }
+        topGradientView.setGradient(colors: gradientColors)
+        bottomGradientView.setGradient(colors: gradientColors.reversed())
         
-        containerView.addSubview(posterIv)
-        posterIv.snp.makeConstraints {
-            $0.width.equalTo(posterIv.snp.height).multipliedBy(2.0/3.0)
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
-            $0.center.equalToSuperview()
+        let contentHeight = collectionView.contentSize.height
+        
+        if contentHeight > 0 {
+            collectionView.snp.remakeConstraints { make in
+                make.top.equalToSuperview().inset(posterIv.bounds.height)
+                make.top.lessThanOrEqualTo(posterIv.snp.bottom)
+                make.left.right.bottom.equalToSuperview()
+                make.height.equalTo(contentHeight)
+            }
         }
-        posterIv.applyShadow()
-
     }
     
-    private func setupFloatingPanel() {
-        collectionView.backgroundColor = .secondarySystemGroupedBackground
-        collectionView.register(cellType: TitleCell.self)
-        collectionView.register(cellType: PosterCell.self)
-        collectionView.register(cellType: CreditCell.self)
-        collectionView.register(cellType: ImageCell.self)
-        collectionView.register(cellType: VideoCell.self)
-        collectionView.register(cellType: ReviewCell.self)
-        collectionView.register(cellType: ReportCell.self)
-        collectionView.register(cellType: SynopsisCell.self)
-        collectionView.register(reusableViewType: SectionHeaderView.self)
+    private func setupUI() {
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        let containerView = UIView()
+        scrollView.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.edges.width.equalToSuperview()
+            make.height.equalToSuperview().priority(.low)
+        }
 
-        let fpc = FloatingPanelController(delegate: self)
-        fpc.layout = FloatingLayout()
-        fpc.set(contentViewController: collectionViewController)
-        fpc.track(scrollView: collectionView)
-        fpc.addPanel(toParent: self)
+        containerView.addSubview(posterIv)
+        posterIv.snp.remakeConstraints {
+            $0.width.equalTo(posterIv.snp.height).multipliedBy(2.0/3.0)
+            $0.top.equalToSuperview().priority(.low)
+            $0.top.equalTo(view.snp.top)
+            $0.left.right.equalToSuperview()
+        }
 
-        let shadow = SurfaceAppearance.Shadow()
-        shadow.color = UIColor.black
-        shadow.offset = CGSize(width: 0, height: 16)
-        shadow.radius = 20
-        shadow.spread = 0
-        shadow.opacity = 1
-
-        let appearance = SurfaceAppearance()
-        appearance.shadows = [shadow]
-        appearance.cornerRadius = 20
-        appearance.backgroundColor = .clear
-
-        fpc.surfaceView.appearance = appearance
-
-        fpc.view.hero.modifiers = [
-            .when({ (context) -> Bool in
-                return context.isPresenting && context.isAppearing // 화면이 처음 보여지는 경우에만 애니메이션 적용
-            }, .translate(y: 500), .spring(stiffness: 80, damping: 12))
-        ]
-    }
-}
-
-// MARK: - FloatingPanelControllerDelegate
-
-extension ContentDetailViewController: FloatingPanelControllerDelegate {
-    func floatingPanelWillEndDragging(_ fpc: FloatingPanelController, withVelocity velocity: CGPoint, targetState: UnsafeMutablePointer<FloatingPanelState>) {
-        switch targetState.pointee {
-        case .full:
-            UIView.animate(withDuration: 0.3) {
-                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.label]
-            }
-        case .half:
-            UIView.animate(withDuration: 0.3) {
-                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.clear]
-            }
-        default:
-            break
+        containerView.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.top.lessThanOrEqualTo(posterIv.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
+        }
+        
+        view.addSubview(topGradientView)
+        topGradientView.snp.remakeConstraints {
+            $0.top.left.right.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top)
+            
+        }
+        
+        containerView.addSubview(bottomGradientView)
+        bottomGradientView.snp.remakeConstraints {
+            $0.bottom.equalTo(collectionView.snp.top)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(100)
         }
     }
 }
@@ -384,13 +380,8 @@ extension ContentDetailViewController: View {
 
     private func bindState(reactor: ContentDetailViewReactor) {
         reactor.state
-            .compactMap { $0.posterImageURL }
-            .asDriverOnErrorJustComplete()
-            .drive(blurPosterIv.kf.rx.image(options: [.transition(.fade(1))]))
-            .disposed(by: disposeBag)
-        
-        reactor.state
-            .compactMap { $0.posterImageURL }
+            .compactMap { $0.content.posterPath }
+            .compactMap { URL(string: AppConstants.Domain.tmdbImage + $0) }
             .asDriverOnErrorJustComplete()
             .drive(posterIv.kf.rx.image(options: [.transition(.fade(1))]))
             .disposed(by: disposeBag)

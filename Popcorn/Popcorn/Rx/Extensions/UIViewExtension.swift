@@ -68,5 +68,17 @@ extension UIView {
 
         self.addSubview(effectView)
     }
+    
+    func setGradient(colors: [UIColor]){
+        layer.sublayers?.removeAll()
+        
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = colors.map { $0.cgColor }
+        gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
+        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+        gradient.locations = [0.0 , 1.0]
+        gradient.frame = bounds
+        layer.addSublayer(gradient)
+    }
 }
 
